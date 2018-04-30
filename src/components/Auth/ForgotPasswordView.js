@@ -35,12 +35,9 @@ class ForgotPasswordView extends Component {
         <div className="w-100">
           <CenterThis>
             <div
-              className="mw5 mb5 mt6 f-5 b"
+              className="mw5 mb5 mt6 f2 b"
               style={{
-                color: Colors.brandPrimary,
-                width: 200,
-                height: 86,
-                size: 72
+                color: Colors.white
               }}
             >
               Swift Script
@@ -64,7 +61,7 @@ class ForgotPasswordView extends Component {
                   />
                   <Button
                     classOverrides="w-100"
-                    backgroundColor={Colors.brandSecondary}
+                    backgroundColor={Colors.brandPrimary}
                   >
                     Reset Password
                   </Button>
@@ -78,7 +75,7 @@ class ForgotPasswordView extends Component {
             <div
               className="underline pointer mt4 p5 white"
               style={{
-                color: Colors.brandPrimary
+                color: Colors.white
               }}
               role="button"
               onClick={() => browserHistory.push('/')}
