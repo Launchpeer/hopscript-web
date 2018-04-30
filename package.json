@@ -1,7 +1,7 @@
 {
-  "name": "lgnd-admin",
+  "name": "swiftscript",
   "version": "1.0.0",
-  "description": "LGND Admin Portal",
+  "description": "Swift Script",
   "main": "index.js",
   "engines": {
     "node": "8.9.3",
@@ -9,8 +9,10 @@
   },
   "scripts": {
     "assets": "webpack -w --display-max-modules 0",
-    "heroku-postbuild": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
-    "dev": "concurrently \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js\" \"npm run assets\"",
+    "heroku-postbuild":
+      "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
+    "dev":
+      "concurrently \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js\" \"npm run assets\"",
     "start": "node ./src/app.js"
   },
   "author": "",

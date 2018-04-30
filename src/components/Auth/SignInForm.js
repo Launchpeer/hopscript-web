@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { AuthInput } from './';
 import { signInUser, clearError } from './AuthActions';
 import { Button, RenderAlert, Loader } from '../common';
-import { Colors } from '../../config/styles';
+import { Colors, BorderRadius } from '../../config/styles';
 
 class SignInForm extends Component {
   constructor(props) {
@@ -35,10 +35,7 @@ class SignInForm extends Component {
             label="password"
             placeholder="Password"
           />
-          <Button
-            classOverrides="w-100"
-            backgroundColor={Colors.brandSecondary}
-          >
+          <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
             Log In
           </Button>
           <RenderAlert error={error} />

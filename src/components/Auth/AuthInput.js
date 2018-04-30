@@ -19,7 +19,7 @@ const renderInput = (field) => {
       <div
         className="flex items-center pa2 ba mb3"
         style={{
-          borderRadius: 'none',
+          borderRadius: '4px',
           borderColor: borderColor ? Colors[borderColor] : Colors.moonGray
         }}
       >
@@ -38,7 +38,7 @@ const renderInput = (field) => {
             className="w-100 pa2 flex items-center bn"
             style={{
               color: fontColor ? Colors[fontColor] : Colors['darkGrey'],
-              borderRadius: 'none'
+              borderRadius: 'small'
             }}
           />
         </div>
