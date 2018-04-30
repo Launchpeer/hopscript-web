@@ -24,7 +24,6 @@ import {
   ResetPasswordView
 } from './components/Auth';
 import DashboardView from './components/Dashboard/DashboardView';
-import CreateGuideView from './components/CreateGuide/CreateGuideView';
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
 
@@ -67,7 +66,6 @@ ReactDOM.render(
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
-        <Route path="create-guide" component={CreateGuideView} />
       </Route>
     </Router>
   </Provider>,
