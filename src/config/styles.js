@@ -2,18 +2,18 @@
 
 var Colors = {
   // Brand
-  brandPrimary: '#B6A57A',
-  brandSecondary: '#79538c',
-  brandOffWhite: '#FCFCFC',
-  brandSubHeader: '#f4f4f4',
+  brandPrimary: '#00CDAC',
+  stripe: '#6772E5',
 
   // Basic Tachyon
   black: '#000000',
-  white: '#ffffff',
-  darkRed: '#D0021B',
-  nearWhite: '#F8F8F8',
+  darkGray: '#333333',
+  gray: '#777777',
+  silver: '#999999',
   moonGray: '#CCCCCC',
-  silver: '#999999'
+  lightGray: '#EEEEEE',
+  white: '#ffffff',
+  darkRed: '#D0021B'
 }
 
 var Fonts = {

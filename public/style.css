@@ -9,7 +9,7 @@ input:focus {
   color: #cbd2cd; }
 
 .list-hover:hover {
-  background-color: #F8F8F8 !important; }
+  background-color: !important; }
 
 .hov-transparent:hover {
   opacity: 0.75; }
@@ -19,10 +19,10 @@ input:focus {
   color: white !important; }
 
 .brand-primary {
-  color: #B6A57A; }
+  color: #00CDAC; }
 
 .bg-brand-primary {
-  background-color: #B6A57A; }
+  background-color: #00CDAC; }
 
 .moon-grey {
   color: #CCCCCC; }
@@ -31,7 +31,7 @@ input:focus {
   background: #CCCCCC; }
 
 .hov-primary:hover {
-  background: #B6A57A; }
+  background: #00CDAC; }
 
 .rounded-profile {
   border-radius: 50%;
@@ -54,6 +54,10 @@ input:focus {
 
 .pointer-none {
   pointer-events: none; }
+
+.test-class {
+  height: 100vh;
+  background-color: #00CDAC; }
 
 /* Loading Spinner by @tobiasahlin */
 .spinner {
@@ -148,7 +152,7 @@ input:focus {
   content: '';
   display: inline-block;
   border-left: 7px solid transparent;
-  border-bottom: 7px solid #B6A57A;
+  border-bottom: 7px solid #00CDAC;
   border-top-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   bottom: 4px;
@@ -156,7 +160,7 @@ input:focus {
 
 .rdtPicker td.rdtActive,
 .rdtPicker td.rdtActive:hover {
-  background-color: #B6A57A;
+  background-color: #00CDAC;
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
@@ -275,7 +279,7 @@ td.rdtYear:hover {
   -ms-user-select: none;
   /* Internet Explorer/Edge */
   user-select: none;
-  color: #B6A57A; }
+  color: #00CDAC; }
 
 .rdtCounter .rdtBtn:hover {
   background: #eee; }

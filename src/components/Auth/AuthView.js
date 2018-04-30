@@ -2,46 +2,9 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Card, CenterThis, FullScreenCenter } from '../common';
-import { Colors } from '../../config/styles';
+import { Colors, BorderRadius } from '../../config/styles';
 import { SignInForm, SignUpForm } from './';
 import { clearError } from './AuthActions';
-
-const bottomContent = authType => (
-  <div className="tc">
-    <div className="di silver">
-      {authType === 'signin' ? 'New to LGND?' : 'Already have an account?'}
-    </div>
-    <div className="di underline ml2 silver" role="button">
-      {authType === 'signin' ? 'Sign Up' : 'Sign In'}
-    </div>
-  </div>
-);
-// do we want to use "pointer" when hovering over "sign up", even though it is disabled?
-// do we want to leave "sign up" onClick function in there & disable? If so I will have to
-// change it from a div with a button role into a <Button>
-// https://github.com/facebook/react/issues/8977
-
-/*
-const bottomContent = authType => (
-  <div className="tc">
-    <div className="di silver">
-      {authType === 'signin' ? 'New to LGND?' : 'Already have an account?'}
-    </div>
-    <div
-      className="di underline ml2 pointer brand-primary"
-      role="button"
-      onClick={() =>
-        browserHistory.push(`${authType === 'signin' ? '/signup' : '/'}`)
-      }
-      onKeyPress={() =>
-        browserHistory.push(`${authType === 'signin' ? '/signup' : '/'}`)
-      }
-    >
-      {authType === 'signin' ? 'Sign Up' : 'Sign In'}
-    </div>
-  </div>
-);
-*/
 
 class AuthView extends Component {
   componentDidMount() {
@@ -54,24 +17,16 @@ class AuthView extends Component {
         <div className="w-100">
           <CenterThis>
             <div
-              className="mw5 mb5 mt6 f-5 b"
+              className="mw5 mb5 mt6 f2 b"
               style={{
-                color: Colors.brandPrimary,
-                width: 200,
-                height: 86,
-                size: 72
+                color: Colors.white
               }}
             >
-              LGND
+              Swift Script
             </div>
           </CenterThis>
           <CenterThis>
-            <Card
-              classOverrides="mw6 mb5"
-              boxShadow
-              borderRadius="medium"
-              bottomColor="nearWhite"
-            >
+            <Card classOverrides="mw6 mb5" boxShadow>
               {this.props.route.authType === 'signin' ? (
                 <SignInForm />
               ) : (
@@ -81,9 +36,9 @@ class AuthView extends Component {
           </CenterThis>
           <CenterThis>
             <div
-              className="underline pointer p5 mb6"
+              className="underline pointer p5 mb7"
               style={{
-                color: Colors.brandPrimary
+                color: Colors.white
               }}
               role="button"
               onClick={() => browserHistory.push('/forgot-password')}

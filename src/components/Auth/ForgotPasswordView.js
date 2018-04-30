@@ -43,7 +43,7 @@ class ForgotPasswordView extends Component {
                 size: 72
               }}
             >
-              LGND
+              Swift Script
             </div>
           </CenterThis>
           <CenterThis>

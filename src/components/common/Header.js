@@ -55,7 +55,7 @@ const headerContent = (route, user) => (
           size: 72
         }}
       >
-        LGND
+        Swift Script
       </div>
     </div>
     <div className="mr3">
