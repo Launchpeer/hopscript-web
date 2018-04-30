@@ -1,0 +1,85 @@
+// put global styles here
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+$brandPrimary: map_get($Colors, brandPrimary);
+$brandDeepGray: map_get($Colors, brandDeepGray);
+$brandPurple: map_get($Colors, brandPurple);
+$moonGray: map_get($Colors, moonGray);
+$white: map_get($Colors, white);
+$silver: map_get($Colors, silver);
+$nearWhite: map_get($Colors, nearWhite);
+
+button,
+input {
+  &:focus {
+    outline: 0;
+  }
+}
+::-webkit-input-placeholder {
+  color: rgb(203, 210, 205);
+}
+
+.list-hover {
+  &:hover {
+    background-color: $nearWhite !important;
+  }
+}
+
+.hov-transparent:hover {
+  opacity: 0.75;
+}
+
+.hov-purple:hover {
+  background-color: $brandPurple !important;
+  color: white !important;
+}
+.brand-primary {
+  color: $brandPrimary;
+}
+
+.bg-brand-primary {
+  background-color: $brandPrimary;
+}
+
+.brand-deep-gray {
+  color: $brandDeepGray;
+}
+
+.bg-brand-purple {
+  background-color: $brandPurple;
+}
+
+.moon-grey {
+  color: $moonGray;
+}
+
+.bg-moon-grey {
+  background: $moonGray;
+}
+.hov-primary:hover {
+  background: $brandPrimary;
+}
+
+.rounded-profile {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  align-self: center;
+  z-index: 1;
+}
+
+.abs-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.pointer-none {
+  pointer-events: none;
+}
