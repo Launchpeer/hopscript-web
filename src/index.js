@@ -51,7 +51,7 @@ const bodyColorPaths = ['/', '/reset-password', '/forgot-password'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
-    document.body.style.backgroundColor = Colors.brandOffWhite;
+    document.body.style.backgroundColor = Colors.brandPrimary;
   } else {
     document.body.style.backgroundColor = 'white';
   }

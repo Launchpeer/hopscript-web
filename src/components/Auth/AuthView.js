@@ -13,7 +13,7 @@ class AuthView extends Component {
 
   render() {
     return (
-      <FullScreenCenter color={`${Colors.brandPrimary}`}>
+      <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
             <div

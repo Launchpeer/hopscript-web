@@ -55,6 +55,10 @@ input:focus {
 .pointer-none {
   pointer-events: none; }
 
+.test-class {
+  height: 100vh;
+  background-color: #00CDAC; }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;
