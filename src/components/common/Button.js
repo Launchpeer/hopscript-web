@@ -26,8 +26,8 @@ const Button = ({
     type={type}
     className={
       buttonPadding
-        ? `${buttonPadding} tc bn f5 pointer ${classOverrides}`
-        : `pa3 tc bn f5 pointer ${classOverrides}`
+        ? `${buttonPadding} tc bn f3 pointer ${classOverrides}`
+        : `pa3 tc bn f3 pointer ${classOverrides}`
     }
     onClick={onClick}
   >

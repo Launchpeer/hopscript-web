@@ -15,7 +15,7 @@ input:focus {
   opacity: 0.75; }
 
 .hov-purple:hover {
-  background-color: !important;
+  background-color: #553982 !important;
   color: white !important; }
 
 .brand-primary {
@@ -23,6 +23,9 @@ input:focus {
 
 .bg-brand-primary {
   background-color: #00CDAC; }
+
+.bg-brand-purple {
+  background-color: #553982; }
 
 .moon-grey {
   color: #CCCCCC; }

@@ -16,8 +16,8 @@ class BrokerageSignUpForm extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit({ username, password }) {
-    this.props.signUpUser(username, password);
+  handleFormSubmit({ username, email, password }) {
+    this.props.signUpUser(username, email, password);
   }
 
   render() {
@@ -46,10 +46,7 @@ class BrokerageSignUpForm extends Component {
               label="password"
               placeholder="Password"
             />
-            <Button
-              classOverrides="w-100"
-              backgroundColor={Colors.brandPrimary}
-            >
+            <Button classOverrides="w-100" backgroundColor={Colors.brandPurple}>
               Create Account
             </Button>
             <RenderAlert error={error} />

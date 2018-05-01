@@ -62,18 +62,18 @@ function _unAuthUser() {
   });
 }
 
-function _createUser(email, password) {
+function _createUser(username, email, password) {
   return new Promise((resolve) => {
     const User = new Parse.User();
-    User.set('username', email);
+    User.set('username', username);
     User.set('email', email);
     User.set('password', password);
-    User.set('role', 'admin');
+    User.set('role', 'brokerage');
     resolve(User.signUp());
   });
 }
 
-export const signUpUser = (email, password) => (dispatch) => {
+export const signUpUser = (username, email, password) => (dispatch) => {
   dispatch({
     type: AUTH_LOADING
   });
@@ -84,14 +84,14 @@ export const signUpUser = (email, password) => (dispatch) => {
       .then(() => {
         dispatch(_clearUser());
         dispatch({ type: UNAUTH_USER });
-        _createUser(email, password)
+        _createUser(username, email, password)
           .then((user) => {
             dispatch(_updateUser(user));
             dispatch({
               type: AUTH_USER,
               payload: user
             });
-            browserHistory.push('/create-guide');
+            browserHistory.push('/');
           })
           .catch((error) => {
             dispatch(_authError(error));
@@ -101,14 +101,14 @@ export const signUpUser = (email, password) => (dispatch) => {
         dispatch(_authError(error));
       });
   } else {
-    _createUser(email, password)
+    _createUser(username, email, password)
       .then((user) => {
         dispatch(_updateUser(user));
         dispatch({
           type: AUTH_USER,
           payload: user
         });
-        browserHistory.push('/create-guide');
+        browserHistory.push('/');
       })
       .catch((error) => {
         dispatch(_authError(error));
