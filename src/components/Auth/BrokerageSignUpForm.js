@@ -29,6 +29,7 @@ class BrokerageSignUpForm extends Component {
         ) : (
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <AuthInput
+              name="username"
               type="text"
               label="brokerage"
               placeholder="Brokerage Name"
@@ -49,7 +50,7 @@ class BrokerageSignUpForm extends Component {
               classOverrides="w-100"
               backgroundColor={Colors.brandPrimary}
             >
-              Sign Up
+              Create Account
             </Button>
             <RenderAlert error={error} />
           </form>

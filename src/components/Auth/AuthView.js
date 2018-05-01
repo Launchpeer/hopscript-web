@@ -15,6 +15,20 @@ import { clearError } from './AuthActions';
   )}
 </Card>
 */
+/*
+const SignIn = onClick => (
+  <div>
+    Already have an account?
+    <div
+      onClick={browserHistory.push({ pathname: '/', authType: 'signin' })}
+      role="button"
+    >
+      Sign in
+    </div>
+  </div>
+);
+*/
+const SignIn = <div className="tc gray">Already have an account? Sign in</div>;
 
 class AuthView extends Component {
   componentDidMount() {
@@ -36,22 +50,35 @@ class AuthView extends Component {
             </div>
           </CenterThis>
           <CenterThis>
-            <Card classOverrides="mw6 mb5" boxShadow>
-              <BrokerageSignUpForm />
-            </Card>
-          </CenterThis>
-          <CenterThis>
-            <div
-              className="underline pointer p5 mb7"
-              style={{
-                color: Colors.white
-              }}
-              role="button"
-              onClick={() => browserHistory.push('/forgot-password')}
-              onKeyPress={() => browserHistory.push('/forgot-password')}
-            >
-              Forgot your password?
-            </div>
+            {this.props.route.authType === 'signin' ? (
+              <div>
+                <Card classOverrides="mw6 mb5" boxShadow>
+                  <SignInForm />
+                </Card>
+                <CenterThis>
+                  <div
+                    className="underline pointer p5 mb7"
+                    style={{
+                      color: Colors.white
+                    }}
+                    role="button"
+                    onClick={() => browserHistory.push('/forgot-password')}
+                    onKeyPress={() => browserHistory.push('/forgot-password')}
+                  >
+                    Forgot your password?
+                  </div>
+                </CenterThis>
+              </div>
+            ) : (
+              <Card
+                classOverrides="mw6 mb5"
+                boxShadow
+                bottomContent={SignIn}
+                bottomColor="lightGray"
+              >
+                <BrokerageSignUpForm />
+              </Card>
+            )}
           </CenterThis>
         </div>
       </FullScreenCenter>

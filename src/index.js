@@ -64,6 +64,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
+        <IndexRoute component={AuthView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
