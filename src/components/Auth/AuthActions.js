@@ -43,6 +43,7 @@ export const signInUser = (email, password) => (dispatch) => {
   });
   Parse.User.logIn(email, password, {
     success: (user) => {
+      console.log('Gotem: ', user);
       dispatch(_updateUser(user));
       dispatch({
         type: AUTH_USER,
@@ -51,6 +52,7 @@ export const signInUser = (email, password) => (dispatch) => {
       browserHistory.push('/dashboard');
     },
     error: (user, error) => {
+      console.log('Err: ', error);
       dispatch(_authError(error));
     }
   });
@@ -91,7 +93,7 @@ export const signUpUser = (username, email, password) => (dispatch) => {
               type: AUTH_USER,
               payload: user
             });
-            browserHistory.push('/');
+            browserHistory.push('/dashboard');
           })
           .catch((error) => {
             dispatch(_authError(error));

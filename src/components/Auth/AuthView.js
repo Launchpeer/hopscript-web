@@ -6,29 +6,20 @@ import { Colors, BorderRadius } from '../../config/styles';
 import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError } from './AuthActions';
 
-/*
-<Card classOverrides="mw6 mb5" boxShadow>
-  {this.props.route.authType === 'signin' ? (
-    <SignInForm />
-  ) : (
-    <BrokerageSignUpForm />
-  )}
-</Card>
-*/
-/*
-const SignIn = onClick => (
-  <div>
+const SignIn = (
+  <div className="tc gray">
     Already have an account?
     <div
-      onClick={browserHistory.push({ pathname: '/', authType: 'signin' })}
+      className="underline pointer"
+      onClick={() => {
+        browserHistory.push('/', { authType: 'signin' });
+      }}
       role="button"
     >
       Sign in
     </div>
   </div>
 );
-*/
-const SignIn = <div className="tc gray">Already have an account? Sign in</div>;
 
 class AuthView extends Component {
   componentDidMount() {
@@ -37,7 +28,7 @@ class AuthView extends Component {
 
   render() {
     return (
-      <FullScreenCenter>
+      <FullScreenCenter color={Colors.brandPrimary}>
         <div className="w-100">
           <CenterThis>
             <div
