@@ -23,13 +23,16 @@ const renderInput = (field) => {
           borderColor: borderColor ? Colors[borderColor] : Colors.moonGray
         }}
       >
-        <div className="pa2">
-          {input.name === 'username' ? (
-            <User color={touched && error ? 'red' : Colors.brandPrimary} />
-          ) : (
-            <Lock color={touched && error ? 'red' : Colors.brandPrimary} />
-          )}
-        </div>
+        {input.name ? (
+          <div className="pa2">
+            {input.name === 'email' ? (
+              <User color={touched && error ? 'red' : Colors.brandPrimary} />
+            ) : (
+              <Lock color={touched && error ? 'red' : Colors.brandPrimary} />
+            )}
+          </div>
+        ) : null}
+
         <div className="bl w-100" style={{ borderColor: Colors.silver }}>
           <input
             {...input}

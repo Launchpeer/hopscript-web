@@ -3,8 +3,18 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Card, CenterThis, FullScreenCenter } from '../common';
 import { Colors, BorderRadius } from '../../config/styles';
-import { SignInForm, SignUpForm } from './';
+import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError } from './AuthActions';
+
+/*
+<Card classOverrides="mw6 mb5" boxShadow>
+  {this.props.route.authType === 'signin' ? (
+    <SignInForm />
+  ) : (
+    <BrokerageSignUpForm />
+  )}
+</Card>
+*/
 
 class AuthView extends Component {
   componentDidMount() {
@@ -27,11 +37,7 @@ class AuthView extends Component {
           </CenterThis>
           <CenterThis>
             <Card classOverrides="mw6 mb5" boxShadow>
-              {this.props.route.authType === 'signin' ? (
-                <SignInForm />
-              ) : (
-                <SignUpForm />
-              )}
+              <BrokerageSignUpForm />
             </Card>
           </CenterThis>
           <CenterThis>

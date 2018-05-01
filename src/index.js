@@ -21,7 +21,8 @@ import { UPDATE_USER } from './components/UserTypes';
 import {
   AuthView,
   ForgotPasswordView,
-  ResetPasswordView
+  ResetPasswordView,
+  BrokerageSignUpForm
 } from './components/Auth';
 import DashboardView from './components/Dashboard/DashboardView';
 import './../sass/style.scss';
