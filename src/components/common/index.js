@@ -26,3 +26,12 @@ export { default as PhotoUpload } from './PhotoUpload';
 export { default as GoogleAutocomplete } from './GoogleAutocomplete';
 export { default as TwoColumnFieldRow } from './TwoColumnFieldRow';
 export { default as TwoColumnRows } from './TwoColumnRows';
+
+export { default as InputDatetime } from './input/InputDatetime';
+export { default as InputDropDown } from './input/InputDropDown';
+export { default as InputMultiSelect } from './input/InputMultiSelect';
+export { default as InputText } from './input/InputText';
+export { default as InputTextArea } from './input/InputTextArea';
+export { default as InputUI } from './input/InputUI';
+export { default as InputPhoto } from './input/InputPhoto';
+export { default as InputAddress } from './input/InputAddress';

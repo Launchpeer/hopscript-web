@@ -3,6 +3,7 @@
 var Colors = {
   // Brand
   brandPrimary: '#00CDAC',
+  brandPurple: '#553982',
   stripe: '#6772E5',
 
   // Basic Tachyon
