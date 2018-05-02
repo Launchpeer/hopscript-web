@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 
 import { AuthInput } from './';
+
 import { signUpUser } from './AuthActions';
 
 // components
