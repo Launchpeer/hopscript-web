@@ -110,7 +110,7 @@ export const signUpUser = (username, email, password) => (dispatch) => {
           type: AUTH_USER,
           payload: user
         });
-        browserHistory.push('/');
+        browserHistory.push('/dashboard');
       })
       .catch((error) => {
         dispatch(_authError(error));

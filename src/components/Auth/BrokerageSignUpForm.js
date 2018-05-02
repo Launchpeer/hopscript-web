@@ -8,6 +8,7 @@ import { signUpUser } from './AuthActions';
 
 // components
 import { Button, RenderAlert, Loader } from '../common';
+import { InputText } from '../common';
 
 import { Colors } from '../../config/styles';
 
@@ -29,12 +30,7 @@ class BrokerageSignUpForm extends Component {
           <Loader />
         ) : (
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-            <AuthInput
-              name="username"
-              type="text"
-              label="brokerage"
-              placeholder="Brokerage Name"
-            />
+            <InputText name="username" placeholder="Brokerage Name" />
             <AuthInput
               name="email"
               type="email"

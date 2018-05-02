@@ -16,58 +16,33 @@ const renderInput = (field) => {
   } = field;
   return (
     <div>
-      <div>
-        {input.name === 'username' ? (
-          <div
-            className="flex items-center pa2 ba mb3"
-            style={{
-              borderRadius: '4px',
-              borderColor: borderColor ? Colors[borderColor] : Colors.moonGray
-            }}
-          >
-            <div className=" w-100">
-              <input
-                {...input}
-                type={type}
-                placeholder={placeholder}
-                className="w-100 pa2 flex items-center bn"
-                style={{
-                  color: fontColor ? Colors[fontColor] : Colors['darkGrey'],
-                  borderRadius: 'small'
-                }}
-              />
-            </div>
-          </div>
-        ) : (
-          <div
-            className="flex items-center pa2 ba mb3"
-            style={{
-              borderRadius: '4px',
-              borderColor: borderColor ? Colors[borderColor] : Colors.moonGray
-            }}
-          >
-            <div className="pa2">
-              {input.name === 'email' ? (
-                <User color={touched && error ? 'red' : Colors.brandPrimary} />
-              ) : (
-                <Lock color={touched && error ? 'red' : Colors.brandPrimary} />
-              )}
-            </div>
+      <div
+        className="flex items-center pa2 ba mb3"
+        style={{
+          borderRadius: '4px',
+          borderColor: borderColor || Colors.moonGray
+        }}
+      >
+        <div className="pa1">
+          {input.name === 'email' ? (
+            <User color={touched && error ? 'red' : Colors.brandPrimary} />
+          ) : (
+            <Lock color={touched && error ? 'red' : Colors.brandPrimary} />
+          )}
+        </div>
 
-            <div className="bl w-100" style={{ borderColor: Colors.moonGray }}>
-              <input
-                {...input}
-                type={type}
-                placeholder={placeholder}
-                className="w-100 pa2 flex items-center bn"
-                style={{
-                  color: fontColor ? Colors[fontColor] : Colors['darkGrey'],
-                  borderRadius: 'small'
-                }}
-              />
-            </div>
-          </div>
-        )}
+        <div className="bl w-100" style={{ borderColor: Colors.moonGray }}>
+          <input
+            {...input}
+            type={type}
+            placeholder={placeholder}
+            className="w-100 pa2 flex items-center bn"
+            style={{
+              color: fontColor || Colors['darkGrey'],
+              borderRadius: 'small'
+            }}
+          />
+        </div>
       </div>
 
       {touched &&

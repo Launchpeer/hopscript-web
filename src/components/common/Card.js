@@ -34,18 +34,18 @@ const Card = (props) => {
       }}
     >
       <div
-        className="w-100 pa4 pl5 pr5 bg-white"
+        className="w-100 pa4 pl4 pr4 bg-white"
         style={{
-          borderRadius: '4px 4px 0px 0px'
+          borderRadius: BorderRadius.top
         }}
       >
         {props.children}
       </div>
       <div
-        className="w-100 pa3 pl5 pr5"
+        className="w-100 pa4 pl6 pr6"
         style={{
           backgroundColor: Colors[props.bottomColor],
-          borderRadius: '0px 0px 4px 4px'
+          borderRadius: BorderRadius.bottom
         }}
       >
         {props.bottomContent}

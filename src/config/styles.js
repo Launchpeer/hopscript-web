@@ -17,6 +17,17 @@ var Colors = {
   darkRed: '#D0021B'
 }
 
+Colors.inputFontColor = Colors.silver
+Colors.inputBorderColor = Colors.silver
+
+/* These colors affect the UI of InputMultiSelect */
+Colors.multiSelectActive = Colors.brandPrimary
+Colors.multiSelectInactive = Colors.white
+Colors.multiSelectFontColorActive = Colors.white
+Colors.multiSelectFontColorInactive = Colors.silver
+
+//delete below...
+
 var Fonts = {
   iosFont: 'Helvetica Neue',
   androidFont: 'sans-serif'
@@ -30,17 +41,10 @@ var Icons = {
 }
 
 var BorderRadius = {
-  small: {
-    all: '4px',
-    top: '4px 4px 0px 0px',
-    bottom: '0px 0px 4px 4px'
-  },
-  medium: {
-    all: '8px',
-    top: '8px 8px 0px 0px',
-    bottom: '0px 0px 8px 8px'
-  },
-  none: 'none'
+  none: 'none',
+  all: '4px',
+  top: '4px 4px 0px 0px',
+  bottom: '0px 0px 4px 4px'
 }
 
 var MaxWidth = {

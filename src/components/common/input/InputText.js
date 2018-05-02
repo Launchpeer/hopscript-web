@@ -30,12 +30,10 @@ const renderTextInput = (fieldProps) => {
         {...input}
         type="text"
         placeholder={placeholder}
-        className="ba w-100 f5 pa2 mt2"
+        className="ba w-100 pa2 f5 mt2"
         style={{
           color: fontColor || Colors.inputFontColor,
-          borderRadius: borderRadius
-            ? BorderRadius[borderRadius].all
-            : BorderRadius.medium.all,
+          borderRadius: BorderRadius.all,
           borderColor: fieldStateColor()
         }}
         maxLength={maxLength}
@@ -51,8 +49,6 @@ const renderTextInput = (fieldProps) => {
   );
 };
 
-const InputText = props => (
-  <InputUI component={renderTextInput} {...props} />
-);
+const InputText = props => <InputUI component={renderTextInput} {...props} />;
 
 export default InputText;

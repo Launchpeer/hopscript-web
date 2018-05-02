@@ -7,14 +7,18 @@ import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError } from './AuthActions';
 
 const SignIn = (
-  <div className="tc gray">
-    Already have an account?
+  <div className="tc">
+    <div className="dib pr1" style={{ color: Colors.gray }}>
+      Already have an account?
+    </div>
+
     <div
-      className="underline pointer"
+      className="underline pointer dib"
       onClick={() => {
         browserHistory.push('/', { authType: 'signin' });
       }}
       role="button"
+      style={{ color: Colors.brandPrimary }}
     >
       Sign in
     </div>
