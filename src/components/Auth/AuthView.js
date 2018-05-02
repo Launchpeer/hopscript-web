@@ -43,7 +43,7 @@ class AuthView extends Component {
           <CenterThis>
             {this.props.route.authType === 'signin' ? (
               <div>
-                <Card classOverrides="mw6 mb5" boxShadow>
+                <Card classOverrides="mw6 mb5 bg-white" boxShadow>
                   <SignInForm />
                 </Card>
                 <CenterThis>
@@ -62,7 +62,7 @@ class AuthView extends Component {
               </div>
             ) : (
               <Card
-                classOverrides="mw6 mb5"
+                classOverrides="mw6 mb5 bg-white"
                 boxShadow
                 bottomContent={SignIn}
                 bottomColor="lightGray"
