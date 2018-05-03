@@ -17,7 +17,7 @@ var Colors = {
   darkRed: '#D0021B'
 }
 
-Colors.inputFontColor = Colors.silver
+Colors.inputFontColor = Colors.black
 Colors.inputBorderColor = Colors.silver
 
 /* These colors affect the UI of InputMultiSelect */

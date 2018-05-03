@@ -30,11 +30,11 @@ const renderTextInput = (fieldProps) => {
         {...input}
         type="text"
         placeholder={placeholder}
-        className="ba w-100 pa2 f5 mt2"
+        className="ba w-100 pa3 mb3 f5 mt2"
         style={{
           color: fontColor || Colors.inputFontColor,
           borderRadius: BorderRadius.all,
-          borderColor: fieldStateColor()
+          borderColor: Colors.moonGray
         }}
         maxLength={maxLength}
       />
