@@ -3,6 +3,7 @@
 var Colors = {
   // Brand
   brandPrimary: '#00CDAC',
+  brandPurple: '#553982',
   stripe: '#6772E5',
 
   // Basic Tachyon
@@ -15,6 +16,15 @@ var Colors = {
   white: '#ffffff',
   darkRed: '#D0021B'
 }
+
+Colors.inputFontColor = Colors.black
+Colors.inputBorderColor = Colors.silver
+
+/* These colors affect the UI of InputMultiSelect */
+Colors.multiSelectActive = Colors.brandPrimary
+Colors.multiSelectInactive = Colors.white
+Colors.multiSelectFontColorActive = Colors.white
+Colors.multiSelectFontColorInactive = Colors.silver
 
 var Fonts = {
   iosFont: 'Helvetica Neue',
@@ -29,17 +39,10 @@ var Icons = {
 }
 
 var BorderRadius = {
-  small: {
-    all: '4px',
-    top: '4px 4px 0px 0px',
-    bottom: '0px 0px 4px 4px'
-  },
-  medium: {
-    all: '8px',
-    top: '8px 8px 0px 0px',
-    bottom: '0px 0px 8px 8px'
-  },
-  none: 'none'
+  none: 'none',
+  all: '4px',
+  top: '4px 4px 0px 0px',
+  bottom: '0px 0px 4px 4px'
 }
 
 var MaxWidth = {

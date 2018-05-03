@@ -21,8 +21,11 @@ import { UPDATE_USER } from './components/UserTypes';
 import {
   AuthView,
   ForgotPasswordView,
-  ResetPasswordView
+  ResetPasswordView,
+  BrokerageSignUpForm
 } from './components/Auth';
+
+import { BrokerProfileView } from './components/BrokerProfile';
 import DashboardView from './components/Dashboard/DashboardView';
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
@@ -47,7 +50,7 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/reset-password', '/forgot-password'];
+const bodyColorPaths = ['/', '/reset-password', '/signup', '/forgot-password'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -63,9 +66,11 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
+        <Route path="signup" component={AuthView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
+        <Route path="brokerage-profile" component={BrokerProfileView} />
       </Route>
     </Router>
   </Provider>,
