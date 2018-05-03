@@ -26,8 +26,6 @@ Colors.multiSelectInactive = Colors.white
 Colors.multiSelectFontColorActive = Colors.white
 Colors.multiSelectFontColorInactive = Colors.silver
 
-//delete below...
-
 var Fonts = {
   iosFont: 'Helvetica Neue',
   androidFont: 'sans-serif'
