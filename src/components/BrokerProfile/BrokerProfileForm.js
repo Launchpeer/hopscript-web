@@ -21,6 +21,7 @@ class UpdateBrokerProfileFormView extends Component {
   }
 
   render() {
+    console.log('das proops', this.props);
     const { user, handleSubmit } = this.props;
     return (
       <div className="w-70">

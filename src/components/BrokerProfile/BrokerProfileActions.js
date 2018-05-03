@@ -33,10 +33,11 @@ function _brokerProfileUpdateLoadEnd() {
   };
 }
 
-export const brokerUpdateProfile = ({ name, email }) => (dispatch) => {
+export const updateBrokerProfile = ({ username, email }) => (dispatch) => {
   dispatch(_brokerProfileUpdateLoading());
   const Profile = Parse.User.current();
-  if (name) {
+  console.log('profile', Profile);
+  if (username) {
     Profile.set('username', username);
   }
   if (email) {

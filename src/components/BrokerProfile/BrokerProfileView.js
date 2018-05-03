@@ -36,7 +36,6 @@ class BrokerDetailView extends Component {
     return (
       <FullScreenContainer classOverrides="mb4">
         <LoaderOrThis loading={loading}>
-          <SubHeader label={user && user.attributes.username} route="profile" />
           <CenterThis>
             <BrokerProfileForm />
           </CenterThis>
