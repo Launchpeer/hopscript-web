@@ -21,7 +21,6 @@ class UpdateBrokerProfileFormView extends Component {
   }
 
   render() {
-    console.log('das proops', this.props);
     const { user, handleSubmit } = this.props;
     return (
       <div className="w-70">
@@ -29,7 +28,6 @@ class UpdateBrokerProfileFormView extends Component {
           <EditInput
             name="username"
             type="text"
-            label="Brokerage Name"
             borderColor={Colors.brandDeepGray}
             placeholder={user && user.get('username')}
             onSubmit={handleSubmit(this.handleFormSubmit)}
@@ -37,7 +35,6 @@ class UpdateBrokerProfileFormView extends Component {
           <EditInput
             name="email"
             type="text"
-            label="Email Address"
             borderColor={Colors.brandDeepGray}
             placeholder={user && user.get('email')}
             onSubmit={handleSubmit(this.handleFormSubmit)}

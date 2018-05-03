@@ -14,6 +14,7 @@ var Colors = {
   moonGray: '#CCCCCC',
   lightGray: '#EEEEEE',
   white: '#ffffff',
+  mediumRed: '#e7040f',
   darkRed: '#D0021B'
 }
 

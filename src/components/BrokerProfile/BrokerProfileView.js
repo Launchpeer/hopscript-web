@@ -9,9 +9,10 @@ import {
   LoaderOrThis,
   ModalCard
 } from '../common';
-import { Colors } from '../../config/styles';
+import { Colors, BorderRadius } from '../../config/styles';
 import { deleteBrokerProfile } from './BrokerProfileActions';
 import { BrokerProfileForm } from './';
+import { logOutUser } from '../Auth/AuthActions';
 
 class BrokerDetailView extends Component {
   constructor(props) {
@@ -21,15 +22,21 @@ class BrokerDetailView extends Component {
     };
     this.deleteBrokerProfile = this.deleteBrokerProfile.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
+
   deleteBrokerProfile() {
     this.props.deleteProfile();
+  }
+
+  handleSignOut() {
+    this.props.logOutUser();
   }
 
   toggleModal() {
     this.setState({ showModal: !this.state.showModal });
   }
-
+  // onClick={() => this.handleSignout}
   render() {
     const { showModal } = this.state;
     const { loading, user } = this.props;
@@ -41,26 +48,28 @@ class BrokerDetailView extends Component {
           </CenterThis>
           <CenterThis>
             <div className="w-70 pa2">
-              <a
-                href="https://www.stripe.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Button
+                classOverrides="w-100"
+                onClick={() => this.handleSignOut()}
+                backgroundColor={Colors.black}
+                fontColor="white"
+                borderRadius={BorderRadius.all}
               >
-                <Button classOverrides="w-100" onClick={this.onButtonClick}>
-                  Go To Stripe
-                </Button>
-              </a>
+                log out
+              </Button>
             </div>
           </CenterThis>
           <CenterThis>
-            <Button
-              borderWidth="1px"
-              borderColor="brandDeepGray"
-              backgroundColor="white"
-              fontColor="brandDeepGray"
-            >
-              delete my account
-            </Button>
+            <div className="w-70 pa2">
+              <Button
+                classOverrides="w-100"
+                backgroundColor={Colors.mediumRed}
+                fontColor="white"
+                borderRadius={BorderRadius.all}
+              >
+                delete my account
+              </Button>
+            </div>
           </CenterThis>
           {showModal && (
             <ModalCard header="Delete Account" onClick={this.toggleModal}>
@@ -69,7 +78,10 @@ class BrokerDetailView extends Component {
                   Are you sure you want to delete your account? This action
                   cannot be undone.
                 </div>
-                <Button onClick={this.toggleModal} classOverrides="w-100 mb3">
+                <Button
+                  onClick={() => this.toggleModal()}
+                  classOverrides="w-100 mb3"
+                >
                   Cancel
                 </Button>
                 <Button
@@ -99,5 +111,6 @@ const mapStateToProps = ({ UserReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  deleteBrokerProfile
+  deleteBrokerProfile,
+  logOutUser
 })(BrokerDetailView);

@@ -10,7 +10,8 @@ const PathsWithoutHeaderContent = [
   '/',
   '/signup',
   '/forgot-password',
-  '/reset-password'
+  '/reset-password',
+  '/brokerage-profile'
 ];
 
 const PathsWithHaveAccountButton = ['/stripe'];
