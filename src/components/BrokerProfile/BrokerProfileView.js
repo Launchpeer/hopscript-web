@@ -9,79 +9,79 @@ import {
   LoaderOrThis,
   ModalCard
 } from '../common';
-import { Colors } from '../../config/styles';
-import { deleteProfile } from './ProfileActions';
-import { ProfileForm } from './';
+import { Colors, BorderRadius } from '../../config/styles';
+import { deleteBrokerProfile } from './BrokerProfileActions';
+import { BrokerProfileForm } from './';
+import { logOutUser } from '../Auth/AuthActions';
 
-class GymDetailView extends Component {
+class BrokerDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false
     };
-    this.deleteProfile = this.deleteProfile.bind(this);
+    this.deleteBrokerProfile = this.deleteBrokerProfile.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
-  deleteProfile() {
+
+  deleteBrokerProfile() {
     this.props.deleteProfile();
+  }
+
+  handleSignOut() {
+    this.props.logOutUser();
   }
 
   toggleModal() {
     this.setState({ showModal: !this.state.showModal });
   }
-
+  // onClick={() => this.handleSignout}
   render() {
     const { showModal } = this.state;
     const { loading, user } = this.props;
     return (
       <FullScreenContainer classOverrides="mb4">
         <LoaderOrThis loading={loading}>
-          <SubHeader
-            label={user && user.attributes.guideName}
-            route="profile"
-          />
           <CenterThis>
-            <ProfileForm />
+            <BrokerProfileForm />
           </CenterThis>
           <CenterThis>
             <div className="w-70 pa2">
-              <a
-                href="https://www.stripe.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Button
+                classOverrides="w-100"
+                onClick={() => this.handleSignOut()}
+                backgroundColor={Colors.black}
+                fontColor="white"
+                borderRadius={BorderRadius.all}
               >
-                <Button classOverrides="w-100" onClick={this.onButtonClick}>
-                  Go To Stripe
-                </Button>
-              </a>
+                log out
+              </Button>
             </div>
           </CenterThis>
           <CenterThis>
-            <div className="mw6 mb4 brand-deep-gray">
-              IMPORTANT! Please note that if you choose Delete Account, your gym
-              account and information will be forever permanently deleted. Think
-              twice before deleting your account as it is an irreversable
-              decision.
+            <div className="w-70 pa2">
+              <Button
+                classOverrides="w-100"
+                backgroundColor={Colors.mediumRed}
+                fontColor="white"
+                borderRadius={BorderRadius.all}
+              >
+                delete my account
+              </Button>
             </div>
-          </CenterThis>
-          <CenterThis>
-            <Button
-              borderWidth="1px"
-              borderColor="brandDeepGray"
-              backgroundColor="white"
-              fontColor="brandDeepGray"
-            >
-              Permanently Delete Stubbin Account
-            </Button>
           </CenterThis>
           {showModal && (
-            <ModalCard header="Delete Gym" onClick={this.toggleModal}>
+            <ModalCard header="Delete Account" onClick={this.toggleModal}>
               <div className="pa4 pl5 pr5">
                 <div className="pb4">
                   Are you sure you want to delete your account? This action
                   cannot be undone.
                 </div>
-                <Button onClick={this.toggleModal} classOverrides="w-100 mb3">
+                <Button
+                  onClick={() => this.toggleModal()}
+                  classOverrides="w-100 mb3"
+                >
                   Cancel
                 </Button>
                 <Button
@@ -90,9 +90,9 @@ class GymDetailView extends Component {
                   backgroundColor="white"
                   fontColor="brandDeepGray"
                   classOverrides="w-100"
-                  onClick={this.deleteProfile}
+                  onClick={this.deleteBrokerProfile}
                 >
-                  Permanently Delete Stubbin Account
+                  Permanently Delete Account
                 </Button>
               </div>
             </ModalCard>
@@ -111,5 +111,6 @@ const mapStateToProps = ({ UserReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  deleteProfile
-})(GymDetailView);
+  deleteBrokerProfile,
+  logOutUser
+})(BrokerDetailView);

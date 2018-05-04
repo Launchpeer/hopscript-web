@@ -4,6 +4,7 @@ import AuthReducer from './components/Auth/AuthReducer';
 import UserReducer from './components/UserReducer';
 import CreateGuideReducer from './components/CreateGuide/CreateGuideReducer';
 import LocaleReducer from './components/Locales/LocaleReducer';
+import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   AuthReducer,
   UserReducer,
   CreateGuideReducer,
-  LocaleReducer
+  LocaleReducer,
+  BrokerProfileReducer
 });
 
 export default rootReducer;
