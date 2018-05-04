@@ -36,7 +36,7 @@ function _brokerProfileUpdateLoadEnd() {
 export const updateBrokerProfile = ({ username, email }) => (dispatch) => {
   dispatch(_brokerProfileUpdateLoading());
   const Profile = Parse.User.current();
-  console.log('profile', Profile);
+
   if (username) {
     Profile.set('username', username);
   }

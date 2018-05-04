@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FullScreenContainer, SubHeader } from '../common';
+import { FullScreenContainer, SubHeader, Button } from '../common';
+import { Colors } from '../../config/styles';
+import { browserHistory } from 'react-router';
 
 class DashboardView extends Component {
   constructor(props) {
@@ -18,6 +20,15 @@ class DashboardView extends Component {
           />
         )}
         <div className="flex flex-wrap justify-around mt4 mw9 center" />
+        <div>
+          <Button
+            backgroundColor={Colors.black}
+            onClick={() => browserHistory.push('/brokerage-profile')}
+          >
+            {' '}
+            Brokerage Profile{' '}
+          </Button>
+        </div>
       </FullScreenContainer>
     );
   }

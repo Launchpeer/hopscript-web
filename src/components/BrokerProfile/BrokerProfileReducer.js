@@ -15,7 +15,15 @@ export default function (state = INITIAL_STATE, action) {
     case BROKER_PROFILE_UPDATE_CLEAR_ERROR:
       return { ...state, error: null };
     case BROKER_PROFILE_UPDATE_ERROR:
-      return { ...state, error: action.payload };
+      switch (action.payload.code) {
+        case 202:
+          return {
+            ...state,
+            error: { message: 'Already in use on another account' }
+          };
+        default:
+          return { ...state, error: action.payload };
+      }
     case BROKER_PROFILE_UPDATE_LOAD_END:
       return { ...state, loading: false };
     case BROKER_PROFILE_UPDATE_LOADING:

@@ -43,7 +43,6 @@ export const signInUser = (email, password) => (dispatch) => {
   });
   Parse.User.logIn(email, password, {
     success: (user) => {
-      console.log('Gotem: ', user);
       dispatch(_updateUser(user));
       dispatch({
         type: AUTH_USER,
