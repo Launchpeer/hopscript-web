@@ -47,12 +47,33 @@ class AuthView extends Component {
           <CenterThis>
             {this.props.route.authType === 'signin' ? (
               <div>
-                <Card classOverrides="mw6 mb5 bg-white" boxShadow>
+                <Card classOverrides="mw6 mb4 bg-white" boxShadow>
                   <SignInForm />
                 </Card>
                 <CenterThis>
                   <div
-                    className="underline pointer p5 mb7"
+                    className="pr2"
+                    style={{
+                      color: Colors.white
+                    }}
+                  >
+                    Don't have an account?
+                  </div>
+                  <div
+                    className="underline pointer dib mb2 p5"
+                    style={{
+                      color: Colors.white
+                    }}
+                    role="button"
+                    onClick={() => browserHistory.push('/signup')}
+                    onKeyPress={() => browserHistory.push('/signup')}
+                  >
+                    Sign Up
+                  </div>
+                </CenterThis>
+                <CenterThis>
+                  <div
+                    className="underline pointer dib p5 mb7"
                     style={{
                       color: Colors.white
                     }}
