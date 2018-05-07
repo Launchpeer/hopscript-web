@@ -9,7 +9,6 @@ const rootReducer = combineReducers({
   form,
   AuthReducer,
   UserReducer,
-
   BrokerProfileReducer
 });
 

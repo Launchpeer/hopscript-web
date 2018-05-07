@@ -61,7 +61,7 @@ class ForgotPasswordView extends Component {
                   />
                   <Button
                     classOverrides="w-100"
-                    backgroundColor={Colors.brandPrimary}
+                    backgroundColor={Colors.brandPurple}
                   >
                     Reset Password
                   </Button>
