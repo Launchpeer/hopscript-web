@@ -25,6 +25,25 @@ const SignIn = (
   </div>
 );
 
+const SignUp = (
+  <div className="tc">
+    <div className="dib pr1" style={{ color: Colors.gray }}>
+      Don't have an account?
+    </div>
+
+    <div
+      className="underline pointer dib"
+      onClick={() => {
+        browserHistory.push('/signup');
+      }}
+      role="button"
+      style={{ color: Colors.brandPrimary }}
+    >
+      Sign Up
+    </div>
+  </div>
+);
+
 class AuthView extends Component {
   componentDidMount() {
     this.props.clearError();
@@ -47,12 +66,17 @@ class AuthView extends Component {
           <CenterThis>
             {this.props.route.authType === 'signin' ? (
               <div>
-                <Card classOverrides="mw6 mb5 bg-white" boxShadow>
+                <Card
+                  classOverrides="mw6 mb4 bg-white"
+                  boxShadow
+                  bottomContent={SignUp}
+                  bottomColor="lightGray"
+                >
                   <SignInForm />
                 </Card>
                 <CenterThis>
                   <div
-                    className="underline pointer p5 mb7"
+                    className="underline pointer dib p5 mb7"
                     style={{
                       color: Colors.white
                     }}
