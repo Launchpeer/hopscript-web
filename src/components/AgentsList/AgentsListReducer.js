@@ -15,15 +15,7 @@ export default function (state = INITIAL_STATE, action) {
     case AGENTS_ADD_CLEAR_ERROR:
       return { ...state, error: null };
     case AGENTS_ADD_ERROR:
-      switch (action.payload.code) {
-        case 202:
-          return {
-            ...state,
-            error: { message: 'Already in use on another account' }
-          };
-        default:
-          return { ...state, error: action.payload };
-      }
+      return { ...state, error: action.payload };
     case AGENTS_ADD_LOAD_END:
       return { ...state, loading: false };
     case AGENTS_ADD_LOADING:
