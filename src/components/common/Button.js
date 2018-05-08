@@ -20,7 +20,7 @@ const Button = ({
       color: fontColor ? Colors[fontColor] : Colors.white,
       borderRadius: '4px',
       backgroundColor,
-      borderColor: borderColor ? Colors[borderColor] : Colors.darkGrey,
+      borderColor: borderColor || Colors.darkGrey,
       border: `${borderWidth} solid` || 'none'
     }}
     type={type}

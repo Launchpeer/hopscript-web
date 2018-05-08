@@ -34,7 +34,7 @@ const renderTextInput = (fieldProps) => {
         style={{
           color: fontColor || Colors.inputFontColor,
           borderRadius: BorderRadius.all,
-          borderColor: Colors.moonGray
+          borderColor: borderColor || Colors.moonGray
         }}
         maxLength={maxLength}
       />
