@@ -41,7 +41,7 @@ function _agentsListLoadEnd() {
  * The Agent Pointer is then removed from the Brokerage and the Brokerage is saved.
  * Then, we fetch the updated Brokerage
 
- * @param  {string} agent The agent User object
+ * @param  {Object} agent The agent User object
  */
 
 
