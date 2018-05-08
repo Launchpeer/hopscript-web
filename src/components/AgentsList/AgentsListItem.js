@@ -1,3 +1,9 @@
+/**
+ * The purpose of this file is to provide a basic UI for the Agent List Item,
+ * provide a confirmation modal when a user selects delete,
+ * and on confirmation, trigger a function to remove and dissociate the Agent from the Brokerage
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
