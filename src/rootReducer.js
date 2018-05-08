@@ -4,6 +4,7 @@ import AuthReducer from './components/Auth/AuthReducer';
 import UserReducer from './components/UserReducer';
 import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReducer';
 import AgentsAddReducer from './components/AgentsAdd/AgentsAddReducer';
+import AgentsListReducer from './components/AgentsList/AgentsListReducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   AuthReducer,
   UserReducer,
   BrokerProfileReducer,
-  AgentsAddReducer
+  AgentsAddReducer,
+  AgentsListReducer
 });
 
 export default rootReducer;
