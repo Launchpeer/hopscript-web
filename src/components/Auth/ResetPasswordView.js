@@ -41,7 +41,7 @@ class ResetPasswordView extends Component {
       handleSubmit, error, loading, success
     } = this.props;
     return (
-      <FullScreenCenter color={Colors.brandPrimary}>
+      <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
             <div className="mw5 mb5 mt6">
@@ -60,7 +60,12 @@ class ResetPasswordView extends Component {
                       label="password"
                       placeholder="Password"
                     />
-                    <Button classOverrides="w-100">Reset Password</Button>
+                    <Button
+                      classOverrides="w-100"
+                      backgroundColor={Colors.brandPurple}
+                    >
+                      Reset Password
+                    </Button>
                     <RenderAlert error={error} />
                     {success && successBlock()}
                   </form>
@@ -78,13 +83,9 @@ class ResetPasswordView extends Component {
 }
 
 function validate(values) {
-  const passwordRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
   const errors = {};
   if (!values.password) {
     errors.password = '*required';
-  }
-  if (!passwordRegex.test(values.password)) {
-    errors.password = 'Password must contain a minimum of eight characters, one uppercase letter, one lowercase letter, one digit and one special character';
   }
   return errors;
 }

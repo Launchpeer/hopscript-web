@@ -26,6 +26,7 @@ import {
 } from './components/Auth';
 
 import { BrokerProfileView } from './components/BrokerProfile';
+import { AgentProfileView } from './components/AgentProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
@@ -52,7 +53,7 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password'];
+const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -70,8 +71,10 @@ ReactDOM.render(
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
+        <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerProfileView} />
+        <Route path="agent-profile" component={AgentProfileView} />
         <Route path="add-agents" component={AgentsAddView} />
         <Route path="list-agents" component={AgentsListView} />
       </Route>
