@@ -63,7 +63,7 @@ class ForgotPasswordView extends Component {
                     classOverrides="w-100"
                     backgroundColor={Colors.brandPurple}
                   >
-                    Reset Password
+                    Send Reset Password Email
                   </Button>
                   <RenderAlert error={error} />
                   {RenderSuccess(success)}

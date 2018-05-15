@@ -116,14 +116,9 @@ class ResetPasswordView extends Component {
 }
 
 function validate(values) {
-  const passwordRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
   const errors = {};
   if (!values.password) {
     errors.password = '*required';
-  }
-  if (!passwordRegex.test(values.password)) {
-    errors.password =
-      'Password must contain a minimum of eight characters, one uppercase letter, one lowercase letter, one digit and one special character';
   }
   return errors;
 }

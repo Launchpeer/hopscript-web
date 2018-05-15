@@ -26,6 +26,7 @@ import {
 } from './components/Auth';
 
 import { BrokerProfileView } from './components/BrokerProfile';
+import { AgentProfileView } from './components/AgentProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
@@ -73,6 +74,7 @@ ReactDOM.render(
         <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerProfileView} />
+        <Route path="agent-profile" component={AgentProfileView} />
         <Route path="add-agents" component={AgentsAddView} />
         <Route path="list-agents" component={AgentsListView} />
       </Route>
