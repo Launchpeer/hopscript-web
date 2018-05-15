@@ -49,7 +49,6 @@ export const signInUser = (email, password) => (dispatch) => {
         payload: user
       });
       if(user.attributes.role === 'agent') {
-        console.log('hello agent');
         browserHistory.push('/dashboard');
       }
         browserHistory.push('/dashboard');
