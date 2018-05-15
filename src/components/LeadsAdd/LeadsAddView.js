@@ -1,5 +1,5 @@
 /**
- * The purpose of this file is provide UI wrapping around LeadsAddForm
+ * The purpose of this file is to provide UI wrapping around LeadsAddForm
  */
 
 import React from 'react';
