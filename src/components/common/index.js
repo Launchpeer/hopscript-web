@@ -35,3 +35,4 @@ export { default as InputTextArea } from './input/InputTextArea';
 export { default as InputUI } from './input/InputUI';
 export { default as InputPhoto } from './input/InputPhoto';
 export { default as InputAddress } from './input/InputAddress';
+export { default as InputFile } from './input/InputFile';

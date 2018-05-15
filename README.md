@@ -33,3 +33,10 @@ The agent is given a generated password and sent an invitation email with log in
 *As an Agent I want to update my profile*
 
 A `User` with the role `agent` is updated in the database. The Agent can update their name and email.
+
+## parseCSV
+`src/components/LeadsAdd/LeadsAddActions`
+
+*As an Agent I want to batch import Leads from a CSV file*
+
+A `CSV` file is parsed into javascript objects. Those javascript objects are used to create `Lead` Parse objects in the database. Those `Lead` objects have the properties `name`, `phone`, and `agent`. For a `Lead`, `agent` is a `Pointer` object to the current user. Once a `Lead` is created, that `Lead` is added to the `Agent`'s `leads` array as a `Pointer`. Once that is all complete, the user is refreshed in the redux store
