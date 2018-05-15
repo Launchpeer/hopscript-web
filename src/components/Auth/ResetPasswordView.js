@@ -5,7 +5,14 @@ import { reduxForm } from 'redux-form';
 
 import { AuthInput } from './';
 import { Colors } from '../../config/styles';
-import { Card, Button, RenderAlert, Loader, FullScreenCenter, CenterThis } from '../common';
+import {
+  Card,
+  Button,
+  RenderAlert,
+  Loader,
+  FullScreenCenter,
+  CenterThis
+} from '../common';
 import { resetPassword, clearError } from './AuthActions';
 
 const successBlock = () => (
@@ -13,11 +20,28 @@ const successBlock = () => (
     <div className="di">
       Your password has been reset. Log into your account
     </div>
-    <div className="di brandPrimary ml1 pointer"
+    <div
+      className="di brandPrimary ml1 pointer"
       onKeyPress={() => browserHistory.push('/')}
       onClick={() => browserHistory.push('/')}
-      role="button">
+      role="button"
+    >
       here.
+    </div>
+  </div>
+);
+
+const returnToLogin = (
+  <div className="tc">
+    <div
+      className="underline pointer dib"
+      onClick={() => {
+        browserHistory.push('/', { authType: 'signin' });
+      }}
+      role="button"
+      style={{ color: Colors.brandPrimary }}
+    >
+      Return to Login
     </div>
   </div>
 );
@@ -44,15 +68,27 @@ class ResetPasswordView extends Component {
       <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
-            <div className="mw5 mb5 mt6">
-              <img src="/images/stubbin_big_logo.png" alt="stubbin-logo" />
+            <div
+              className="mw5 mb5 mt6 f2 b"
+              style={{
+                color: Colors.white
+              }}
+            >
+              Swift Script
             </div>
           </CenterThis>
           <CenterThis>
-            <Card classOverrides="mw6" boxShadow borderRadius="medium" bottomColor="nearWhite">
-              <div>
-                {loading ?
-                  <Loader /> :
+            <Card
+              classOverrides="mw6"
+              boxShadow
+              borderRadius="medium"
+              bottomContent={returnToLogin}
+              bottomColor="lightGray"
+            >
+              <div className="pa3">
+                {loading ? (
+                  <Loader />
+                ) : (
                   <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <AuthInput
                       name="password"
@@ -69,12 +105,9 @@ class ResetPasswordView extends Component {
                     <RenderAlert error={error} />
                     {success && successBlock()}
                   </form>
-              }
+                )}
               </div>
             </Card>
-          </CenterThis>
-          <CenterThis>
-            <div className="underline pointer mt4 p5 white" role="button" onClick={() => browserHistory.push('/')} onKeyPress={() => browserHistory.push('/')}>Return to login</div>
           </CenterThis>
         </div>
       </FullScreenCenter>
