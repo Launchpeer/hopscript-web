@@ -26,3 +26,10 @@ The agent is given a generated password and sent an invitation email with log in
 
 A `User` with the role `agent` is created in the database. That agent is added to the brokerage's `agents` array as a `Pointer`.
 The agent is given a generated password and sent an invitation email with log in instructions.
+
+## updateAgentProfile
+`src/components/AgentProfile/AgentProfileActions`
+
+*As an Agent I want to update my profile*
+
+A `User` with the role `agent` is updated in the database. The Agent can update their name and email.

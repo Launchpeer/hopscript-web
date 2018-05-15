@@ -1,3 +1,9 @@
+/**
+ * The purpose of this file is to provide UI around the Agent Profile Form.
+ * This file as allows an Agent to delete their account or log out.
+ * If an Agent chooses to delete their profile, a confirmation modal is displayed
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {

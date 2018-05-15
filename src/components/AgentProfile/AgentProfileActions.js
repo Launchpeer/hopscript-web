@@ -1,3 +1,10 @@
+/**
+ * The purpose of this file is to define Redux Actions that allow an Agent to :
+ * delete themselves, update their profile
+ * Loading and Error states are handled for UX purposes
+ */
+
+
 import Parse from 'parse';
 import { browserHistory } from 'react-router';
 

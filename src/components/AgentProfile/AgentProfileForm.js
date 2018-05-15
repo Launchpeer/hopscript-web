@@ -1,10 +1,14 @@
+/**
+ * The purpose of this file is provide a ReduxForm component that allows an Agent to update their profile
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Parse from 'parse';
+
 import { Colors } from '../../config/styles';
 import { EditInput } from '../common';
-
 import { updateAgentProfile } from './AgentProfileActions';
 
 class UpdateAgentProfileFormView extends Component {
