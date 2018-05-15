@@ -52,7 +52,7 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password'];
+const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -70,6 +70,7 @@ ReactDOM.render(
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
+        <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerProfileView} />
         <Route path="add-agents" component={AgentsAddView} />
