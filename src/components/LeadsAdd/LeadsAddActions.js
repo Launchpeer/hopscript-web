@@ -54,29 +54,30 @@ function _leadsAddLoadEnd() {
  */
 
 function _createNewLead({
-  name, phoneNumber, leadType, leadGroup
+  name, phone, leadType, leadGroup
 }) {
   return new Promise((resolve) => {
-    const Lead = Parse.Object.Extend('Lead');
+    const agent = Parse.User.current();
+    const Lead = Parse.Object.extend('Lead');
+    const formattedPhone = `+1${phone}`;
     const newLead = new Lead();
-
     newLead.set('name', name);
-    newLead.set('phoneNumber', phoneNumber);
+    newLead.set('phone', formattedPhone);
     newLead.set('leadType', leadType);
     newLead.set('leadGroup', leadGroup);
-    resolve(newLead.save());
+    newLead.set('agent', agent);
+    return resolve(newLead.save());
   });
 }
 
+export const clearError = () => (dispatch) => {
+  dispatch(_clearError());
+};
+
 export const createLead = data => (dispatch) => {
-  dispatch(leadLoading());
   _createNewLead(data)
     .then(() => {
       browserHistory.push('/dashboard');
     })
-    .catch(err => dispatch({ type: LEAD_CREATE_ERROR, payload: err }));
-};
-
-export const clearError = () => (dispatch) => {
-  dispatch(_clearError());
+    .catch(err => dispatch({ type: LEADS_ADD_ERROR, payload: err }));
 };

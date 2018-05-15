@@ -14,7 +14,7 @@ import {
   LoaderOrThis,
   RenderAlert
 } from '../common';
-
+import { normalizePhone } from '../helpers/normalize';
 import { createLead, clearError } from './LeadsAddActions';
 
 class LeadsAddForm extends Component {
@@ -48,14 +48,16 @@ class LeadsAddForm extends Component {
           >
             <InputText
               name="name"
+              label="Name"
               type="text"
               placeholder="Full Name"
               borderColor="white"
             />
             <InputText
-              name="phoneNumber"
+              name="phone"
               type="text"
-              placeholder="Phone Number"
+              label="Phone (numbers only, starting with area code)"
+              placeholder="xxxxxxxxxx"
               borderColor="white"
             />
             <InputDropDown
@@ -78,7 +80,7 @@ class LeadsAddForm extends Component {
             />
 
             {valid && (
-              <Button backgroundColor={Colors.brandPrimary}>Invite</Button>
+              <Button backgroundColor={Colors.brandPrimary}>Add Lead</Button>
             )}
             {error && <RenderAlert error={error} />}
           </form>
@@ -98,12 +100,7 @@ const mapStateToProps = ({ LeadsAddReducer }) => {
 
 function validate(values) {
   const errors = {};
-  if (
-    !values.name ||
-    !values.phoneNumber ||
-    !values.leadType ||
-    !values.leadGroup
-  ) {
+  if (!values.name || !values.phone || !values.leadType || !values.leadGroup) {
     errors._error = 'All fields required';
   }
 
@@ -111,7 +108,7 @@ function validate(values) {
 }
 
 export default reduxForm({
-  form: 'addLead',
+  form: 'createLead',
   validate
 })(connect(mapStateToProps, {
   createLead,
