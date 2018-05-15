@@ -29,6 +29,7 @@ import { BrokerProfileView } from './components/BrokerProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
+import { LeadsAddView } from './components/LeadsAdd';
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
 
@@ -74,6 +75,7 @@ ReactDOM.render(
         <Route path="brokerage-profile" component={BrokerProfileView} />
         <Route path="add-agents" component={AgentsAddView} />
         <Route path="list-agents" component={AgentsListView} />
+        <Route path="add-leads" component={LeadsAddView} />
       </Route>
     </Router>
   </Provider>,

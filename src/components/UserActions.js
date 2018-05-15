@@ -5,18 +5,17 @@ import {
   CLEAR_USER
 } from './UserTypes';
 
-const updateUser = (user) => {
-  return {
-    type: UPDATE_USER,
-    payload: user
-  };
-}
+const updateUser = user => ({
+  type: UPDATE_USER,
+  payload: user
+});
 
 function _fetchUser() {
   return new Promise((resolve) => {
     const User = Parse.User.current();
     const query = new Parse.Query(User);
     query.include('agents');
+    query.include('leads');
     resolve(query.get(User.id));
   });
 }
@@ -34,4 +33,4 @@ const clearUser = () => (dispatch) => {
   });
 };
 
-export { clearUser, fetchUser, updateUser }
+export { clearUser, fetchUser, updateUser };

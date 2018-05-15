@@ -58,6 +58,12 @@ input:focus {
 .pointer-none {
   pointer-events: none; }
 
+.hov-image-uploader {
+  background-color: #999999; }
+
+.hov-image-uploader:hover {
+  background-color: #00CDAC; }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;

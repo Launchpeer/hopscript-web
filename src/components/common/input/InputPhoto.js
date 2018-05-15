@@ -2,30 +2,22 @@ import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import Dropzone from 'react-dropzone';
 import { User } from 'react-feather';
-import { BorderRadius, Colors } from '../../../config/styles';
-import { Label, } from '../';
 
 class renderPhotoUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showError: false,
       photoDragging: false,
     };
   }
 
   render() {
     const {
-      onDragOver,
-      onDragExit,
-      onDragLeave,
       input,
       name,
       displayText,
       editText,
-      dropClass,
-      label,
-      meta: { touched, error }
+      meta: { error }
     } = this.props;
     const files = input.value;
     let dropzoneStyle = { zIndex: 20000 };
