@@ -5,6 +5,7 @@ import UserReducer from './components/UserReducer';
 import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReducer';
 import AgentsAddReducer from './components/AgentsAdd/AgentsAddReducer';
 import AgentsListReducer from './components/AgentsList/AgentsListReducer';
+import AgentProfileReducer from './components/AgentProfile/AgentProfileReducer';
 import LeadsAddReducer from './components/LeadsAdd/LeadsAddReducer';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   BrokerProfileReducer,
   AgentsAddReducer,
   AgentsListReducer,
+  AgentProfileReducer,
   LeadsAddReducer
 });
 
