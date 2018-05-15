@@ -42,7 +42,11 @@ const renderDropDown = (fieldProps) => {
         </option>
         {options &&
           options.map(option => (
-            <option value={option.value || option} key={option.id || option} className="f3 dark-gray">
+            <option
+              value={option.value || option}
+              key={option.id || option}
+              className="f3 dark-gray"
+            >
               {option.display || option}
             </option>
           ))}
@@ -52,8 +56,6 @@ const renderDropDown = (fieldProps) => {
   );
 };
 
-const InputDropDown = props => (
-  <InputUI component={renderDropDown} {...props} />
-);
+const InputDropDown = props => <InputUI component={renderDropDown} {...props} />;
 
 export default InputDropDown;
