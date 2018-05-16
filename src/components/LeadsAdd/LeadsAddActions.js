@@ -57,10 +57,13 @@ function _parseCSV(data) {
     Papa.parse(data, {
       download: true,
       header: true,
-      delimiter: ",",
+      delimiter: ',',
       complete: (results) => {
         if (!results.data[0].name || !results.data[0].phone) {
-          resolve(_leadsAddError({ message: 'It looks like the leads you uploaded were incorrectly formatted. Please use the Swift Script template as a guide to format your leads or upload leads individually' }));
+          resolve(_leadsAddError({
+            message:
+                'It looks like the leads you uploaded were incorrectly formatted. Please use the Swift Script template as a guide to format your leads or upload leads individually'
+          }));
         }
         resolve(results.data);
       }
@@ -141,7 +144,10 @@ const parseCSV = data => (dispatch) => {
         });
     })
     .catch(() => {
-      dispatch(_leadsAddError({ message: 'File format is incorrect. Please use a .csv file or create leads individually' }));
+      dispatch(_leadsAddError({
+        message:
+            'File format is incorrect. Please use a .csv file or create leads individually'
+      }));
     });
 };
 
@@ -157,7 +163,7 @@ const parseCSV = data => (dispatch) => {
  * @param  {string} data.leadGroup group that the lead is in
  */
 
-function _createNewLead({
+function _reconcileSingleLeadToDB({
   name, phone, leadType, leadGroup
 }) {
   return new Promise((resolve) => {
@@ -174,12 +180,24 @@ function _createNewLead({
   });
 }
 
+function _createAndReconcileSingleLead(lead) {
+  return new Promise((resolve) => {
+    _reconcileSingleLeadToDB(lead)
+      .then((lObj) => {
+        resolve(_reconcileLeadToAgent(lObj));
+      })
+      .catch((err) => {
+        console.log('_reconcileLeadToDB ERR:', err);
+      });
+  });
+}
+
 const clearError = () => (dispatch) => {
   dispatch(_clearError());
 };
 
 const createLead = data => (dispatch) => {
-  _createNewLead(data)
+  _createAndReconcileSingleLead(data)
     .then(() => {
       browserHistory.push('/dashboard');
     })
