@@ -59,8 +59,8 @@ function _createNewLead({
   return new Promise((resolve) => {
     const agent = Parse.User.current();
     const Lead = Parse.Object.extend('Lead');
-    const formattedPhone = `+1${phone}`;
     const newLead = new Lead();
+    const formattedPhone = `+1${phone}`;
     newLead.set('name', name);
     newLead.set('phone', formattedPhone);
     newLead.set('leadType', leadType);

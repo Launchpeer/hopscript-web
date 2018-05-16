@@ -14,7 +14,7 @@ import {
   LoaderOrThis,
   RenderAlert
 } from '../common';
-import { normalizePhone } from '../helpers/normalize';
+import normalizePhone from '../helpers/normalize';
 import { createLead, clearError } from './LeadsAddActions';
 
 class LeadsAddForm extends Component {
@@ -56,9 +56,10 @@ class LeadsAddForm extends Component {
             <InputText
               name="phone"
               type="text"
-              label="Phone (numbers only, starting with area code)"
-              placeholder="xxxxxxxxxx"
+              label="Phone Number"
+              placeholder="Phone Number"
               borderColor="white"
+              normalize={normalizePhone}
             />
             <InputDropDown
               name="leadType"
