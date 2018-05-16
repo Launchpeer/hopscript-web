@@ -44,18 +44,21 @@ function _leadsListLoadEnd() {
  * @param  {Object} lead The lead User object
  */
 
-export const removeLead = lead => (dispatch) => {
-  const brokerage = Parse.User.current();
-  dispatch(_leadsListLoading());
-  dispatch({
-    type: LEADS_LIST_LOADING
-  });
-  Parse.Cloud.run('removeLead', { leadId: lead.id })
-    .then((b) => {
-      dispatch(_leadsListLoadEnd());
-      dispatch(fetchUser());
+export const removeLead = id => (dispatch) => {
+  const Lead = Parse.Object.extend('Lead');
+  const query = new Parse.Query(Lead);
+  query
+    .get(id)
+    .then((lead) => {
+      lead.destroy({
+        success(lead) {
+          dispatch(fetchUser());
+          console.log('Deleted', lead.attributes.name);
+        },
+        error(lead) {
+          console.log('error deleting ', lead);
+        }
+      });
     })
-    .catch((res) => {
-      dispatch(_leadsListError(res.error));
-    });
+    .catch(err => console.log('error deleting lead', err));
 };

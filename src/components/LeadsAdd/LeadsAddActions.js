@@ -199,7 +199,7 @@ const clearError = () => (dispatch) => {
 const createLead = data => (dispatch) => {
   _createAndReconcileSingleLead(data)
     .then(() => {
-      browserHistory.push('/dashboard');
+      browserHistory.push('/list-leads');
     })
     .catch(err => dispatch({ type: LEADS_ADD_ERROR, payload: err }));
 };
