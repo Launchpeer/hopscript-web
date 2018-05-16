@@ -8,7 +8,6 @@
 
 import Parse from 'parse';
 import Papa from 'papaparse';
-import { browserHistory } from 'react-router';
 
 import {
   LEADS_ADD_ERROR,
@@ -16,7 +15,7 @@ import {
   LEADS_ADD_LOADING,
   LEADS_ADD_LOAD_END
 } from './LeadsAddTypes';
-
+import parsePhone from '../helpers/parsePhone';
 import { fetchUser } from '../UserActions';
 
 function _leadsAddError(error) {
@@ -43,6 +42,15 @@ function _clearError() {
   };
 }
 
+const clearError = () => (dispatch) => {
+  dispatch(_clearError());
+};
+
+const leadsAddError = err => (dispatch) => {
+  dispatch(_leadsAddError(err));
+};
+
+
 /**
  * A CSV file is parsed into javascript objects using papaparse
  * docs: https://www.papaparse.com/docs
@@ -65,7 +73,14 @@ function _parseCSV(data) {
                 'It looks like the leads you uploaded were incorrectly formatted. Please use the Swift Script template as a guide to format your leads or upload leads individually'
           }));
         }
-        resolve(results.data);
+        const formattedData = results.data.map((lead) => {
+          const formattedPhone = parsePhone(lead.phone);
+          return {
+            ...lead,
+            phone: formattedPhone
+          };
+        });
+        resolve(formattedData);
       }
     });
   });
@@ -78,13 +93,25 @@ function _parseCSV(data) {
  * the Lead is saved
  * @param  {object} lead object containing name and phone
  */
-function _reconcileLeadToDB({ name, phone }) {
+function _reconcileLeadToDB({
+  name,
+  phone,
+  leadType,
+  leadGroup
+}) {
   return new Promise((resolve) => {
     const Agent = Parse.User.current();
     const Lead = Parse.Object.extend('Lead');
     const LObj = new Lead();
+    const formattedPhone = `+1${phone}`;
     LObj.set('name', name);
-    LObj.set('phone', phone);
+    LObj.set('phone', formattedPhone);
+    if (leadType) {
+      LObj.set('leadType', leadType);
+    }
+    if (leadGroup) {
+      LObj.set('leadGroup', leadGroup);
+    }
     LObj.set('agent', Agent);
     resolve(LObj.save());
   });
@@ -140,7 +167,7 @@ const parseCSV = data => (dispatch) => {
           dispatch(_leadsAddLoadEnd());
         })
         .catch((err) => {
-          console.log('_createAndReconcileLead:', err);
+          dispatch(leadsAddError(err));
         });
     })
     .catch(() => {
@@ -151,55 +178,20 @@ const parseCSV = data => (dispatch) => {
     });
 };
 
+
 /**
  * As an agent, I want to manually create a lead.
-
- A 'Lead' is created in the database. Eventually, the leadType and leadGroup will become pointers.
+ * First, a 'Lead' is created in the database. The current `Agent` is added to the `Lead` as a `Pointer`
+ * Then, the `Lead` is added to the current `Agent`'s `leads` array as a `Pointer`
  Loading and Errors are handled for UX
-
- * @param  {string} data.name full name of Lead
- * @param  {string} data.phoneNumber phone number of Lead
- * @param  {string} data.leadType type of lead
- * @param  {string} data.leadGroup group that the lead is in
+ * @param  {string} data lead object
  */
 
-function _reconcileSingleLeadToDB({
-  name, phone, leadType, leadGroup
-}) {
-  return new Promise((resolve) => {
-    const agent = Parse.User.current();
-    const Lead = Parse.Object.extend('Lead');
-    const newLead = new Lead();
-    const formattedPhone = `+1${phone}`;
-    newLead.set('name', name);
-    newLead.set('phone', formattedPhone);
-    newLead.set('leadType', leadType);
-    newLead.set('leadGroup', leadGroup);
-    newLead.set('agent', agent);
-    return resolve(newLead.save());
-  });
-}
-
-function _createAndReconcileSingleLead(lead) {
-  return new Promise((resolve) => {
-    _reconcileSingleLeadToDB(lead)
-      .then((lObj) => {
-        resolve(_reconcileLeadToAgent(lObj));
-      })
-      .catch((err) => {
-        console.log('_reconcileLeadToDB ERR:', err);
-      });
-  });
-}
-
-const clearError = () => (dispatch) => {
-  dispatch(_clearError());
-};
-
 const createLead = data => (dispatch) => {
-  _createAndReconcileSingleLead(data)
+  dispatch(_leadsAddLoading());
+  _createAndReconcileLead(data)
     .then(() => {
-      browserHistory.push('/dashboard');
+      dispatch(_leadsAddLoadEnd());
     })
     .catch(err => dispatch({ type: LEADS_ADD_ERROR, payload: err }));
 };
