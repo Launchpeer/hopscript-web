@@ -3,7 +3,7 @@ import {
   LEADS_ADD_ERROR,
   LEADS_ADD_CLEAR_ERROR,
   LEADS_ADD_LOADING
-} from './AgentsListTypes';
+} from './LeadsListTypes';
 
 const INITIAL_STATE = {
   error: '',
