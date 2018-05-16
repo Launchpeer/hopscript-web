@@ -1,11 +1,10 @@
 /**
- * The purpose of this file is provide a ReduxForm component that allows an Agent to manually add a Lead.
+ * The purpose of this file is to provide a ReduxForm component that allows an Agent to manually add a Lead.
  */
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import {
   InputText,
@@ -36,7 +35,7 @@ class LeadsAddForm extends Component {
 
   render() {
     const {
-      user, handleSubmit, valid, loading, error, dirty
+      handleSubmit, valid, loading, error
     } = this.props;
     return (
       <div>
