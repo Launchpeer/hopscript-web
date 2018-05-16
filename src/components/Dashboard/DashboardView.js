@@ -37,6 +37,14 @@ class DashboardView extends Component {
             Add Leads
           </Button>
         </div>
+        <div>
+          <Button
+            backgroundColor={Colors.black}
+            onClick={() => browserHistory.push('/list-leads')}
+          >
+            Leads List
+          </Button>
+        </div>
       </FullScreenContainer>
     );
   }

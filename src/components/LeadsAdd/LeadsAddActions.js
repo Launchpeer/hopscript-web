@@ -17,6 +17,7 @@ import {
 } from './LeadsAddTypes';
 import parsePhone from '../helpers/parsePhone';
 import { fetchUser } from '../UserActions';
+import { browserHistory } from 'react-router';
 
 function _leadsAddError(error) {
   return {
@@ -49,7 +50,6 @@ const clearError = () => (dispatch) => {
 const leadsAddError = err => (dispatch) => {
   dispatch(_leadsAddError(err));
 };
-
 
 /**
  * A CSV file is parsed into javascript objects using papaparse
@@ -94,10 +94,7 @@ function _parseCSV(data) {
  * @param  {object} lead object containing name and phone
  */
 function _reconcileLeadToDB({
-  name,
-  phone,
-  leadType,
-  leadGroup
+  name, phone, leadType, leadGroup
 }) {
   return new Promise((resolve) => {
     const Agent = Parse.User.current();
@@ -178,7 +175,6 @@ const parseCSV = data => (dispatch) => {
     });
 };
 
-
 /**
  * As an agent, I want to manually create a lead.
  * First, a 'Lead' is created in the database. The current `Agent` is added to the `Lead` as a `Pointer`
@@ -192,6 +188,7 @@ const createLead = data => (dispatch) => {
   _createAndReconcileLead(data)
     .then(() => {
       dispatch(_leadsAddLoadEnd());
+      browserHistory.push('/list-leads');
     })
     .catch(err => dispatch({ type: LEADS_ADD_ERROR, payload: err }));
 };

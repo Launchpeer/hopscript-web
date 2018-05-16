@@ -3,10 +3,7 @@
  */
 
 import React from 'react';
-import {
-  FullScreenContainer,
-  CenterThis,
-} from '../common';
+import { FullScreenContainer, CenterThis } from '../common';
 import { LeadsAddForm, LeadsCSVForm } from './';
 
 const LeadsAddView = () => (

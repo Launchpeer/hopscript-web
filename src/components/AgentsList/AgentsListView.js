@@ -3,10 +3,7 @@
  */
 
 import React from 'react';
-import {
-  FullScreenContainer,
-  CenterThis
-} from '../common';
+import { FullScreenContainer, CenterThis } from '../common';
 import { AgentsList } from './';
 
 const AgentsListView = () => (
@@ -15,6 +12,6 @@ const AgentsListView = () => (
       <AgentsList />
     </CenterThis>
   </FullScreenContainer>
-)
+);
 
 export default AgentsListView;
