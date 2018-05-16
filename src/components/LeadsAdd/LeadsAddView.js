@@ -7,12 +7,13 @@ import {
   FullScreenContainer,
   CenterThis,
 } from '../common';
-import { LeadsAddForm } from './';
+import { LeadsAddForm, LeadsCSVForm } from './';
 
 const LeadsAddView = () => (
   <FullScreenContainer classOverrides="mb4">
     <CenterThis>
       <LeadsAddForm />
+      <LeadsCSVForm />
     </CenterThis>
   </FullScreenContainer>
 );

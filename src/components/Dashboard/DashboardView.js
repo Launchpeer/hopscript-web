@@ -29,6 +29,14 @@ class DashboardView extends Component {
             Brokerage Profile{' '}
           </Button>
         </div>
+        <div>
+          <Button
+            backgroundColor={Colors.black}
+            onClick={() => browserHistory.push('/add-leads')}
+          >
+            Add Leads
+          </Button>
+        </div>
       </FullScreenContainer>
     );
   }

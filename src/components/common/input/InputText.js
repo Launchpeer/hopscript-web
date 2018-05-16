@@ -12,6 +12,7 @@ const renderTextInput = (fieldProps) => {
     borderColor,
     maxLength,
     showError,
+    normalize,
     meta: { dirty, touched, error }
   } = fieldProps;
 
@@ -37,6 +38,7 @@ const renderTextInput = (fieldProps) => {
           borderColor: borderColor || Colors.moonGray
         }}
         maxLength={maxLength}
+        normalize={normalize}
       />
       {dirty &&
         error &&
