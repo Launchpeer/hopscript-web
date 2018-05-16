@@ -1,9 +1,3 @@
-/**
- * The purpose of this file is to provide a basic UI for the Lead List Item,
- * provide a confirmation modal when a user selects delete,
- * and on confirmation, trigger a function to remove and dissociate the Lead from the Brokerage
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

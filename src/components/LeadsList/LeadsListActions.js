@@ -1,9 +1,3 @@
-/**
- * The purpose of this file is to define Redux Actions that allow a Brokerage to :
- * delete leads
- * Loading and Error states are handled for UX purposes
- */
-
 import Parse from 'parse';
 
 import {
@@ -33,16 +27,6 @@ function _leadsListLoadEnd() {
     type: LEADS_LIST_LOAD_END
   };
 }
-
-/**
- * As a broker I want to remove an Lead from my Brokerage
-
- * An Lead with the specified object is deleted from the database.
- * The Lead Pointer is then removed from the Brokerage and the Brokerage is saved.
- * Then, we fetch the updated Brokerage
-
- * @param  {Object} lead The lead User object
- */
 
 export const removeLead = id => (dispatch) => {
   const Lead = Parse.Object.extend('Lead');

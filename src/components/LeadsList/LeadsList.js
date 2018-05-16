@@ -1,9 +1,3 @@
-/**
- * The purpose of this file is to fetch the Brokerage,
- * subscribe to updates to the Brokerage,
- * and provide the Lead objects to a mapping function for generating list items
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../UserActions';

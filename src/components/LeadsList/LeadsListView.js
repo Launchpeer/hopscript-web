@@ -1,7 +1,3 @@
-/**
- * The purpose of this file is provide UI wrapping around LeadsList
- */
-
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { FullScreenContainer, CenterThis, Button } from '../common';
