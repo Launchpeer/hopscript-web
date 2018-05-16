@@ -17,6 +17,7 @@ import {
 } from './LeadsAddTypes';
 import parsePhone from '../helpers/parsePhone';
 import { fetchUser } from '../UserActions';
+import { browserHistory } from 'react-router';
 
 function _leadsAddError(error) {
   return {
