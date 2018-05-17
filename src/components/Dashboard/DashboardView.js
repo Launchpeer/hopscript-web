@@ -20,7 +20,7 @@ class DashboardView extends Component {
           />
         )}
         <div className="flex flex-wrap justify-around mt4 mw9 center" />
-        <div>
+        <div className="pa3">
           <Button
             backgroundColor={Colors.black}
             onClick={() => browserHistory.push('/brokerage-profile')}
@@ -29,7 +29,7 @@ class DashboardView extends Component {
             Brokerage Profile{' '}
           </Button>
         </div>
-        <div>
+        <div className="pa3">
           <Button
             backgroundColor={Colors.black}
             onClick={() => browserHistory.push('/add-leads')}
@@ -37,12 +37,20 @@ class DashboardView extends Component {
             Add Leads
           </Button>
         </div>
-        <div>
+        <div className="pa3">
           <Button
             backgroundColor={Colors.black}
             onClick={() => browserHistory.push('/list-leads')}
           >
             Leads List
+          </Button>
+        </div>
+        <div className="pa3">
+          <Button
+            backgroundColor={Colors.black}
+            onClick={() => browserHistory.push('/add-lead-group')}
+          >
+            Add Lead Group
           </Button>
         </div>
       </FullScreenContainer>
