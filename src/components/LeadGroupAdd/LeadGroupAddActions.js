@@ -102,7 +102,7 @@ const createLeadGroup = data => (dispatch) => {
       dispatch(_leadGroupAddLoadEnd());
       browserHistory.push('/list-lead-groups');
     })
-    .catch(err => dispatch({ type: LEAD_GROUP_ADD_ERROR, payload: err }));
+    .catch(err => dispatch(_leadGroupAddError()));
 };
 
 export { clearError, createLeadGroup };

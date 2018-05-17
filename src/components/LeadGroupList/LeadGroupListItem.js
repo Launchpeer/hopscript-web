@@ -11,7 +11,7 @@ class LeadGroupListItem extends Component {
     this.handleRemoveLeadGroup = this.handleRemoveLeadGroup.bind(this);
   }
   handleRemoveLeadGroup() {
-    this.props.removeLeadGroup(this.props.leadGroup.id);
+    this.props.removeLeadGroup(this.props.leadGroups.id);
   }
 
   render() {
