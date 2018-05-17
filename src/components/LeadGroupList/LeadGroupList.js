@@ -9,12 +9,12 @@ class LeadGroupList extends Component {
     this.props.fetchUser();
   }
   render() {
-    const { leadGroup } = this.props.user.attributes;
+    const { leadGroups } = this.props.user.attributes;
     return (
       <div className="w-100">
-        {leadGroup &&
-          leadGroup.map(group => (
-            <LeadGroupListItem leadGroup={group} key={group.id} />
+        {leadGroups &&
+          leadGroups.map(group => (
+            <LeadGroupListItem leadGroups={group} key={group.id} />
           ))}
       </div>
     );

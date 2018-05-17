@@ -65,7 +65,7 @@ function _reconcileLeadGroupToDB({ groupName }) {
 function _reconcileLeadGroupToAgent(leadGroup) {
   return new Promise((resolve) => {
     const Agent = Parse.User.current();
-    Agent.add('leadGroup', leadGroup);
+    Agent.add('leadGroups', leadGroup);
     resolve(Agent.save());
   });
 }

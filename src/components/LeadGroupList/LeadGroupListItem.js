@@ -15,7 +15,7 @@ class LeadGroupListItem extends Component {
   }
 
   render() {
-    const { attributes } = this.props.leadGroup;
+    const { attributes } = this.props.leadGroups;
 
     return (
       <div
