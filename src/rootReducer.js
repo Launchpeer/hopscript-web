@@ -8,6 +8,7 @@ import AgentsListReducer from './components/AgentsList/AgentsListReducer';
 import AgentProfileReducer from './components/AgentProfile/AgentProfileReducer';
 import LeadsAddReducer from './components/LeadsAdd/LeadsAddReducer';
 import LeadsListReducer from './components/LeadsList/LeadsListReducer';
+import LeadGroupAddReducer from './components/LeadGroup/LeadGroupAddReducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
