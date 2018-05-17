@@ -59,3 +59,43 @@ export const removeLead = id => (dispatch) => {
     })
     .catch(err => console.log('error deleting lead', err));
 };
+
+function _getLeadGroup(id) {
+  const LeadGroup = Parse.Object.extend('LeadGroup');
+  const query = new Parse.Query(LeadGroup);
+  query.get(id).then(group => group);
+}
+
+function _getLead(id) {
+  const Lead = Parse.Object.extend('Lead');
+  const query = new Parse.Query(Lead);
+  query.get(id).then(lead => lead);
+}
+
+function _reconcileLeadToGroup(lead, leadGroup) {
+  return new Promise((resolve) => {
+    const LeadGroup = _getLeadGroup(leadGroup);
+    const Lead = _getLead(lead);
+    LeadGroup.add('leads', Lead);
+    resolve(LeadGroup.save());
+  });
+}
+
+function _reconcileGroupToLead(lead, leadGroup) {
+  return new Promise((resolve) => {
+    const LeadGroup = _getLeadGroup(leadGroup);
+    const Lead = _getLead(lead);
+    Lead.add('leadGroups', LeadGroup);
+    resolve(Lead.save());
+  });
+}
+
+export const reconcileLeadsAndGroups = (lead, leadGroup) => dispatch =>
+  new Promise.all(_reconcileLeadToGroup(lead, leadGroup))
+    .then(() => {
+      dispatch(_reconcileGroupToLead(lead, leadGroup));
+      dispatch(fetchUser());
+    })
+    .catch((err) => {
+      dispatch(_leadsListError(err));
+    });

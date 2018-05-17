@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-
+import { reduxForm } from 'redux-form';
 import { Colors } from '../../config/styles';
-import { Button, ModalCard } from '../common';
+import { Button, ModalCard, InputDropDown } from '../common';
 import { removeLead } from './LeadsListActions';
+import { AddLeadToGroup } from './';
 
 class LeadsListItem extends Component {
   constructor(props) {
     super(props);
     this.handleRemoveLead = this.handleRemoveLead.bind(this);
+    this.handleLeadRoute = this.handleLeadRoute.bind(this);
   }
   handleRemoveLead() {
     this.props.removeLead(this.props.lead.id);
+  }
+
+  handleLeadRoute() {
+    browserHistory.push(`/list-leads/${this.props.lead.id}`);
   }
 
   render() {
@@ -27,6 +34,20 @@ class LeadsListItem extends Component {
       >
         <div className="flex w-100 items-center justify-between">
           <div className="w-30-ns black">{attributes.name}</div>
+          <div>
+            <Button
+              borderColor="black"
+              fontColor="black"
+              backgroundColor="white"
+              borderWidth="1px"
+              buttonPadding="pv2 ph3"
+              borderRadius="small"
+              onClick={this.handleLeadRoute}
+              classOverrides="mr1 dn flex-ns"
+            >
+              detail
+            </Button>
+          </div>
           <Button
             borderColor="red"
             fontColor="red"
