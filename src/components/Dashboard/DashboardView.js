@@ -53,6 +53,14 @@ class DashboardView extends Component {
             Add Lead Group
           </Button>
         </div>
+        <div className="pa3">
+          <Button
+            backgroundColor={Colors.black}
+            onClick={() => browserHistory.push('/list-lead-groups')}
+          >
+            Lead Groups List
+          </Button>
+        </div>
       </FullScreenContainer>
     );
   }

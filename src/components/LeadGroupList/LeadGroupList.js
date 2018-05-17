@@ -1,0 +1,31 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchUser } from '../UserActions';
+import { LeadGroupListItem } from './';
+
+class LeadGroupList extends Component {
+  constructor(props) {
+    super(props);
+    this.props.fetchUser();
+  }
+  render() {
+    const { leadGroup } = this.props.user.attributes;
+    return (
+      <div className="w-100">
+        {leadGroup &&
+          leadGroup.map(group => (
+            <LeadGroupListItem leadGroup={group} key={group.id} />
+          ))}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({ UserReducer }) => {
+  const { user } = UserReducer;
+  return {
+    user
+  };
+};
+
+export default connect(mapStateToProps, { fetchUser })(LeadGroupList);
