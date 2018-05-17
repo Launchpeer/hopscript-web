@@ -28,20 +28,33 @@ function _leadsListLoadEnd() {
   };
 }
 
+function _removeLeadFromAgent(lead) {
+  return new Promise((resolve) => {
+    const agent = Parse.User.current();
+    agent.remove('leads', lead);
+    resolve(agent.save());
+  });
+}
+
 export const removeLead = id => (dispatch) => {
   const Lead = Parse.Object.extend('Lead');
   const query = new Parse.Query(Lead);
   query
     .get(id)
     .then((lead) => {
-      lead.destroy({
-        success(lead) {
-          dispatch(fetchUser());
-          console.log('Deleted', lead.attributes.name);
-        },
-        error(lead) {
-          console.log('error deleting ', lead);
-        }
+      dispatch(_leadsListLoading());
+      _removeLeadFromAgent(lead).then(() => {
+        lead.destroy({
+          success(lead) {
+            dispatch(fetchUser());
+            dispatch(_leadsListLoadEnd());
+            console.log('Deleted', leadGroup.attributes.name);
+          },
+          error(lead) {
+            dispatch(_leadsListLoadEnd());
+            console.log('error deleting ', lead);
+          }
+        });
       });
     })
     .catch(err => console.log('error deleting lead', err));

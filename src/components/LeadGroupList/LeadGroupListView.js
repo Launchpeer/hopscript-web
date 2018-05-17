@@ -1,19 +1,22 @@
-/**
- * The purpose of this file is to provide UI wrapping around LeadsAddForm
- */
-
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { FullScreenContainer, CenterThis, Button } from '../common';
-import { LeadsAddForm, LeadsCSVForm } from './';
+import { LeadGroupList } from './';
 import { Colors } from '../../config/styles';
 
-const LeadsAddView = () => (
-  <FullScreenContainer classOverrides="mb4">
+const LeadGroupListView = () => (
+  <FullScreenContainer>
     <CenterThis>
-      <LeadsAddForm />
-      <LeadsCSVForm />
+      <LeadGroupList />
     </CenterThis>
+    <div className="pa3 tc">
+      <Button
+        backgroundColor={Colors.black}
+        onClick={() => browserHistory.push('/add-lead-group')}
+      >
+        Add Lead Group
+      </Button>
+    </div>
     <div className="pa3">
       <Button
         backgroundColor={Colors.black}
@@ -25,4 +28,4 @@ const LeadsAddView = () => (
   </FullScreenContainer>
 );
 
-export default LeadsAddView;
+export default LeadGroupListView;

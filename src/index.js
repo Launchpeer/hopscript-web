@@ -32,6 +32,9 @@ import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
 import { LeadsAddView } from './components/LeadsAdd';
 import { LeadsListView } from './components/LeadsList';
+import { LeadGroupAddView } from './components/LeadGroupAdd';
+import { LeadGroupListView } from './components/LeadGroupList';
+
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
 
@@ -81,6 +84,8 @@ ReactDOM.render(
         <Route path="list-agents" component={AgentsListView} />
         <Route path="add-leads" component={LeadsAddView} />
         <Route path="list-leads" component={LeadsListView} />
+        <Route path="add-lead-group" component={LeadGroupAddView} />
+        <Route path="list-lead-groups" component={LeadGroupListView} />
       </Route>
     </Router>
   </Provider>,
