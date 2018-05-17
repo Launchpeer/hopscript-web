@@ -3,8 +3,10 @@
  */
 
 import React from 'react';
-import { FullScreenContainer, CenterThis } from '../common';
+import { browserHistory } from 'react-router';
+import { FullScreenContainer, CenterThis, Button } from '../common';
 import { LeadsAddForm, LeadsCSVForm } from './';
+import { Colors } from '../../config/styles';
 
 const LeadsAddView = () => (
   <FullScreenContainer classOverrides="mb4">
@@ -12,6 +14,14 @@ const LeadsAddView = () => (
       <LeadsAddForm />
       <LeadsCSVForm />
     </CenterThis>
+    <div className="pa3">
+      <Button
+        backgroundColor={Colors.black}
+        onClick={() => browserHistory.push('/dashboard')}
+      >
+        Back to dashboard
+      </Button>
+    </div>
   </FullScreenContainer>
 );
 

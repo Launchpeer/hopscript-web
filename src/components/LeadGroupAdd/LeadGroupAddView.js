@@ -3,14 +3,24 @@
  */
 
 import React from 'react';
-import { FullScreenContainer, CenterThis } from '../common';
+import { FullScreenContainer, CenterThis, Button } from '../common';
 import { LeadGroupAddForm } from './';
+import { browserHistory } from 'react-router';
+import { Colors } from '../../config/styles';
 
 const LeadGroupAddView = () => (
   <FullScreenContainer classOverrides="mb4">
     <CenterThis>
       <LeadGroupAddForm />
     </CenterThis>
+    <div className="pa3">
+      <Button
+        backgroundColor={Colors.black}
+        onClick={() => browserHistory.push('/dashboard')}
+      >
+        Back to dashboard
+      </Button>
+    </div>
   </FullScreenContainer>
 );
 

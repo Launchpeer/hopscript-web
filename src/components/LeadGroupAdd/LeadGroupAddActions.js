@@ -100,7 +100,7 @@ const createLeadGroup = data => (dispatch) => {
   _createAndReconcileLeadGroup(data)
     .then(() => {
       dispatch(_leadGroupAddLoadEnd());
-      browserHistory.push('/dashboard');
+      browserHistory.push('/list-lead-groups');
     })
     .catch(err => dispatch({ type: LEAD_GROUP_ADD_ERROR, payload: err }));
 };

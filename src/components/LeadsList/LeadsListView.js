@@ -17,6 +17,14 @@ const LeadsListView = () => (
         Add Leads
       </Button>
     </div>
+    <div className="pa3">
+      <Button
+        backgroundColor={Colors.black}
+        onClick={() => browserHistory.push('/dashboard')}
+      >
+        Back to dashboard
+      </Button>
+    </div>
   </FullScreenContainer>
 );
 
