@@ -5,6 +5,7 @@ import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import { Button, InputDropDown, InputText, RenderAlert } from '../common';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
+import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 
 class LeadDetailForm extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class LeadDetailForm extends Component {
   }
 
   handleFormSubmit(data) {
-    console.log('handleformsubmit');
+    const lead = this.props.lead;
+    this.props.reconcileLeadsAndGroups(data, lead);
   }
 
   componentWillMount() {
@@ -24,8 +26,15 @@ class LeadDetailForm extends Component {
     const {
       handleSubmit, loading, leadGroups, lead
     } = this.props;
-    console.log('leadGroups', leadGroups);
-    const leadGroupOptions = leadGroups.map(leadGroup => leadGroup.attributes.groupName);
+    const leadGroupOptions = leadGroups.map((group) => {
+      group = {
+        value: group.id,
+        id: group.id,
+        display: group.attributes.groupName
+      };
+      return group;
+    });
+    console.log('leadgroupopts', leadGroupOptions);
     return (
       <div>
         <h1>Add Lead To Group</h1>
@@ -35,9 +44,9 @@ class LeadDetailForm extends Component {
               name="leadGroup"
               type="dropdown"
               label="Lead Group"
-              placeholder="Lead Group"
+              placeholder="Select a Group"
               options={leadGroupOptions}
-              borderColor="white"
+              borderColor="black"
               borderRadius="none"
             />
 
@@ -59,5 +68,6 @@ const mapStateToProps = ({ LeadGroupListReducer }) => {
 export default reduxForm({
   form: 'LeadDetailForm'
 })(connect(mapStateToProps, {
-  fetchLeadGroups
+  fetchLeadGroups,
+  reconcileLeadsAndGroups
 })(LeadDetailForm));
