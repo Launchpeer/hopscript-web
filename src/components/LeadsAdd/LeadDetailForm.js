@@ -3,44 +3,61 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Parse from 'parse';
 import { Colors } from '../../config/styles';
-import { Button, InputDropDown, RenderAlert } from '../common';
-
+import { Button, InputDropDown, InputText, RenderAlert } from '../common';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
-import { reconcileLeadsAndGroups } from './LeadsListActions';
 
-class AddLeadToGroupForm extends Component {
+class LeadDetailForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.reconcileLeadsAndGroups(data);
+    console.log('handleformsubmit');
+  }
+
+  componentWillMount() {
+    this.props.fetchLeadGroups();
   }
 
   render() {
-    const { leadGroups, handleSubmit, lead } = this.props;
+    const {
+      handleSubmit, loading, leadGroups, lead
+    } = this.props;
+    console.log('leadGroups', leadGroups);
+    const leadGroupOptions = leadGroups.map(leadGroup => leadGroup.attributes.groupName);
     return (
       <div>
-        <h1>Add To Group</h1>
-        <form onSubmit={handleSubmit(this.handleFormSubmit(lead))}>
-          <InputDropDown
-            name="leadGroups"
-            type="dropdown"
-            placeholder="Lead Groups"
-            borderColor="black"
-            options={leadGroups}
-          />
-          <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
-        </form>
+        <h1>Add Lead To Group</h1>
+        {leadGroups && (
+          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+            <InputDropDown
+              name="leadGroup"
+              type="dropdown"
+              label="Lead Group"
+              placeholder="Lead Group"
+              options={leadGroupOptions}
+              borderColor="white"
+              borderRadius="none"
+            />
+
+            <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
+          </form>
+        )}
       </div>
     );
   }
 }
 
+const mapStateToProps = ({ LeadGroupListReducer }) => {
+  const { leadGroups } = LeadGroupListReducer;
+  return {
+    leadGroups
+  };
+};
+
 export default reduxForm({
-  form: 'AddLeadToGroup'
-})(connect(null, {
-  fetchLeadGroups,
-  reconcileLeadsAndGroups
-})(AddLeadToGroupForm));
+  form: 'LeadDetailForm'
+})(connect(mapStateToProps, {
+  fetchLeadGroups
+})(LeadDetailForm));

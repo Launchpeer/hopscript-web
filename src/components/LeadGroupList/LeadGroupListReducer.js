@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   error: '',
   loading: false,
-  leadGroups: null
+  leadGroups: []
 };
 
 export default function (state = INITIAL_STATE, action) {

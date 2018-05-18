@@ -60,6 +60,7 @@ export const removeLead = id => (dispatch) => {
     .catch(err => console.log('error deleting lead', err));
 };
 
+/*
 function _getLeadGroup(id) {
   const LeadGroup = Parse.Object.extend('LeadGroup');
   const query = new Parse.Query(LeadGroup);
@@ -99,3 +100,4 @@ export const reconcileLeadsAndGroups = (lead, leadGroup) => dispatch =>
     .catch((err) => {
       dispatch(_leadsListError(err));
     });
+    */

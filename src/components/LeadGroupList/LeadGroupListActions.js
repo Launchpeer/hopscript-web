@@ -29,6 +29,13 @@ function _leadGroupListLoadEnd() {
   };
 }
 
+function _leadGroupListUpdate(groups) {
+  return {
+    type: LEAD_GROUP_LIST_UPDATE,
+    payload: groups
+  };
+}
+
 function _removeLeadGroupFromAgent(leadGroup) {
   return new Promise((resolve) => {
     const agent = Parse.User.current();
@@ -68,13 +75,8 @@ const fetchLeadGroups = () => (dispatch) => {
   query
     .find()
     .then((groups) => {
-      dispatch({
-        type: LEAD_GROUP_LIST_LOAD_END
-      });
-      dispatch({
-        type: LEAD_GROUP_LIST_UPDATE,
-        payload: leadGroups
-      });
+      dispatch(_leadGroupListLoadEnd());
+      dispatch(_leadGroupListUpdate(groups));
     })
     .catch(err => dispatch({ type: LEAD_GROUP_LIST_ERROR, payload: err }));
 };

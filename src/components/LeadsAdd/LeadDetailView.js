@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { BorderRadius } from '../../config/styles';
 import { FullScreenContainer, Button } from '../common';
 import { fetchLead } from './LeadsAddActions';
+import LeadDetailForm from './LeadDetailForm';
 
 class LeadDetailView extends Component {
   constructor(props) {
@@ -15,10 +16,15 @@ class LeadDetailView extends Component {
   }
 
   render() {
-    const { lead } = this.props;
+    const { lead, leadGroups } = this.props;
     return (
       <FullScreenContainer color="white">
-        <div>{lead && lead.attributes.name}</div>
+        <div>
+          <div className="tc f4">{lead && lead.attributes.name}</div>
+          <div>
+            <LeadDetailForm lead={lead} />
+          </div>
+        </div>
       </FullScreenContainer>
     );
   }
