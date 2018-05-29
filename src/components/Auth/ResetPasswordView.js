@@ -11,7 +11,8 @@ import {
   RenderAlert,
   Loader,
   FullScreenCenter,
-  CenterThis
+  CenterThis,
+  HeadphonesIcon
 } from '../common';
 import { resetPassword, clearError } from './AuthActions';
 
@@ -34,14 +35,14 @@ const successBlock = () => (
 const returnToLogin = (
   <div className="tc">
     <div
-      className="underline pointer dib"
+      className="underline pointer dib f3 pt4"
       onClick={() => {
         browserHistory.push('/', { authType: 'signin' });
       }}
       role="button"
-      style={{ color: Colors.brandPrimary }}
+      style={{ color: Colors.white }}
     >
-      Return to Login
+      {`< Return to Login`}
     </div>
   </div>
 );
@@ -68,13 +69,18 @@ class ResetPasswordView extends Component {
       <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
+            <div className="mt5 tc">
+              <HeadphonesIcon width="20%" fill={Colors.white} />
+            </div>
+          </CenterThis>
+          <CenterThis>
             <div
-              className="mw5 mb5 mt6 f2 b"
+              className="mw5 mb5 f1"
               style={{
                 color: Colors.white
               }}
             >
-              Swift Script
+              BreezeBot
             </div>
           </CenterThis>
           <CenterThis>
@@ -82,8 +88,6 @@ class ResetPasswordView extends Component {
               classOverrides="mw6"
               boxShadow
               borderRadius="medium"
-              bottomContent={returnToLogin}
-              bottomColor="lightGray"
             >
               <div className="pa3">
                 {loading ? (
@@ -98,7 +102,7 @@ class ResetPasswordView extends Component {
                     />
                     <Button
                       classOverrides="w-100"
-                      backgroundColor={Colors.brandPurple}
+                      backgroundColor={Colors.brandGreen}
                     >
                       Reset Password
                     </Button>
@@ -108,8 +112,11 @@ class ResetPasswordView extends Component {
                 )}
               </div>
             </Card>
+
           </CenterThis>
+          <CenterThis>    {returnToLogin}</CenterThis>
         </div>
+
       </FullScreenCenter>
     );
   }
