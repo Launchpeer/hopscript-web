@@ -41,13 +41,6 @@ const SignUp = (
   </div>
 );
 
-
-/*
-<div className="w-100 flex items-end">
-  <SignIn />
-</div>
-*/
-
 class AuthView extends Component {
   componentDidMount() {
     this.props.clearError();
@@ -63,7 +56,7 @@ class AuthView extends Component {
         <div className="w-100">
           <CenterThis>
             <div className="mt5 tc">
-              <HeadphonesIcon width="20%" fill="white" />
+              <HeadphonesIcon width="20%" fill={Colors.white} />
             </div>
           </CenterThis>
           <CenterThis>
