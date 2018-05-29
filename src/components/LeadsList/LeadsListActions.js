@@ -94,38 +94,6 @@ function _getLead(id) {
     .catch(err => console.log('err fetching', lead));
 }
 
-//  .then(lead => dispatch(_currentLead(lead)))
-/*
-function _reconcileLeadToGroup(lead, leadGroup) {
-  return new Promise((resolve) => {
-    const LeadGroup = _getLeadGroup(leadGroup);
-    const Lead = _getLead(lead);
-    LeadGroup.add('leads', Lead);
-    resolve(LeadGroup.save());
-  });
-}
-
-function _reconcileGroupToLead(lead, leadGroup) {
-  return new Promise((resolve) => {
-    const LeadGroup = _getLeadGroup(leadGroup);
-    const Lead = _getLead(lead);
-    Lead.add('leadGroups', LeadGroup);
-    resolve(Lead.save());
-  });
-}
-
-
-const reconcileLeadsAndGroups = (lead, leadGroup) => (dispatch) => {
-  new Promise.all(_reconcileLeadToGroup(lead, leadGroup))
-    .then(() => {
-      dispatch(_reconcileGroupToLead(lead, leadGroup));
-      dispatch(fetchUser());
-    })
-    .catch((err) => {
-      dispatch(_leadsListError(err));
-    });
-};
-*/
 
 function _reconcileLeadToGroup(Lead, LeadGroup) {
   return new Promise((resolve) => {
@@ -144,8 +112,6 @@ function _reconcileGroupToLead(Lead, LeadGroup) {
 const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
   dispatch(_getLead(lead.id));
   dispatch(_getLeadGroup(leadGroup.leadGroup));
-  // console.log('lead', lead.id);
-  // console.log('LeadGroup', leadGroup.leadGroup);
 };
 
 export { reconcileLeadsAndGroups };

@@ -24,7 +24,7 @@ const renderInput = (field) => {
         }}
       >
         <div className="pa1">
-          {input.name === 'email' ? (
+          {input.name === 'email' || input.name === 'username' ? (
             <User color={touched && error ? 'red' : Colors.brandPrimary} />
           ) : (
             <Lock color={touched && error ? 'red' : Colors.brandPrimary} />

@@ -90,14 +90,14 @@ class AuthView extends Component {
                 </CenterThis>
               </div>
             ) : (
-              <Card
-                classOverrides="mb5 bg-white"
-                boxShadow
-                bottomContent={SignIn}
-                bottomColor="lightGray"
+              <div className="w-40-l mw6">
+                <Card
+                  classOverrides="mb5 bg-white"
+                  boxShadow
               >
-                <BrokerageSignUpForm />
-              </Card>
+                  <BrokerageSignUpForm />
+                </Card>
+              </div>
             )}
           </CenterThis>
         </div>
