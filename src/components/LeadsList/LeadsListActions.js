@@ -4,7 +4,9 @@ import {
   LEADS_LIST_ERROR,
   LEADS_LIST_CLEAR_ERROR,
   LEADS_LIST_LOADING,
-  LEADS_LIST_LOAD_END
+  LEADS_LIST_LOAD_END,
+  CURRENT_LEAD,
+  CURRENT_LEAD_GROUP
 } from './LeadsListTypes';
 
 import { fetchUser } from '../UserActions';
@@ -59,3 +61,57 @@ export const removeLead = id => (dispatch) => {
     })
     .catch(err => console.log('error deleting lead', err));
 };
+
+function _currentLead(lead) {
+  return {
+    type: CURRENT_LEAD,
+    payload: lead
+  };
+}
+
+function _currentLeadGroup(leadGroup) {
+  return {
+    type: CURRENT_LEAD_GROUP,
+    payload: leadGroup
+  };
+}
+
+function _getLeadGroup(id) {
+  const LeadGroup = Parse.Object.extend('LeadGroup');
+  const query = new Parse.Query(LeadGroup);
+  query
+    .get(id)
+    .then(group => console.log('gotem', group))
+    .catch(err => console.log('err fetching', lead));
+}
+
+function _getLead(id) {
+  const Lead = Parse.Object.extend('Lead');
+  const query = new Parse.Query(Lead);
+  query
+    .get(id)
+    .then(lead => console.log('gotem', lead))
+    .catch(err => console.log('err fetching', lead));
+}
+
+
+function _reconcileLeadToGroup(Lead, LeadGroup) {
+  return new Promise((resolve) => {
+    LeadGroup.add('leads', Lead);
+    resolve(LeadGroup.save());
+  });
+}
+
+function _reconcileGroupToLead(Lead, LeadGroup) {
+  return new Promise((resolve) => {
+    Lead.add('leadGroups', LeadGroup);
+    resolve(Lead.save());
+  });
+}
+
+const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
+  dispatch(_getLead(lead.id));
+  dispatch(_getLeadGroup(leadGroup.leadGroup));
+};
+
+export { reconcileLeadsAndGroups };

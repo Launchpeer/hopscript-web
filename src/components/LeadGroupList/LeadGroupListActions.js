@@ -4,7 +4,8 @@ import {
   LEAD_GROUP_LIST_ERROR,
   LEAD_GROUP_LIST_CLEAR_ERROR,
   LEAD_GROUP_LIST_LOADING,
-  LEAD_GROUP_LIST_LOAD_END
+  LEAD_GROUP_LIST_LOAD_END,
+  LEAD_GROUP_LIST_UPDATE
 } from './LeadGroupListTypes';
 
 import { fetchUser } from '../UserActions';
@@ -25,6 +26,13 @@ function _leadGroupListLoading() {
 function _leadGroupListLoadEnd() {
   return {
     type: LEAD_GROUP_LIST_LOAD_END
+  };
+}
+
+function _leadGroupListUpdate(groups) {
+  return {
+    type: LEAD_GROUP_LIST_UPDATE,
+    payload: groups
   };
 }
 
@@ -59,3 +67,18 @@ export const removeLeadGroup = id => (dispatch) => {
     })
     .catch(err => console.log('error deleting lead', err));
 };
+
+const fetchLeadGroups = () => (dispatch) => {
+  dispatch(_leadGroupListLoading());
+  const LeadGroup = Parse.Object.extend('LeadGroup');
+  const query = new Parse.Query(LeadGroup);
+  query
+    .find()
+    .then((groups) => {
+      dispatch(_leadGroupListLoadEnd());
+      dispatch(_leadGroupListUpdate(groups));
+    })
+    .catch(err => dispatch({ type: LEAD_GROUP_LIST_ERROR, payload: err }));
+};
+
+export { fetchLeadGroups };

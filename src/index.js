@@ -30,7 +30,7 @@ import { AgentProfileView } from './components/AgentProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
-import { LeadsAddView } from './components/LeadsAdd';
+import { LeadsAddView, LeadDetailView } from './components/LeadsAdd';
 import { LeadsListView } from './components/LeadsList';
 import { LeadGroupAddView } from './components/LeadGroupAdd';
 import { LeadGroupListView } from './components/LeadGroupList';
@@ -84,6 +84,7 @@ ReactDOM.render(
         <Route path="list-agents" component={AgentsListView} />
         <Route path="add-leads" component={LeadsAddView} />
         <Route path="list-leads" component={LeadsListView} />
+        <Route path="list-leads/:id" component={LeadDetailView} />
         <Route path="add-lead-group" component={LeadGroupAddView} />
         <Route path="list-lead-groups" component={LeadGroupListView} />
       </Route>

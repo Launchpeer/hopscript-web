@@ -13,7 +13,8 @@ import {
   LEADS_ADD_ERROR,
   LEADS_ADD_CLEAR_ERROR,
   LEADS_ADD_LOADING,
-  LEADS_ADD_LOAD_END
+  LEADS_ADD_LOAD_END,
+  LEAD_SET_CURRENT
 } from './LeadsAddTypes';
 import parsePhone from '../helpers/parsePhone';
 import { fetchUser } from '../UserActions';
@@ -193,4 +194,26 @@ const createLead = data => (dispatch) => {
     .catch(err => dispatch({ type: LEADS_ADD_ERROR, payload: err }));
 };
 
-export { parseCSV, clearError, createLead };
+function _setCurrentLead(lead) {
+  return {
+    type: LEAD_SET_CURRENT,
+    payload: lead
+  };
+}
+
+const fetchLead = id => (dispatch) => {
+  dispatch(_leadsAddLoading());
+  const Lead = Parse.Object.extend('Lead');
+  const query = new Parse.Query(Lead);
+  query
+    .get(id)
+    .then((lead) => {
+      dispatch(_leadsAddLoadEnd());
+      dispatch(_setCurrentLead(lead));
+    })
+    .catch((err) => {
+      dispatch(_leadsAddError(err));
+    });
+};
+
+export { parseCSV, clearError, createLead, fetchLead };

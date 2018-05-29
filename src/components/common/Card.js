@@ -10,14 +10,14 @@ const Card = (props) => {
       <div
         className={`w-100 ${props.classOverrides}`}
         style={{
-          borderRadius: '4px',
+          borderRadius: BorderRadius.all,
           boxShadow: props.boxShadow ? `0 2px 8px rgba(0,0,0,0.25)` : 'none'
         }}
       >
         <div
           className="w-100 pa4 pl5 pr5 bg-white"
           style={{
-            borderRadius: '4px'
+            borderRadius: BorderRadius.all
           }}
         >
           {props.children}
@@ -30,11 +30,11 @@ const Card = (props) => {
       className={`w-100 ${props.classOverrides}`}
       style={{
         boxShadow: props.boxShadow ? `0 2px 8px rgba(0,0,0,0.25)` : 'none',
-        borderRadius: '4px'
+        borderRadius: BorderRadius.all
       }}
     >
       <div
-        className="w-100 pa4 pl4 pr4 bg-white"
+        className="w-100 pt5 pl5 pr5 pb4 bg-white"
         style={{
           borderRadius: BorderRadius.top
         }}
@@ -42,7 +42,7 @@ const Card = (props) => {
         {props.children}
       </div>
       <div
-        className="w-100 pa4 pl6 pr6"
+        className="w-100 pa4 pl5 pr5"
         style={{
           backgroundColor: Colors[props.bottomColor],
           borderRadius: BorderRadius.bottom

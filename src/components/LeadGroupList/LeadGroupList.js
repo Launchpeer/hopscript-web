@@ -16,6 +16,9 @@ class LeadGroupList extends Component {
           leadGroups.map(group => (
             <LeadGroupListItem leadGroups={group} key={group.id} />
           ))}
+        {leadGroups.length === 0 && (
+          <div className="tc">You haven't added any lead groups.</div>
+        )}
       </div>
     );
   }

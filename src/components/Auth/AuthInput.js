@@ -17,14 +17,14 @@ const renderInput = (field) => {
   return (
     <div>
       <div
-        className="flex items-center pa2 ba mb3"
+        className="flex items-center pa2 ba mb3 w100"
         style={{
-          borderRadius: '4px',
+          borderRadius: BorderRadius.all,
           borderColor: borderColor || Colors.moonGray
         }}
       >
         <div className="pa1">
-          {input.name === 'email' ? (
+          {input.name === 'email' || input.name === 'username' ? (
             <User color={touched && error ? 'red' : Colors.brandPrimary} />
           ) : (
             <Lock color={touched && error ? 'red' : Colors.brandPrimary} />
@@ -36,10 +36,10 @@ const renderInput = (field) => {
             {...input}
             type={type}
             placeholder={placeholder}
-            className="w-100 pa2 flex items-center bn"
+            className="w-100 pa2 f3 flex items-start bn"
             style={{
               color: fontColor || Colors['darkGrey'],
-              borderRadius: 'small'
+              borderRadius: BorderRadius.all
             }}
           />
         </div>
@@ -47,7 +47,7 @@ const renderInput = (field) => {
 
       {touched &&
         error && (
-          <div className="mb4 mt4">
+          <div className="mb3">
             <RenderAlert error={{ message: error }} />
           </div>
         )}

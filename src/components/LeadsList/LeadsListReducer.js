@@ -2,12 +2,16 @@ import {
   LEADS_ADD_LOAD_END,
   LEADS_ADD_ERROR,
   LEADS_ADD_CLEAR_ERROR,
-  LEADS_ADD_LOADING
+  LEADS_ADD_LOADING,
+  CURRENT_LEAD,
+  CURRENT_LEAD_GROUP
 } from './LeadsListTypes';
 
 const INITIAL_STATE = {
   error: '',
-  loading: false
+  loading: false,
+  lead: null,
+  leadGroup: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -20,6 +24,10 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, loading: false };
     case LEADS_ADD_LOADING:
       return { ...state, loading: true };
+    case CURRENT_LEAD:
+      return { ...state, lead: action.payload };
+    case CURRENT_LEAD_GROUP:
+      return { ...state, leadGroup: action.payload };
     default:
       return state;
   }
