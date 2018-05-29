@@ -104,7 +104,7 @@ class AuthView extends Component {
             ) : (
               <div className="w-40-l mw6">
                 <Card
-                  classOverrides="mb5 bg-white"
+                  classOverrides="mb5 pl3 pr3 pt3 bg-white"
                   boxShadow
               >
                   <BrokerageSignUpForm />
