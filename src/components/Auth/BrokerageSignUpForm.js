@@ -16,10 +16,15 @@ class BrokerageSignUpForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.openPdf = this.openPdf.bind(this);
   }
 
   handleFormSubmit({ username, email, password }) {
     this.props.signUpUser(username, email, password);
+  }
+
+  openPdf() {
+    window.open('./terms_pdf_example.pdf', '_blank', 'fullscreen=yes');
   }
 
   render() {
@@ -48,6 +53,15 @@ class BrokerageSignUpForm extends Component {
               label="password"
               placeholder="Password"
             />
+            <div className="tc center w-100 mb4 moonGray">
+          * By clicking Create Account, you agree to our
+              <div className="brand-primary pointer w-100"
+                role="button"
+                onKeyPress={this.openPdf}
+                onClick={this.openPdf}>
+              Terms of Service, Privacy Policy, and End User Agreement
+              </div>
+            </div>
             <Button classOverrides="w-100" backgroundColor={Colors.brandGreen}>
               Create Account
             </Button>
