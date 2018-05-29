@@ -2,8 +2,13 @@
 
 var Colors = {
   // Brand
-  brandPrimary: '#00CDAC',
-  brandPurple: '#553982',
+  brandPrimary: '#6772e5',
+  brandPrimaryShade: '#5c66d5',
+  brandSecondary: '#3943a5',
+  brandGreen: '#00cd6a',
+  brandRed: '#ff5628',
+  brandNearBlack: '#3e3e3e',
+
   stripe: '#6772E5',
 
   // Basic Tachyon
@@ -13,6 +18,7 @@ var Colors = {
   silver: '#999999',
   moonGray: '#CCCCCC',
   lightGray: '#EEEEEE',
+  nearWhite: '#f4f4f4',
   white: '#ffffff',
   mediumRed: '#e7040f',
   darkRed: '#D0021B'
@@ -41,9 +47,9 @@ var Icons = {
 
 var BorderRadius = {
   none: 'none',
-  all: '4px',
-  top: '4px 4px 0px 0px',
-  bottom: '0px 0px 4px 4px'
+  all: '0px',
+  top: '0px',
+  bottom: '0px'
 }
 
 var MaxWidth = {

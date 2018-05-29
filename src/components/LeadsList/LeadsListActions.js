@@ -4,7 +4,9 @@ import {
   LEADS_LIST_ERROR,
   LEADS_LIST_CLEAR_ERROR,
   LEADS_LIST_LOADING,
-  LEADS_LIST_LOAD_END
+  LEADS_LIST_LOAD_END,
+  CURRENT_LEAD,
+  CURRENT_LEAD_GROUP
 } from './LeadsListTypes';
 
 import { fetchUser } from '../UserActions';
@@ -60,12 +62,26 @@ export const removeLead = id => (dispatch) => {
     .catch(err => console.log('error deleting lead', err));
 };
 
+function _currentLead(lead) {
+  return {
+    type: CURRENT_LEAD,
+    payload: lead
+  };
+}
+
+function _currentLeadGroup(leadGroup) {
+  return {
+    type: CURRENT_LEAD_GROUP,
+    payload: leadGroup
+  };
+}
+
 function _getLeadGroup(id) {
   const LeadGroup = Parse.Object.extend('LeadGroup');
   const query = new Parse.Query(LeadGroup);
   query
     .get(id)
-    .then(group => group)
+    .then(group => console.log('gotem', group))
     .catch(err => console.log('err fetching', lead));
 }
 
@@ -74,9 +90,11 @@ function _getLead(id) {
   const query = new Parse.Query(Lead);
   query
     .get(id)
-    .then(lead => lead)
+    .then(lead => console.log('gotem', lead))
     .catch(err => console.log('err fetching', lead));
 }
+
+//  .then(lead => dispatch(_currentLead(lead)))
 /*
 function _reconcileLeadToGroup(lead, leadGroup) {
   return new Promise((resolve) => {
@@ -124,8 +142,10 @@ function _reconcileGroupToLead(Lead, LeadGroup) {
 }
 
 const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
-  console.log('leadGroup', leadGroup.leadGroup);
-  console.log('lead', lead.id);
+  dispatch(_getLead(lead.id));
+  dispatch(_getLeadGroup(leadGroup.leadGroup));
+  // console.log('lead', lead.id);
+  // console.log('LeadGroup', leadGroup.leadGroup);
 };
 
 export { reconcileLeadsAndGroups };

@@ -3,7 +3,7 @@ import React from 'react';
 const renderAlert = ({ error, classOverrides }) => (
   <div>
     {error &&
-      <div className={`mt3 tc red ${classOverrides}`}>
+      <div className={`tc red ${classOverrides}`}>
         <strong>{error.message}</strong>
       </div>
     }

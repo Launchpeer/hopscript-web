@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { Card, CenterThis, FullScreenCenter } from '../common';
+import { Card, CenterThis, FullScreenCenter, HeadphonesIcon } from '../common';
 import { Colors, BorderRadius } from '../../config/styles';
 import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError } from './AuthActions';
@@ -27,19 +27,15 @@ const SignIn = (
 
 const SignUp = (
   <div className="tc">
-    <div className="dib pr1" style={{ color: Colors.gray }}>
-      Don't have an account?
-    </div>
-
     <div
-      className="underline pointer dib"
+      className="underline pointer dib f3"
       onClick={() => {
         browserHistory.push('/signup');
       }}
       role="button"
       style={{ color: Colors.brandPrimary }}
     >
-      Sign Up
+      New to Breeze Bot? Sign Up
     </div>
   </div>
 );
@@ -54,20 +50,25 @@ class AuthView extends Component {
       <FullScreenCenter color={Colors.brandPrimary}>
         <div className="w-100">
           <CenterThis>
+            <div className="mt6 tc">
+              <HeadphonesIcon width="20%" fill="white" />
+            </div>
+          </CenterThis>
+          <CenterThis>
             <div
-              className="mw5 mb5 mt6 f2 b"
+              className="mw5 mb5 f1"
               style={{
                 color: Colors.white
               }}
             >
-              Swift Script
+              BreezeBot
             </div>
           </CenterThis>
           <CenterThis>
             {this.props.route.authType === 'signin' ? (
-              <div>
+              <div className="w-40-l mw6">
                 <Card
-                  classOverrides="mw6 mb4 bg-white"
+                  classOverrides="mb4 bg-white"
                   boxShadow
                   bottomContent={SignUp}
                   bottomColor="lightGray"
@@ -76,7 +77,7 @@ class AuthView extends Component {
                 </Card>
                 <CenterThis>
                   <div
-                    className="underline pointer dib p5 mb7"
+                    className="underline pointer dib p5 mb7 f3 "
                     style={{
                       color: Colors.white
                     }}
@@ -90,7 +91,7 @@ class AuthView extends Component {
               </div>
             ) : (
               <Card
-                classOverrides="mw6 mb5 bg-white"
+                classOverrides="mb5 bg-white"
                 boxShadow
                 bottomContent={SignIn}
                 bottomColor="lightGray"

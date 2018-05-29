@@ -36,3 +36,6 @@ export { default as InputUI } from './input/InputUI';
 export { default as InputPhoto } from './input/InputPhoto';
 export { default as InputAddress } from './input/InputAddress';
 export { default as InputFile } from './input/InputFile';
+
+export { default as HeadphonesIcon } from './images/HeadphonesIcon';
+export { default as CallIcon } from './images/CallIcon';

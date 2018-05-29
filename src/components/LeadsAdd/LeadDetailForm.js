@@ -34,7 +34,6 @@ class LeadDetailForm extends Component {
       };
       return group;
     });
-    console.log('leadgroupopts', leadGroupOptions);
     return (
       <div>
         <h1>Add Lead To Group</h1>
