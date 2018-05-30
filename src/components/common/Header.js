@@ -56,7 +56,7 @@ const headerContent = (route, user) => (
           size: 72
         }}
       >
-        Swift Script
+        BreezeBot
       </div>
     </div>
     <div className="mr3">
