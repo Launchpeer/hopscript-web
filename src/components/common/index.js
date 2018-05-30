@@ -26,6 +26,7 @@ export { default as PhotoUpload } from './PhotoUpload';
 export { default as GoogleAutocomplete } from './GoogleAutocomplete';
 export { default as TwoColumnFieldRow } from './TwoColumnFieldRow';
 export { default as TwoColumnRows } from './TwoColumnRows';
+export { default as SideBar } from './SideBar';
 
 export { default as InputDatetime } from './input/InputDatetime';
 export { default as InputDropDown } from './input/InputDropDown';
