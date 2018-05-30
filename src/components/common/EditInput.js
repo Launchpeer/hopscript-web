@@ -18,20 +18,9 @@ const RenderInfoDisplay = ({
       borderBottom: `1px solid ${borderColor}`
     }}
   >
-    {!noEdit && (
-      <div
-        className="pointer"
-        style={{
-          color: Colors.moonGray
-        }}
-        role="button"
-        onClick={onClick}
-      >
-        <Edit3 className="pa3" />
-      </div>
-    )}
+
     <div
-      className="ba w-100 f5 pa2 mt2 bn"
+      className="ba w-100 f5 pa2 mt2 bn "
       style={{
         color: fontColor ? Colors[fontColor] : Colors.primaryGrey
       }}
@@ -39,6 +28,18 @@ const RenderInfoDisplay = ({
       {cash && '$ '}
       {placeholder}
     </div>
+    {!noEdit && (
+      <div
+        className="pointer"
+        style={{
+          color: Colors.stripe
+        }}
+        role="button"
+        onClick={onClick}
+      >
+        Edit
+      </div>
+    )}
   </div>
 );
 
@@ -65,17 +66,6 @@ const renderTextInput = (field) => {
         borderBottom: `1px solid ${borderColor}`
       }}
     >
-      <div
-        className="pointer"
-        style={{
-          color: Colors.brandPrimary
-        }}
-        onClick={onClick}
-        onKeyPress={onClick}
-        role="button"
-      >
-        <Save className="pa3" />
-      </div>
       <input
         {...input}
         type={type}
@@ -85,6 +75,16 @@ const renderTextInput = (field) => {
           color: fontColor ? Colors[fontColor] : Colors.primaryGrey
         }}
       />
+      <div
+        className="pointer"
+        style={{
+          color: Colors.stripe
+        }}
+        role="button"
+        onClick={onClick}
+      >
+        Save
+      </div>
     </div>
   );
 };
@@ -127,7 +127,7 @@ class EditInput extends Component {
               component={component || renderTextInput}
               fontColor={fontColor}
               borderRadius={borderRadius}
-              borderColor={borderColor}
+              borderColor="null"
               editInput
               cash={cash}
               onClick={() => {

@@ -66,7 +66,13 @@ class BrokerDetailView extends Component {
             <CenterThis>
 
               <div className="w-80" style={{ backgroundColor: Colors.white }} >
-                <BrokerProfileForm />
+
+                <CenterThis>
+                  <div className="w-50">
+                    <BrokerProfileForm />
+                  </div>
+                </CenterThis>
+
               </div>
 
             </CenterThis>

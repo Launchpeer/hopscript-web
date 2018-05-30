@@ -3,9 +3,9 @@ import { Colors } from '../../config/styles';
 
 const Label = ({ name, label }) => (
   <label htmlFor={name}
-    className="f6"
+    className="f6 b"
     style={{
-      color: Colors.primaryGrey
+      color: Colors.black
     }}
     >{label}
   </label>

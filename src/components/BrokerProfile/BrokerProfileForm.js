@@ -29,19 +29,21 @@ class UpdateBrokerProfileFormView extends Component {
   render() {
     const { user, handleSubmit } = this.props;
     return (
-      <div className="w-70">
+      <div>
         <form className="mv4">
           <EditInput
             name="username"
             type="text"
-            borderColor={Colors.brandDeepGray}
+            label="Company Name"
+            borderColor={Colors.moonGray}
             placeholder={user && user.get('username')}
             onSubmit={handleSubmit(this.handleFormSubmit)}
           />
           <EditInput
             name="email"
             type="text"
-            borderColor={Colors.brandDeepGray}
+            label="Email Address"
+            borderColor={Colors.moonGray}
             placeholder={user && user.get('email')}
             onSubmit={handleSubmit(this.handleFormSubmit)}
           />
