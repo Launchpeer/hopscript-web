@@ -29,7 +29,7 @@ class BrokerDetailView extends Component {
   }
 
   deleteBrokerProfile() {
-    this.props.deleteProfile();
+    this.props.deleteBrokerProfile();
   }
 
   handleSignOut() {
@@ -75,9 +75,9 @@ class BrokerDetailView extends Component {
 
                 <CenterThis>
                   <div className="silver f5 tc w-50 mb3">
-                    IMPORTANT! PLease note that if you choose "Delete Account",
+                    IMPORTANT! Please note that if you choose "Delete Account",
                     your account and information will be forever permanently deleted.
-                    Think twice before deleting you account as it is an irreversable decision.
+                    Think twice before deleting your account as it is an irreversable decision.
                   </div>
                 </CenterThis>
                 <CenterThis>
@@ -89,12 +89,44 @@ class BrokerDetailView extends Component {
                       borderRadius="10px"
                       borderColor="silver"
                       borderWidth="1px"
-                      onClick={() => alert('This will launch the delete modal')}
+                      onClick={() => this.toggleModal()}
              >
                Permanently Delete Account
                     </Button>
                   </div>
                 </CenterThis>
+
+                {showModal && (
+                <ModalCard header="Delete Account" onClick={this.toggleModal}>
+                  <div className="pa4 pl5 pr5">
+                    <div className="mb4">
+                  Are you sure you want to delete your account? This action
+                  cannot be undone.
+                    </div>
+                    <Button
+                      onClick={() => this.toggleModal()}
+                      classOverrides="w-100 mb3"
+                      fontColor="silver"
+                      borderRadius="10px"
+                      borderColor="silver"
+                      borderWidth="1px"
+                >
+                  Cancel
+                    </Button>
+                    <Button
+                      borderWidth="1px"
+                      borderColor="brand-red"
+                      borderRadius="10px"
+                      backgroundColor="white"
+                      fontColor="brandRed"
+                      classOverrides="w-100"
+                      onClick={this.deleteBrokerProfile}
+                >
+                  Permanently Delete Account
+                    </Button>
+                  </div>
+                </ModalCard>
+          )}
 
               </div>
 
