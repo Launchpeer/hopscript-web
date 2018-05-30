@@ -68,14 +68,39 @@ class BrokerDetailView extends Component {
               <div className="w-80" style={{ backgroundColor: Colors.white }} >
 
                 <CenterThis>
-                  <div className="w-50">
+                  <div className="w-50 mt5 mb4">
                     <BrokerProfileForm />
+                  </div>
+                </CenterThis>
+
+                <CenterThis>
+                  <div className="silver f5 tc w-50 mb3">
+                    IMPORTANT! PLease note that if you choose "Delete Account",
+                    your account and information will be forever permanently deleted.
+                    Think twice before deleting you account as it is an irreversable decision.
+                  </div>
+                </CenterThis>
+                <CenterThis>
+                  <div className="w-50 mb6">
+                    <Button
+                      classOverrides="w-100 f5 "
+                      backgroundColor={Colors.white}
+                      fontColor="silver"
+                      borderRadius="10px"
+                      borderColor="silver"
+                      borderWidth="1px"
+                      onClick={() => alert('This will launch the delete modal')}
+             >
+               Permanently Delete Account
+                    </Button>
                   </div>
                 </CenterThis>
 
               </div>
 
+
             </CenterThis>
+
 
           </div>
 
