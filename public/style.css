@@ -29,6 +29,9 @@ input:focus {
 .bg-moon-grey {
   background: #CCCCCC; }
 
+.bg-light-grey {
+  background: #EEEEEE; }
+
 .hov-primary:hover {
   background: #6772e5; }
 

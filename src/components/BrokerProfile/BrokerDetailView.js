@@ -8,7 +8,8 @@ import {
   CardWithLabel,
   LoaderOrThis,
   ModalCard,
-  SideBar
+  SideBar,
+  Card
 } from '../common';
 import { Colors, BorderRadius } from '../../config/styles';
 import { deleteBrokerProfile } from './BrokerProfileActions';
@@ -44,70 +45,29 @@ class BrokerDetailView extends Component {
     const { loading, user } = this.props;
     return (
 
-      <FullScreenContainer >
+      <FullScreenContainer classOverrides=" vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
           <div className="dib w-10 vh-100 " style={{ position: 'fixed' }}>
             <div className="w-100" >
               <SideBar />
             </div>
           </div>
-          <div className="dib w-90 absolute top-0">
-            <div className="w-100">
-              <CenterThis>
+          <div className="w-90 absolute right-0" >
+
+            <CenterThis>
+              <div className="w-80 mt3 mb1 pa4 b f4" style={{ backgroundColor: Colors.white }} >
+          Broker Account
+
+              </div>
+            </CenterThis>
+            <CenterThis>
+
+              <div className="w-80" style={{ backgroundColor: Colors.white }} >
                 <BrokerProfileForm />
-              </CenterThis>
-              <CenterThis>
-                <div className="w-70 pa2">
-                  <Button
-                    classOverrides="w-100"
-                    onClick={() => this.handleSignOut()}
-                    backgroundColor={Colors.black}
-                    fontColor="white"
-                    borderRadius={BorderRadius.all}
-            >
-              log out
-                  </Button>
-                </div>
-              </CenterThis>
-              <CenterThis>
-                <div className="w-70 pa2">
-                  <Button
-                    classOverrides="w-100"
-                    backgroundColor={Colors.mediumRed}
-                    fontColor="white"
-                    borderRadius={BorderRadius.all}
-            >
-              delete my account
-                  </Button>
-                </div>
-              </CenterThis>
-              {showModal && (
-              <ModalCard header="Delete Account" onClick={this.toggleModal}>
-                <div className="pa4 pl5 pr5">
-                  <div className="pb4">
-                Are you sure you want to delete your account? This action
-                cannot be undone.
-                  </div>
-                  <Button
-                    onClick={() => this.toggleModal()}
-                    classOverrides="w-100 mb3"
-              >
-                Cancel
-                  </Button>
-                  <Button
-                    borderWidth="1px"
-                    borderColor="brandDeepGray"
-                    backgroundColor="white"
-                    fontColor="brandDeepGray"
-                    classOverrides="w-100"
-                    onClick={this.deleteBrokerProfile}
-              >
-                Permanently Delete Account
-                  </Button>
-                </div>
-              </ModalCard>
-        )}
-            </div>
+              </div>
+
+            </CenterThis>
+
           </div>
 
 
