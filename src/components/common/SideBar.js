@@ -42,7 +42,7 @@ const showDropDown = (user) => {
 
 const sidebarContent = (route, user) => (
   <div
-    className="pa2 flex flex-column" >
+    className="pa2 flex flex-column mt3" >
     <div className="tc mb2">
       <HeadphonesIcon width="40%" fill={Colors.white} />
     </div>
@@ -61,7 +61,7 @@ const sidebarContent = (route, user) => (
 
 const SideBar = ({ route, user }) => (
   <div
-    className="fl w-100 "
+    className="fl w-100"
     style={{
       backgroundColor: Colors.brandPrimary,
       height: '100vh'

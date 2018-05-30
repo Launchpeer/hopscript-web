@@ -46,8 +46,8 @@ class BrokerDetailView extends Component {
 
       <FullScreenContainer >
         <LoaderOrThis loading={loading}>
-          <div className="dib w-10 vh-100">
-            <div className="w-100">
+          <div className="dib w-10 vh-100 " style={{ position: 'fixed' }}>
+            <div className="w-100" >
               <SideBar />
             </div>
           </div>
