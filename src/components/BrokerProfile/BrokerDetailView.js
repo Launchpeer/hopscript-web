@@ -55,9 +55,9 @@ class BrokerDetailView extends Component {
           <div className="w-90 absolute right-0" >
 
             <CenterThis>
-              <div className="w-80 mt3 mb1 pa4 f4 flex justify-around" style={{ backgroundColor: Colors.white }} >
-                <div className="b">Broker Account</div>
-                <div onClick={this.handleSignOut} className="pointer white pa2 f4" style={{ backgroundColor: Colors.brandGreen, borderRadius: 'all' }} role="button">
+              <div className="w-80 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
+                <div className="b pa2">Broker Account</div>
+                <div onClick={this.handleSignOut} className="pointer white pt2 pb2 pl4 pr4 f5" style={{ backgroundColor: Colors.brandGreen, borderRadius: '4px' }} role="button">
               Logout
                 </div>
 
