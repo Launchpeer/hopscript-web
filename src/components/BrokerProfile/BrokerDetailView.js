@@ -39,7 +39,7 @@ class BrokerDetailView extends Component {
   toggleModal() {
     this.setState({ showModal: !this.state.showModal });
   }
-  // onClick={() => this.handleSignout}
+
   render() {
     const { showModal } = this.state;
     const { loading, user } = this.props;
@@ -47,7 +47,7 @@ class BrokerDetailView extends Component {
 
       <FullScreenContainer classOverrides=" vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
-          <div className="dib w-10 vh-100 " style={{ position: 'fixed' }}>
+          <div className="dib mw4-ns w-10 vh-100 " style={{ position: 'fixed' }}>
             <div className="w-100" >
               <SideBar />
             </div>
@@ -55,8 +55,11 @@ class BrokerDetailView extends Component {
           <div className="w-90 absolute right-0" >
 
             <CenterThis>
-              <div className="w-80 mt3 mb1 pa4 b f4" style={{ backgroundColor: Colors.white }} >
-          Broker Account
+              <div className="w-80 mt3 mb1 pa4 f4 flex justify-around" style={{ backgroundColor: Colors.white }} >
+                <div className="b">Broker Account</div>
+                <div onClick={this.handleSignOut} className="pointer white pa2 f4" style={{ backgroundColor: Colors.brandGreen, borderRadius: 'all' }} role="button">
+              Logout
+                </div>
 
               </div>
             </CenterThis>

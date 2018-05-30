@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-
+import { User } from 'react-feather';
 import { Colors } from '../../config/styles';
 import { Button, ProfileDropDown, CenterThis, HeadphonesIcon, PeopleIcon } from './';
 
@@ -27,7 +27,7 @@ const SideBar = ({ route, user }) => (
     <div
       className="pa2 flex flex-column mt3" >
       <div className="tc mb2">
-        <HeadphonesIcon width="35%" fill={Colors.white} />
+        <HeadphonesIcon width="30%" fill={Colors.white} />
       </div>
       <div className="f5 white tc mb4">
     BreezeBot
@@ -42,7 +42,16 @@ const SideBar = ({ route, user }) => (
       </div>
       <CenterThis>
         <div className="fixed bottom-1 mb2">
-          {showDropDown(user)}
+          <div
+            className="bg-white br-100 flex items-center justify-center ml2 mr2"
+            style={{
+              width: '3rem',
+              height: '3rem'
+            }}
+
+          >
+            <User color={Colors.brandPrimary} size={30} scale={3} />
+          </div>
         </div>
       </CenterThis>
     </div>

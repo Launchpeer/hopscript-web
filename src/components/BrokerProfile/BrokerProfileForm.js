@@ -4,6 +4,7 @@ import { reduxForm } from 'redux-form';
 import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import { EditInput } from '../common';
+import { logOutUser } from '../Auth/AuthActions';
 
 import { updateBrokerProfile } from './BrokerProfileActions';
 
@@ -14,10 +15,15 @@ class UpdateBrokerProfileFormView extends Component {
       editText: true
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   handleFormSubmit(data) {
     this.props.updateBrokerProfile(data);
+  }
+
+  handleSignOut() {
+    this.props.logOutUser();
   }
 
   render() {
@@ -59,5 +65,6 @@ const mapStateToProps = ({ BrokerProfileReducer, UserReducer }) => {
 export default reduxForm({
   form: 'updateBrokerProfileForm'
 })(connect(mapStateToProps, {
-  updateBrokerProfile
+  updateBrokerProfile,
+  logOutUser
 })(UpdateBrokerProfileFormView));
