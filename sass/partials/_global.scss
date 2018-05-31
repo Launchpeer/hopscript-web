@@ -4,12 +4,21 @@
 }
 
 $brandPrimary: map_get($Colors, brandPrimary);
-$brandDeepGray: map_get($Colors, brandDeepGray);
-$brandPurple: map_get($Colors, brandPurple);
-$moonGray: map_get($Colors, moonGray);
-$white: map_get($Colors, white);
+$brandPrimaryShade: map_get($Colors, brandPrimaryShade);
+$brandSecondary: map_get($Colors, brandSecondary);
+$brandGreen: map_get($Colors, brandGreen);
+$brandRed: map_get($Colors, brandRed);
 $silver: map_get($Colors, silver);
+$brandNearBlack: map_get($Colors, brandNearBlack);
+$black: map_get($Colors, black);
+$darkGray: map_get($Colors, darkGray);
+$moonGray: map_get($Colors, moonGray);
+$lightGray: map_get($Colors, lightGray);
 $nearWhite: map_get($Colors, nearWhite);
+$white: map_get($Colors, white);
+$mediumRed: map_get($Colors, mediumRed);
+$darkRed: map_get($Colors, darkRed);
+
 
 button,
 input {
@@ -31,10 +40,7 @@ input {
   opacity: 0.75;
 }
 
-.hov-purple:hover {
-  background-color: $brandPurple !important;
-  color: white !important;
-}
+
 .brand-primary {
   color: $brandPrimary;
 }
@@ -43,12 +49,12 @@ input {
   background-color: $brandPrimary;
 }
 
-.brand-deep-gray {
-  color: $brandDeepGray;
+.brand-secondary {
+  color: $brandSecondary;
 }
 
-.bg-brand-purple {
-  background-color: $brandPurple;
+.brand-red {
+  color: $brandRed;
 }
 
 .moon-grey {
@@ -58,6 +64,12 @@ input {
 .bg-moon-grey {
   background: $moonGray;
 }
+
+
+.bg-light-grey {
+  background: $lightGray;
+}
+
 .hov-primary:hover {
   background: $brandPrimary;
 }

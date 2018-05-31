@@ -8,7 +8,7 @@ import { Colors, BorderRadius } from '../../config/styles';
 
 const Header = ({ onClick, header, noHeaderBorder }) => (
   <div
-    className="flex items-center tc flex-row relative justify-center pa4 brand-primary"
+    className="flex items-center tc flex-row relative justify-center f3 pa4 black"
     >
     {header}
     <div
@@ -30,7 +30,7 @@ const ModalCard = ({
           borderRadius: borderRadius || BorderRadius.all,
           boxShadow: boxShadow ? `0 8px ${BorderRadius.all || BorderRadius.all} rgba(0,0,0,0.5)` : 'none'
         }}>
-      <Header onClick={onClick} header={header} noHeaderBorder={noHeaderBorder}/>
+      <Header onClick={onClick} header={header} noHeaderBorder={noHeaderBorder} />
       {children}
     </div>
     <div

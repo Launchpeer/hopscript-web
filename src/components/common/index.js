@@ -13,7 +13,6 @@ export { default as Header } from './Header';
 export { default as Label } from './Label';
 export { default as SubHeader } from './SubHeader';
 export { default as CardWithLabel } from './CardWithLabel';
-export { default as EditInput } from './EditInput';
 export { default as ProfileDropDown } from './ProfileDropDown';
 export { default as AvatarIcon } from './AvatarIcon';
 export { default as Avatar } from './Avatar';
@@ -26,6 +25,7 @@ export { default as PhotoUpload } from './PhotoUpload';
 export { default as GoogleAutocomplete } from './GoogleAutocomplete';
 export { default as TwoColumnFieldRow } from './TwoColumnFieldRow';
 export { default as TwoColumnRows } from './TwoColumnRows';
+export { default as SideBar } from './SideBar';
 
 export { default as InputDatetime } from './input/InputDatetime';
 export { default as InputDropDown } from './input/InputDropDown';
@@ -36,6 +36,7 @@ export { default as InputUI } from './input/InputUI';
 export { default as InputPhoto } from './input/InputPhoto';
 export { default as InputAddress } from './input/InputAddress';
 export { default as InputFile } from './input/InputFile';
+export { default as InputTextEditable } from './input/InputTextEditable';
 
 export { default as HeadphonesIcon } from './images/HeadphonesIcon';
 export { default as CallIcon } from './images/CallIcon';

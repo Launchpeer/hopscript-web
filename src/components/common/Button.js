@@ -18,7 +18,7 @@ const Button = ({
     action={action}
     style={{
       color: fontColor ? Colors[fontColor] : Colors.white,
-      borderRadius: BorderRadius.all,
+      borderRadius: borderRadius || BorderRadius.all,
       backgroundColor,
       borderColor: borderColor || Colors.darkGrey,
       border: `${borderWidth} solid` || 'none'

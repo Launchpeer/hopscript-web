@@ -14,21 +14,26 @@ input:focus {
 .hov-transparent:hover {
   opacity: 0.75; }
 
-.hov-purple:hover {
-  background-color: !important;
-  color: white !important; }
-
 .brand-primary {
   color: #6772e5; }
 
 .bg-brand-primary {
   background-color: #6772e5; }
 
+.brand-secondary {
+  color: #3943a5; }
+
+.brand-red {
+  color: #ff5628; }
+
 .moon-grey {
   color: #CCCCCC; }
 
 .bg-moon-grey {
   background: #CCCCCC; }
+
+.bg-light-grey {
+  background: #EEEEEE; }
 
 .hov-primary:hover {
   background: #6772e5; }
