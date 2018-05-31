@@ -49,6 +49,17 @@ input:focus {
       align-self: center;
   z-index: 1; }
 
+.rectangle-profile {
+  border-radius: 0%;
+  height: 150px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  z-index: 1; }
+
 .abs-center {
   position: absolute;
   left: 50%;
@@ -61,7 +72,7 @@ input:focus {
   pointer-events: none; }
 
 .hov-image-uploader {
-  background-color: #999999; }
+  background-color: #EEEEEE; }
 
 .hov-image-uploader:hover {
   background-color: #6772e5; }

@@ -3,7 +3,6 @@ import { Header } from './common';
 
 const App = ({ children, location }) => (
   <div>
-    <Header route={location.pathname} />
     {children}
   </div>
 );

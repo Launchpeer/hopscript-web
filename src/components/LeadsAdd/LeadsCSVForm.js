@@ -8,6 +8,7 @@ import { reduxForm } from 'redux-form';
 
 import { parseCSV } from './LeadsAddActions';
 import { InputFile, Button } from '../common';
+import { Colors } from '../../config/styles';
 
 class LeadsAddForm extends Component {
   constructor(props) {
@@ -23,12 +24,14 @@ class LeadsAddForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <div>
+        <div className="f3 b">Import a List of Leads</div>
+        <div>You can add a list of leads</div>
         <form className="mv4" onSubmit={handleSubmit(this.handleFormSubmit)}>
           <InputFile
             name="csv"
             type="text"
         />
-          <Button backgroundColor="red" classOverrides="w-100" />
+          <Button backgroundColor={Colors.brandGreen} classOverrides="w-100">Submit List</Button>
         </form>
       </div>
     );
