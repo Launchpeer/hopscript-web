@@ -41,8 +41,6 @@ const SideBar = ({ route, user }) => (
         </div>
       </div>
 
-      {divider}
-
       <div className="pt4 pb4" style={{ backgroundColor: bgColor('call', route) }}>
         <div className="tc">
           <CallIcon width="20%" fill={textColor('call', route)} />

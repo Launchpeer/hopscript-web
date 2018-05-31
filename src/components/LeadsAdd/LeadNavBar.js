@@ -8,13 +8,13 @@ const navColor = (current, route) => {
 };
 
 const divider = (
-  <div className="ml2 mr2 ba light-gray" style={{ height: '100h', width: '3px', backgroundColor: Colors.lightGray }} />
+  <div style={{ borderLeft: "2px solid", borderColor: Colors.lightGray }} />
 );
 
 const LeadNavBar = ({ route }) => (
   <div className="flex flex-row">
     <div
-      className="b pa2 pointer"
+      className="b pa2 pointer mr2"
       role="button"
       onClick={() => browserHistory.push('/add-leads')}
       style={{ color: navColor('/add-leads', route) }}
@@ -25,7 +25,7 @@ const LeadNavBar = ({ route }) => (
     </div>
     {divider}
     <div
-      className="b pa2 pointer"
+      className="b pa2 pointer ml2 mr2"
       role="button"
       onClick={() => browserHistory.push('/list-leads')}
       style={{ color: navColor('/list-leads', route) }}
@@ -35,7 +35,7 @@ const LeadNavBar = ({ route }) => (
     </div>
     {divider}
     <div
-      className="b pa2 pointer"
+      className="b pa2 pointer ml2 mr2"
       role="button"
       onClick={() => alert('Will open lead groups list when built')}
       style={{ color: navColor('/list-lead-groups', route) }}
