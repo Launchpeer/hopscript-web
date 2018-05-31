@@ -31,7 +31,12 @@ class LeadsAddForm extends Component {
             name="csv"
             type="text"
         />
-          <Button backgroundColor={Colors.brandGreen} classOverrides="w-100">Submit List</Button>
+          <Button
+            backgroundColor={Colors.brandGreen}
+            borderRadius="4px"
+            classOverrides="w-100 f4">
+              Submit List
+          </Button>
         </form>
       </div>
     );
