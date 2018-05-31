@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Parse from 'parse';
 import { Colors } from '../../config/styles';
-import { EditInput } from '../common';
+import { InputTextEditable } from '../common';
 import { logOutUser } from '../Auth/AuthActions';
 
 import { updateBrokerProfile } from './BrokerProfileActions';
@@ -31,7 +31,7 @@ class UpdateBrokerProfileFormView extends Component {
     return (
       <div>
         <form className="mv4">
-          <EditInput
+          <InputTextEditable
             name="username"
             type="text"
             label="Company Name"
@@ -39,7 +39,7 @@ class UpdateBrokerProfileFormView extends Component {
             placeholder={user && user.get('username')}
             onSubmit={handleSubmit(this.handleFormSubmit)}
           />
-          <EditInput
+          <InputTextEditable
             name="email"
             type="text"
             label="Email Address"

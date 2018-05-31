@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import { Edit3, Save } from 'react-feather';
-import { Colors } from '../../config/styles';
-import { Label } from './';
+import { Colors } from '../../../config/styles';
+import { Label } from '../';
 
 const RenderInfoDisplay = ({
   placeholder,
@@ -63,7 +63,7 @@ const renderTextInput = (field) => {
     <div
       className="flex items-center justify-between"
       style={{
-        borderBottom: `1px solid ${borderColor}`
+        borderBottom: borderColor ? `1px solid ${borderColor}` : Colors.moonGray
       }}
     >
       <input
@@ -72,7 +72,7 @@ const renderTextInput = (field) => {
         placeholder={placeholderCashCheck()}
         className="ba w-100 f5 pa2 mt2 bn"
         style={{
-          color: fontColor ? Colors[fontColor] : Colors.primaryGrey
+          color: fontColor ? Colors[fontColor] : Colors.black
         }}
       />
       <div
@@ -89,7 +89,7 @@ const renderTextInput = (field) => {
   );
 };
 
-class EditInput extends Component {
+class InputTextEditable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,7 +127,6 @@ class EditInput extends Component {
               component={component || renderTextInput}
               fontColor={fontColor}
               borderRadius={borderRadius}
-              borderColor="null"
               editInput
               cash={cash}
               onClick={() => {
@@ -151,4 +150,4 @@ class EditInput extends Component {
   }
 }
 
-export default EditInput;
+export default InputTextEditable;
