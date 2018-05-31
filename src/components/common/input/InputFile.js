@@ -31,6 +31,7 @@ class renderFileUpload extends Component {
             onDragLeave={() => this.setState({ photoDragging: false })}
           >
             <div className="pt3">Drop a CSV File Here</div>
+            <div>(We need a graphic for the CSV dropzone image)</div>
           </Dropzone>
         </div>
         {error &&

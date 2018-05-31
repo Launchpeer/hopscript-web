@@ -21,7 +21,7 @@ class LeadsAddView extends Component {
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <div className="dib mw4-ns w-10 vh-100 " style={{ position: 'fixed' }}>
           <div className="w-100" >
-            <SideBar />
+            <SideBar route={location.pathname} />
           </div>
         </div>
         <div className="w-90 absolute right-0">
