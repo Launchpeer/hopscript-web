@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { Card, CenterThis, FullScreenCenter, HeadphonesIcon } from '../common';
+import { Card, CenterThis, FullScreenContainer, HeadphonesIcon } from '../common';
 import { Colors, BorderRadius } from '../../config/styles';
 import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError } from './AuthActions';
 
 const SignIn = (
   <div className="tc">
-    <div className="dib pr1" style={{ color: Colors.gray }}>
+    <div className="dib pr3" style={{ color: Colors.white }}>
       Already have an account?
     </div>
 
     <div
-      className="underline pointer dib"
+      className=" pointer dib pa2"
       onClick={() => {
         browserHistory.push('/', { authType: 'signin' });
       }}
       role="button"
-      style={{ color: Colors.brandPrimary }}
+
+      style={{ color: Colors.brandPrimary, backgroundColor: Colors.white, borderRadius: '4px' }}
     >
-      Sign in
+      Log In
     </div>
   </div>
 );
@@ -47,11 +48,15 @@ class AuthView extends Component {
 
   render() {
     return (
-      <FullScreenCenter color={Colors.brandPrimary}>
+      <FullScreenContainer color={Colors.brandPrimary}>
+        <div className="fr pa4">
+          { this.props.route.authType === 'signin' ? null : SignIn }
+        </div>
+
         <div className="w-100">
           <CenterThis>
-            <div className="mt6 tc">
-              <HeadphonesIcon width="20%" fill="white" />
+            <div className="mt5 tc">
+              <HeadphonesIcon width="20%" fill={Colors.white} />
             </div>
           </CenterThis>
           <CenterThis>
@@ -92,7 +97,7 @@ class AuthView extends Component {
             ) : (
               <div className="w-40-l mw6">
                 <Card
-                  classOverrides="mb5 bg-white"
+                  classOverrides="mb5 pl3 pr3 pt3 bg-white"
                   boxShadow
               >
                   <BrokerageSignUpForm />
@@ -101,7 +106,8 @@ class AuthView extends Component {
             )}
           </CenterThis>
         </div>
-      </FullScreenCenter>
+      </FullScreenContainer>
+
     );
   }
 }
