@@ -103,3 +103,22 @@ input {
 .hov-image-uploader:hover {
   background-color: $brandPrimary;
 }
+
+.list-alt-color-rows {
+  background-color: $white;
+}
+.list-alt-color-rows:nth-child(odd) {
+  background-color: $nearWhite;
+}
+
+.list-alt-color-rows:nth-child(even) {
+  background-color: $white;
+}
+
+.hov-danger:hover {
+  background-color: $darkRed;
+}
+
+.brand-near-black {
+  color: $brandNearBlack;
+}

@@ -29,26 +29,38 @@ class AgentsAddForm extends Component {
   }
 
   render() {
-    const { user, handleSubmit, valid, loading, error, dirty } = this.props;
+    const { user, handleSubmit, valid, loading, error, dirty, cancel } = this.props;
     return (
-      <div>
+      <div className="bg-brand-primary w-100">
         <LoaderOrThis loading={loading}>
-          <h1>New Agent</h1>
           <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
-            <InputText
-              name="name"
-              type="text"
-              placeholder="Full Name"
-              borderColor="white"
-            />
-            <InputText
-              name="email"
-              type="text"
-              placeholder="Email"
-              borderColor="white"
-            />
-          {valid && <Button backgroundColor={Colors.brandPrimary}>Invite</Button>}
-          {error && <RenderAlert error={error} />}
+            <div className="flex pa3 items-center justify-between">
+              <InputText
+                name="name"
+                type="text"
+                placeholder="Add Agent Name"
+                fontColor="white"
+                backgroundColor="transparent"
+                classOverrides="w-30"
+              />
+              <InputText
+                name="email"
+                type="text"
+                placeholder="Add Agent Email"
+                fontColor="white"
+                backgroundColor="transparent"
+                classOverrides="w-30"
+              />
+            <div>
+              {valid && <Button borderColor="white" borderWidth="1px" backgroundColor="white" fontColor={Colors.brandPrimary} buttonPadding="pa1" classOverrides="f5 mr2">Invite Agent</Button>}
+              <Button borderColor="white" borderWidth="1px" fontColor="white" backgroundColor="transparent" onClick={cancel} buttonPadding="pa1" classOverrides="f5">cancel</Button>
+            </div>
+            </div>
+            {error &&
+              <div className="pa2">
+                <RenderAlert error={error} />
+              </div>
+            }
           </form>
         </LoaderOrThis>
       </div>

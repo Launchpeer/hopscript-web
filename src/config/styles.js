@@ -47,7 +47,7 @@ var Icons = {
 
 var BorderRadius = {
   none: 'none',
-  all: '0px',
+  all: '4px',
   top: '0px',
   bottom: '0px'
 }

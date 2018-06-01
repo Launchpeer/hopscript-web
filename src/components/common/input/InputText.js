@@ -13,6 +13,8 @@ const renderTextInput = (fieldProps) => {
     maxLength,
     showError,
     normalize,
+    backgroundColor,
+    classOverrides,
     meta: { dirty, touched, error }
   } = fieldProps;
 
@@ -26,16 +28,17 @@ const renderTextInput = (fieldProps) => {
   };
 
   return (
-    <div>
+    <div classOverrides={`${classOverrides}`}>
       <input
         {...input}
         type="text"
         placeholder={placeholder}
-        className="ba w-100 pa3 mb3 f5 mt2"
+        className={`${borderColor ? 'ba' : 'bn'} w-100`}
         style={{
           color: fontColor || Colors.inputFontColor,
           borderRadius: BorderRadius.all,
-          borderColor: borderColor || Colors.moonGray
+          borderColor: borderColor || Colors.moonGray,
+          backgroundColor
         }}
         maxLength={maxLength}
         normalize={normalize}
