@@ -33,9 +33,7 @@ const renderTextAreaInput = (fieldProps) => {
         rows="10"
         style={{
           color: fontColor || Colors.inputFontColor,
-          borderRadius: borderRadius
-            ? BorderRadius[borderRadius].all
-            : BorderRadius.medium.all,
+          borderRadius: borderRadius || BorderRadius.all,
           borderColor: fieldStateColor()
         }}
       />

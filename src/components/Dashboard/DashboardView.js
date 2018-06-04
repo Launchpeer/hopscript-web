@@ -11,6 +11,7 @@ class DashboardView extends Component {
 
   render() {
     const { user, location } = this.props;
+    console.log('user', user);
     return (
       <FullScreenContainer color="white">
         {user && (
@@ -61,6 +62,10 @@ class DashboardView extends Component {
             Lead Groups List
           </Button>
         </div>
+
+
+        {user.attributes.role === "brokerage" ? (<div>You are a Broker</div>) : (<div>You are an Agent</div>) }
+
       </FullScreenContainer>
     );
   }

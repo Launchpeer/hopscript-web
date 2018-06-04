@@ -45,7 +45,7 @@ class BrokerDetailView extends Component {
     const { loading, user } = this.props;
     return (
 
-      <FullScreenContainer classOverrides=" vh-100 bg-light-gray">
+      <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
           <div className="dib mw4-ns w-10 vh-100 " style={{ position: 'fixed' }}>
             <div className="w-100" >
@@ -55,7 +55,7 @@ class BrokerDetailView extends Component {
           <div className="w-90 absolute right-0" >
 
             <CenterThis>
-              <div className="w-80 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
+              <div className="w-90 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
                 <div className="b pa2">Broker Account</div>
                 <div onClick={this.handleSignOut} className="pointer white pt2 pb2 pl4 pr4 f5" style={{ backgroundColor: Colors.brandGreen, borderRadius: '4px' }} role="button">
               Logout
@@ -65,7 +65,7 @@ class BrokerDetailView extends Component {
             </CenterThis>
             <CenterThis>
 
-              <div className="w-80" style={{ backgroundColor: Colors.white }} >
+              <div className="w-90" style={{ backgroundColor: Colors.white }} >
 
                 <CenterThis>
                   <div className="w-50 mt5 mb4">

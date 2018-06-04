@@ -43,3 +43,4 @@ export { default as CallIcon } from './images/CallIcon';
 export { default as HistoryIcon } from './images/HistoryIcon';
 export { default as PeopleIcon } from './images/PeopleIcon';
 export { default as ScriptIcon } from './images/ScriptIcon';
+export { default as CSVIcon } from './images/CSVIcon';

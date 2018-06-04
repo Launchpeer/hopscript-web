@@ -40,48 +40,70 @@ class LeadsAddForm extends Component {
     return (
       <div>
         <LoaderOrThis loading={loading}>
-          <h1>New Lead</h1>
+          <div className="f3 b">Add a Single Lead</div>
+          <div className="mb3">You can add a Lead manually</div>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
             onClick={this.clearError}
           >
-            <InputText
-              name="name"
-              label="Name"
-              type="text"
-              placeholder="Full Name"
-              borderColor="white"
-            />
-            <InputText
-              name="phone"
-              type="text"
-              label="Phone Number"
-              placeholder="Phone Number"
-              borderColor="white"
-              normalize={normalizePhone}
-            />
-            <InputDropDown
-              name="leadType"
-              type="dropdown"
-              label="Type of Lead"
-              placeholder="Type of Lead"
-              options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
-              borderColor="white"
-              borderRadius="none"
-            />
-            <InputDropDown
-              name="leadGroup"
-              type="dropdown"
-              label="Lead Group"
-              placeholder="Lead Group"
-              options={['Lead Group 1', 'Lead Group 2', 'Lead Group 3']}
-              borderColor="white"
-              borderRadius="none"
-            />
+            <div className="flex flex-row w-100">
 
-            {valid && (
-              <Button backgroundColor={Colors.brandPrimary}>Add Lead</Button>
-            )}
+              <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
+              <div className="w-70">
+                <InputText
+                  name="name"
+                  type="text"
+                  placeholder="Enter Client Name"
+                  borderColor="lightGray"
+            />
+              </div>
+            </div>
+
+            <div className="flex flex-row w-100">
+              <div className="w-30 mt2 mb2 pt3 pb3 ">Phone Number</div>
+              <div className="w-70">
+                <InputText
+                  name="phone"
+                  type="text"
+                  placeholder="(000) 000 0000"
+                  borderColor="lightGray"
+                  normalize={normalizePhone}
+
+            />
+              </div>
+            </div>
+
+            <div className="flex flex-row w-100">
+              <div className="w-30 mt2 mb2 pt3 pb3">Lead Type</div>
+              <div className="w-70">
+                <InputDropDown
+                  name="leadType"
+                  type="dropdown"
+                  placeholder="Lead Type"
+                  options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
+                  borderColor="lightGray"
+                  borderRadius="none"
+              />
+              </div>
+            </div>
+
+
+            <div className="flex flex-row w-100">
+              <div className="w-30 mt2 mb2 pt3 pb3">Lead Group</div>
+              <div className="w-70">
+                <InputDropDown
+                  name="leadGroup"
+                  type="dropdown"
+                  placeholder="Lead Group"
+                  options={['Lead Group 1', 'Lead Group 2', 'Lead Group 3']}
+                  borderColor="lightGray"
+                  borderRadius="none"
+            />
+              </div>
+            </div>
+            <div className="fr mt6 mb4">
+              <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
+            </div>
             {error && <RenderAlert error={error} />}
           </form>
         </LoaderOrThis>
