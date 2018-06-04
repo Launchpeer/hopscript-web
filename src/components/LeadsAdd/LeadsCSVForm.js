@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { parseCSV } from './LeadsAddActions';
-import { InputFile, Button } from '../common';
+import { InputFile, Button, CSVIcon } from '../common';
 import { Colors } from '../../config/styles';
 
-class LeadsAddForm extends Component {
+
+class LeadsCSVForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -22,6 +23,7 @@ class LeadsAddForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    const DropZoneIcon = <CSVIcon fill={Colors.brandGreen} width="15%" />;
     return (
       <div>
         <div className="f3 b">Import a List of Leads</div>
@@ -30,6 +32,7 @@ class LeadsAddForm extends Component {
           <InputFile
             name="csv"
             type="text"
+            dropzoneContents={DropZoneIcon}
         />
           <Button
             backgroundColor={Colors.brandGreen}
@@ -47,4 +50,4 @@ export default reduxForm({
   form: 'batchLeads',
 })(connect(null, {
   parseCSV
-})(LeadsAddForm));
+})(LeadsCSVForm));

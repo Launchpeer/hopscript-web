@@ -14,6 +14,7 @@ class renderFileUpload extends Component {
     const {
       input,
       name,
+      dropzoneContents,
       meta: { error }
     } = this.props;
     const files = input.value;
@@ -29,9 +30,8 @@ class renderFileUpload extends Component {
             dropClass={this.state.photoDragging === true ? "bg-brand-primary" : "bg-moon-grey"}
             onDragOver={() => this.setState({ photoDragging: true })}
             onDragLeave={() => this.setState({ photoDragging: false })}
-          >
-            <div className="pt3">Drop a CSV File Here</div>
-            <div>(We need a graphic for the CSV dropzone image)</div>
+           >
+            <div className="pt4">{dropzoneContents}</div>
           </Dropzone>
         </div>
         {error &&
