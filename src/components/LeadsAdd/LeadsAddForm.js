@@ -11,7 +11,8 @@ import {
   InputDropDown,
   Button,
   LoaderOrThis,
-  RenderAlert
+  RenderAlert,
+  borderRadius
 } from '../common';
 import normalizePhone from '../helpers/normalize';
 import { createLead, clearError } from './LeadsAddActions';
@@ -47,7 +48,6 @@ class LeadsAddForm extends Component {
             onClick={this.clearError}
           >
             <div className="flex flex-row w-100">
-
               <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
               <div className="w-70">
                 <InputText
@@ -55,6 +55,8 @@ class LeadsAddForm extends Component {
                   type="text"
                   placeholder="Enter Client Name"
                   borderColor="lightGray"
+                  height="50px"
+                  classOverrides="mt2 mb2"
             />
               </div>
             </div>
@@ -68,7 +70,8 @@ class LeadsAddForm extends Component {
                   placeholder="(000) 000 0000"
                   borderColor="lightGray"
                   normalize={normalizePhone}
-
+                  height="50px"
+                  classOverrides="mt2 mb2"
             />
               </div>
             </div>
@@ -82,7 +85,6 @@ class LeadsAddForm extends Component {
                   placeholder="Lead Type"
                   options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
                   borderColor="lightGray"
-                  borderRadius="none"
               />
               </div>
             </div>
@@ -97,7 +99,6 @@ class LeadsAddForm extends Component {
                   placeholder="Lead Group"
                   options={['Lead Group 1', 'Lead Group 2', 'Lead Group 3']}
                   borderColor="lightGray"
-                  borderRadius="none"
             />
               </div>
             </div>
