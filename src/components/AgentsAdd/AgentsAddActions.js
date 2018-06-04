@@ -97,24 +97,27 @@ export const clearError = () => (dispatch) => {
  */
 
 export const inviteAgent = (data) => (dispatch) => {
-  dispatch(_agentsAddLoading());
-  const password = _generateRandomPassword();
-  const User = Parse.User.current();
-  _createNewAgent({ password: password, ...data })
-    .then((agent) => {
-      Parse.Cloud.run("sendEmailInvite", {
-        password,
-        brokerage: User.attributes.username,
-        brokerageEmail: User.attributes.email,
-        email: data.email
+  return new Promise((resolve) => {
+    dispatch(_agentsAddLoading());
+    const password = _generateRandomPassword();
+    const User = Parse.User.current();
+    _createNewAgent({ password: password, ...data })
+      .then((agent) => {
+        Parse.Cloud.run("sendEmailInvite", {
+          password,
+          brokerage: User.attributes.username,
+          brokerageEmail: User.attributes.email,
+          email: data.email
+        });
+        _reconcileAgentToBrokerage(agent)
+          .then((brokerage) => {
+            dispatch(_agentsAddLoadEnd());
+            resolve(brokerage);
+          })
+      })
+      .catch((err) => {
+        dispatch(_agentsAddLoadEnd());
+        dispatch(_agentsAddError(err));
       });
-      _reconcileAgentToBrokerage(agent)
-        .then((brokerage) => {
-          dispatch(_agentsAddLoadEnd());
-        })
-    })
-    .catch((err) => {
-      dispatch(_agentsAddLoadEnd());
-      dispatch(_agentsAddError(err));
-    });
+  })
 };

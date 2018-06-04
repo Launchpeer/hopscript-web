@@ -9,7 +9,7 @@ input:focus {
   color: #cbd2cd; }
 
 .list-hover:hover {
-  background-color: #f4f4f4 !important; }
+  background-color: #EEEEEE !important; }
 
 .hov-transparent:hover {
   opacity: 0.75; }
@@ -79,6 +79,33 @@ input:focus {
 
 .hov-image-uploader:hover {
   background-color: #6772e5; }
+
+.list-alt-color-rows {
+  background-color: #ffffff; }
+
+.list-alt-color-rows:nth-child(odd) {
+  background-color: #f4f4f4; }
+
+.list-alt-color-rows:nth-child(even) {
+  background-color: #ffffff; }
+
+.hov-danger:hover {
+  background-color: #D0021B; }
+
+.brand-near-black {
+  color: #3e3e3e; }
+
+.white-placeholder input::-webkit-input-placeholder {
+  color: white; }
+
+.white-placeholder input::-moz-placeholder {
+  color: white; }
+
+.white-placeholder input:-ms-input-placeholder {
+  color: white; }
+
+.white-placeholder input:-moz-placeholder {
+  color: white; }
 
 /* Loading Spinner by @tobiasahlin */
 .spinner {
