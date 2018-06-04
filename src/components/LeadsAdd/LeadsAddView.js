@@ -17,14 +17,8 @@ class LeadsAddView extends Component {
   render() {
     const { location } = this.props;
     return (
-
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
-        <div className="dib mw4-ns w-10 vh-100 " style={{ position: 'fixed' }}>
-          <div className="w-100" >
-            <SideBar route={location.pathname} />
-          </div>
-        </div>
-        <div className="w-90 absolute right-0">
+        <div className="w-100 absolute right-0" style={{ paddingLeft: "100px" }}>
           <CenterThis>
             <div className="w-90 mt3 mb1 pa3 f4" style={{ backgroundColor: Colors.white }} >
               <LeadNavBar route={location.pathname} />
