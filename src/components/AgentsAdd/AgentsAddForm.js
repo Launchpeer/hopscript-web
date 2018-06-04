@@ -19,7 +19,10 @@ class AgentsAddForm extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.inviteAgent(data);
+    this.props.inviteAgent(data)
+      .then(() => {
+        this.props.cancel();
+      })
   }
 
   clearError() {
@@ -41,7 +44,7 @@ class AgentsAddForm extends Component {
                 placeholder="Add Agent Name"
                 fontColor="white"
                 backgroundColor="transparent"
-                classOverrides="w-30"
+                classOverrides="w-30 white-placeholder"
               />
               <InputText
                 name="email"
@@ -49,11 +52,11 @@ class AgentsAddForm extends Component {
                 placeholder="Add Agent Email"
                 fontColor="white"
                 backgroundColor="transparent"
-                classOverrides="w-30"
+                classOverrides="w-30 white-placeholder"
               />
             <div>
-              {valid && <Button borderColor="white" borderWidth="1px" backgroundColor="white" fontColor={Colors.brandPrimary} buttonPadding="pa1" classOverrides="f5 mr2">Invite Agent</Button>}
-              <Button borderColor="white" borderWidth="1px" fontColor="white" backgroundColor="transparent" onClick={cancel} buttonPadding="pa1" classOverrides="f5">cancel</Button>
+              {valid && <Button borderColor="white" borderWidth="1px" backgroundColor="white" fontColor={Colors.brandPrimary} buttonPadding="pa2 pl3 pr3" classOverrides="f6 mr2 b">Invite Agent</Button>}
+              <Button borderColor="white" borderWidth="1px" fontColor="white" backgroundColor="transparent" onClick={cancel} buttonPadding="pa2 pl3 pr3" classOverrides="f6">cancel</Button>
             </div>
             </div>
             {error &&

@@ -53,8 +53,8 @@ class AgentsListItem extends Component {
         <div
           className="flex w-100 items-center justify-between"
         >
-          <div className="w-30-ns black">{attributes.name}</div>
-          <div className="w-30-ns black">{attributes.email}</div>
+          <div className="w-30-ns brand-near-black">{attributes.name}</div>
+          <div className="w-30-ns silver">{attributes.email}</div>
           <div
             className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
             style={{width: '2rem', height: '2rem'}}

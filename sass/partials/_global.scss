@@ -32,7 +32,7 @@ input {
 
 .list-hover {
   &:hover {
-    background-color: $nearWhite !important;
+    background-color: $lightGray !important;
   }
 }
 
@@ -121,4 +121,17 @@ input {
 
 .brand-near-black {
   color: $brandNearBlack;
+}
+
+.white-placeholder input::-webkit-input-placeholder {
+  color: white;
+}
+.white-placeholder input::-moz-placeholder {
+  color: white;
+}
+.white-placeholder input:-ms-input-placeholder {
+  color: white;
+}
+.white-placeholder input:-moz-placeholder {
+  color: white;
 }
