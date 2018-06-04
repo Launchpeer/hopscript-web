@@ -6,7 +6,7 @@ import { User } from 'react-feather';
 import { Colors } from '../../config/styles';
 import { Button, CenterThis, HeadphonesIcon, PeopleIcon, CallIcon, HistoryIcon, ScriptIcon } from './';
 
-const divider = (
+const Divider = () => (
   <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
 );
 
@@ -44,10 +44,10 @@ const Scripts = route => (
   </div>
 );
 
-const Leads = fill => (
+const Leads = ({ fill }) => (
   <div className="pt4 pb4">
     <div className="tc">
-      <PeopleIcon width="20%" fill={Colors.brandSecondary} />
+      <PeopleIcon width="20%" fill={fill} />
     </div>
     <div className="f5 tc" >
           Leads
@@ -114,7 +114,7 @@ const SideBar = ({ route, user }) => (
     BreezeBot
         </div>
       </div>
-      <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+      <Divider />
 
       {user.attributes.role === 'agent' ? (
         <div>
@@ -129,7 +129,7 @@ const SideBar = ({ route, user }) => (
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
 
           <div style={{ backgroundColor: bgColor('/add-leads', route), color: textColor('/add-leads', route) }} role="button" onClick={() => browserHistory.push('/add-leads')}>
-            <Leads />
+            <Leads fill={textColor('/add-leads', route)} />
           </div>
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
 

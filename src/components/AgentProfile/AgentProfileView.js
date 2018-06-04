@@ -17,7 +17,7 @@ import {
 } from '../common';
 import { Colors, BorderRadius } from '../../config/styles';
 import { deleteAgentProfile } from './AgentProfileActions';
-import { AgentProfileForm } from './';
+import AgentProfileForm from './';
 import { logOutUser } from '../Auth/AuthActions';
 
 class AgentProfileView extends Component {
