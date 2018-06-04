@@ -47,20 +47,11 @@ class BrokerDetailView extends Component {
 
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
-          <div className="dib mw4-ns w-10 vh-100 " style={{ position: 'fixed' }}>
-            <div className="w-100" >
-              <SideBar />
-            </div>
-          </div>
-          <div className="w-90 absolute right-0" >
-
+          <div className="w-90 absolute right-0" styles={{ paddingLeft: '100px' }}>
             <CenterThis>
               <div className="w-90 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
-                <div className="b pt3 pb3 pl2">Broker Account</div>
-                <div onClick={this.handleSignOut} className="pointer white pt3 pb3 pl4 pr4 f5" style={{ backgroundColor: Colors.brandGreen, borderRadius: '4px' }} role="button">
-              Logout
-                </div>
-
+                <div className="b pt2 pb2 pl2">Broker Account</div>
+                <Button backgroundColor={Colors.brandGreen} onClick={this.handleSignOut} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Logout</Button>
               </div>
             </CenterThis>
             <CenterThis>

@@ -6,10 +6,16 @@ import { User } from 'react-feather';
 import { Colors } from '../../config/styles';
 import { Button, CenterThis, HeadphonesIcon, PeopleIcon, CallIcon, HistoryIcon, ScriptIcon } from './';
 
-const Divider = () => (
-  <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
-);
+const PathsWithoutSideBarContent = [
+  '/',
+  '/signup',
+  '/sign-in',
+  '/forgot-password',
+  '/reset-password',
 
+];
+
+/* These are functions that determine button color depending on route */
 const bgColor = (current, route) => {
   const color = route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
   return color;
@@ -21,7 +27,12 @@ const textColor = (current, route) => {
 };
 
 
-/* These are the different buttons that can go in the SideBar */
+/* These are the different items that can go in the SideBar */
+
+const Divider = () => (
+  <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+);
+
 const Call = route => (
   <div className="pt4 pb4" style={{ backgroundColor: bgColor('call', route) }}>
     <div className="tc">
@@ -94,8 +105,8 @@ const Profile = () => (
 );
 
 
-/* This is the SideBar */
-const SideBar = ({ route, user }) => (
+/* This is the sidebar content */
+const sidebarContent = (route, user) => (
   <div
     className="fl w-100"
     style={{
@@ -121,36 +132,51 @@ const SideBar = ({ route, user }) => (
           <div style={{ backgroundColor: bgColor('/call', route) }} role="button" onClick={() => console.log('you clicked call')}>
             <Call />
           </div>
-          <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+          <Divider />
 
           <div style={{ backgroundColor: bgColor('/scripts', route) }} role="button" onClick={() => console.log('you clicked scripts')}>
             <Scripts />
           </div>
-          <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+          <Divider />
 
           <div style={{ backgroundColor: bgColor('/add-leads', route), color: textColor('/add-leads', route) }} role="button" onClick={() => browserHistory.push('/add-leads')}>
             <Leads fill={textColor('/add-leads', route)} />
           </div>
-          <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+          <Divider />
 
-          <div style={{ backgroundColor: bgColor('/history', route) }} role="button" onClick={() => console.log('you clicked history')}>
+          <div style={{ backgroundColor: bgColor('/history', route) }}role="button" onClick={() => console.log('you clicked history')}>
             <History route={route} />
           </div>
-          <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+          <Divider />
+
+          <div role="button" onClick={() => browserHistory.push('/agent-profile')}>
+            <Profile />
+          </div>
+
         </div>
       ) : (
         <div>
-          <div style={{ backgroundColor: bgColor('/add-agents', route), color: textColor('/add-agents', route) }} role="button" onClick={() => browserHistory.push('/add-agents')}>
+          <div style={{ backgroundColor: bgColor('/add-agents', route), color: textColor('/add-agents', route) }} role="button" onClick={() => browserHistory.push('/dashboard')}>
             <Agents />
           </div>
-          <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+          <Divider />
+
+          <div role="button" onClick={() => browserHistory.push('/brokerage-profile')}>
+            <Profile />
+          </div>
         </div>
       )}
-
-
-      <Profile />
     </div>
   </div>);
+
+
+  /* This is the SideBar */
+
+const SideBar = ({ route, user }) => (
+  <div>
+    {!(_.contains(PathsWithoutSideBarContent, route)) && sidebarContent(route, user)}
+  </div>
+);
 
 
 const mapStateToProps = ({ UserReducer }) => {

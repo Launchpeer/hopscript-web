@@ -22,19 +22,21 @@ class AgentsAddForm extends Component {
     this.props.inviteAgent(data)
       .then(() => {
         this.props.cancel();
-      })
+      });
   }
 
   clearError() {
-    if(this.props.error) {
+    if (this.props.error) {
       this.props.clearError();
     }
   }
 
   render() {
-    const { user, handleSubmit, valid, loading, error, dirty, cancel } = this.props;
+    const {
+      user, handleSubmit, valid, loading, error, dirty, cancel
+    } = this.props;
     return (
-      <div className="bg-brand-primary w-100">
+      <div className="bg-brand-primary w-100" >
         <LoaderOrThis loading={loading}>
           <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
             <div className="flex pa3 items-center justify-between">
@@ -54,10 +56,10 @@ class AgentsAddForm extends Component {
                 backgroundColor="transparent"
                 classOverrides="w-30 white-placeholder"
               />
-            <div>
-              {valid && <Button borderColor="white" borderWidth="1px" backgroundColor="white" fontColor={Colors.brandPrimary} buttonPadding="pa2 pl3 pr3" classOverrides="f6 mr2 b">Invite Agent</Button>}
-              <Button borderColor="white" borderWidth="1px" fontColor="white" backgroundColor="transparent" onClick={cancel} buttonPadding="pa2 pl3 pr3" classOverrides="f6">cancel</Button>
-            </div>
+              <div>
+                {valid && <Button borderColor="white" borderWidth="1px" backgroundColor="white" fontColor={Colors.brandPrimary} buttonPadding="pa2 pl3 pr3" classOverrides="f6 mr2 b">Invite Agent</Button>}
+                <Button borderColor="white" borderWidth="1px" fontColor="white" backgroundColor="transparent" onClick={cancel} buttonPadding="pa2 pl3 pr3" classOverrides="f6">cancel</Button>
+              </div>
             </div>
             {error &&
               <div className="pa2">

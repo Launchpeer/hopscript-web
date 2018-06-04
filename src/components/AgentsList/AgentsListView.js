@@ -1,15 +1,9 @@
-/**
- * The purpose of this file is to fetch the Brokerage,
- * subscribe to updates to the Brokerage,
- * and provide the Agent objects to a mapping function for generating list items
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../UserActions';
-import { AgentsListItem} from './';
+import { AgentsListItem } from './';
 import { AgentsAddForm } from '../AgentsAdd';
-import { Button, LoaderOrThis } from '../common';
+import { Button, LoaderOrThis, FullScreenContainer, CenterThis } from '../common';
 import { Colors } from '../../config/styles';
 
 class AgentsList extends Component {
@@ -17,7 +11,7 @@ class AgentsList extends Component {
     super(props);
     this.state = {
       addAgentOpen: false
-    }
+    };
     this.props.fetchUser();
     this.toggleAddAgent = this.toggleAddAgent.bind(this);
   }
@@ -31,21 +25,31 @@ class AgentsList extends Component {
     const { addAgentOpen } = this.state;
     const { loading } = this.props;
     return (
-      <div className="w-100">
+      <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
-          <div className="w-100 flex items-center justify-between pa4" style={{borderBottom: `2px solid ${Colors.moonGray}`}}>
-            <div className="f3 brand-near-black b">Agents</div>
-            <Button backgroundColor={Colors.brandGreen} onClick={this.toggleAddAgent} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Add Agent</Button>
+          <div className="w-90 absolute right-0" styles={{ paddingLeft: '100px' }}>
+            <CenterThis>
+              <div className="w-90 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
+                <div className="b pt2 pb2 pl2">Agents</div>
+                <Button backgroundColor={Colors.brandGreen} onClick={this.toggleAddAgent} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Add Agents</Button>
+              </div>
+            </CenterThis>
+
+            <CenterThis>
+              <div className="w-90" style={{ backgroundColor: Colors.white }} >
+                {addAgentOpen && <AgentsAddForm cancel={this.toggleAddAgent} />}
+                <div>
+                  {agents && agents.map(agent => (<AgentsListItem agent={agent} key={agent.id} />))}
+                </div>
+              </div>
+            </CenterThis>
+
           </div>
-          <div className="pa3">
-            {addAgentOpen && <AgentsAddForm cancel={this.toggleAddAgent}/>}
-            <div>
-              {agents && agents.map(agent =>(<AgentsListItem agent={agent} key={agent.id} />))}
-            </div>
-          </div>
+
         </LoaderOrThis>
-      </div>
-    )
+      </FullScreenContainer>
+
+    );
   }
 }
 
