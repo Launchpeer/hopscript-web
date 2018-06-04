@@ -129,39 +129,39 @@ const sidebarContent = (route, user) => (
 
       {user.attributes.role === 'agent' ? (
         <div>
-          <div style={{ backgroundColor: bgColor('/call', route) }} role="button" onClick={() => console.log('you clicked call')}>
+          <div style={{ backgroundColor: bgColor('/call', route) }} className="pointer" role="button" onClick={() => console.log('you clicked call')}>
             <Call />
           </div>
           <Divider />
 
-          <div style={{ backgroundColor: bgColor('/scripts', route) }} role="button" onClick={() => console.log('you clicked scripts')}>
+          <div style={{ backgroundColor: bgColor('/scripts', route) }} className="pointer" role="button" onClick={() => console.log('you clicked scripts')}>
             <Scripts />
           </div>
           <Divider />
 
-          <div style={{ backgroundColor: bgColor('/add-leads', route), color: textColor('/add-leads', route) }} role="button" onClick={() => browserHistory.push('/add-leads')}>
+          <div style={{ backgroundColor: bgColor('/add-leads', route), color: textColor('/add-leads', route) }} className="pointer" role="button" onClick={() => browserHistory.push('/add-leads')}>
             <Leads fill={textColor('/add-leads', route)} />
           </div>
           <Divider />
 
-          <div style={{ backgroundColor: bgColor('/history', route) }}role="button" onClick={() => console.log('you clicked history')}>
+          <div style={{ backgroundColor: bgColor('/history', route) }} className="pointer" role="button" onClick={() => console.log('you clicked history')}>
             <History route={route} />
           </div>
           <Divider />
 
-          <div role="button" onClick={() => browserHistory.push('/agent-profile')}>
+          <div role="button" className="pointer" onClick={() => browserHistory.push('/agent-profile')}>
             <Profile />
           </div>
 
         </div>
       ) : (
         <div>
-          <div style={{ backgroundColor: bgColor('/add-agents', route), color: textColor('/add-agents', route) }} role="button" onClick={() => browserHistory.push('/dashboard')}>
+          <div style={{ backgroundColor: bgColor('/add-agents', route), color: textColor('/add-agents', route) }} className="pointer" role="button" onClick={() => browserHistory.push('/dashboard')}>
             <Agents />
           </div>
           <Divider />
 
-          <div role="button" onClick={() => browserHistory.push('/brokerage-profile')}>
+          <div role="button" className="pointer" onClick={() => browserHistory.push('/brokerage-profile')}>
             <Profile />
           </div>
         </div>

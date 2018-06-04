@@ -25,13 +25,13 @@ class renderFileUpload extends Component {
           <Dropzone
             name={name}
             accept="text/csv"
-            className={`${this.state.photoDragging === true ? "bg-moon-gray" : "hov-image-uploader"} pointer w-100 h-100 `}
+            className={`${this.state.photoDragging === true ? "bg-moon-gray" : "hov-image-uploader"} pointer w-100 h-100 pt4`}
             onDrop={filesToUpload => input.onChange(filesToUpload)}
             dropClass={this.state.photoDragging === true ? "bg-brand-primary" : "bg-moon-grey"}
             onDragOver={() => this.setState({ photoDragging: true })}
             onDragLeave={() => this.setState({ photoDragging: false })}
            >
-            <div className="pt4">{dropzoneContents}</div>
+            <div >{dropzoneContents}</div>
           </Dropzone>
         </div>
         {error &&

@@ -10,6 +10,13 @@ import { parseCSV } from './LeadsAddActions';
 import { InputFile, Button, CSVIcon } from '../common';
 import { Colors } from '../../config/styles';
 
+const DropZoneIcon = (
+  <div>
+    <CSVIcon fill={Colors.brandGreen} width="50px" />
+    <div className="mt2">Drop a CSV File Here</div>
+    <div className="dib mt1 f6">or</div> <div className="dib brand-green mt1 f6">Browse</div>
+  </div>
+);
 
 class LeadsCSVForm extends Component {
   constructor(props) {
@@ -23,7 +30,7 @@ class LeadsCSVForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const DropZoneIcon = <CSVIcon fill={Colors.brandGreen} width="15%" />;
+
     return (
       <div>
         <div className="f3 b">Import a List of Leads</div>

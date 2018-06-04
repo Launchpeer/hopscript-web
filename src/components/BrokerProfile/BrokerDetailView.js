@@ -8,7 +8,6 @@ import {
   CardWithLabel,
   LoaderOrThis,
   ModalCard,
-  SideBar,
   Card
 } from '../common';
 import { Colors, BorderRadius } from '../../config/styles';

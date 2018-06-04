@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { FullScreenContainer, CenterThis, Button, SideBar } from '../common';
+import { FullScreenContainer, CenterThis, Button } from '../common';
 import { LeadsAddForm, LeadsCSVForm, LeadNavBar } from './';
 import { Colors } from '../../config/styles';
 
@@ -18,7 +18,7 @@ class LeadsAddView extends Component {
     const { location } = this.props;
     return (
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
-        <div className="w-100 absolute right-0" style={{ paddingLeft: "100px" }}>
+        <div className="w-100" style={{ paddingLeft: "100px" }}>
           <CenterThis>
             <div className="w-90 mt3 mb1 pa3 f4" style={{ backgroundColor: Colors.white }} >
               <LeadNavBar route={location.pathname} />
