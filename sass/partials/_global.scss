@@ -45,10 +45,17 @@ input {
   color: $brandPrimary;
 }
 
+.brand-primary-shade {
+  color: $brandPrimaryShade;
+}
+
 .bg-brand-primary {
   background-color: $brandPrimary;
 }
 
+.brand-near-black {
+  background-color: $brandNearBlack
+}
 .brand-secondary {
   color: $brandSecondary;
 }
@@ -57,7 +64,11 @@ input {
   color: $brandRed;
 }
 
-.moon-grey {
+.brand-green {
+  color: $brandGreen
+}
+
+.moon-gray {
   color: $moonGray;
 }
 
@@ -85,6 +96,17 @@ input {
   z-index: 1;
 }
 
+.rectangle-profile {
+  border-radius: 0%;
+  height: 200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  align-self: center;
+  z-index: 1;
+}
+
 .abs-center {
   position: absolute;
   left: 50%;
@@ -97,7 +119,7 @@ input {
 }
 
 .hov-image-uploader {
-  background-color: $silver;
+  background-color: $lightGray;
 }
 
 .hov-image-uploader:hover {

@@ -70,7 +70,7 @@ class ResetPasswordView extends Component {
         <div className="w-100">
           <CenterThis>
             <div className="mt5 tc">
-              <HeadphonesIcon width="20%" fill={Colors.white} />
+              <HeadphonesIcon width="20%" color={Colors.white} />
             </div>
           </CenterThis>
           <CenterThis>
