@@ -1,22 +1,11 @@
 import Parse from 'parse';
 
 import {
-  LEADS_LIST_ERROR,
-  LEADS_LIST_CLEAR_ERROR,
   LEADS_LIST_LOADING,
-  LEADS_LIST_LOAD_END,
-  CURRENT_LEAD,
-  CURRENT_LEAD_GROUP
+  LEADS_LIST_LOAD_END
 } from './LeadsListTypes';
 
 import { fetchUser } from '../UserActions';
-
-function _leadsListError(error) {
-  return {
-    type: LEADS_LIST_ERROR,
-    payload: error
-  };
-}
 
 function _leadsListLoading() {
   return {
@@ -47,14 +36,12 @@ export const removeLead = id => (dispatch) => {
       dispatch(_leadsListLoading());
       _removeLeadFromAgent(lead).then(() => {
         lead.destroy({
-          success(lead) {
+          success() {
             dispatch(fetchUser());
             dispatch(_leadsListLoadEnd());
-            console.log('Deleted', leadGroup.attributes.name);
           },
-          error(lead) {
+          error() {
             dispatch(_leadsListLoadEnd());
-            console.log('error deleting ', lead);
           }
         });
       });
@@ -62,27 +49,13 @@ export const removeLead = id => (dispatch) => {
     .catch(err => console.log('error deleting lead', err));
 };
 
-function _currentLead(lead) {
-  return {
-    type: CURRENT_LEAD,
-    payload: lead
-  };
-}
-
-function _currentLeadGroup(leadGroup) {
-  return {
-    type: CURRENT_LEAD_GROUP,
-    payload: leadGroup
-  };
-}
-
 function _getLeadGroup(id) {
   const LeadGroup = Parse.Object.extend('LeadGroup');
   const query = new Parse.Query(LeadGroup);
   query
     .get(id)
     .then(group => console.log('gotem', group))
-    .catch(err => console.log('err fetching', lead));
+    .catch(err => console.log('err fetching', err));
 }
 
 function _getLead(id) {
@@ -91,22 +64,7 @@ function _getLead(id) {
   query
     .get(id)
     .then(lead => console.log('gotem', lead))
-    .catch(err => console.log('err fetching', lead));
-}
-
-
-function _reconcileLeadToGroup(Lead, LeadGroup) {
-  return new Promise((resolve) => {
-    LeadGroup.add('leads', Lead);
-    resolve(LeadGroup.save());
-  });
-}
-
-function _reconcileGroupToLead(Lead, LeadGroup) {
-  return new Promise((resolve) => {
-    Lead.add('leadGroups', LeadGroup);
-    resolve(Lead.save());
-  });
+    .catch(err => console.log('err fetching', err));
 }
 
 const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {

@@ -8,7 +8,7 @@
 
 import Parse from 'parse';
 import Papa from 'papaparse';
-
+import { browserHistory } from 'react-router';
 import {
   LEADS_ADD_ERROR,
   LEADS_ADD_CLEAR_ERROR,
@@ -18,7 +18,6 @@ import {
 } from './LeadsAddTypes';
 import parsePhone from '../helpers/parsePhone';
 import { fetchUser } from '../UserActions';
-import { browserHistory } from 'react-router';
 
 function _leadsAddError(error) {
   return {
@@ -95,7 +94,7 @@ function _parseCSV(data) {
  * @param  {object} lead object containing name and phone
  */
 function _reconcileLeadToDB({
-  name, phone, leadType, leadGroup
+  name, phone, email, leadType, leadGroup
 }) {
   return new Promise((resolve) => {
     const Agent = Parse.User.current();
@@ -104,6 +103,7 @@ function _reconcileLeadToDB({
     const formattedPhone = `+1${phone}`;
     LObj.set('name', name);
     LObj.set('phone', formattedPhone);
+    LObj.set('email', email);
     if (leadType) {
       LObj.set('leadType', leadType);
     }

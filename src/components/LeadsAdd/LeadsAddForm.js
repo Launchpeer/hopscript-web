@@ -11,8 +11,7 @@ import {
   InputDropDown,
   Button,
   LoaderOrThis,
-  RenderAlert,
-  borderRadius
+  RenderAlert
 } from '../common';
 import normalizePhone from '../helpers/normalize';
 import { createLead, clearError } from './LeadsAddActions';
@@ -36,7 +35,7 @@ class LeadsAddForm extends Component {
 
   render() {
     const {
-      handleSubmit, valid, loading, error
+      handleSubmit, loading, error
     } = this.props;
     return (
       <div>
@@ -70,6 +69,20 @@ class LeadsAddForm extends Component {
                   placeholder="(000) 000 0000"
                   borderColor="lightGray"
                   normalize={normalizePhone}
+                  height="50px"
+                  classOverrides="mt2 mb2"
+            />
+              </div>
+            </div>
+
+            <div className="flex flex-row w-100">
+              <div className="w-30 mt2 mb2 pt3 pb3">Email</div>
+              <div className="w-70">
+                <InputText
+                  name="email"
+                  type="text"
+                  placeholder="example@gmail.com"
+                  borderColor="lightGray"
                   height="50px"
                   classOverrides="mt2 mb2"
             />

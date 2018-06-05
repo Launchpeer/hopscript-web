@@ -2,12 +2,10 @@
  * The purpose of this file is to provide UI wrapping around LeadsAddForm
  */
 
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-import { FullScreenContainer, CenterThis, Button } from '../common';
+import React from 'react';
+import { FullScreenContainer, CenterThis } from '../common';
 import { LeadsAddForm, LeadsCSVForm, LeadNavBar } from './';
 import { Colors } from '../../config/styles';
-
 
 const LeadsAddView = ({ location }) => (
   <FullScreenContainer classOverrides="vh-100 bg-light-gray">

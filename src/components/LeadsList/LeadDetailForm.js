@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
 import { Colors } from '../../config/styles';
-import { Button, InputDropDown, InputText, RenderAlert } from '../common';
+import { Button, InputDropDown } from '../common';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 
@@ -14,7 +13,7 @@ class LeadDetailForm extends Component {
   }
 
   handleFormSubmit(data) {
-    const lead = this.props.lead;
+    const { lead } = this.props;
     this.props.reconcileLeadsAndGroups(data, lead);
   }
 
@@ -23,9 +22,7 @@ class LeadDetailForm extends Component {
   }
 
   render() {
-    const {
-      handleSubmit, loading, leadGroups, lead
-    } = this.props;
+    const { handleSubmit, leadGroups } = this.props;
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
         value: group.id,
@@ -46,9 +43,7 @@ class LeadDetailForm extends Component {
               placeholder="Select a Group"
               options={leadGroupOptions}
               borderColor="black"
-              borderRadius="none"
-            />
-
+              borderRadius="none" />
             <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
           </form>
         )}
