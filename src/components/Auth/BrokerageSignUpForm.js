@@ -8,7 +8,6 @@ import { signUpUser } from './AuthActions';
 
 // components
 import { Button, RenderAlert, Loader } from '../common';
-import { InputText } from '../common';
 
 import { Colors } from '../../config/styles';
 
@@ -54,12 +53,12 @@ class BrokerageSignUpForm extends Component {
               placeholder="Password"
             />
             <div className="tc center w-100 mb4 moonGray">
-          * By clicking Create Account, you agree to our
+              * By clicking Create Account, you agree to our
               <div className="brand-primary pointer w-100"
                 role="button"
                 onKeyPress={this.openPdf}
                 onClick={this.openPdf}>
-              Terms of Service, Privacy Policy, and End User Agreement
+                Terms of Service, Privacy Policy, and End User Agreement
               </div>
             </div>
             <Button classOverrides="w-100" backgroundColor={Colors.brandGreen}>

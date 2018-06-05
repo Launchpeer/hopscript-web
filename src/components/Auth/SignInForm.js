@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { AuthInput } from './';
 import { signInUser, clearError } from './AuthActions';
 import { Button, RenderAlert, Loader } from '../common';
-import { Colors, BorderRadius } from '../../config/styles';
+import { Colors } from '../../config/styles';
 
 class SignInForm extends Component {
   constructor(props) {
