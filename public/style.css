@@ -93,6 +93,21 @@ input:focus {
 .white-placeholder input:-moz-placeholder {
   color: white; }
 
+.half-circle {
+  height: 2rem;
+  width: 1rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem; }
+
+.steps {
+  border-radius: 4px; }
+
+.step-1 {
+  border-radius: 4px 0 0 4px; }
+
+.step-2 {
+  border-radius: 0 4px 4px 0; }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;

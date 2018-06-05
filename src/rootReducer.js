@@ -10,6 +10,7 @@ import LeadsAddReducer from './components/LeadsAdd/LeadsAddReducer';
 import LeadsListReducer from './components/LeadsList/LeadsListReducer';
 import LeadGroupAddReducer from './components/LeadGroupAdd/LeadGroupAddReducer';
 import LeadGroupListReducer from './components/LeadGroupList/LeadGroupListReducer';
+import ScriptBuilderReducer from './components/ScriptBuilder/ScriptBuilderReducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   LeadsAddReducer,
   LeadsListReducer,
   LeadGroupAddReducer,
-  LeadGroupListReducer
+  LeadGroupListReducer,
+  ScriptBuilderReducer
 });
 
 export default rootReducer;

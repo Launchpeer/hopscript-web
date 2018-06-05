@@ -43,3 +43,7 @@ export { default as CallIcon } from './images/CallIcon';
 export { default as HistoryIcon } from './images/HistoryIcon';
 export { default as PeopleIcon } from './images/PeopleIcon';
 export { default as ScriptIcon } from './images/ScriptIcon';
+export { default as ChevronLeftCircle } from './images/ChevronLeftCircle';
+export { default as ChevronRight } from './images/ChevronRight';
+export { default as GridIcon } from './images/GridIcon';
+export { default as CheckCircle } from './images/CheckCircle';
