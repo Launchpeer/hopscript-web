@@ -30,6 +30,7 @@ class ForgotPasswordView extends Component {
     const {
       handleSubmit, error, success, loading
     } = this.props;
+
     return (
       <FullScreenCenter>
         <div className="w-100">
@@ -38,8 +39,7 @@ class ForgotPasswordView extends Component {
               className="mw5 mb5 mt6 f2 b"
               style={{
                 color: Colors.white
-              }}
-            >
+              }} >
               Swift Script
             </div>
           </CenterThis>
@@ -48,8 +48,7 @@ class ForgotPasswordView extends Component {
               classOverrides="mw6"
               boxShadow
               borderRadius="medium"
-              bottomColor="nearWhite"
-            >
+              bottomColor="nearWhite" >
               <div>
                 {loading && <Loader />}
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -57,12 +56,10 @@ class ForgotPasswordView extends Component {
                     name="username"
                     type="text"
                     label="email address"
-                    placeholder="Email Address"
-                  />
+                    placeholder="Email Address" />
                   <Button
                     classOverrides="w-100"
-                    backgroundColor={Colors.brandGreen}
-                  >
+                    backgroundColor={Colors.brandGreen} >
                     Send Reset Password Email
                   </Button>
                   <RenderAlert error={error} />
@@ -78,9 +75,7 @@ class ForgotPasswordView extends Component {
                 color: Colors.white
               }}
               role="button"
-              onClick={() => browserHistory.push('/')}
-              onKeyPress={() => browserHistory.push('/')}
-            >
+              onClick={() => browserHistory.push('/')} >
               Return to login
             </div>
           </CenterThis>
