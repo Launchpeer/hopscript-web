@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import { InputText, Button, LoaderOrThis, RenderAlert } from '../common';
 
@@ -33,7 +32,7 @@ class AgentsAddForm extends Component {
 
   render() {
     const {
-      user, handleSubmit, valid, loading, error, dirty, cancel
+      valid, loading, error, cancel
     } = this.props;
     return (
       <div className="bg-brand-primary w-100" >

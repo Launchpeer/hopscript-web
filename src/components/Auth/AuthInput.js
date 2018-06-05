@@ -10,7 +10,6 @@ const renderInput = (field) => {
     type,
     placeholder,
     fontColor,
-    borderRadius,
     borderColor,
     meta: { touched, error }
   } = field;
@@ -21,8 +20,7 @@ const renderInput = (field) => {
         style={{
           borderRadius: BorderRadius.all,
           borderColor: borderColor || Colors.moonGray
-        }}
-      >
+        }}>
         <div className="pa1">
           {input.name === 'email' || input.name === 'username' ? (
             <User color={touched && error ? 'red' : Colors.brandPrimary} />
@@ -40,8 +38,7 @@ const renderInput = (field) => {
             style={{
               color: fontColor || Colors['darkGrey'],
               borderRadius: BorderRadius.all
-            }}
-          />
+            }} />
         </div>
       </div>
 
@@ -71,8 +68,7 @@ const AuthInput = ({
       placeholder={placeholder}
       component={component || renderInput}
       fontColor={fontColor}
-      borderRadius={borderRadius}
-    />
+      borderRadius={borderRadius} />
   </div>
 );
 

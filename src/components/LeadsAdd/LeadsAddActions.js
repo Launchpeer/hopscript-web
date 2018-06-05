@@ -8,7 +8,7 @@
 
 import Parse from 'parse';
 import Papa from 'papaparse';
-
+import { browserHistory } from 'react-router';
 import {
   LEADS_ADD_ERROR,
   LEADS_ADD_CLEAR_ERROR,
@@ -18,7 +18,6 @@ import {
 } from './LeadsAddTypes';
 import parsePhone from '../helpers/parsePhone';
 import { fetchUser } from '../UserActions';
-import { browserHistory } from 'react-router';
 
 function _leadsAddError(error) {
   return {

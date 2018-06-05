@@ -4,17 +4,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  FullScreenContainer,
-  SubHeader,
-  CenterThis,
-  Button,
-  CardWithLabel,
-  LoaderOrThis,
-  ModalCard,
-  Card
-} from '../common';
-import { Colors, BorderRadius } from '../../config/styles';
+import { FullScreenContainer, CenterThis, Button, LoaderOrThis, ModalCard } from '../common';
+import { Colors } from '../../config/styles';
 import { deleteAgentProfile } from './AgentProfileActions';
 import { AgentProfileForm } from './';
 import { logOutUser } from '../Auth/AuthActions';
@@ -45,9 +36,8 @@ class AgentProfileView extends Component {
 
   render() {
     const { showModal } = this.state;
-    const { loading, user } = this.props;
+    const { loading } = this.props;
     return (
-
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
           <div className="w-90 absolute right-0" styles={{ paddingLeft: '100px' }}>
@@ -58,15 +48,12 @@ class AgentProfileView extends Component {
               </div>
             </CenterThis>
             <CenterThis>
-
-              <div className="w-90" style={{ backgroundColor: Colors.white }} >
-
+              <div className="w-90" style={{ backgroundColor: Colors.white }}>
                 <CenterThis>
                   <div className="w-50 mt5 mb4">
                     <AgentProfileForm />
                   </div>
                 </CenterThis>
-
                 <CenterThis>
                   <div className="silver f5 tc w-50 mb3">
                     IMPORTANT! Please note that if you choose "Delete Account",
@@ -83,8 +70,7 @@ class AgentProfileView extends Component {
                       borderRadius="10px"
                       borderColor="silver"
                       borderWidth="1px"
-                      onClick={() => this.toggleModal()}
-             >
+                      onClick={() => this.toggleModal()}>
                Permanently Delete Account
                     </Button>
                   </div>
@@ -103,9 +89,8 @@ class AgentProfileView extends Component {
                       fontColor="silver"
                       borderRadius="10px"
                       borderColor="silver"
-                      borderWidth="1px"
-                >
-                  Cancel
+                      borderWidth="1px">
+                      Cancel
                     </Button>
                     <Button
                       borderWidth="1px"
@@ -114,35 +99,23 @@ class AgentProfileView extends Component {
                       backgroundColor="white"
                       fontColor="brandRed"
                       classOverrides="w-100"
-                      onClick={this.deleteAgentProfile}
-                >
-                  Permanently Delete Account
+                      onClick={this.deleteAgentProfile}>
+                      Permanently Delete Account
                     </Button>
                   </div>
-                </ModalCard>
-          )}
-
+                </ModalCard>)}
               </div>
-
-
             </CenterThis>
-
-
           </div>
-
-
         </LoaderOrThis>
       </FullScreenContainer>
-
     );
   }
 }
 
 const mapStateToProps = ({ UserReducer }) => {
   const { user } = UserReducer;
-  return {
-    user
-  };
+  return { user };
 };
 
 export default connect(mapStateToProps, {

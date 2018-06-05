@@ -11,8 +11,7 @@ import {
   InputDropDown,
   Button,
   LoaderOrThis,
-  RenderAlert,
-  borderRadius
+  RenderAlert
 } from '../common';
 import normalizePhone from '../helpers/normalize';
 import { createLead, clearError } from './LeadsAddActions';
@@ -36,7 +35,7 @@ class LeadsAddForm extends Component {
 
   render() {
     const {
-      handleSubmit, valid, loading, error
+      handleSubmit, loading, error
     } = this.props;
     return (
       <div>

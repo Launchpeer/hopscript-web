@@ -34,11 +34,7 @@ class LeadsListItem extends Component {
     const { modalOpen } = this.state;
     return (
       <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
-        style={{
-          paddingTop: '1rem',
-          paddingBottom: '1rem'
-        }}
-      >
+        style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>
             <div className="pa4 tc">
@@ -50,14 +46,13 @@ class LeadsListItem extends Component {
             </div>
           </ModalCard>
         }
-        <div
-          className="flex w-100 items-center justify-between"
-        >
+        <div className="flex w-100 items-center justify-between">
           <div className="w-30-ns">{attributes.name}</div>
           <div className="w-30-ns">{attributes.phone}</div>
           <div className="w-30-ns">{attributes.email}</div>
           <div
             className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+            role="button"
             style={{ width: '2rem', height: '2rem' }}
             onClick={this.toggleModal}>
             X

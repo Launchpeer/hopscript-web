@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { FullScreenContainer } from '../common';
 import { fetchLead } from '../LeadsAdd';
 import LeadDetailForm from './LeadDetailForm';

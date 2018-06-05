@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import { InputTextEditable } from '../common';
 import { logOutUser } from '../Auth/AuthActions';
@@ -11,9 +10,6 @@ import { updateAgentProfile, fetchBrokerage } from './AgentProfileActions';
 class AgentProfileForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editText: true
-    };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
     this.props.fetchBrokerage(this.props.user.attributes.brokerage.id);
@@ -27,12 +23,9 @@ class AgentProfileForm extends Component {
     this.props.logOutUser();
   }
 
-
   render() {
     const { user, handleSubmit, brokerage } = this.props;
     return (
-
-
       <form className="mv4">
         <InputTextEditable
           name="brokerage"
@@ -40,29 +33,22 @@ class AgentProfileForm extends Component {
           label="Brokerage"
           borderColor={Colors.moonGray}
           placeholder={brokerage && brokerage.attributes.username}
-          noEdit
-          />
-
+          noEdit />
         <InputTextEditable
           name="username"
           type="text"
           label="Name"
           borderColor={Colors.moonGray}
           placeholder={user && user.get('username')}
-          onSubmit={handleSubmit(this.handleFormSubmit)}
-          />
-
+          onSubmit={handleSubmit(this.handleFormSubmit)} />
         <InputTextEditable
           name="email"
           type="text"
           label="email"
           borderColor={Colors.moonGray}
           placeholder={user && user.get('email')}
-          noEdit
-            />
+          noEdit />
       </form>
-
-
     );
   }
 }

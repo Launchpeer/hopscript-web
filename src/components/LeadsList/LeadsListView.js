@@ -1,11 +1,10 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
-import { FullScreenContainer, CenterThis, Button, LoaderOrThis } from '../common';
+import { FullScreenContainer, CenterThis } from '../common';
 import { LeadsList } from './';
 import { LeadNavBar } from '../LeadsAdd';
 import { Colors } from '../../config/styles';
 
-const LeadsListView = () => (
+const LeadsListView = ({ location }) => (
   <FullScreenContainer classOverrides="bg-light-gray">
     <div className="w-100" style={{ paddingLeft: "100px" }}>
       <CenterThis>

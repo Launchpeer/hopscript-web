@@ -30,43 +30,38 @@ class BrokerageSignUpForm extends Component {
     const { handleSubmit, error, loading } = this.props;
     return (
       <div>
-        {loading ? (
-          <Loader />
-        ) : (
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-            <AuthInput
-              name="username"
-              type="text"
-              label="username"
-              placeholder="Brokerage Name"
-              />
-            <AuthInput
-              name="email"
-              type="email"
-              label="email address"
-              placeholder="Email Address"
-            />
-            <AuthInput
-              name="password"
-              type="password"
-              label="password"
-              placeholder="Password"
-            />
-            <div className="tc center w-100 mb4 moonGray">
+        {loading ? <Loader /> :
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+          <AuthInput
+            name="username"
+            type="text"
+            label="username"
+            placeholder="Brokerage Name" />
+          <AuthInput
+            name="email"
+            type="email"
+            label="email address"
+            placeholder="Email Address" />
+          <AuthInput
+            name="password"
+            type="password"
+            label="password"
+            placeholder="Password" />
+          <div className="tc center w-100 mb4 moonGray">
               * By clicking Create Account, you agree to our
-              <div className="brand-primary pointer w-100"
-                role="button"
-                onKeyPress={this.openPdf}
-                onClick={this.openPdf}>
+            <div className="brand-primary pointer w-100"
+              role="button"
+              onKeyPress={this.openPdf}
+              onClick={this.openPdf}>
                 Terms of Service, Privacy Policy, and End User Agreement
-              </div>
             </div>
-            <Button classOverrides="w-100" backgroundColor={Colors.brandGreen}>
-              Create Account
-            </Button>
-            <RenderAlert error={error} />
-          </form>
-        )}
+          </div>
+          <Button classOverrides="w-100" backgroundColor={Colors.brandGreen}>
+            Create Account
+          </Button>
+          <RenderAlert error={error} />
+        </form>
+        }
       </div>
     );
   }
