@@ -77,6 +77,20 @@ class LeadsAddForm extends Component {
             </div>
 
             <div className="flex flex-row w-100">
+              <div className="w-30 mt2 mb2 pt3 pb3">Email</div>
+              <div className="w-70">
+                <InputText
+                  name="email"
+                  type="text"
+                  placeholder="example@gmail.com"
+                  borderColor="lightGray"
+                  height="50px"
+                  classOverrides="mt2 mb2"
+            />
+              </div>
+            </div>
+
+            <div className="flex flex-row w-100">
               <div className="w-30 mt2 mb2 pt3 pb3">Lead Type</div>
               <div className="w-70">
                 <InputDropDown

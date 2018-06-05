@@ -54,6 +54,8 @@ class LeadsListItem extends Component {
           className="flex w-100 items-center justify-between"
         >
           <div className="w-30-ns">{attributes.name}</div>
+          <div className="w-30-ns">{attributes.phone}</div>
+          <div className="w-30-ns">{attributes.email}</div>
           <div
             className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
             style={{ width: '2rem', height: '2rem' }}

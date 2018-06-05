@@ -15,7 +15,7 @@ const LeadsListView = () => (
       </CenterThis>
 
       <CenterThis>
-        <div className="w-90 flex flex-row justify-around" style={{ backgroundColor: Colors.white }} >
+        <div className="w-90 flex flex-row justify-around pa4" style={{ backgroundColor: Colors.white }} >
           <LeadsList />
         </div>
       </CenterThis>
