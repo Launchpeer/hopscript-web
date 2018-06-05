@@ -1,10 +1,3 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { FullScreenContainer, SubHeader, Button, CenterThis } from '../common';
-import { AgentsListView } from '../AgentsList';
-import { Colors } from '../../config/styles';
-import { browserHistory } from 'react-router';
-
 /*
 This is the Dashboard View component.
 If the user is an agent, they will see the agent dashboard.
@@ -12,6 +5,13 @@ If the user is a Brokerage, they'll see the Brokerage dashboard display.
 If the Brokerage has any agents, the dashboard will show a list of agents.
 If the Brokerage does not have agents, it will display a "get started" message.
 */
+
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { FullScreenContainer, SubHeader, Button, CenterThis } from '../common';
+import { AgentsListView } from '../AgentsList';
+import { Colors } from '../../config/styles';
+import { browserHistory } from 'react-router';
 
 
 const BrokerageDisplay = ({ user }) => {

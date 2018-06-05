@@ -12,7 +12,7 @@ import { Colors } from '../../config/styles';
 
 const DropZoneIcon = (
   <div>
-    <CSVIcon fill={Colors.brandGreen} width="50px" />
+    <CSVIcon color={Colors.brandGreen} width="50px" />
     <div className="mt2">Drop a CSV File Here</div>
     <div className="dib mt1 f6">or</div> <div className="dib brand-green mt1 f6">Browse</div>
   </div>

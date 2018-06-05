@@ -16,15 +16,9 @@ const PathsWithoutSideBarContent = [
 ];
 
 /* These are functions that determine button color depending on route */
-const bgColor = (current, route) => {
-  const color = route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
-  return color;
-};
+const bgColor = (current, route) => route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
 
-const textColor = (current, route) => {
-  const color = route === current ? Colors.white : Colors.brandSecondary;
-  return color;
-};
+const textColor = (current, route) => route === current ? Colors.white : Colors.brandSecondary;
 
 
 /* These are the different items that can go in the SideBar */
@@ -36,7 +30,7 @@ const Divider = () => (
 const Call = route => (
   <div className="pt4 pb4" style={{ backgroundColor: bgColor('call', route) }}>
     <div className="tc">
-      <CallIcon width="20%" fill={textColor('call', route)} />
+      <CallIcon width="20%" color={textColor('call', route)} />
     </div>
     <div className="f5 tc" style={{ color: textColor('call', route) }}>
   Call
@@ -47,7 +41,7 @@ const Call = route => (
 const Scripts = route => (
   <div className="pt4 pb4" style={{ backgroundColor: bgColor('script', route) }}>
     <div className="tc">
-      <ScriptIcon width="20%" fill={textColor('script', route)} />
+      <ScriptIcon width="20%" color={textColor('script', route)} />
     </div>
     <div className="f5  tc" style={{ color: textColor('script', route) }}>
       Scripts
@@ -58,7 +52,7 @@ const Scripts = route => (
 const Leads = ({ fill }) => (
   <div className="pt4 pb4">
     <div className="tc">
-      <PeopleIcon width="20%" fill={fill} />
+      <PeopleIcon width="20%" color={fill} />
     </div>
     <div className="f5 tc" >
           Leads
@@ -69,7 +63,7 @@ const Leads = ({ fill }) => (
 const Agents = route => (
   <div className="pt4 pb4" style={{ backgroundColor: bgColor('/add-agents', route) }}>
     <div className="tc">
-      <PeopleIcon width="20%" fill={textColor('/add-agents', route)} />
+      <PeopleIcon width="20%" color={textColor('/add-agents', route)} />
     </div>
     <div className="f5  tc" style={{ color: textColor('/add-agents', route) }}>
             Agents
@@ -80,7 +74,7 @@ const Agents = route => (
 const History = route => (
   <div className="pt4 pb4">
     <div className="tc">
-      <HistoryIcon width="20%" fill={textColor('/history', route)} />
+      <HistoryIcon width="20%" color={textColor('/history', route)} />
     </div>
     <div className="f5 brand-secondary tc">
   History
@@ -119,7 +113,7 @@ const sidebarContent = (route, user) => (
 
       <div className="pb3" >
         <div className="tc">
-          <HeadphonesIcon width="30%" fill={Colors.white} />
+          <HeadphonesIcon width="30%" color={Colors.white} />
         </div>
         <div className="f5 white tc">
     BreezeBot
