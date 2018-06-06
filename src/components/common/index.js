@@ -37,6 +37,8 @@ export { default as InputPhoto } from './input/InputPhoto';
 export { default as InputAddress } from './input/InputAddress';
 export { default as InputFile } from './input/InputFile';
 export { default as InputTextEditable } from './input/InputTextEditable';
+export { default as InputCheckbox } from './input/InputCheckbox';
+export { default as InputAudio } from './input/InputAudio';
 
 export { default as HeadphonesIcon } from './images/HeadphonesIcon';
 export { default as CallIcon } from './images/CallIcon';
@@ -47,3 +49,6 @@ export { default as ChevronLeftCircle } from './images/ChevronLeftCircle';
 export { default as ChevronRight } from './images/ChevronRight';
 export { default as GridIcon } from './images/GridIcon';
 export { default as CheckCircle } from './images/CheckCircle';
+export { default as MicrophoneIcon } from './images/MicrophoneIcon';
+export { default as PlusIcon } from './images/PlusIcon';
+export { default as TrashIcon } from './images/TrashIcon';

@@ -10,9 +10,12 @@ import { Colors } from '../../config/styles';
 import {
   InputTextArea,
   InputDropDown,
-  Button,
+  InputCheckbox,
+  InputAudio,
   LoaderOrThis,
-  RenderAlert
+  RenderAlert,
+  Button,
+  PlusIcon
 } from '../common';
 
 class QuestionBuilderForm extends Component {
@@ -22,45 +25,65 @@ class QuestionBuilderForm extends Component {
   }
 
   handleFormSubmit(data) {
-    console.log('questionable data');
-  }
-
-  clearError() {
-    if (this.props.error) {
-      this.props.clearError();
-    }
+    console.log('questionable data', data);
   }
 
   render() {
     const {
-      handleSubmit, valid, loading, error
+      handleSubmit, valid, loading, error, onSubmit
     } = this.props;
     return (
       <div>
         <LoaderOrThis loading={loading}>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
-            onClick={this.clearError}
           >
-            <InputTextArea
-              name="body"
-              label="Name"
-              placeholder="Full Name"
-            />
-            <InputDropDown
-              name="leadType"
-              type="dropdown"
-              label="Type of Lead"
-              placeholder="Type of Lead"
-              options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
-              borderColor="white"
-              borderRadius="none"
-            />
-
-            {valid && (
-              <Button backgroundColor={Colors.brandPrimary}>Add Lead</Button>
-            )}
-            {error && <RenderAlert error={error} />}
+            <div className="single-line-textarea">
+              <InputTextArea name="name" placeholder="Write Question Here"/>
+            </div>
+            <div className="flex mt4">
+              <div className="w-10">Description</div>
+              <div className="w-90">
+                <div className="block-textarea">
+                  <InputTextArea name="description" placeholder="Optional Description" />
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center mt4">
+              <div className="w-10">Category</div>
+              <div className="w-60">
+                <InputDropDown
+                  name="category"
+                  type="dropdown"
+                  placeholder="Choose category"
+                  options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
+                  borderColor={Colors.moonGray}
+                />
+              </div>
+            <div className="flex items-center ml2">
+                <InputCheckbox name="closing" />
+                <div className="ml1">Closing Statement</div>
+              </div>
+            </div>
+            <div className="flex">
+              <div className="w-10">Audio</div>
+              <div className="w-90">
+                <InputAudio name="audio" />
+              </div>
+            </div>
+            <div className="flex justify-end mt6">
+              <Button
+                onClick={(e) => { e.preventDefault() }}
+                borderColor={Colors.brandGreen}
+                borderWidth="1px"
+                fontColor={Colors.brandGreen}
+                classOverrides="flex items-center mr2"
+              >
+                <PlusIcon color={Colors.brandGreen} width="1.5rem" height="1.5rem"/>
+                Add question
+              </Button>
+              <Button backgroundColor={Colors.brandGreen}>Save</Button>
+            </div>
           </form>
         </LoaderOrThis>
       </div>
@@ -78,8 +101,8 @@ const mapStateToProps = ({ LeadsAddReducer }) => {
 
 function validate(values) {
   const errors = {};
-  if (!values.name || !values.phone || !values.leadType || !values.leadGroup) {
-    errors._error = 'All fields required';
+  if (!values.name) {
+    errors._error = 'Name required';
   }
 
   return errors;

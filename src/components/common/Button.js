@@ -21,7 +21,7 @@ const Button = ({
       borderRadius: borderRadius || BorderRadius.all,
       backgroundColor,
       borderColor: borderColor || Colors.darkGrey,
-      border: `${borderWidth} solid` || 'none'
+      border: `${borderWidth} solid ${borderColor}` || 'none'
     }}
     type={type}
     className={

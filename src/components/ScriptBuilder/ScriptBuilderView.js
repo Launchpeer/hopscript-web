@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ChevronLeftCircle, ChevronRight, GridIcon, CheckCircle } from '../common';
 import { Colors } from '../../config/styles';
 import { fetchScript } from './ScriptBuilderActions';
-import { QuestionBuilderForm, ScriptNameForm } from './';
+import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderForm } from './';
 
 const ScriptInfo = ({ name, step, scriptId }) => (
   <div className="ml4">
@@ -75,25 +75,27 @@ class ScriptBuilderView extends Component {
     const { currentScript } = this.props;
     const { currentQuestion } = this.props;
     return (
-    <div>
-        {currentScript &&
-          <div>
-            <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
-                <div className="flex items-center">
-                  <ChevronLeftCircle width="2rem" height="2rem" fill="black"/>
-                  <ScriptInfo step={currentStep} name={currentScript.attributes.name} scriptId={currentScript.id} />
+      <div>
+          {currentScript &&
+            <div>
+              <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
+                  <div className="flex items-center">
+                    <ChevronLeftCircle width="2rem" height="2rem" fill="black"/>
+                    <ScriptInfo step={currentStep} name={currentScript.attributes.name} scriptId={currentScript.id} />
+                  </div>
+                  <StepIndicator step={currentStep} toggle={this.toggleStep}/>
+              </div>
+              <div className="w-100 flex">
+                <Glossary step={currentStep} question={currentQuestion} />
+                <div className="w-70 pa3">
+                  {currentStep === 'question' ? <QuestionBuilderForm /> : <AnswerBuilderForm toggleStep={this.toggleStep}/>}
                 </div>
-                <StepIndicator step={currentStep} toggle={this.toggleStep}/>
+              </div>
             </div>
-            <div className="w-100 flex">
-              <Glossary step={currentStep} question={currentQuestion} />
-              <QuestionBuilderForm />
-            </div>
-          </div>
-        }
-    </div>
-  )
-}
+          }
+      </div>
+    )
+  }
 };
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
