@@ -18,12 +18,7 @@ import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
 import { AUTH_USER } from './components/Auth/AuthTypes';
 import { UPDATE_USER } from './components/UserTypes';
-import {
-  AuthView,
-  ForgotPasswordView,
-  ResetPasswordView,
-  BrokerageSignUpForm
-} from './components/Auth';
+import { AuthView, ForgotPasswordView, ResetPasswordView } from './components/Auth';
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
