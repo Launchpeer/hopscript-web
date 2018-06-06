@@ -238,7 +238,11 @@ const updateLead = (lead, {
         fetchedLead.set('leadType', leadType);
       }
       fetchedLead.save()
-        .then(savedLead => dispatch(_setCurrentLead(savedLead))).catch((err) => {
+        .then((savedLead) => {
+          dispatch(_leadsAddLoadEnd());
+          dispatch(_setCurrentLead(savedLead));
+        })
+        .catch((err) => {
           dispatch(_leadsAddError(err));
         });
     })

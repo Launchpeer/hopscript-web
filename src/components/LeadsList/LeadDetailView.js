@@ -40,7 +40,7 @@ class LeadDetailView extends Component {
           </CenterThis>
 
           <CenterThis>
-            <div className="flex w-90 items-center tc" style={{ backgroundColor: Colors.white }}>
+            <div className="flex w-90 items-center" style={{ backgroundColor: Colors.white }}>
               <HalfGrid>
                 <CenterThis>
                   <div className="pa4 w-100" >

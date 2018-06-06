@@ -23,7 +23,7 @@ class LeadDetailForm extends Component {
   }
 
   render() {
-    const { handleSubmit, lead } = this.props;
+    const { handleSubmit, lead, dirty } = this.props;
     return (
       <div>
         <form className="mv4" >
@@ -58,9 +58,9 @@ class LeadDetailForm extends Component {
               onSubmit={handleSubmit(this.handleFormSubmit)} />
           </div>
 
-          <div className="flex flex-row w-100">
+          <div className="flex flex-row w-100 items-center">
             <div className="w-30 mt2 mb2 pt3 pb3 b">Lead Type</div>
-            <div className="w-70">
+            <div className="w-100 pa2">
               <InputDropDown
                 name="leadType"
                 type="dropdown"
@@ -68,16 +68,15 @@ class LeadDetailForm extends Component {
                 options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
                 borderColor="lightGray" />
             </div>
+            {dirty &&
+              <div
+                className="pointer fr"
+                style={{ color: Colors.stripe }}
+                role="button"
+                onClick={handleSubmit(this.handleFormSubmit)} >
+                Save
+              </div>}
           </div>
-
-          <div
-            className="pointer"
-            style={{ color: Colors.stripe }}
-            role="button"
-            onClick={handleSubmit(this.handleFormSubmit)} >
-            Save
-          </div>
-
         </form>
       </div>
     );
