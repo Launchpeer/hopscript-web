@@ -8,7 +8,7 @@ var Colors = {
   brandGreen: '#00cd6a',
   brandRed: '#ff5628',
   brandNearBlack: '#3e3e3e',
-
+  
   stripe: '#6772E5',
 
   // Basic Tachyon
