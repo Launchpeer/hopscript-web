@@ -216,4 +216,35 @@ const fetchLead = id => (dispatch) => {
     });
 };
 
-export { parseCSV, clearError, createLead, fetchLead };
+const updateLead = (lead, {
+  name, email, phone, leadType
+}) => (dispatch) => {
+  dispatch(_leadsAddLoading());
+  const Lead = Parse.Object.extend('Lead');
+  const query = new Parse.Query(Lead);
+  query
+    .get(lead)
+    .then((fetchedLead) => {
+      if (name) {
+        fetchedLead.set('name', name);
+      }
+      if (phone) {
+        fetchedLead.set('phone', phone);
+      }
+      if (email) {
+        fetchedLead.set('email', email);
+      }
+      if (leadType) {
+        fetchedLead.set('leadType', leadType);
+      }
+      fetchedLead.save()
+        .then(savedLead => dispatch(_setCurrentLead(savedLead))).catch((err) => {
+          dispatch(_leadsAddError(err));
+        });
+    })
+    .catch((err) => {
+      dispatch(_leadsAddError(err));
+    });
+};
+
+export { parseCSV, clearError, createLead, fetchLead, updateLead };

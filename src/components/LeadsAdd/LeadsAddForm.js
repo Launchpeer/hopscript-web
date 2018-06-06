@@ -42,10 +42,7 @@ class LeadsAddForm extends Component {
         <LoaderOrThis loading={loading}>
           <div className="f3 b">Add a Single Lead</div>
           <div className="mb3">You can add a Lead manually</div>
-          <form
-            onSubmit={handleSubmit(this.handleFormSubmit)}
-            onClick={this.clearError}
-          >
+          <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
             <div className="flex flex-row w-100">
               <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
               <div className="w-70">
@@ -55,8 +52,7 @@ class LeadsAddForm extends Component {
                   placeholder="Enter Client Name"
                   borderColor="lightGray"
                   height="50px"
-                  classOverrides="mt2 mb2"
-            />
+                  classOverrides="mt2 mb2" />
               </div>
             </div>
 

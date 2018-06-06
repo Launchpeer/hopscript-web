@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Colors } from '../../config/styles';
-import { Button, InputDropDown } from '../common';
+import { InputTextEditable, InputDropDown } from '../common';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
+import { updateLead } from '../LeadsAdd/LeadsAddActions';
 
 class LeadDetailForm extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class LeadDetailForm extends Component {
 
   handleFormSubmit(data) {
     const { lead } = this.props;
-    this.props.reconcileLeadsAndGroups(data, lead);
+    this.props.updateLead(lead.id, data);
   }
 
   componentWillMount() {
@@ -22,46 +23,61 @@ class LeadDetailForm extends Component {
   }
 
   render() {
-    const { handleSubmit, leadGroups } = this.props;
-    const leadGroupOptions = leadGroups.map((group) => {
-      group = {
-        value: group.id,
-        id: group.id,
-        display: group.attributes.groupName
-      };
-      return group;
-    });
+    const { handleSubmit, lead } = this.props;
     return (
       <div>
-        <h1>Add Lead To Group</h1>
-        {leadGroups && (
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <form className="mv4" >
+
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3 b">Lead Name</div>
+            <InputTextEditable
+              name="name"
+              type="text"
+              borderColor={Colors.moonGray}
+              placeholder={lead && lead.get('name')}
+              onSubmit={handleSubmit(this.handleFormSubmit)} />
+          </div>
+
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3 b">Phone</div>
+            <InputTextEditable
+              name="phone"
+              type="text"
+              borderColor={Colors.moonGray}
+              placeholder={lead && lead.get('phone')}
+              onSubmit={handleSubmit(this.handleFormSubmit)} />
+          </div>
+
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3 b">Email</div>
+            <InputTextEditable
+              name="email"
+              type="text"
+              borderColor={Colors.moonGray}
+              placeholder={lead && lead.get('email')}
+              onSubmit={handleSubmit(this.handleFormSubmit)} />
+          </div>
+
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3 b">Lead Type</div>
             <InputDropDown
-              name="leadGroup"
+              name="leadType"
               type="dropdown"
-              label="Lead Group"
-              placeholder="Select a Group"
-              options={leadGroupOptions}
-              borderColor="black"
-              borderRadius="none" />
-            <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
-          </form>
-        )}
+              placeholder="Lead Type"
+              options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
+              borderColor="lightGray" />
+          </div>
+        </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ LeadGroupListReducer }) => {
-  const { leadGroups } = LeadGroupListReducer;
-  return {
-    leadGroups
-  };
-};
 
 export default reduxForm({
   form: 'LeadDetailForm'
-})(connect(mapStateToProps, {
+})(connect(null, {
   fetchLeadGroups,
+  updateLead,
   reconcileLeadsAndGroups
 })(LeadDetailForm));

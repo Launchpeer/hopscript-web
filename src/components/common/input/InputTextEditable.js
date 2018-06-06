@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { Edit3, Save } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import { Label } from '../';
 
