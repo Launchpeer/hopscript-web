@@ -60,13 +60,24 @@ class LeadDetailForm extends Component {
 
           <div className="flex flex-row w-100">
             <div className="w-30 mt2 mb2 pt3 pb3 b">Lead Type</div>
-            <InputDropDown
-              name="leadType"
-              type="dropdown"
-              placeholder="Lead Type"
-              options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
-              borderColor="lightGray" />
+            <div className="w-70">
+              <InputDropDown
+                name="leadType"
+                type="dropdown"
+                placeholder={lead && lead.get('leadType')}
+                options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
+                borderColor="lightGray" />
+            </div>
           </div>
+
+          <div
+            className="pointer"
+            style={{ color: Colors.stripe }}
+            role="button"
+            onClick={handleSubmit(this.handleFormSubmit)} >
+            Save
+          </div>
+
         </form>
       </div>
     );
