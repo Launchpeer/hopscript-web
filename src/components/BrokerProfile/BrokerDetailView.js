@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   FullScreenContainer,
-  SubHeader,
   CenterThis,
   Button,
-  CardWithLabel,
   LoaderOrThis,
-  ModalCard,
-  SideBar,
-  Card
+  ModalCard
 } from '../common';
-import { Colors, BorderRadius } from '../../config/styles';
+import { Colors } from '../../config/styles';
 import { deleteBrokerProfile } from './BrokerProfileActions';
 import { BrokerProfileForm } from './';
 import { logOutUser } from '../Auth/AuthActions';
@@ -42,30 +38,20 @@ class BrokerDetailView extends Component {
 
   render() {
     const { showModal } = this.state;
-    const { loading, user } = this.props;
+    const { loading } = this.props;
     return (
-
-      <FullScreenContainer classOverrides=" vh-100 bg-light-gray">
+      <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <LoaderOrThis loading={loading}>
-          <div className="dib mw4-ns w-10 vh-100 " style={{ position: 'fixed' }}>
-            <div className="w-100" >
-              <SideBar />
-            </div>
-          </div>
-          <div className="w-90 absolute right-0" >
-
+          <div className="w-90 absolute right-0" styles={{ paddingLeft: '100px' }}>
             <CenterThis>
-              <div className="w-80 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
-                <div className="b pa2">Broker Account</div>
-                <div onClick={this.handleSignOut} className="pointer white pt2 pb2 pl4 pr4 f5" style={{ backgroundColor: Colors.brandGreen, borderRadius: '4px' }} role="button">
-              Logout
-                </div>
-
+              <div className="w-90 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
+                <div className="b pt2 pb2 pl2">Broker Account</div>
+                <Button backgroundColor={Colors.brandGreen} onClick={this.handleSignOut} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Logout</Button>
               </div>
             </CenterThis>
             <CenterThis>
 
-              <div className="w-80" style={{ backgroundColor: Colors.white }} >
+              <div className="w-90" style={{ backgroundColor: Colors.white }} >
 
                 <CenterThis>
                   <div className="w-50 mt5 mb4">
@@ -89,14 +75,13 @@ class BrokerDetailView extends Component {
                       borderRadius="10px"
                       borderColor="silver"
                       borderWidth="1px"
-                      onClick={() => this.toggleModal()}
-             >
-               Permanently Delete Account
+                      onClick={() => this.toggleModal()}>
+                      Permanently Delete Account
                     </Button>
                   </div>
                 </CenterThis>
 
-                {showModal && (
+                {showModal &&
                 <ModalCard header="Delete Account" onClick={this.toggleModal}>
                   <div className="pa4 pl5 pr5">
                     <div className="mb4">
@@ -109,8 +94,7 @@ class BrokerDetailView extends Component {
                       fontColor="silver"
                       borderRadius="10px"
                       borderColor="silver"
-                      borderWidth="1px"
-                >
+                      borderWidth="1px">
                   Cancel
                     </Button>
                     <Button
@@ -120,35 +104,24 @@ class BrokerDetailView extends Component {
                       backgroundColor="white"
                       fontColor="brandRed"
                       classOverrides="w-100"
-                      onClick={this.deleteBrokerProfile}
-                >
+                      onClick={this.deleteBrokerProfile}>
                   Permanently Delete Account
                     </Button>
                   </div>
                 </ModalCard>
-          )}
-
+          }
               </div>
-
-
             </CenterThis>
-
-
           </div>
-
-
         </LoaderOrThis>
       </FullScreenContainer>
-
     );
   }
 }
 
 const mapStateToProps = ({ UserReducer }) => {
   const { user } = UserReducer;
-  return {
-    user
-  };
+  return { user };
 };
 
 export default connect(mapStateToProps, {

@@ -32,7 +32,7 @@ input {
 
 .list-hover {
   &:hover {
-    background-color: $nearWhite !important;
+    background-color: $lightGray !important;
   }
 }
 
@@ -45,10 +45,17 @@ input {
   color: $brandPrimary;
 }
 
+.brand-primary-shade {
+  color: $brandPrimaryShade;
+}
+
 .bg-brand-primary {
   background-color: $brandPrimary;
 }
 
+.brand-near-black {
+  background-color: $brandNearBlack
+}
 .brand-secondary {
   color: $brandSecondary;
 }
@@ -57,7 +64,11 @@ input {
   color: $brandRed;
 }
 
-.moon-grey {
+.brand-green {
+  color: $brandGreen
+}
+
+.moon-gray {
   color: $moonGray;
 }
 
@@ -85,6 +96,17 @@ input {
   z-index: 1;
 }
 
+.rectangle-profile {
+  border-radius: 0%;
+  height: 200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  align-self: center;
+  z-index: 1;
+}
+
 .abs-center {
   position: absolute;
   left: 50%;
@@ -97,9 +119,41 @@ input {
 }
 
 .hov-image-uploader {
-  background-color: $silver;
+  background-color: $lightGray;
 }
 
 .hov-image-uploader:hover {
   background-color: $brandPrimary;
+}
+
+.list-alt-color-rows {
+  background-color: $white;
+}
+.list-alt-color-rows:nth-child(odd) {
+  background-color: $nearWhite;
+}
+
+.list-alt-color-rows:nth-child(even) {
+  background-color: $white;
+}
+
+.hov-danger:hover {
+  background-color: $darkRed;
+}
+
+.brand-near-black {
+  color: $brandNearBlack;
+}
+
+.white-placeholder input::-webkit-input-placeholder {
+  color: white;
+}
+.white-placeholder input::-moz-placeholder {
+  color: white;
+}
+.white-placeholder input:-ms-input-placeholder {
+  color: white;
+}
+.white-placeholder input:-moz-placeholder {
+  color: white;
 }

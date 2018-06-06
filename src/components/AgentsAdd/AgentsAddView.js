@@ -3,19 +3,13 @@
  */
 
 import React from 'react';
-import {
-  FullScreenContainer,
-  CenterThis,
-  LoaderOrThis
-} from '../common';
 import { AgentsAddForm } from './';
 
-const AgentsAddView = () => (
-  <FullScreenContainer classOverrides="mb4">
-    <CenterThis>
-      <AgentsAddForm />
-    </CenterThis>
-  </FullScreenContainer>
-)
+const AgentsAddView = props => (
+  <div>
+    <AgentsAddForm cancel={props.cancel} />
+  </div>
+
+);
 
 export default AgentsAddView;

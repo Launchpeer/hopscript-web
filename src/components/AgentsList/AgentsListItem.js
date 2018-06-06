@@ -16,7 +16,7 @@ class AgentsListItem extends Component {
     super(props);
     this.state = {
       modalOpen: false
-    }
+    };
     this.handleRemoveAgent = this.handleRemoveAgent.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -33,38 +33,31 @@ class AgentsListItem extends Component {
     } = this.props.agent;
     const { modalOpen } = this.state;
     return (
-      <div className={`flex justify-between items-center pointer list-hover pl2 pr2 bb bw1 b--moon-gray`}
-        style={{
-          paddingTop: '1rem',
-          paddingBottom: '1rem'
-        }}
-      >
+      <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
+        style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>
             <div className="pa4 tc">
             Are you sure you want to delete this agent?
-            <div className="w-100 flex justify-between pl4 pr4 mt4">
-              <Button onClick={this.handleRemoveAgent} backgroundColor={Colors.darkRed}>yes</Button>
-              <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
-            </div>
+              <div className="w-100 flex justify-between pl4 pr4 mt4">
+                <Button onClick={this.handleRemoveAgent} backgroundColor={Colors.darkRed}>yes</Button>
+                <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
+              </div>
             </div>
           </ModalCard>
         }
         <div
           className="flex w-100 items-center justify-between"
         >
-          <div className="w-30-ns black">{attributes.name}</div>
-          <div className="w-30-ns black">{attributes.email}</div>
-          <Button
-            borderColor="red"
-            fontColor="red"
-            backgroundColor="white"
-            borderWidth="1px"
-            buttonPadding="pv2 ph3"
-            borderRadius="small"
-            onClick={this.toggleModal}
-            classOverrides="mr1 dn flex-ns">delete
-          </Button>
+          <div className="w-30-ns brand-near-black">{attributes.name}</div>
+          <div className="w-30-ns silver">{attributes.email}</div>
+          <div
+            className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+            role="button"
+            style={{ width: '2rem', height: '2rem' }}
+            onClick={this.toggleModal}>
+            X
+          </div>
         </div>
       </div>
     );

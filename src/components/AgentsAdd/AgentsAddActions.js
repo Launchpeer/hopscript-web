@@ -5,17 +5,13 @@
  */
 
 import Parse from 'parse';
-import { browserHistory } from 'react-router';
 import passwordGenerator from 'password-generator';
-
 import {
   AGENTS_ADD_ERROR,
   AGENTS_ADD_CLEAR_ERROR,
   AGENTS_ADD_LOADING,
   AGENTS_ADD_LOAD_END
 } from './AgentsAddTypes';
-
-import { UPDATE_USER, CLEAR_USER } from '../UserTypes';
 
 function _agentsAddError(error) {
   return {
@@ -27,8 +23,8 @@ function _agentsAddError(error) {
 function _clearError() {
   return {
     type: AGENTS_ADD_CLEAR_ERROR
-  }
-};
+  };
+}
 
 function _agentsAddLoading() {
   return {
@@ -58,7 +54,7 @@ function _generateRandomPassword() {
     .join('');
 }
 
-function _createNewAgent({name, email, password}) {
+function _createNewAgent({ name, email, password }) {
   return new Promise((resolve) => {
     const brokerage = Parse.User.current();
     const Agent = new Parse.User();
@@ -69,7 +65,7 @@ function _createNewAgent({name, email, password}) {
     Agent.set('brokerage', brokerage);
     Agent.set('role', 'agent');
     resolve(Agent.save());
-  })
+  });
 }
 
 function _reconcileAgentToBrokerage(agent) {
@@ -77,12 +73,12 @@ function _reconcileAgentToBrokerage(agent) {
     const Brokerage = Parse.User.current();
     Brokerage.add('agents', agent);
     resolve(Brokerage.save());
-  })
+  });
 }
 
 export const clearError = () => (dispatch) => {
   dispatch(_clearError());
-}
+};
 
 /**
  * As a broker I want to create an agent.
@@ -96,11 +92,11 @@ export const clearError = () => (dispatch) => {
  * @param  {string} data.name full name of Agent
  */
 
-export const inviteAgent = (data) => (dispatch) => {
+export const inviteAgent = data => dispatch => new Promise((resolve) => {
   dispatch(_agentsAddLoading());
   const password = _generateRandomPassword();
   const User = Parse.User.current();
-  _createNewAgent({ password: password, ...data })
+  _createNewAgent({ password, ...data })
     .then((agent) => {
       Parse.Cloud.run("sendEmailInvite", {
         password,
@@ -111,10 +107,11 @@ export const inviteAgent = (data) => (dispatch) => {
       _reconcileAgentToBrokerage(agent)
         .then((brokerage) => {
           dispatch(_agentsAddLoadEnd());
-        })
+          resolve(brokerage);
+        });
     })
     .catch((err) => {
       dispatch(_agentsAddLoadEnd());
       dispatch(_agentsAddError(err));
     });
-};
+});

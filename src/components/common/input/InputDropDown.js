@@ -16,12 +16,10 @@ const renderDropDown = (fieldProps) => {
   } = fieldProps;
   return (
     <div
-      className="ba mt2 mb3 f5 pa2 relative flex items-center bg-white"
+      className="ba mt2 mb2 f5 pa3 relative flex items-center bg-white"
       style={{
         color: fontColor || Colors.inputFontColor,
-        borderRadius: borderRadius
-          ? BorderRadius[borderRadius].all
-          : BorderRadius.medium.all,
+        borderRadius: borderRadius || BorderRadius.all,
         borderColor: borderColor || Colors.inputBorderColor
       }}
     >

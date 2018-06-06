@@ -20,7 +20,7 @@ const RenderInfoDisplay = ({
   >
 
     <div
-      className="ba w-100 f5 pa2 mt2 bn "
+      className="ba w-100 f5 pa2 mt2 bn"
       style={{
         color: fontColor ? Colors[fontColor] : Colors.primaryGrey
       }}

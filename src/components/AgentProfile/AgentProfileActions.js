@@ -12,7 +12,8 @@ import {
   AGENT_PROFILE_UPDATE_ERROR,
   AGENT_PROFILE_UPDATE_CLEAR_ERROR,
   AGENT_PROFILE_UPDATE_LOADING,
-  AGENT_PROFILE_UPDATE_LOAD_END
+  AGENT_PROFILE_UPDATE_LOAD_END,
+  FETCH_BROKERAGE
 } from './AgentProfileTypes';
 
 import { UPDATE_USER, CLEAR_USER } from '../UserTypes';
@@ -40,15 +41,11 @@ function _agentProfileUpdateLoadEnd() {
   };
 }
 
-export const updateAgentProfile = ({ name, email }) => (dispatch) => {
+export const updateAgentProfile = ({ username }) => (dispatch) => {
   dispatch(_agentProfileUpdateLoading());
   const Profile = Parse.User.current();
-
-  if (name) {
-    Profile.set('name', name);
-  }
-  if (email) {
-    Profile.set('email', email);
+  if (username) {
+    Profile.set('username', username);
   }
   Profile.save()
     .then((updatedProfile) => {
@@ -61,6 +58,14 @@ export const updateAgentProfile = ({ name, email }) => (dispatch) => {
     .catch((err) => {
       dispatch(_agentProfileUpdateError(err));
     });
+};
+
+export const fetchBrokerage = id => (dispatch) => {
+  const User = Parse.Object.extend('User');
+  const query = new Parse.Query(User);
+  query.get(id)
+    .then(brokerage => dispatch({ type: FETCH_BROKERAGE, payload: brokerage }))
+    .catch(err => console.log('err', err));
 };
 
 export const deleteAgentProfile = () => (dispatch) => {

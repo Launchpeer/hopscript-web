@@ -9,7 +9,7 @@ input:focus {
   color: #cbd2cd; }
 
 .list-hover:hover {
-  background-color: #f4f4f4 !important; }
+  background-color: #EEEEEE !important; }
 
 .hov-transparent:hover {
   opacity: 0.75; }
@@ -17,8 +17,14 @@ input:focus {
 .brand-primary {
   color: #6772e5; }
 
+.brand-primary-shade {
+  color: #5c66d5; }
+
 .bg-brand-primary {
   background-color: #6772e5; }
+
+.brand-near-black {
+  background-color: #3e3e3e; }
 
 .brand-secondary {
   color: #3943a5; }
@@ -26,7 +32,10 @@ input:focus {
 .brand-red {
   color: #ff5628; }
 
-.moon-grey {
+.brand-green {
+  color: #00cd6a; }
+
+.moon-gray {
   color: #CCCCCC; }
 
 .bg-moon-grey {
@@ -49,6 +58,17 @@ input:focus {
       align-self: center;
   z-index: 1; }
 
+.rectangle-profile {
+  border-radius: 0%;
+  height: 200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  z-index: 1; }
+
 .abs-center {
   position: absolute;
   left: 50%;
@@ -61,10 +81,37 @@ input:focus {
   pointer-events: none; }
 
 .hov-image-uploader {
-  background-color: #999999; }
+  background-color: #EEEEEE; }
 
 .hov-image-uploader:hover {
   background-color: #6772e5; }
+
+.list-alt-color-rows {
+  background-color: #ffffff; }
+
+.list-alt-color-rows:nth-child(odd) {
+  background-color: #f4f4f4; }
+
+.list-alt-color-rows:nth-child(even) {
+  background-color: #ffffff; }
+
+.hov-danger:hover {
+  background-color: #D0021B; }
+
+.brand-near-black {
+  color: #3e3e3e; }
+
+.white-placeholder input::-webkit-input-placeholder {
+  color: white; }
+
+.white-placeholder input::-moz-placeholder {
+  color: white; }
+
+.white-placeholder input:-ms-input-placeholder {
+  color: white; }
+
+.white-placeholder input:-moz-placeholder {
+  color: white; }
 
 /* Loading Spinner by @tobiasahlin */
 .spinner {

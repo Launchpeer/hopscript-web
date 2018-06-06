@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { BorderRadius } from '../../config/styles';
-import { FullScreenContainer, Button } from '../common';
-import { fetchLead } from './LeadsAddActions';
+import { FullScreenContainer } from '../common';
+import { fetchLead } from '../LeadsAdd';
 import LeadDetailForm from './LeadDetailForm';
 
 class LeadDetailView extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   componentWillMount() {
@@ -16,7 +15,7 @@ class LeadDetailView extends Component {
   }
 
   render() {
-    const { lead, leadGroups } = this.props;
+    const { lead } = this.props;
     return (
       <FullScreenContainer color="white">
         <div>

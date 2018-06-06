@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import { InputTextEditable } from '../common';
 import { logOutUser } from '../Auth/AuthActions';
@@ -11,9 +10,6 @@ import { updateBrokerProfile } from './BrokerProfileActions';
 class UpdateBrokerProfileFormView extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editText: true
-    };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
   }

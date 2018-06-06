@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
 import { Colors } from '../../config/styles';
 import { InputText, Button, LoaderOrThis, RenderAlert } from '../common';
 
@@ -19,36 +18,53 @@ class AgentsAddForm extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.inviteAgent(data);
+    this.props.inviteAgent(data)
+      .then(() => {
+        this.props.cancel();
+      });
   }
 
   clearError() {
-    if(this.props.error) {
+    if (this.props.error) {
       this.props.clearError();
     }
   }
 
   render() {
-    const { user, handleSubmit, valid, loading, error, dirty } = this.props;
+    const {
+      valid, loading, error, cancel
+    } = this.props;
     return (
-      <div>
+      <div className="bg-brand-primary w-100" >
         <LoaderOrThis loading={loading}>
-          <h1>New Agent</h1>
           <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
-            <InputText
-              name="name"
-              type="text"
-              placeholder="Full Name"
-              borderColor="white"
-            />
-            <InputText
-              name="email"
-              type="text"
-              placeholder="Email"
-              borderColor="white"
-            />
-          {valid && <Button backgroundColor={Colors.brandPrimary}>Invite</Button>}
-          {error && <RenderAlert error={error} />}
+            <div className="flex pa3 items-center justify-between">
+              <InputText
+                name="name"
+                type="text"
+                placeholder="Add Agent Name"
+                fontColor="white"
+                backgroundColor="transparent"
+                classOverrides="w-30 white-placeholder"
+              />
+              <InputText
+                name="email"
+                type="text"
+                placeholder="Add Agent Email"
+                fontColor="white"
+                backgroundColor="transparent"
+                classOverrides="w-30 white-placeholder"
+              />
+              <div>
+                {valid && <Button borderColor="white" borderWidth="1px" backgroundColor="white" fontColor={Colors.brandPrimary} buttonPadding="pa2 pl3 pr3" classOverrides="f6 mr2 b">Invite Agent</Button>}
+                <Button borderColor="white" borderWidth="1px" fontColor="white" backgroundColor="transparent" onClick={cancel} buttonPadding="pa2 pl3 pr3" classOverrides="f6">cancel</Button>
+              </div>
+            </div>
+            {error &&
+              <div className="pa2">
+                <RenderAlert error={error} />
+              </div>
+            }
           </form>
         </LoaderOrThis>
       </div>
