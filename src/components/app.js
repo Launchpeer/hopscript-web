@@ -1,9 +1,7 @@
 import React from 'react';
-import { Header } from './common';
 
-const App = ({ children, location }) => (
+const App = ({ children }) => (
   <div>
-    <Header route={location.pathname} />
     {children}
   </div>
 );
