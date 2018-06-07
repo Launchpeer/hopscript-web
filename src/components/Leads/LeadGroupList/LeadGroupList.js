@@ -12,7 +12,10 @@ class LeadGroupList extends Component {
     const { leadGroups } = this.props.user.attributes;
     return (
       <div className="w-100">
-        doot
+        {leadGroups &&
+          leadGroups.map(group => (
+            <LeadGroupListItem leadGroup={group} key={group.id} />
+          ))}
       </div>
     );
   }
