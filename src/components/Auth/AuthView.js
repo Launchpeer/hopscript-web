@@ -51,6 +51,7 @@ class AuthView extends Component {
             </div>
           </CenterThis>
           <CenterThis>
+
             <div className="mw5 mb5 f1" style={{ color: Colors.white }} >
               HopScript
             </div>
