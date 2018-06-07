@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { InputDropDown } from '../../common';
+import { Colors } from '../../../config/styles';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 import { LeadGroupListItem } from '../LeadGroupList';
@@ -22,7 +24,7 @@ class LeadGroupForm extends Component {
   }
 
   render() {
-    const { handleSubmit, leadGroups } = this.props;
+    const { handleSubmit, leadGroups, dirty } = this.props;
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
         value: group.id,
@@ -34,11 +36,36 @@ class LeadGroupForm extends Component {
     return (
       <div>
         <div>Lead Groups</div>
-        <div>
-          {leadGroups &&
+        <div className="ba pa2" style={{ borderColor: Colors.lightGray, borderRadius: '4px' }}>
+          {leadGroups && (
+            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+              <div className="flex flex-row w-100 items-center">
+                <div className="w-30 mt2 mb2 pt3 pb3">Add To Group</div>
+                <div className="w-100 pa2">
+                  <InputDropDown
+                    name="leadGroup"
+                    type="dropdown"
+                    placeholder="Select a Group"
+                    options={leadGroupOptions}
+                    borderColor="lightGray" />
+                </div>
+                {dirty &&
+                  <div
+                    className="pointer fr"
+                    style={{ color: Colors.stripe }}
+                    role="button"
+                    onClick={handleSubmit(this.handleFormSubmit)} >
+                    Add
+                  </div>}
+              </div>
+            </form>
+          )}
+          <div>
+            {leadGroups &&
           leadGroups.map(group => (
             <LeadGroupListItem leadGroup={group} key={group.id} />
           ))}
+          </div>
         </div>
       </div>
     );

@@ -51,7 +51,7 @@ class LeadDetailView extends Component {
 
               <HalfGrid>
                 <CenterThis>
-                  <div className="pa4" >
+                  <div className="pa4 w-100" >
                     <LeadGroupForm lead={lead} leadGroups={leadGroups} />
                   </div>
                 </CenterThis>
