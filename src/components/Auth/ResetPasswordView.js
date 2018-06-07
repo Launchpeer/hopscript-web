@@ -62,7 +62,7 @@ class ResetPasswordView extends Component {
               style={{
                 color: Colors.white
               }} >
-              BreezeBot
+              HopScript
             </div>
           </CenterThis>
           <CenterThis>

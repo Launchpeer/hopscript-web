@@ -28,9 +28,9 @@ const BrokerageDisplay = ({ user }) => {
       <CenterThis>
         <div className="w-90 flex flex-row justify-around" style={{ backgroundColor: Colors.white, height: "85vh" }} >
           <div className="w-75 mt6 mb6 tc f4" style={{ color: Colors.silver }}>
-            Welcome to Breeze Bot! <br /> <br />
+            Welcome to HopScript! <br /> <br />
             You currently do not have any agents. <br />
-            “Add Agents” to invite your team to Breeze Bot! <br /> <br />
+            “Add Agents” to invite your team to HopScript! <br /> <br />
             Your agents will receive an email invitation<br />
             to set up their account, create scripts and call leads!
           </div>
