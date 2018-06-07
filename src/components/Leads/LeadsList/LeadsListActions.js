@@ -5,7 +5,7 @@ import {
   LEADS_LIST_LOAD_END
 } from './LeadsListTypes';
 
-import { fetchUser } from '../UserActions';
+import { fetchUser } from '../../UserActions';
 
 function _leadsListLoading() {
   return {

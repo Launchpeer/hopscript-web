@@ -5,15 +5,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
 import {
   InputText,
   InputDropDown,
   Button,
   LoaderOrThis,
   RenderAlert
-} from '../common';
-import normalizePhone from '../helpers/normalize';
+} from '../../common';
+import normalizePhone from '../../helpers/normalize';
 import { createLead, clearError } from './LeadsAddActions';
 
 class LeadsAddForm extends Component {

@@ -25,10 +25,10 @@ import { AgentProfileView } from './components/AgentProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
-import { LeadsAddView } from './components/LeadsAdd';
-import { LeadsListView, LeadDetailView } from './components/LeadsList';
-import { LeadGroupAddView } from './components/LeadGroupAdd';
-import { LeadGroupListView } from './components/LeadGroupList';
+import { LeadsAddView } from './components/Leads/LeadsAdd';
+import { LeadsListView, LeadDetailView } from './components/Leads/LeadsList';
+import { LeadGroupAddView } from './components/Leads/LeadGroupAdd';
+import { LeadGroupListView } from './components/Leads/LeadGroupList';
 import { StripeView } from './components/Stripe';
 
 import './../sass/style.scss';

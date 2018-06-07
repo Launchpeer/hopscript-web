@@ -16,8 +16,8 @@ import {
   LEADS_ADD_LOAD_END,
   LEAD_SET_CURRENT
 } from './LeadsAddTypes';
-import parsePhone from '../helpers/parsePhone';
-import { fetchUser } from '../UserActions';
+import parsePhone from '../../helpers/parsePhone';
+import { fetchUser } from '../../UserActions';
 
 function _leadsAddError(error) {
   return {

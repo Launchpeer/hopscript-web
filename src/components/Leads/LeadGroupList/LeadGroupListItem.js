@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { Colors } from '../../config/styles';
-import { Button, ModalCard } from '../common';
+import { Button } from '../../common';
 import { removeLeadGroup } from './LeadGroupListActions';
 
 class LeadGroupListItem extends Component {

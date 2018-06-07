@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import { FullScreenContainer, CenterThis } from '../common';
+import { FullScreenContainer, CenterThis } from '../../common';
 import { LeadsAddForm, LeadsCSVForm, LeadNavBar } from './';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
 
 const LeadsAddView = ({ location }) => (
   <FullScreenContainer classOverrides="vh-100 bg-light-gray">

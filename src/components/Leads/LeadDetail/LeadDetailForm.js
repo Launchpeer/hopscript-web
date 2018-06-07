@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { Colors } from '../../config/styles';
-import { InputTextEditable, InputDropDown } from '../common';
-import normalizePhone from '../helpers/normalize';
+import { Colors } from '../../../config/styles';
+import { InputTextEditable, InputDropDown } from '../../common';
+import normalizePhone from '../../helpers/normalize';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 import { updateLead } from '../LeadsAdd/LeadsAddActions';

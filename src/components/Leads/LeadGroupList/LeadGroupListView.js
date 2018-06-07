@@ -1,8 +1,8 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { FullScreenContainer, CenterThis, Button } from '../common';
+import { FullScreenContainer, CenterThis, Button } from '../../common';
 import { LeadGroupList } from './';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
 
 const LeadGroupListView = () => (
   <FullScreenContainer>

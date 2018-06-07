@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { ArrowLeftCircle } from 'react-feather';
-import { FullScreenContainer, CenterThis, HalfGrid } from '../common';
+import { FullScreenContainer, CenterThis, HalfGrid } from '../../common';
 import { fetchLead } from '../LeadsAdd/LeadsAddActions';
 import { LeadDetailForm, LeadGroupForm } from './';
-import { LeadNavBar } from '../LeadsAdd';
-import { Colors } from '../../config/styles';
+import { LeadNavBar } from '../LeadsCommon';
+import { Colors } from '../../../config/styles';
 
 
 class LeadDetailView extends Component {

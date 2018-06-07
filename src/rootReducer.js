@@ -6,10 +6,10 @@ import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReduce
 import AgentsAddReducer from './components/AgentsAdd/AgentsAddReducer';
 import AgentsListReducer from './components/AgentsList/AgentsListReducer';
 import AgentProfileReducer from './components/AgentProfile/AgentProfileReducer';
-import LeadsAddReducer from './components/LeadsAdd/LeadsAddReducer';
-import LeadsListReducer from './components/LeadsList/LeadsListReducer';
-import LeadGroupAddReducer from './components/LeadGroupAdd/LeadGroupAddReducer';
-import LeadGroupListReducer from './components/LeadGroupList/LeadGroupListReducer';
+import LeadsAddReducer from './components/Leads/LeadsAdd/LeadsAddReducer';
+import LeadsListReducer from './components/Leads/LeadsList/LeadsListReducer';
+import LeadGroupAddReducer from './components/Leads/LeadGroupAdd/LeadGroupAddReducer';
+import LeadGroupListReducer from './components/Leads/LeadGroupList/LeadGroupListReducer';
 import StripeReducer from './components/Stripe/StripeReducer';
 
 const rootReducer = combineReducers({

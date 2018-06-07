@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { Colors } from '../../config/styles';
-import { Button, InputDropDown } from '../common';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
+
 
 class LeadGroupForm extends Component {
   constructor(props) {
@@ -33,20 +32,8 @@ class LeadGroupForm extends Component {
     });
     return (
       <div>
-        <h1>Add Lead To Group</h1>
-        {leadGroups && (
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-            <InputDropDown
-              name="leadGroup"
-              type="dropdown"
-              label="Lead Group"
-              placeholder="Select a Group"
-              options={leadGroupOptions}
-              borderColor="black"
-              borderRadius="none" />
-            <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
-          </form>
-        )}
+        <div>Lead Groups</div>
+        <div>doot</div>
       </div>
     );
   }
@@ -65,3 +52,20 @@ export default reduxForm({
   fetchLeadGroups,
   reconcileLeadsAndGroups
 })(LeadGroupForm));
+
+
+/*
+{leadGroups && (
+  <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+    <InputDropDown
+      name="leadGroup"
+      type="dropdown"
+      label="Lead Group"
+      placeholder="Select a Group"
+      options={leadGroupOptions}
+      borderColor="black"
+      borderRadius="none" />
+    <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
+  </form>
+)}
+*/

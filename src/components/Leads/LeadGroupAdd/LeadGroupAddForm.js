@@ -5,14 +5,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
 import {
   InputText,
-  InputDropDown,
   Button,
   LoaderOrThis,
   RenderAlert
-} from '../common';
+} from '../../common';
 import { createLeadGroup, clearError } from './LeadGroupAddActions';
 
 class LeadGroupAddForm extends Component {
@@ -42,8 +41,7 @@ class LeadGroupAddForm extends Component {
           <h1>New Lead Group</h1>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
-            onClick={this.clearError}
-          >
+            onClick={this.clearError} >
             <InputText
               name="groupName"
               label="Group Name"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUser } from '../UserActions';
+import { fetchUser } from '../../UserActions';
 import { LeadGroupListItem } from './';
 
 class LeadGroupList extends Component {

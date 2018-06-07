@@ -1,21 +1,12 @@
 import Parse from 'parse';
-
 import {
   LEAD_GROUP_LIST_ERROR,
-  LEAD_GROUP_LIST_CLEAR_ERROR,
   LEAD_GROUP_LIST_LOADING,
   LEAD_GROUP_LIST_LOAD_END,
   LEAD_GROUP_LIST_UPDATE
 } from './LeadGroupListTypes';
 
-import { fetchUser } from '../UserActions';
-
-function _leadGroupListError(error) {
-  return {
-    type: LEAD_GROUP_LIST_ERROR,
-    payload: error
-  };
-}
+import { fetchUser } from '../../UserActions';
 
 function _leadGroupListLoading() {
   return {
