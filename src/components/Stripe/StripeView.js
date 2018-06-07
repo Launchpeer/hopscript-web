@@ -68,7 +68,7 @@ class StripeView extends Component {
               color: Colors.white
             }}
           >
-            BreezeBot
+            HopScript
           </div>
         </CenterThis>
         {loading && <Loader />}

@@ -116,7 +116,7 @@ const sidebarContent = (route, user) => (
           <HeadphonesIcon width="30%" color={Colors.white} />
         </div>
         <div className="f5 white tc">
-    BreezeBot
+    HopScript
         </div>
       </div>
       <Divider />
