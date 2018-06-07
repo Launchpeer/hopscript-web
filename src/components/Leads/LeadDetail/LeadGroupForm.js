@@ -35,7 +35,7 @@ class LeadGroupForm extends Component {
     });
     return (
       <div>
-        <div>Lead Groups</div>
+        <div className="b mb4">Lead Groups</div>
         <div className="ba pa2" style={{ borderColor: Colors.lightGray, borderRadius: '4px' }}>
           {leadGroups && (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -63,7 +63,7 @@ class LeadGroupForm extends Component {
           <div>
             {leadGroups &&
           leadGroups.map(group => (
-            <LeadGroupListItem leadGroup={group} key={group.id} />
+            <LeadGroupListItem leadGroup={group} key={group.id} onClick={() => console.log('this will remove the leadgroup from the lead')} />
           ))}
           </div>
         </div>
