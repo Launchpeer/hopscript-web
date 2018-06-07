@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { User } from 'react-feather';
 import { Colors } from '../../config/styles';
-import { Button, CenterThis, HeadphonesIcon, PeopleIcon, CallIcon, HistoryIcon, ScriptIcon } from './';
+import { CenterThis, HeadphonesIcon, CallIcon, PeopleIcon, HistoryIcon, ScriptIcon } from './';
 
 const PathsWithoutSideBarContent = [
   '/',
@@ -12,163 +12,93 @@ const PathsWithoutSideBarContent = [
   '/sign-in',
   '/forgot-password',
   '/reset-password',
-
 ];
 
-/* These are functions that determine button color depending on route */
-const bgColor = (current, route) => route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
+const agentItems = [
+  {
+    route: '/call',
+    label: 'CALL',
+    icon: (item, route) => <CallIcon width="25px" height="25px" color={textColor(item, route)} />
+  },
+  {
+    route: '/scripts',
+    label: 'SCRIPTS',
+    icon: (item, route) => <ScriptIcon width="25px" height="25px" color={textColor(item, route)} />
+  },
+  {
+    route: '/add-leads',
+    label: 'LEADS',
+    icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
+  },
+  {
+    route: '/history',
+    label: 'HISTORY',
+    icon: (item, route) => <HistoryIcon width="25px" height="25px" color={textColor(item, route)} />
+  },
+];
 
-const textColor = (current, route) => route === current ? Colors.white : Colors.brandSecondary;
+const brokerItems = [
+  {
+    route: '/agents',
+    label: 'AGENTS',
+    icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
+  },
+];
 
-
-/* These are the different items that can go in the SideBar */
-
-const Divider = () => (
-  <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
-);
-
-const Call = route => (
-  <div className="pt4 pb4" style={{ backgroundColor: bgColor('call', route) }}>
-    <div className="tc">
-      <CallIcon width="20%" color={textColor('call', route)} />
-    </div>
-    <div className="f5 tc" style={{ color: textColor('call', route) }}>
-  Call
-    </div>
-  </div>
-);
-
-const Scripts = route => (
-  <div className="pt4 pb4" style={{ backgroundColor: bgColor('script', route) }}>
-    <div className="tc">
-      <ScriptIcon width="20%" color={textColor('script', route)} />
-    </div>
-    <div className="f5  tc" style={{ color: textColor('script', route) }}>
-      Scripts
-    </div>
-  </div>
-);
-
-const Leads = ({ fill }) => (
-  <div className="pt4 pb4">
-    <div className="tc">
-      <PeopleIcon width="20%" color={fill} />
-    </div>
-    <div className="f5 tc" >
-          Leads
-    </div>
-  </div>
-);
-
-const Agents = route => (
-  <div className="pt4 pb4" style={{ backgroundColor: bgColor('/add-agents', route) }}>
-    <div className="tc">
-      <PeopleIcon width="20%" color={textColor('/add-agents', route)} />
-    </div>
-    <div className="f5  tc" style={{ color: textColor('/add-agents', route) }}>
-            Agents
-    </div>
-  </div>
-);
-
-const History = route => (
-  <div className="pt4 pb4">
-    <div className="tc">
-      <HistoryIcon width="20%" color={textColor('/history', route)} />
-    </div>
-    <div className="f5 brand-secondary tc">
-  History
-    </div>
-  </div>
-);
-
-const Profile = () => (
-  <CenterThis>
-    <div className="fixed bottom-1 mb2">
+const mapSidebarContent = (user, route) => {
+  const items = user === 'agent' ? agentItems : brokerItems;
+  return (
+    items.map(item => (
       <div
-        className="bg-white br-100 flex items-center justify-center ml2 mr2"
-        style={{
-        width: '3rem',
-        height: '3rem'
-      }}
-    >
-        <User color={Colors.brandPrimary} size={30} scale={3} />
+        className="pointer"
+        role="button"
+        style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route) }}
+        onClick={() => browserHistory.push(item.route)} >
+        <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
+          <div className="tc">
+            {item.icon(item.route, route)}
+          </div>
+          <div className="f5 tc mt1">{item.label}</div>
+        </div>
+        <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
       </div>
-    </div>
-  </CenterThis>
-);
+    ))
+  );
+};
 
-
-/* This is the sidebar content */
-const sidebarContent = (route, user) => (
-  <div
-    className="fl w-100"
-    style={{
-      backgroundColor: Colors.brandPrimary,
-      height: '100vh'
-    }}
-  >
-    <div
-      className="flex flex-column mt4" >
-
-      <div className="pb3" >
-        <div className="tc">
-          <HeadphonesIcon width="30%" color={Colors.white} />
-        </div>
-        <div className="f5 white tc">
-    BreezeBot
-        </div>
-      </div>
-      <Divider />
-
-      {user.attributes.role === 'agent' ? (
-        <div>
-          <div style={{ backgroundColor: bgColor('/call', route) }} className="pointer" role="button" onClick={() => console.log('you clicked call')}>
-            <Call />
-          </div>
-          <Divider />
-
-          <div style={{ backgroundColor: bgColor('/scripts', route) }} className="pointer" role="button" onClick={() => console.log('you clicked scripts')}>
-            <Scripts />
-          </div>
-          <Divider />
-
-          <div style={{ backgroundColor: bgColor('/add-leads', route), color: textColor('/add-leads', route) }} className="pointer" role="button" onClick={() => browserHistory.push('/add-leads')}>
-            <Leads fill={textColor('/add-leads', route)} />
-          </div>
-          <Divider />
-
-          <div style={{ backgroundColor: bgColor('/history', route) }} className="pointer" role="button" onClick={() => console.log('you clicked history')}>
-            <History route={route} />
-          </div>
-          <Divider />
-
-          <div role="button" className="pointer" onClick={() => browserHistory.push('/agent-profile')}>
-            <Profile />
-          </div>
-
-        </div>
-      ) : (
-        <div>
-          <div style={{ backgroundColor: bgColor('/add-agents', route), color: textColor('/add-agents', route) }} className="pointer" role="button" onClick={() => browserHistory.push('/dashboard')}>
-            <Agents />
-          </div>
-          <Divider />
-
-          <div role="button" className="pointer" onClick={() => browserHistory.push('/brokerage-profile')}>
-            <Profile />
-          </div>
-        </div>
-      )}
-    </div>
-  </div>);
-
-
-  /* This is the SideBar */
+const bgColor = (current, route) => route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
+const textColor = (current, route) => route === current ? Colors.white : Colors.brandSecondary;
 
 const SideBar = ({ route, user }) => (
   <div>
-    {!(_.contains(PathsWithoutSideBarContent, route)) && sidebarContent(route, user)}
+    {!(_.contains(PathsWithoutSideBarContent, route)) &&
+      <div className="fl w-100" style={{ backgroundColor: Colors.brandPrimary, height: '100vh' }} >
+        <div className="flex flex-column mt4" >
+          <div className="pb3" >
+            <div className="tc">
+              <HeadphonesIcon width="30px" height="30px" color={Colors.white} />
+            </div>
+            <div className="f5 white tc">
+              BreezeBot
+            </div>
+          </div>
+          <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+          {mapSidebarContent(user.attributes.role, route)}
+          <CenterThis>
+            <div className="fixed bottom-1 mb2">
+              <div
+                className="bg-white br-100 flex items-center justify-center ml2 mr2"
+                style={{
+                  width: '3rem',
+                  height: '3rem'
+                }} >
+                <User color={Colors.brandPrimary} size={30} scale={3} />
+              </div>
+            </div>
+          </CenterThis>
+        </div>
+      </div>
+    }
   </div>
 );
 

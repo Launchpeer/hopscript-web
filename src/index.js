@@ -35,6 +35,7 @@ import { LeadsListView, LeadDetailView } from './components/LeadsList';
 import { LeadGroupAddView } from './components/LeadGroupAdd';
 import { LeadGroupListView } from './components/LeadGroupList';
 import { StripeView } from './components/Stripe';
+import { CallView } from './components/Call';
 
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
@@ -90,6 +91,7 @@ ReactDOM.render(
         <Route path="list-leads/:id" component={LeadDetailView} />
         <Route path="add-lead-group" component={LeadGroupAddView} />
         <Route path="list-lead-groups" component={LeadGroupListView} />
+        <Route path="call" component={CallView} />
       </Route>
     </Router>
   </Provider>,
