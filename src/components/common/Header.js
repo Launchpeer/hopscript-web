@@ -56,7 +56,7 @@ const headerContent = (route, user) => (
           size: 72
         }}
       >
-        BreezeBot
+        HopScript
       </div>
     </div>
     <div className="mr3">
