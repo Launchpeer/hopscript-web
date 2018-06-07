@@ -12,15 +12,7 @@ class LeadGroupList extends Component {
     const { leadGroups } = this.props.user.attributes;
     return (
       <div className="w-100">
-        {leadGroups &&
-          leadGroups.map(group => (
-            <LeadGroupListItem leadGroups={group} key={group.id} />
-          ))}
-
-
-        {leadGroups.length === 0 && (
-          <div className="tc">You haven't added any lead groups.</div>
-        )}
+        doot
       </div>
     );
   }
@@ -34,3 +26,16 @@ const mapStateToProps = ({ UserReducer }) => {
 };
 
 export default connect(mapStateToProps, { fetchUser })(LeadGroupList);
+
+
+/*
+{leadGroups &&
+  leadGroups.map(group => (
+    <LeadGroupListItem leadGroups={group} key={group.id} />
+  ))}
+
+
+{leadGroups.length === 0 && (
+  <div className="tc">You haven't added any lead groups.</div>
+)}
+*/

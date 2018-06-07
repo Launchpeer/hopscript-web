@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { FullScreenContainer, CenterThis } from '../../common';
-import { LeadsAddForm, LeadsCSVForm, LeadNavBar } from './';
+import { LeadsAddForm, LeadsCSVForm } from './';
+import { LeadNavBar } from '../LeadsCommon';
 import { Colors } from '../../../config/styles';
 
 const LeadsAddView = ({ location }) => (

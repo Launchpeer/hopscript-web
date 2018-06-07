@@ -27,7 +27,7 @@ const LeadNavBar = ({ route }) => (
     <div
       className="b pa2 pointer ml2 mr2"
       role="button"
-      onClick={() => console.log('Will open lead groups list when built')}
+      onClick={() => browserHistory.push('/list-lead-groups')}
       style={{ color: navColor('/list-lead-groups', route) }}>
       Lead Groups
     </div>
