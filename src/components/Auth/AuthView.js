@@ -29,7 +29,7 @@ const SignUp = (
       className="underline pointer dib f3"
       onClick={() => { browserHistory.push('/signup'); }}
       role="button"
-      style={{ color: Colors.brandPrimary }}>
+      style={{ color: Colors.brandPrimary }} >
       New to HopScript? Sign Up
     </div>
   </div>
@@ -51,7 +51,8 @@ class AuthView extends Component {
             </div>
           </CenterThis>
           <CenterThis>
-            <div className="mw5 mb5 f1" style={{ color: Colors.white }}>
+
+            <div className="mw5 mb5 f1" style={{ color: Colors.white }} >
               HopScript
             </div>
           </CenterThis>
