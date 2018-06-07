@@ -29,6 +29,7 @@ import { LeadsAddView } from './components/LeadsAdd';
 import { LeadsListView, LeadDetailView } from './components/LeadsList';
 import { LeadGroupAddView } from './components/LeadGroupAdd';
 import { LeadGroupListView } from './components/LeadGroupList';
+import { StripeView } from './components/Stripe';
 
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
@@ -48,12 +49,13 @@ const currentUser = Parse.User.current();
 window.doot = "doot doot here's your toot 🎺💀";
 
 if (currentUser) {
+  // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password'];
+const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -71,6 +73,7 @@ ReactDOM.render(
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
+        <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerDetailView} />

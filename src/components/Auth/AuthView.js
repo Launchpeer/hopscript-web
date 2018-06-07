@@ -7,16 +7,17 @@ import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError } from './AuthActions';
 
 const SignIn = (
-  <div className="tc">
-    <div className="dib pr3" style={{ color: Colors.white }}>
-      Already have an account?
-    </div>
-
+  <div className="tc absolute right-0 pa3">
+    <div className="dib pr3" style={{ color: Colors.white }}> Already have an account?</div>
     <div
-      className=" pointer dib pa2"
+      className="pointer dib pa2"
       onClick={() => { browserHistory.push('/', { authType: 'signin' }); }}
-      role="button"
-      style={{ color: Colors.brandPrimary, backgroundColor: Colors.white, borderRadius: '4px' }}>
+      style={{
+        color: Colors.brandPrimary,
+        backgroundColor: Colors.white,
+        borderRadius: '4px'
+      }}
+      role="button" >
       Log In
     </div>
   </div>
@@ -28,8 +29,13 @@ const SignUp = (
       className="underline pointer dib f3"
       onClick={() => { browserHistory.push('/signup'); }}
       role="button"
+<<<<<<< HEAD
       style={{ color: Colors.brandPrimary }}>
       New to HopScript? Sign Up
+=======
+      style={{ color: Colors.brandPrimary }} >
+      New to Breeze Bot? Sign Up
+>>>>>>> 27418e71a03f62a99d72b364e20bcaa1e7a13dce
     </div>
   </div>
 );
@@ -42,10 +48,7 @@ class AuthView extends Component {
   render() {
     return (
       <FullScreenContainer color={Colors.brandPrimary}>
-        <div className="fr pa4">
-          { this.props.route.authType === 'signin' ? null : SignIn }
-        </div>
-
+        { this.props.route.authType !== 'signin' && SignIn }
         <div className="w-100">
           <CenterThis>
             <div className="mt5 tc">
@@ -53,8 +56,13 @@ class AuthView extends Component {
             </div>
           </CenterThis>
           <CenterThis>
+<<<<<<< HEAD
             <div className="mw5 mb5 f1" style={{ color: Colors.white }}>
               HopScript
+=======
+            <div className="mw5 mb5 f1" style={{ color: Colors.white }} >
+              BreezeBot
+>>>>>>> 27418e71a03f62a99d72b364e20bcaa1e7a13dce
             </div>
           </CenterThis>
           <CenterThis>
@@ -64,7 +72,7 @@ class AuthView extends Component {
                   classOverrides="mb4 bg-white"
                   boxShadow
                   bottomContent={SignUp}
-                  bottomColor="lightGray">
+                  bottomColor="lightGray" >
                   <SignInForm />
                 </Card>
                 <CenterThis>
@@ -73,13 +81,13 @@ class AuthView extends Component {
                     style={{ color: Colors.white }}
                     role="button"
                     onClick={() => browserHistory.push('/forgot-password')}
-                    onKeyPress={() => browserHistory.push('/forgot-password')}>
+                    onKeyPress={() => browserHistory.push('/forgot-password')} >
                     Forgot your password?
                   </div>
                 </CenterThis>
               </div> :
               <div className="w-40-l mw6">
-                <Card classOverrides="mb5 pl3 pr3 pt3 bg-white" boxShadow>
+                <Card classOverrides="mb5 pl3 pr3 pt3 bg-white" boxShadow >
                   <BrokerageSignUpForm />
                 </Card>
               </div>
