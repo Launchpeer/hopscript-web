@@ -50,6 +50,7 @@ const renderTextInput = (field) => {
     fontColor,
     borderColor,
     onClick,
+    normalize,
     cash
   } = field;
   const placeholderCashCheck = () => {
@@ -73,6 +74,7 @@ const renderTextInput = (field) => {
         style={{
           color: fontColor ? Colors[fontColor] : Colors.black
         }}
+        normalize={normalize}
       />
       <div
         className="pointer"
@@ -110,6 +112,7 @@ class InputTextEditable extends Component {
       classOverrides,
       borderColor,
       onSubmit,
+      normalize,
       cash,
       noEdit
     } = this.props;
@@ -126,6 +129,7 @@ class InputTextEditable extends Component {
               component={component || renderTextInput}
               fontColor={fontColor}
               borderRadius={borderRadius}
+              normalize={normalize}
               editInput
               cash={cash}
               onClick={() => {

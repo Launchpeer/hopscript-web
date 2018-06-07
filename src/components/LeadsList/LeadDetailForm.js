@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Colors } from '../../config/styles';
 import { InputTextEditable, InputDropDown } from '../common';
+import normalizePhone from '../helpers/normalize';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 import { updateLead } from '../LeadsAdd/LeadsAddActions';
+
 
 class LeadDetailForm extends Component {
   constructor(props) {
@@ -45,6 +47,7 @@ class LeadDetailForm extends Component {
               type="text"
               borderColor={Colors.moonGray}
               placeholder={lead && lead.get('phone')}
+              normalize={normalizePhone}
               onSubmit={handleSubmit(this.handleFormSubmit)} />
           </div>
 

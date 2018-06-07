@@ -221,6 +221,7 @@ const updateLead = (lead, {
 }) => (dispatch) => {
   dispatch(_leadsAddLoading());
   const Lead = Parse.Object.extend('Lead');
+  const formattedPhone = `+1${phone}`;
   const query = new Parse.Query(Lead);
   query
     .get(lead)
@@ -229,7 +230,7 @@ const updateLead = (lead, {
         fetchedLead.set('name', name);
       }
       if (phone) {
-        fetchedLead.set('phone', phone);
+        fetchedLead.set('phone', formattedPhone);
       }
       if (email) {
         fetchedLead.set('email', email);
