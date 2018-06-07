@@ -7,8 +7,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { Colors } from '../../../config/styles';
-import { Button, ModalCard } from '../../common';
 import { removeLeadGroup } from './LeadGroupListActions';
 
 class LeadGroupListItem extends Component {

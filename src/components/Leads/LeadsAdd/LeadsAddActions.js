@@ -205,6 +205,7 @@ const fetchLead = id => (dispatch) => {
   dispatch(_leadsAddLoading());
   const Lead = Parse.Object.extend('Lead');
   const query = new Parse.Query(Lead);
+  query.include('leadGroups');
   query
     .get(id)
     .then((lead) => {

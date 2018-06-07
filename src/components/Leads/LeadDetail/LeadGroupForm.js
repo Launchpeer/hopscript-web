@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
+import { LeadGroupListItem } from '../LeadGroupList';
 
 
 class LeadGroupForm extends Component {
@@ -33,7 +34,12 @@ class LeadGroupForm extends Component {
     return (
       <div>
         <div>Lead Groups</div>
-        <div>doot</div>
+        <div>
+          {leadGroups &&
+          leadGroups.map(group => (
+            <LeadGroupListItem leadGroup={group} key={group.id} />
+          ))}
+        </div>
       </div>
     );
   }
