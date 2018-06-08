@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Colors } from '../../../config/styles';
-import { InputTextEditable, InputDropDown } from '../../common';
+import { InputTextEditable, InputDropDownEditable } from '../../common';
 import normalizePhone from '../../helpers/normalize';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
@@ -64,21 +64,16 @@ class LeadDetailForm extends Component {
           <div className="flex flex-row w-100 items-center">
             <div className="w-30 mt2 mb2 pt3 pb3 b">Lead Type</div>
             <div className="w-100 pa2">
-              <InputDropDown
+              <InputDropDownEditable
                 name="leadType"
                 type="dropdown"
                 placeholder={lead && lead.get('leadType')}
                 options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
-                borderColor="lightGray" />
+                borderColor="lightGray"
+                onSubmit={handleSubmit(this.handleFormSubmit)}
+                />
             </div>
-            {dirty &&
-              <div
-                className="pointer fr"
-                style={{ color: Colors.stripe }}
-                role="button"
-                onClick={handleSubmit(this.handleFormSubmit)} >
-                Save
-              </div>}
+
           </div>
         </form>
       </div>

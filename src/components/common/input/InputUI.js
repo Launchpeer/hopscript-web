@@ -1,6 +1,7 @@
 import React from 'react';
-import Label from './Label';
 import { Field } from 'redux-form';
+import Label from './Label';
+
 
 const InputUI = (props) => {
   const {
