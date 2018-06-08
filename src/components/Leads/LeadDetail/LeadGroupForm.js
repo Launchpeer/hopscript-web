@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { InputDropDown } from '../../common';
+import { InputDropDownEditable } from '../../common';
 import { Colors } from '../../../config/styles';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
+import { fetchLead } from '../LeadsAdd/LeadsAddActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 import { LeadGroupListItem } from '../LeadGroupList';
 
@@ -24,7 +25,9 @@ class LeadGroupForm extends Component {
   }
 
   render() {
-    const { handleSubmit, leadGroups, dirty } = this.props;
+    const { handleSubmit, lead, leadGroups } = this.props;
+    const existingLeadGroups = lead && lead.get('leadGroups');
+
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
         value: group.id,
@@ -33,6 +36,7 @@ class LeadGroupForm extends Component {
       };
       return group;
     });
+
     return (
       <div>
         <div className="b mb4">Lead Groups</div>
@@ -42,27 +46,20 @@ class LeadGroupForm extends Component {
               <div className="flex flex-row w-100 items-center">
                 <div className="w-30 mt2 mb2 pt3 pb3">Add To Group</div>
                 <div className="w-100 pa2">
-                  <InputDropDown
+                  <InputDropDownEditable
                     name="leadGroup"
                     type="dropdown"
                     placeholder="Select a Group"
                     options={leadGroupOptions}
+                    onSubmit={() => this.handleFormSubmit()}
                     borderColor="lightGray" />
                 </div>
-                {dirty &&
-                  <div
-                    className="pointer fr"
-                    style={{ color: Colors.stripe }}
-                    role="button"
-                    onClick={handleSubmit(this.handleFormSubmit)} >
-                    Add
-                  </div>}
               </div>
             </form>
           )}
           <div>
-            {leadGroups &&
-          leadGroups.map(group => (
+            {existingLeadGroups &&
+          existingLeadGroups.map(group => (
             <LeadGroupListItem leadGroup={group} key={group.id} onClick={() => console.log('this will remove the leadgroup from the lead')} />
           ))}
           </div>
@@ -83,6 +80,7 @@ export default reduxForm({
   form: 'LeadGroupForm'
 })(connect(mapStateToProps, {
   fetchLeadGroups,
+  fetchLead,
   reconcileLeadsAndGroups
 })(LeadGroupForm));
 

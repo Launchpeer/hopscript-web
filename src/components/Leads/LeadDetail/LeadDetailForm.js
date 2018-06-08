@@ -25,7 +25,7 @@ class LeadDetailForm extends Component {
   }
 
   render() {
-    const { handleSubmit, lead, dirty } = this.props;
+    const { handleSubmit, lead } = this.props;
     return (
       <div>
         <form className="mv4" >
