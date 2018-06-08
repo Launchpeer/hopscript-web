@@ -20,7 +20,7 @@ class LeadDetailView extends Component {
   }
 
   render() {
-    const { lead } = this.props;
+    const { lead, leadGroups } = this.props;
     return (
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <div className="w-100" style={{ paddingLeft: "100px" }}>
@@ -51,8 +51,8 @@ class LeadDetailView extends Component {
 
               <HalfGrid>
                 <CenterThis>
-                  <div className="pa4" >
-                    <LeadGroupForm lead={lead} />
+                  <div className="pa4 w-100" >
+                    <LeadGroupForm lead={lead} leadGroups={leadGroups} />
                   </div>
                 </CenterThis>
               </HalfGrid>
