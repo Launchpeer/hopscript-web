@@ -8,22 +8,19 @@ const renderDisplay = (fieldProps) => {
     onClick,
   } = fieldProps;
   return (
-    <div className="w-100 flex flex-row justify-between">
-      <div>
+    <div className="w-100 flex flex-row justify-between items-center">
+      <div className="pl2">
         {placeholder}
       </div>
       <div
-        className="pointer fr items-center"
-        style={{ color: Colors.stripe }}
+        className="pointer stripe"
         role="button"
         onClick={onClick} >
         Edit
       </div>
     </div>
-
   );
 };
-
 
 const renderEditableDropDown = (fieldProps) => {
   const {
@@ -73,8 +70,7 @@ const renderEditableDropDown = (fieldProps) => {
         </select>
       </div>
       <div
-        className="pointer fr flex items-center pl2"
-        style={{ color: Colors.stripe }}
+        className="pointer fr flex items-center pl2 stripe"
         role="button"
         onClick={onClick} >
         Save
