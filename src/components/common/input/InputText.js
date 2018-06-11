@@ -6,6 +6,7 @@ const renderTextInput = (fieldProps) => {
   const {
     input,
     type,
+    height,
     placeholder,
     fontColor,
     borderRadius,
@@ -33,11 +34,12 @@ const renderTextInput = (fieldProps) => {
         {...input}
         type="text"
         placeholder={placeholder}
-        className={`${borderColor ? 'ba' : 'bn'} w-100`}
+        className={`${borderColor ? 'ba' : 'bn'} w-100 pa3`}
         style={{
           color: fontColor || Colors.inputFontColor,
           borderRadius: BorderRadius.all,
           borderColor: borderColor || Colors.moonGray,
+          height,
           backgroundColor
         }}
         maxLength={maxLength}

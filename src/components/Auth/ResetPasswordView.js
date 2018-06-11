@@ -23,26 +23,9 @@ const successBlock = () => (
     </div>
     <div
       className="di brandPrimary ml1 pointer"
-      onKeyPress={() => browserHistory.push('/')}
       onClick={() => browserHistory.push('/')}
-      role="button"
-    >
+      role="button" >
       here.
-    </div>
-  </div>
-);
-
-const returnToLogin = (
-  <div className="tc">
-    <div
-      className="underline pointer dib f3 pt4"
-      onClick={() => {
-        browserHistory.push('/', { authType: 'signin' });
-      }}
-      role="button"
-      style={{ color: Colors.white }}
-    >
-      {`< Return to Login`}
     </div>
   </div>
 );
@@ -70,7 +53,7 @@ class ResetPasswordView extends Component {
         <div className="w-100">
           <CenterThis>
             <div className="mt5 tc">
-              <HeadphonesIcon width="20%" fill={Colors.white} />
+              <HeadphonesIcon width="20%" color={Colors.white} />
             </div>
           </CenterThis>
           <CenterThis>
@@ -78,45 +61,50 @@ class ResetPasswordView extends Component {
               className="mw5 mb5 f1"
               style={{
                 color: Colors.white
-              }}
-            >
-              BreezeBot
+              }} >
+              HopScript
             </div>
           </CenterThis>
           <CenterThis>
             <Card
               classOverrides="mw6"
               boxShadow
-              borderRadius="medium"
-            >
+              borderRadius="medium" >
               <div className="pa3">
-                {loading ? (
-                  <Loader />
-                ) : (
+                {loading ?
+                  <Loader /> :
                   <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <AuthInput
                       name="password"
                       type="password"
                       label="password"
-                      placeholder="Password"
-                    />
+                      placeholder="Password" />
                     <Button
                       classOverrides="w-100"
-                      backgroundColor={Colors.brandGreen}
-                    >
+                      backgroundColor={Colors.brandGreen} >
                       Reset Password
                     </Button>
                     <RenderAlert error={error} />
                     {success && successBlock()}
                   </form>
-                )}
+                }
               </div>
             </Card>
-
           </CenterThis>
-          <CenterThis>    {returnToLogin}</CenterThis>
+          <CenterThis>
+            <div className="tc">
+              <div
+                className="underline pointer dib f3 pt4"
+                onClick={() => {
+                  browserHistory.push('/', { authType: 'signin' });
+                }}
+                role="button"
+                style={{ color: Colors.white }} >
+                {`< Return to Login`}
+              </div>
+            </div>
+          </CenterThis>
         </div>
-
       </FullScreenCenter>
     );
   }

@@ -16,7 +16,7 @@ class AgentsListItem extends Component {
     super(props);
     this.state = {
       modalOpen: false
-    }
+    };
     this.handleRemoveAgent = this.handleRemoveAgent.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -33,20 +33,16 @@ class AgentsListItem extends Component {
     } = this.props.agent;
     const { modalOpen } = this.state;
     return (
-      <div className={`flex justify-between items-center pointer list-hover pa3 list-alt-color-rows`}
-        style={{
-          paddingTop: '1rem',
-          paddingBottom: '1rem'
-        }}
-      >
+      <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
+        style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>
             <div className="pa4 tc">
             Are you sure you want to delete this agent?
-            <div className="w-100 flex justify-between pl4 pr4 mt4">
-              <Button onClick={this.handleRemoveAgent} backgroundColor={Colors.darkRed}>yes</Button>
-              <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
-            </div>
+              <div className="w-100 flex justify-between pl4 pr4 mt4">
+                <Button onClick={this.handleRemoveAgent} backgroundColor={Colors.darkRed}>yes</Button>
+                <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
+              </div>
             </div>
           </ModalCard>
         }
@@ -57,7 +53,8 @@ class AgentsListItem extends Component {
           <div className="w-30-ns silver">{attributes.email}</div>
           <div
             className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
-            style={{width: '2rem', height: '2rem'}}
+            role="button"
+            style={{ width: '2rem', height: '2rem' }}
             onClick={this.toggleModal}>
             X
           </div>

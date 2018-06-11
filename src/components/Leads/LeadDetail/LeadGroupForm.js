@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import Parse from 'parse';
-import { Colors } from '../../config/styles';
-import { Button, InputDropDown, InputText, RenderAlert } from '../common';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
 
-class LeadDetailForm extends Component {
+
+class LeadGroupForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleFormSubmit(data) {
-    const lead = this.props.lead;
+    const { lead } = this.props;
     this.props.reconcileLeadsAndGroups(data, lead);
   }
 
@@ -23,9 +21,7 @@ class LeadDetailForm extends Component {
   }
 
   render() {
-    const {
-      handleSubmit, loading, leadGroups, lead
-    } = this.props;
+    const { handleSubmit, leadGroups } = this.props;
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
         value: group.id,
@@ -36,22 +32,8 @@ class LeadDetailForm extends Component {
     });
     return (
       <div>
-        <h1>Add Lead To Group</h1>
-        {leadGroups && (
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-            <InputDropDown
-              name="leadGroup"
-              type="dropdown"
-              label="Lead Group"
-              placeholder="Select a Group"
-              options={leadGroupOptions}
-              borderColor="black"
-              borderRadius="none"
-            />
-
-            <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
-          </form>
-        )}
+        <div>Lead Groups</div>
+        <div>doot</div>
       </div>
     );
   }
@@ -65,8 +47,25 @@ const mapStateToProps = ({ LeadGroupListReducer }) => {
 };
 
 export default reduxForm({
-  form: 'LeadDetailForm'
+  form: 'LeadGroupForm'
 })(connect(mapStateToProps, {
   fetchLeadGroups,
   reconcileLeadsAndGroups
-})(LeadDetailForm));
+})(LeadGroupForm));
+
+
+/*
+{leadGroups && (
+  <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+    <InputDropDown
+      name="leadGroup"
+      type="dropdown"
+      label="Lead Group"
+      placeholder="Select a Group"
+      options={leadGroupOptions}
+      borderColor="black"
+      borderRadius="none" />
+    <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
+  </form>
+)}
+*/

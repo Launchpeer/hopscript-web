@@ -1,5 +1,5 @@
 /**
- * The purpose of this file is to provide a ReduxForm component that allows an Agent to create a answer
+ * The purpose of this file is to provide a ReduxForm component that allows an Agent to create an answer
  * answer, description, category, audio, boolean for closing statement
  */
 
@@ -15,6 +15,7 @@ import {
   TrashIcon,
   PlusIcon
 } from '../common';
+import { batchImportAnswers } from './ScriptBuilderActions';
 
 const AnswerBlock = ({ answer, removeAnswer, idx }) => {
  return (<div>
@@ -25,7 +26,7 @@ const AnswerBlock = ({ answer, removeAnswer, idx }) => {
      <div className="w-10">Answer</div>
      <div className="w-60">
        <div className="block-textarea">
-         <InputTextArea name="answer" placeholder="Type Answer here" />
+         <InputTextArea name={`answer${idx}`} body="answer" placeholder="Type Answer here" />
        </div>
      </div>
      <div className="w-30">
@@ -42,7 +43,7 @@ const AnswerBlock = ({ answer, removeAnswer, idx }) => {
      <div className="w-10">Route to</div>
      <div className="w-60">
        <InputDropDown
-         name="route"
+         name={`route${idx}`}
          type="dropdown"
          placeholder="Route to"
          options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
@@ -60,8 +61,8 @@ class AnswerBuilderForm extends Component {
     this.state = {
       answers: [{
         'key': 1,
-        'name': 'test1',
-        'route': 'lead1'
+        'answer': 'answer1',
+        'route': 'route1'
       }]
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -70,7 +71,11 @@ class AnswerBuilderForm extends Component {
   }
 
   handleFormSubmit(data) {
-    console.log('answerable data', data);
+    this.props.batchImportAnswers({
+      data,
+      questionId: this.props.currentQuestion.id,
+      scriptId: this.props.currentScript.id
+    })
   }
 
   addAnswer() {
@@ -121,24 +126,20 @@ class AnswerBuilderForm extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadsAddReducer }) => {
-  const { error, loading } = LeadsAddReducer;
+let Form = reduxForm({
+  form: 'answerBuilder',
+  enableReinitialize: true
+})(AnswerBuilderForm);
+
+const mapStateToProps = ({ ScriptBuilderReducer }) => {
+  const { error, loading, currentQuestion, currentScript } = ScriptBuilderReducer;
   return {
     loading,
-    error
+    error,
+    initialValues: currentQuestion,
+    currentQuestion,
+    currentScript
   };
 };
 
-function validate(values) {
-  const errors = {};
-  if (!values.name) {
-    errors._error = 'Name required';
-  }
-
-  return errors;
-}
-
-export default reduxForm({
-  form: 'answerBuilder',
-  validate
-})(connect(mapStateToProps)(AnswerBuilderForm));
+export default connect(mapStateToProps, { batchImportAnswers })(Form);

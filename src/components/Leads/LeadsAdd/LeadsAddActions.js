@@ -8,7 +8,7 @@
 
 import Parse from 'parse';
 import Papa from 'papaparse';
-
+import { browserHistory } from 'react-router';
 import {
   LEADS_ADD_ERROR,
   LEADS_ADD_CLEAR_ERROR,
@@ -16,9 +16,8 @@ import {
   LEADS_ADD_LOAD_END,
   LEAD_SET_CURRENT
 } from './LeadsAddTypes';
-import parsePhone from '../helpers/parsePhone';
-import { fetchUser } from '../UserActions';
-import { browserHistory } from 'react-router';
+import parsePhone from '../../helpers/parsePhone';
+import { fetchUser } from '../../UserActions';
 
 function _leadsAddError(error) {
   return {
@@ -95,7 +94,7 @@ function _parseCSV(data) {
  * @param  {object} lead object containing name and phone
  */
 function _reconcileLeadToDB({
-  name, phone, leadType, leadGroup
+  name, phone, email, leadType, leadGroup
 }) {
   return new Promise((resolve) => {
     const Agent = Parse.User.current();
@@ -104,6 +103,7 @@ function _reconcileLeadToDB({
     const formattedPhone = `+1${phone}`;
     LObj.set('name', name);
     LObj.set('phone', formattedPhone);
+    LObj.set('email', email);
     if (leadType) {
       LObj.set('leadType', leadType);
     }
@@ -216,4 +216,40 @@ const fetchLead = id => (dispatch) => {
     });
 };
 
-export { parseCSV, clearError, createLead, fetchLead };
+const updateLead = (lead, {
+  name, email, phone, leadType
+}) => (dispatch) => {
+  dispatch(_leadsAddLoading());
+  const Lead = Parse.Object.extend('Lead');
+  const formattedPhone = `+1${phone}`;
+  const query = new Parse.Query(Lead);
+  query
+    .get(lead)
+    .then((fetchedLead) => {
+      if (name) {
+        fetchedLead.set('name', name);
+      }
+      if (phone) {
+        fetchedLead.set('phone', formattedPhone);
+      }
+      if (email) {
+        fetchedLead.set('email', email);
+      }
+      if (leadType) {
+        fetchedLead.set('leadType', leadType);
+      }
+      fetchedLead.save()
+        .then((savedLead) => {
+          dispatch(_leadsAddLoadEnd());
+          dispatch(_setCurrentLead(savedLead));
+        })
+        .catch((err) => {
+          dispatch(_leadsAddError(err));
+        });
+    })
+    .catch((err) => {
+      dispatch(_leadsAddError(err));
+    });
+};
+
+export { parseCSV, clearError, createLead, fetchLead, updateLead };

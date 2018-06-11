@@ -12,12 +12,14 @@ import {
   CURRENT_QUESTION_CLEAR_ERROR,
   CURRENT_QUESTION_LOADING,
   CURRENT_QUESTION_LOAD_END,
+  CURRENT_QUESTION_UPDATE,
   CURRENT_SCRIPT_FETCH_ERROR,
   CURRENT_SCRIPT_FETCH_LOADING,
   CURRENT_SCRIPT_FETCH_LOAD_END,
   CURRENT_SCRIPT_UPDATE,
   FETCH_QUESTION_ERROR,
-  FETCH_SCRIPT_ERROR
+  FETCH_SCRIPT_ERROR,
+  QUESTIONS_UPDATE
 } from './ScriptBuilderTypes';
 
 
@@ -53,67 +55,107 @@ function _currentScriptUpdate(script) {
   }
 }
 
-function _fetchQuestion(questionId) {
-  return new Promise((resolve) => {
-    const Question = Parse.Object.extend('Question');
-    const query = new Parse.Query(Question);
-    resolve(query.get(questionId));
-  })
+// Fetch script with Cloud Code
+// IF, the script has questions, hydrate the store with the question list
+// set the first question to currentQuestion
+// ELSE, create a new blank question
+// hydrate the store with a question list containing the blank question
+// set the blank question to currentQuestion
+
+const fetchScript = (scriptId, update) => (dispatch) => {
+  Parse.Cloud.run('fetchScript', {scriptId})
+    .then((script) => {
+      dispatch({
+        type: CURRENT_SCRIPT_UPDATE,
+        payload: script
+      })
+      if (script.attributes.questions) {
+        dispatch({
+          type: QUESTIONS_UPDATE,
+          payload: script.attributes.questions
+        })
+        if(!update) {
+          dispatch({
+            type: CURRENT_QUESTION_UPDATE,
+            payload: script.attributes.questions[0]
+          })
+        }
+      } else {
+        const newQuestion = {id: 'asdf', attributes : { name: '', category: 'intro', description: '', answers: [] }}
+        dispatch({
+          type: QUESTIONS_UPDATE,
+          payload: [newQuestion]
+        })
+        dispatch({
+          type: CURRENT_QUESTION_UPDATE,
+          payload: newQuestion
+        })
+      }
+    });
 }
 
-const fetchScript = (scriptId) => (dispatch) => {
-  dispatch({type: CURRENT_SCRIPT_FETCH_LOADING});
-  const Script = Parse.Object.extend('Script');
-  const query = new Parse.Query(Script);
-  query.include('questions');
-  query.include('questions.answers');
-  query.get(scriptId)
-    .then((script) => {
-      dispatch(_currentScriptUpdate(script));
-      dispatch({type: CURRENT_SCRIPT_FETCH_LOAD_END});
+const currentScriptUpdate = (script) => (dispatch) => {
+  _currentScriptUpdate(script);
+  if(script && script.attributes.questions) {
+    dispatch({
+      type: QUESTIONS_UPDATE,
+      payload: script.attributes.questions
     })
-    .catch((err) => {
-      dispatch({
-        type: FETCH_SCRIPT_ERROR,
-        payload: err
-      });
-      dispatch({type: CURRENT_SCRIPT_FETCH_LOAD_END});
-    })
+  }
 }
 
 const createNewScript = () => (dispatch) => {
-  const Script = new Parse.Object.extend('Script');
   const User = Parse.User.current();
-  Script.set('owner', User);
-  Script.save()
+  Parse.Cloud.run('createNewScript', { userId: User.id })
     .then((script) => {
       dispatch({
-        type: CURRENT_QUESTION_UPDATE,
-        payload: null
+        type: CURRENT_SCRIPT_UPDATE,
+        payload: script
       })
       browserHistory.push(`/script-builder/:${script.id}`);
     })
 }
 
-const createNewAnswer = ({ body, description, category, audio, scriptId }) => (dispatch) => {
-  return new Promise((resolve) => {
-    const Answer = new Parse.Object.extend('Answer');
-    Answer.set('body', body);
-    Answer.set('category', category);
-    if (audio) {
-      Answer.set('audioURI', audio);
-    }
-    resolve(Answer.save());
+const setCurrentQuestion = (question) => (dispatch) => {
+  dispatch({
+    type: CURRENT_QUESTION_UPDATE,
+    payload: question
   })
 }
 
-const createNewQuestion = ({ body, questionId }) => (dispatch) => {
-  return new Promise((resolve) => {
-    const Question = new Parse.Object.extend('Question');
-    Question.set('route', questionId);
-    Question.set('body', body);
-    resolve(Question.save());
+const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
+  Parse.Cloud.run('createNewQuestion', { question: question.attributes, scriptId })
+}
+
+const batchImportAnswers = ({ data, questionId, scriptId }) => (dispatch) => {
+  const keys = [];
+  const questions = [];
+  console.log('data', data);
+  Object.keys(data).forEach((key) => {
+    if (key.startsWith('answer')) {
+      keys.push(data[key]);
+      console.log(data[key])
+    }
+    else if (key.startsWith('route')) {
+      console.log(data[key])
+    }
   })
+  const nAnswers = keys.length;
+  for(let i = 0; i < nAnswers; i++) {
+    questions.push({ `${keys[i]}` : })
+  }
+  // data.forEach((answer) => {
+  //   console.log('answer', answer);
+  //   // dispatch(createNewAnswer({ answer, questionId }))
+  // })
+  //   .then(() => {
+  //     console.log('dine')
+  //     // dispatch(fetchScript(scriptId));
+  //   })
+}
+
+const createNewAnswer = ({ answer, questionId }) => (dispatch) => {
+  Parse.Cloud.run('updateScript', { body, questionId })
 }
 
 
@@ -122,21 +164,21 @@ export const clearError = () => (dispatch) => {
 }
 
 const updateScript = (data, scriptId) => (dispatch) => {
-  return new Promise((resolve) => {
-    const Script = Parse.Object.extend('Script');
-    const query = new Parse.Query(Script);
-    query.get(scriptId)
-      .then((script) => {
-        script.set('name', data.name);
-        resolve(script.save());
-      })
-      .catch((err) => {
-        dispatch({
-          type: FETCH_SCRIPT_ERROR,
-          payload: err
-        });
-      })
-  })
+  Parse.Cloud.run('updateScript', { scriptId, data })
 }
 
-export { fetchScript, createNewAnswer, createNewScript, updateScript };
+const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
+  Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId })
+    .then(() => {console.log('yooo'); dispatch(fetchScript(scriptId, true))})
+}
+
+export {
+  fetchScript,
+  createNewAnswer,
+  createNewScript,
+  updateScript,
+  setCurrentQuestion,
+  createNewQuestion,
+  currentScriptUpdate,
+  updateQuestion,
+  batchImportAnswers };

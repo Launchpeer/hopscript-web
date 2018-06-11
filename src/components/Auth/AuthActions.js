@@ -48,10 +48,11 @@ export const signInUser = (email, password) => (dispatch) => {
         type: AUTH_USER,
         payload: user
       });
-      if(user.attributes.role === 'agent') {
+      if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
         browserHistory.push('/dashboard');
+      } else {
+        browserHistory.push('/stripe');
       }
-        browserHistory.push('/dashboard');
     },
     error: (user, error) => {
       console.log('Err: ', error);
@@ -95,7 +96,7 @@ export const signUpUser = (username, email, password) => (dispatch) => {
               type: AUTH_USER,
               payload: user
             });
-            browserHistory.push('/dashboard');
+            browserHistory.push('/stripe');
           })
           .catch((error) => {
             dispatch(_authError(error));
@@ -112,7 +113,7 @@ export const signUpUser = (username, email, password) => (dispatch) => {
           type: AUTH_USER,
           payload: user
         });
-        browserHistory.push('/dashboard');
+        browserHistory.push('/stripe');
       })
       .catch((error) => {
         dispatch(_authError(error));

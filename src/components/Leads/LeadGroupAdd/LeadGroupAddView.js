@@ -4,15 +4,14 @@
 
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { FullScreenContainer, CenterThis, Button } from '../common';
-import { LeadsAddForm, LeadsCSVForm } from './';
-import { Colors } from '../../config/styles';
+import { FullScreenContainer, CenterThis, Button } from '../../common';
+import { LeadGroupAddForm } from './';
+import { Colors } from '../../../config/styles';
 
-const LeadsAddView = () => (
-  <FullScreenContainer classOverrides="mb4">
+const LeadGroupAddView = () => (
+  <FullScreenContainer classOverrides="vh-100 bg-light-gray">
     <CenterThis>
-      <LeadsAddForm />
-      <LeadsCSVForm />
+      <LeadGroupAddForm />
     </CenterThis>
     <div className="pa3">
       <Button
@@ -25,4 +24,4 @@ const LeadsAddView = () => (
   </FullScreenContainer>
 );
 
-export default LeadsAddView;
+export default LeadGroupAddView;

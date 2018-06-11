@@ -6,13 +6,14 @@ import {
   CURRENT_SCRIPT_LOAD_END,
   CURRENT_SCRIPT_ERROR,
   CURRENT_SCRIPT_LOADING,
-  CURRENT_SCRIPT_UPDATE
+  CURRENT_SCRIPT_UPDATE,
+  QUESTIONS_UPDATE
 } from './ScriptBuilderTypes';
 
 const INITIAL_STATE = {
   loading: false,
-  currentQuestion: null,
-  currentScript: null
+  currentScript: null,
+  questions: []
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -33,6 +34,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, loading: true };
     case CURRENT_SCRIPT_UPDATE:
       return { ...state, currentScript: action.payload };
+    case QUESTIONS_UPDATE:
+      return { ...state, questions: action.payload };
     default:
       return state;
   }

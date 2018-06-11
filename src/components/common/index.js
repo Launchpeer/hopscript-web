@@ -52,3 +52,4 @@ export { default as CheckCircle } from './images/CheckCircle';
 export { default as MicrophoneIcon } from './images/MicrophoneIcon';
 export { default as PlusIcon } from './images/PlusIcon';
 export { default as TrashIcon } from './images/TrashIcon';
+export { default as CSVIcon } from './images/CSVIcon';

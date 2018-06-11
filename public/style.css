@@ -17,6 +17,9 @@ input:focus {
 .brand-primary {
   color: #6772e5; }
 
+.brand-primary-shade {
+  color: #5c66d5; }
+
 .bg-brand-primary {
   background-color: #6772e5; }
 
@@ -26,10 +29,16 @@ input:focus {
 .brand-secondary {
   color: #3943a5; }
 
+.brand-near-black {
+  color: #3e3e3e; }
+
 .brand-red {
   color: #ff5628; }
 
-.moon-grey {
+.brand-green {
+  color: #00cd6a; }
+
+.moon-gray {
   color: #CCCCCC; }
 
 .bg-moon-grey {
@@ -52,6 +61,17 @@ input:focus {
       align-self: center;
   z-index: 1; }
 
+.rectangle-profile {
+  border-radius: 0%;
+  height: 200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  z-index: 1; }
+
 .abs-center {
   position: absolute;
   left: 50%;
@@ -64,7 +84,7 @@ input:focus {
   pointer-events: none; }
 
 .hov-image-uploader {
-  background-color: #999999; }
+  background-color: #EEEEEE; }
 
 .hov-image-uploader:hover {
   background-color: #6772e5; }

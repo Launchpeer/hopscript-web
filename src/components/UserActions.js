@@ -16,6 +16,7 @@ function _fetchUser() {
     const query = new Parse.Query(User);
     query.include('agents');
     query.include('leads');
+    query.include('leadGroups');
     resolve(query.get(User.id));
   });
 }

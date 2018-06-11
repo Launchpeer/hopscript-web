@@ -17,15 +17,22 @@ import {
   Button,
   PlusIcon
 } from '../common';
+import { createNewQuestion, updateQuestion, fetchScript } from './ScriptBuilderActions';
+import subscribeToClass from '../helpers/subscribeToClass';
 
 class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleNewQuestion = this.handleNewQuestion.bind(this);
   }
 
   handleFormSubmit(data) {
-    console.log('questionable data', data);
+    this.props.updateQuestion({ question: data, questionId: this.props.currentQuestion.id }, this.props.currentScript.id);
+  }
+
+  handleNewQuestion() {
+    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId});
   }
 
   render() {
@@ -39,13 +46,13 @@ class QuestionBuilderForm extends Component {
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
             <div className="single-line-textarea">
-              <InputTextArea name="name" placeholder="Write Question Here"/>
+              <InputTextArea name="attributes.body" placeholder="Write Question Here"/>
             </div>
             <div className="flex mt4">
               <div className="w-10">Description</div>
               <div className="w-90">
                 <div className="block-textarea">
-                  <InputTextArea name="description" placeholder="Optional Description" />
+                  <InputTextArea name="attributes.description" placeholder="Optional Description" />
                 </div>
               </div>
             </div>
@@ -53,7 +60,7 @@ class QuestionBuilderForm extends Component {
               <div className="w-10">Category</div>
               <div className="w-60">
                 <InputDropDown
-                  name="category"
+                  name="attributes.category"
                   type="dropdown"
                   placeholder="Choose category"
                   options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
@@ -73,7 +80,7 @@ class QuestionBuilderForm extends Component {
             </div>
             <div className="flex justify-end mt6">
               <Button
-                onClick={(e) => { e.preventDefault() }}
+                onClick={this.handleNewQuestion}
                 borderColor={Colors.brandGreen}
                 borderWidth="1px"
                 fontColor={Colors.brandGreen}
@@ -91,24 +98,20 @@ class QuestionBuilderForm extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadsAddReducer }) => {
-  const { error, loading } = LeadsAddReducer;
+let Form = reduxForm({
+  form: 'questionBuilder',
+  enableReinitialize: true
+})(QuestionBuilderForm);
+
+const mapStateToProps = ({ ScriptBuilderReducer }) => {
+  const { error, loading, currentQuestion, currentScript } = ScriptBuilderReducer;
   return {
     loading,
-    error
+    error,
+    initialValues: currentQuestion,
+    currentQuestion,
+    currentScript
   };
 };
 
-function validate(values) {
-  const errors = {};
-  if (!values.name) {
-    errors._error = 'Name required';
-  }
-
-  return errors;
-}
-
-export default reduxForm({
-  form: 'questionBuilder',
-  validate
-})(connect(mapStateToProps)(QuestionBuilderForm));
+export default connect(mapStateToProps, { createNewQuestion, updateQuestion, fetchScript })(Form);

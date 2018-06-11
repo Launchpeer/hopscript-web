@@ -6,10 +6,11 @@ import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReduce
 import AgentsAddReducer from './components/AgentsAdd/AgentsAddReducer';
 import AgentsListReducer from './components/AgentsList/AgentsListReducer';
 import AgentProfileReducer from './components/AgentProfile/AgentProfileReducer';
-import LeadsAddReducer from './components/LeadsAdd/LeadsAddReducer';
-import LeadsListReducer from './components/LeadsList/LeadsListReducer';
-import LeadGroupAddReducer from './components/LeadGroupAdd/LeadGroupAddReducer';
-import LeadGroupListReducer from './components/LeadGroupList/LeadGroupListReducer';
+import LeadsAddReducer from './components/Leads/LeadsAdd/LeadsAddReducer';
+import LeadsListReducer from './components/Leads/LeadsList/LeadsListReducer';
+import LeadGroupAddReducer from './components/Leads/LeadGroupAdd/LeadGroupAddReducer';
+import LeadGroupListReducer from './components/Leads/LeadGroupList/LeadGroupListReducer';
+import StripeReducer from './components/Stripe/StripeReducer';
 import ScriptBuilderReducer from './components/ScriptBuilder/ScriptBuilderReducer';
 
 const rootReducer = combineReducers({
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   LeadsListReducer,
   LeadGroupAddReducer,
   LeadGroupListReducer,
-  ScriptBuilderReducer
+  ScriptBuilderReducer,
+  StripeReducer
 });
 
 export default rootReducer;

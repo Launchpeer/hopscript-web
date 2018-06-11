@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUser } from '../UserActions';
+import { fetchUser } from '../../UserActions';
 import { LeadGroupListItem } from './';
 
 class LeadGroupList extends Component {
@@ -14,11 +14,8 @@ class LeadGroupList extends Component {
       <div className="w-100">
         {leadGroups &&
           leadGroups.map(group => (
-            <LeadGroupListItem leadGroups={group} key={group.id} />
+            <LeadGroupListItem leadGroup={group} key={group.id} />
           ))}
-        {leadGroups.length === 0 && (
-          <div className="tc">You haven't added any lead groups.</div>
-        )}
       </div>
     );
   }
@@ -32,3 +29,16 @@ const mapStateToProps = ({ UserReducer }) => {
 };
 
 export default connect(mapStateToProps, { fetchUser })(LeadGroupList);
+
+
+/*
+{leadGroups &&
+  leadGroups.map(group => (
+    <LeadGroupListItem leadGroups={group} key={group.id} />
+  ))}
+
+
+{leadGroups.length === 0 && (
+  <div className="tc">You haven't added any lead groups.</div>
+)}
+*/

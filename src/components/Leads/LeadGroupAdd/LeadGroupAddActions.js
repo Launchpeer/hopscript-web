@@ -1,12 +1,11 @@
 import Parse from 'parse';
+import { browserHistory } from 'react-router';
 import {
   LEAD_GROUP_ADD_ERROR,
   LEAD_GROUP_ADD_CLEAR_ERROR,
   LEAD_GROUP_ADD_LOADING,
   LEAD_GROUP_ADD_LOAD_END
 } from './LeadGroupAddTypes';
-import { fetchUser } from '../UserActions';
-import { browserHistory } from 'react-router';
 
 function _leadGroupAddError(error) {
   return {

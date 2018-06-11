@@ -18,22 +18,19 @@ import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
 import { AUTH_USER } from './components/Auth/AuthTypes';
 import { UPDATE_USER } from './components/UserTypes';
-import {
-  AuthView,
-  ForgotPasswordView,
-  ResetPasswordView,
-  BrokerageSignUpForm
-} from './components/Auth';
+import { AuthView, ForgotPasswordView, ResetPasswordView } from './components/Auth';
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
-import { LeadsAddView, LeadDetailView } from './components/LeadsAdd';
-import { LeadsListView } from './components/LeadsList';
-import { LeadGroupAddView } from './components/LeadGroupAdd';
-import { LeadGroupListView } from './components/LeadGroupList';
+import { LeadsAddView } from './components/Leads/LeadsAdd';
+import { LeadsListView } from './components/Leads/LeadsList';
+import { LeadDetailView } from './components/Leads/LeadDetail';
+import { LeadGroupAddView } from './components/Leads/LeadGroupAdd';
+import { LeadGroupListView } from './components/Leads/LeadGroupList';
+import { StripeView } from './components/Stripe';
 import { ScriptBuilderView } from './components/ScriptBuilder';
 
 import './../sass/style.scss';
@@ -54,12 +51,13 @@ const currentUser = Parse.User.current();
 window.doot = "doot doot here's your toot 🎺💀";
 
 if (currentUser) {
+  // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password'];
+const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -77,6 +75,7 @@ ReactDOM.render(
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
+        <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />
         <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerDetailView} />

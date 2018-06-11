@@ -1,6 +1,6 @@
 # Purpose
 
-The purpose of this repo is to provide a portal for Agents and Brokerages to interact with the Breezebot database.
+The purpose of this repo is to provide a portal for Agents and Brokerages to interact with the HopScript database.
 
 # Getting Started
 
