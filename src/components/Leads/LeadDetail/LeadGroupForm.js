@@ -4,9 +4,7 @@ import { reduxForm } from 'redux-form';
 import { PlusCircle } from 'react-feather';
 import { InputDropDownEditable } from '../../common';
 import { Colors } from '../../../config/styles';
-import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
-import { fetchLead } from '../LeadsAdd/LeadsAddActions';
-import { updateLead, removeGroupFromLead } from './LeadDetailActions';
+import { updateLead, removeGroupFromLead, fetchLead } from './LeadDetailActions';
 import { LeadGroupListItem } from '../LeadGroupList';
 
 
@@ -27,17 +25,10 @@ class LeadGroupForm extends Component {
     this.props.removeGroupFromLead(data, lead.id);
   }
 
-  componentWillMount() {
-    this.props.fetchLeadGroups();
-  }
-
   render() {
     const {
-      handleSubmit, handleRemoveLeadGroup, lead, leadGroups
+      handleSubmit, leadGroups, myLeadGroups
     } = this.props;
-    const existingLeadGroups = lead && lead.get('leadGroups');
-    // TODO booboo butter, get this sucker into the constructor
-
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
         value: group.id,
@@ -69,8 +60,8 @@ class LeadGroupForm extends Component {
             </form>
           )}
           <div>
-            {existingLeadGroups &&
-          existingLeadGroups.map(group => (
+            {myLeadGroups &&
+          myLeadGroups.map(group => (
             <LeadGroupListItem leadGroup={group} key={group.id} onClick={() => this.handleRemoveLeadGroup(group.id)} />
           ))}
           </div>
@@ -80,18 +71,19 @@ class LeadGroupForm extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadGroupListReducer }) => {
-  const { leadGroups } = LeadGroupListReducer;
+const mapStateToProps = ({ LeadDetailReducer }) => {
+  const { lead, leadGroups, myLeadGroups } = LeadDetailReducer;
   return {
-    leadGroups
+    lead,
+    leadGroups,
+    myLeadGroups
   };
 };
 
 export default reduxForm({
   form: 'LeadGroupForm'
 })(connect(mapStateToProps, {
-  fetchLeadGroups,
-  fetchLead,
   updateLead,
+  fetchLead,
   removeGroupFromLead
 })(LeadGroupForm));

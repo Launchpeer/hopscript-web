@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { ArrowLeftCircle } from 'react-feather';
-import { FullScreenContainer, CenterThis, HalfGrid } from '../../common';
-import { fetchLead } from '../LeadsAdd/LeadsAddActions';
+import { FullScreenContainer, CenterThis, HalfGrid, Button } from '../../common';
+import { fetchLead, fetchLeadGroups, deleteLead } from './LeadDetailActions';
 import { LeadDetailForm, LeadGroupForm } from './';
 import { LeadNavBar } from '../LeadsCommon';
 import { Colors } from '../../../config/styles';
@@ -13,14 +13,21 @@ class LeadDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(lead) {
+    this.props.deleteLead(lead);
+    browserHistory.push('/list-leads');
   }
 
   componentWillMount() {
     this.props.fetchLead(this.props.params.id);
+    this.props.fetchLeadGroups();
   }
-
   render() {
-    const { lead, leadGroups } = this.props;
+    const { lead, myLeadGroups, leadGroups } = this.props;
+
     return (
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <div className="w-100" style={{ paddingLeft: "100px" }}>
@@ -44,7 +51,7 @@ class LeadDetailView extends Component {
               <HalfGrid>
                 <CenterThis>
                   <div className="pa4 w-100" >
-                    <LeadDetailForm lead={lead} />
+                    { lead && <LeadDetailForm lead={lead} />}
                   </div>
                 </CenterThis>
               </HalfGrid>
@@ -52,26 +59,30 @@ class LeadDetailView extends Component {
               <HalfGrid>
                 <CenterThis>
                   <div className="pa4 w-100" >
-                    <LeadGroupForm lead={lead} leadGroups={leadGroups} />
+                    {lead && leadGroups && <LeadGroupForm lead={lead} myLeadGroups={myLeadGroups} leadGroups={leadGroups} />}
                   </div>
                 </CenterThis>
+                <div className="ph4 fr"><Button classOverrides="f5" backgroundColor={Colors.brandRed} onClick={() => this.handleDelete(lead.id)}>Delete Lead</Button></div>
               </HalfGrid>
             </div>
           </CenterThis>
-
         </div>
       </FullScreenContainer>
     );
   }
 }
 
-const mapStateToProps = ({ LeadsAddReducer }) => {
-  const { lead } = LeadsAddReducer;
+const mapStateToProps = ({ LeadDetailReducer }) => {
+  const { lead, myLeadGroups, leadGroups } = LeadDetailReducer;
   return {
-    lead
+    lead,
+    myLeadGroups,
+    leadGroups
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchLead
+  fetchLead,
+  fetchLeadGroups,
+  deleteLead
 })(LeadDetailView);

@@ -2,6 +2,8 @@ import {
   LEAD_DETAIL_LOADING,
   LEAD_DETAIL_LOAD_END,
   LEAD_DETAIL_UPDATE,
+  LEAD_GROUP_DETAIL_UPDATE,
+  MY_LEAD_GROUP_DETAIL_UPDATE,
   LEAD_DETAIL_CLEAR_ERROR,
   LEAD_DETAIL_ERROR
 } from './LeadDetailTypes';
@@ -9,7 +11,9 @@ import {
 const INITIAL_STATE = {
   error: '',
   loading: false,
-  lead: null
+  lead: null,
+  leadGroups: [],
+  myLeadGroups: []
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -24,6 +28,10 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, loading: true };
     case LEAD_DETAIL_UPDATE:
       return { ...state, lead: action.payload };
+    case LEAD_GROUP_DETAIL_UPDATE:
+      return { ...state, leadGroups: action.payload };
+    case MY_LEAD_GROUP_DETAIL_UPDATE:
+      return { ...state, myLeadGroups: action.payload };
     default:
       return state;
   }
