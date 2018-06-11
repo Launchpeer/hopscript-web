@@ -54,7 +54,7 @@ function _getLeadGroup(id) {
   const query = new Parse.Query(LeadGroup);
   query
     .get(id)
-    .then(group => console.log('gotem', group))
+    .then(group => console.log('got the group', group))
     .catch(err => console.log('err fetching', err));
 }
 
@@ -63,13 +63,29 @@ function _getLead(id) {
   const query = new Parse.Query(Lead);
   query
     .get(id)
-    .then(lead => console.log('gotem', lead))
+    .then(lead => console.log('got the lead', lead))
     .catch(err => console.log('err fetching', err));
 }
+// 
+// function _updatedLead(newLead) {
+//   return {
+//     type: UPDATED_LEAD,
+//     payload: newLead,
+//   }
+// }
 
 const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
-  dispatch(_getLead(lead.id));
-  dispatch(_getLeadGroup(leadGroup.leadGroup));
+  dispatch(_leadsListLoading());
+  Parse.Cloud.run("updateLead", ({ leadGroup, lead }))
+    .then((r) => {
+      dispatch(_leadsListLoadEnd());
+      console.log("hotdog", r);
+      // dispatch(_updatedLead(r))
+    })
+    .catch((e) => {
+      dispatch(_leadsListLoadEnd());
+      console.log("ballhog", e);
+    });
 };
 
 export { reconcileLeadsAndGroups };

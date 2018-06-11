@@ -17,7 +17,7 @@ class LeadGroupForm extends Component {
 
   handleFormSubmit(data) {
     const { lead } = this.props;
-    this.props.reconcileLeadsAndGroups(data, lead);
+    this.props.reconcileLeadsAndGroups(data.leadGroup, lead.id);
   }
 
   componentWillMount() {
@@ -27,6 +27,7 @@ class LeadGroupForm extends Component {
   render() {
     const { handleSubmit, lead, leadGroups } = this.props;
     const existingLeadGroups = lead && lead.get('leadGroups');
+    // TODO booboo butter, get this sucker into the constructor
 
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
@@ -51,7 +52,7 @@ class LeadGroupForm extends Component {
                     type="dropdown"
                     placeholder="Select a Group"
                     options={leadGroupOptions}
-                    onSubmit={() => this.handleFormSubmit()}
+                    onSubmit={handleSubmit(this.handleFormSubmit)}
                     borderColor="lightGray" />
                 </div>
               </div>
