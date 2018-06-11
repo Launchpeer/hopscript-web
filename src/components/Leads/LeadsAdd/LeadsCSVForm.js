@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { parseCSV } from './LeadsAddActions';
-import { InputFile, Button, CSVIcon } from '../common';
-import { Colors } from '../../config/styles';
+import { InputFile, Button, CSVIcon } from '../../common';
+import { Colors } from '../../../config/styles';
 
 const DropZoneIcon = (
   <div>

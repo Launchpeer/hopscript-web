@@ -30,7 +30,7 @@ const SignUp = (
       onClick={() => { browserHistory.push('/signup'); }}
       role="button"
       style={{ color: Colors.brandPrimary }} >
-      New to Breeze Bot? Sign Up
+      New to HopScript? Sign Up
     </div>
   </div>
 );
@@ -51,8 +51,9 @@ class AuthView extends Component {
             </div>
           </CenterThis>
           <CenterThis>
+
             <div className="mw5 mb5 f1" style={{ color: Colors.white }} >
-              BreezeBot
+              HopScript
             </div>
           </CenterThis>
           <CenterThis>

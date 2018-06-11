@@ -53,8 +53,8 @@ const mapSidebarContent = (user, route) => {
   return (
     items.map(item => (
       <div
-        key={item.label}
         className="pointer"
+        key={item.label}
         role="button"
         style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route) }}
         onClick={() => browserHistory.push(item.route)} >
@@ -80,7 +80,7 @@ const SideBar = ({ route, user }) => (
               <HeadphonesIcon width="30px" height="30px" color={Colors.white} />
             </div>
             <div className="f5 white tc">
-              BreezeBot
+              HopScript
             </div>
           </div>
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />

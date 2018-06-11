@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
 
 const navColor = (current, route) => route === current ? Colors.brandGreen : Colors.black;
 
@@ -27,7 +27,7 @@ const LeadNavBar = ({ route }) => (
     <div
       className="b pa2 pointer ml2 mr2"
       role="button"
-      onClick={() => console.log('Will open lead groups list when built')}
+      onClick={() => browserHistory.push('/list-lead-groups')}
       style={{ color: navColor('/list-lead-groups', route) }}>
       Lead Groups
     </div>

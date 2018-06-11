@@ -6,9 +6,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { Colors } from '../../config/styles';
-import { Button, ModalCard } from '../common';
+import { browserHistory } from 'react-router';
+import { Colors } from '../../../config/styles';
+import { Button, ModalCard } from '../../common';
 import { removeLead } from './LeadsListActions';
 
 class LeadsListItem extends Component {
@@ -46,7 +46,7 @@ class LeadsListItem extends Component {
             </div>
           </ModalCard>
         }
-        <div className="flex w-100 items-center justify-between">
+        <div className="flex w-100 items-center justify-between" role="button" onClick={() => browserHistory.push(`/list-leads/${this.props.lead.id}`)}>
           <div className="w-30-ns">{attributes.name}</div>
           <div className="w-30-ns">{attributes.phone}</div>
           <div className="w-30-ns">{attributes.email}</div>
