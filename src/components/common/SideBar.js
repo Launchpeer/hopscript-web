@@ -45,11 +45,15 @@ const brokerItems = [
   },
 ];
 
+const bgColor = (current, route) => route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
+const textColor = (current, route) => route === current ? Colors.white : Colors.brandSecondary;
+
 const mapSidebarContent = (user, route) => {
   const items = user === 'agent' ? agentItems : brokerItems;
   return (
     items.map(item => (
       <div
+        key={item.label}
         className="pointer"
         role="button"
         style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route) }}
@@ -65,9 +69,6 @@ const mapSidebarContent = (user, route) => {
     ))
   );
 };
-
-const bgColor = (current, route) => route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
-const textColor = (current, route) => route === current ? Colors.white : Colors.brandSecondary;
 
 const SideBar = ({ route, user }) => (
   <div>
@@ -101,7 +102,6 @@ const SideBar = ({ route, user }) => (
     }
   </div>
 );
-
 
 const mapStateToProps = ({ UserReducer }) => {
   const { user } = UserReducer;

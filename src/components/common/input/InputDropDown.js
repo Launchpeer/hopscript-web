@@ -11,12 +11,12 @@ const renderDropDown = (fieldProps) => {
     borderRadius,
     borderColor,
     placeholder,
-    display,
+    classOverrides,
     meta: { touched, error }
   } = fieldProps;
   return (
     <div
-      className="ba mt2 mb2 f5 pa3 relative flex items-center bg-white"
+      className={`ba mt2 mb2 f5 pa3 relative flex items-center bg-white ${classOverrides}`}
       style={{
         color: fontColor || Colors.inputFontColor,
         borderRadius: borderRadius || BorderRadius.all,
