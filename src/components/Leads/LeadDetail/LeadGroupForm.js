@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { PlusCircle } from 'react-feather';
 import { InputDropDownEditable } from '../../common';
 import { Colors } from '../../../config/styles';
 import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
 import { fetchLead } from '../LeadsAdd/LeadsAddActions';
-import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
+import { updateLead, removeGroupFromLead } from './LeadDetailActions';
 import { LeadGroupListItem } from '../LeadGroupList';
 
 
@@ -13,11 +14,17 @@ class LeadGroupForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleRemoveLeadGroup = this.handleRemoveLeadGroup.bind(this);
   }
 
   handleFormSubmit(data) {
     const { lead } = this.props;
-    this.props.reconcileLeadsAndGroups(data.leadGroup, lead.id);
+    this.props.updateLead(data.leadGroup, lead.id);
+  }
+
+  handleRemoveLeadGroup(data) {
+    const { lead } = this.props;
+    this.props.removeGroupFromLead(data, lead.id);
   }
 
   componentWillMount() {
@@ -25,7 +32,9 @@ class LeadGroupForm extends Component {
   }
 
   render() {
-    const { handleSubmit, lead, leadGroups } = this.props;
+    const {
+      handleSubmit, handleRemoveLeadGroup, lead, leadGroups
+    } = this.props;
     const existingLeadGroups = lead && lead.get('leadGroups');
     // TODO booboo butter, get this sucker into the constructor
 
@@ -45,13 +54,14 @@ class LeadGroupForm extends Component {
           {leadGroups && (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <div className="flex flex-row w-100 items-center">
-                <div className="w-30 mt2 mb2 pt3 pb3">Add To Group</div>
-                <div className="w-100 pa2">
+                <div className="w-100 pv2 ph3 mr1">
                   <InputDropDownEditable
                     name="leadGroup"
                     type="dropdown"
-                    placeholder="Select a Group"
+                    editButtonName={<PlusCircle />}
+                    saveButtonName="Add"
                     options={leadGroupOptions}
+                    placeholder="Add to New Group"
                     onSubmit={handleSubmit(this.handleFormSubmit)}
                     borderColor="lightGray" />
                 </div>
@@ -61,7 +71,7 @@ class LeadGroupForm extends Component {
           <div>
             {existingLeadGroups &&
           existingLeadGroups.map(group => (
-            <LeadGroupListItem leadGroup={group} key={group.id} onClick={() => console.log('this will remove the leadgroup from the lead')} />
+            <LeadGroupListItem leadGroup={group} key={group.id} onClick={() => this.handleRemoveLeadGroup(group.id)} />
           ))}
           </div>
         </div>
@@ -82,22 +92,6 @@ export default reduxForm({
 })(connect(mapStateToProps, {
   fetchLeadGroups,
   fetchLead,
-  reconcileLeadsAndGroups
+  updateLead,
+  removeGroupFromLead
 })(LeadGroupForm));
-
-
-/*
-{leadGroups && (
-  <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-    <InputDropDown
-      name="leadGroup"
-      type="dropdown"
-      label="Lead Group"
-      placeholder="Select a Group"
-      options={leadGroupOptions}
-      borderColor="black"
-      borderRadius="none" />
-    <Button backgroundColor={Colors.brandPrimary}>Add To Group</Button>
-  </form>
-)}
-*/

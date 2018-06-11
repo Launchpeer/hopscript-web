@@ -14,7 +14,7 @@ const RenderInfoDisplay = ({
   >
     {placeholder &&
       <div
-        className="ba w-100 f5 pa2 ma2 bn flex items-center"
+        className="ba w-100 f5 pa2 mv2 bn flex items-center"
         style={{
         color: fontColor ? Colors[fontColor] : Colors.primaryGrey
       }}
