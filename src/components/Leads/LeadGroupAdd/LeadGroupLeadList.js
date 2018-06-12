@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Plus } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import { fetchUser } from '../../UserActions';
-import { LeadsListItem } from './';
+import { LeadsListItem } from '../LeadsList';
 
-class LeadsList extends Component {
+class LeadGroupLeadList extends Component {
   constructor(props) {
     super(props);
     this.props.fetchUser();
@@ -14,7 +15,7 @@ class LeadsList extends Component {
     return (
       <div className="w-100">
         {leads &&
-          leads.map(lead => <LeadsListItem lead={lead} key={lead.id} buttonColor="brandPrimary" hover="brandRed" buttonContent="X" showPhone showEmail />)}
+          leads.map(lead => <LeadsListItem lead={lead} key={lead.id} classOverrides="bg-brand-green" buttonContent={<Plus backgroundColor={Colors.brandGreen} />} />)}
       </div>
     );
   }
@@ -27,4 +28,4 @@ const mapStateToProps = ({ UserReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchUser })(LeadsList);
+export default connect(mapStateToProps, { fetchUser })(LeadGroupLeadList);

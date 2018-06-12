@@ -5,7 +5,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { FullScreenContainer, CenterThis, Button, HalfGrid } from '../../common';
-import { LeadGroupAddForm } from './';
+import { LeadGroupAddForm, LeadGroupLeadList } from './';
 import { Colors } from '../../../config/styles';
 import { LeadNavBar } from '../LeadsCommon';
 
@@ -24,7 +24,7 @@ const LeadGroupAddView = () => (
             <HalfGrid>
               <CenterThis>
                 <div className="pa4 w-100" >
-                  <LeadGroupAddForm />
+                  <LeadGroupLeadList />
                 </div>
               </CenterThis>
             </HalfGrid>
