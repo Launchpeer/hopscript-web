@@ -6,7 +6,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import { FullScreenContainer, CenterThis, Button, HalfGrid } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadList } from './';
-import { Colors } from '../../../config/styles';
+import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadNavBar } from '../LeadsCommon';
 
 const LeadGroupAddView = () => (
@@ -24,7 +24,10 @@ const LeadGroupAddView = () => (
             <HalfGrid>
               <CenterThis>
                 <div className="pa4 w-100" >
-                  <LeadGroupLeadList />
+                  <div className="b mb3">All Leads</div>
+                  <div className="ba pa3" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
+                    <LeadGroupLeadList />
+                  </div>
                 </div>
               </CenterThis>
             </HalfGrid>
@@ -32,7 +35,10 @@ const LeadGroupAddView = () => (
             <HalfGrid>
               <CenterThis>
                 <div className="pa4 w-100" >
-                  <LeadGroupAddForm />
+                  <div className="b mb3">Leads In Group</div>
+                  <div className="ba pa3" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
+                    <LeadGroupAddForm />
+                  </div>
                 </div>
               </CenterThis>
             </HalfGrid>
