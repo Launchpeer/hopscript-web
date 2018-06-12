@@ -20,7 +20,7 @@ const LeadGroupListView = ({ location }) => (
           <div className="w-90 flex flex-column pa4" style={{ backgroundColor: Colors.white }} >
             <LeadGroupList />
             <div className="pv4">
-              <Button classOverrides="fr f5 ph4" backgroundColor={Colors.brandGreen} onClick={() => browserHistory.push('/add-leadgroup')}>
+              <Button classOverrides="fr f5 ph4" backgroundColor={Colors.brandGreen} onClick={() => browserHistory.push('/add-lead-group')}>
                   New Lead Group
               </Button>
             </div>
