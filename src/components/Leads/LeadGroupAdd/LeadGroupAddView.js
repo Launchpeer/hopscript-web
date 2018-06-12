@@ -23,9 +23,9 @@ const LeadGroupAddView = () => (
           <div className="items-center">
             <HalfGrid>
               <CenterThis>
-                <div className="pa4 w-100" >
+                <div className="pa4 w-100 vh-75" >
                   <div className="b mb3">All Leads</div>
-                  <div className="ba pa3" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
+                  <div className="ba pa3 overflow-x-auto h-100" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
                     <LeadGroupLeadList />
                   </div>
                 </div>
