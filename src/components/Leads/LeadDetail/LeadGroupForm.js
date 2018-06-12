@@ -18,6 +18,7 @@ class LeadGroupForm extends Component {
   handleFormSubmit(data) {
     const { lead } = this.props;
     this.props.updateLead(data.leadGroup, lead.id);
+    this.props.fetchLead(lead.id);
   }
 
   handleRemoveLeadGroup(data) {

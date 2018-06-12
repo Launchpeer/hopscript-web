@@ -9,7 +9,7 @@ import { Colors } from '../../../config/styles';
 const LeadGroupListView = ({ location }) => (
   <FullScreenContainer classOverrides="vh-100 bg-light-gray">
     <div className="w-100" style={{ paddingLeft: "100px" }}>
-      <div className="w-100" style={{ paddingLeft: "100px" }}>
+      <div className="w-100">
         <CenterThis>
           <div className="w-90 mt3 mb1 pa3 f4" style={{ backgroundColor: Colors.white }} >
             <LeadNavBar route={location.pathname} />
@@ -17,10 +17,17 @@ const LeadGroupListView = ({ location }) => (
         </CenterThis>
 
         <CenterThis>
-          <div className="w-90 flex flex-row justify-around pa4" style={{ backgroundColor: Colors.white }} >
+          <div className="w-90 flex flex-column pa4" style={{ backgroundColor: Colors.white }} >
             <LeadGroupList />
+            <div className="pv4">
+              <Button classOverrides="fr f5 ph4" backgroundColor={Colors.brandGreen} onClick={() => browserHistory.push('/add-leadgroup')}>
+                  New Lead Group
+              </Button>
+            </div>
           </div>
         </CenterThis>
+
+
       </div>
     </div>
   </FullScreenContainer>
