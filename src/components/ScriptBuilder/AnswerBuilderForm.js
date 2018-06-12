@@ -15,9 +15,9 @@ import {
   TrashIcon,
   PlusIcon
 } from '../common';
-import { batchImportAnswers } from './ScriptBuilderActions';
+import { addAnswersToQuestion } from './ScriptBuilderActions';
 
-const AnswerBlock = ({ answer, removeAnswer, idx }) => {
+const AnswerBlock = ({ answer, removeAnswer, idx, questions }) => {
  return (<div>
    <div className="flex mt4">
      <div className="w-10">
@@ -46,7 +46,7 @@ const AnswerBlock = ({ answer, removeAnswer, idx }) => {
          name={`route${idx}`}
          type="dropdown"
          placeholder="Route to"
-         options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
+         options={questions}
          borderColor={Colors.moonGray}
        />
      </div>
@@ -63,19 +63,16 @@ class AnswerBuilderForm extends Component {
         'key': 1,
         'answer': 'answer1',
         'route': 'route1'
-      }]
+      }],
     }
+    // options need to be { display: name, id: id, value: id };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addAnswer = this.addAnswer.bind(this);
     this.removeAnswer = this.removeAnswer.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.batchImportAnswers({
-      data,
-      questionId: this.props.currentQuestion.id,
-      scriptId: this.props.currentScript.id
-    })
+    this.props.addAnswersToQuestion(data, this.props.currentQuestion.id, this.props.currentScript.id);
   }
 
   addAnswer() {
@@ -90,6 +87,12 @@ class AnswerBuilderForm extends Component {
     const {
       handleSubmit, valid, loading, error, onSubmit, toggleStep
     } = this.props;
+    const formattedQuestions = this.props.questions.map(question => ({
+                display: question.attributes.body || 'create question',
+                id: question.id,
+                value: question.id
+            }))
+    const questions = formattedQuestions;
     const { answers } = this.state;
     return (
       <div>
@@ -97,11 +100,8 @@ class AnswerBuilderForm extends Component {
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
-          <div className="single-line-textarea">
-            <InputTextArea name="name" placeholder="Write Question Here"/>
-          </div>
             {answers && answers.map((answer, idx) => (
-              <AnswerBlock answer={answer} idx={idx} key={idx} removeAnswer={this.removeAnswer}/>
+              <AnswerBlock answer={answer} idx={idx} key={idx} removeAnswer={this.removeAnswer} questions={questions}/>
             ))}
             <div className="flex items-center pointer" onClick={this.addAnswer}>
               <PlusIcon color={Colors.brandNearBlack} width="2rem" height="2rem"/>
@@ -142,4 +142,4 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { batchImportAnswers })(Form);
+export default connect(mapStateToProps, { addAnswersToQuestion })(Form);

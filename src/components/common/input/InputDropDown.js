@@ -39,15 +39,17 @@ const renderDropDown = (fieldProps) => {
           {placeholder}
         </option>
         {options &&
-          options.map(option => (
-            <option
-              value={option.value || option}
-              key={option.id || option}
-              className="f3 dark-gray"
-            >
-              {option.display || option}
-            </option>
-          ))}
+          options.map(option => {
+            return (
+              <option
+                value={option.value || ''}
+                key={option.id}
+                className="f3 dark-gray"
+              >
+                {option.display || ''}
+              </option>
+            )
+          })}
       </select>
       {touched && error && <div className="orange">{error}</div>}
     </div>

@@ -65,7 +65,6 @@ class ScriptBuilderView extends Component {
   }
 
   handleSubscriptionCallback(script) {
-    console.log('new stuff', script);
    this.props.currentScriptUpdate(script);
  }
 
@@ -101,7 +100,7 @@ class ScriptBuilderView extends Component {
                   {questions && currentQuestion && <GlossaryView questions={questions} step={currentStep} currentQuestion={currentQuestion} setCurrentQuestion={this.setCurrentQuestion} /> }
                 </div>
                 <div className="w-70 pa3">
-                  {(currentStep === 'question' && currentQuestion) ? <QuestionBuilderForm scriptId={this.props.params.id} /> : <AnswerBuilderForm toggleStep={this.toggleStep} />}
+                  {(currentStep === 'question' && currentQuestion && questions) ? <QuestionBuilderForm scriptId={this.props.params.id} /> : <AnswerBuilderForm toggleStep={this.toggleStep} questions={questions}/>}
                 </div>
               </div>
             </div>

@@ -127,37 +127,13 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
   Parse.Cloud.run('createNewQuestion', { question: question.attributes, scriptId })
 }
 
-const batchImportAnswers = ({ data, questionId, scriptId }) => (dispatch) => {
-  const keys = [];
-  const questions = [];
-  console.log('data', data);
-  Object.keys(data).forEach((key) => {
-    if (key.startsWith('answer')) {
-      keys.push(data[key]);
-      console.log(data[key])
-    }
-    else if (key.startsWith('route')) {
-      console.log(data[key])
-    }
-  })
-  const nAnswers = keys.length;
-  for(let i = 0; i < nAnswers; i++) {
-    questions.push({ `${keys[i]}` : })
-  }
-  // data.forEach((answer) => {
-  //   console.log('answer', answer);
-  //   // dispatch(createNewAnswer({ answer, questionId }))
-  // })
-  //   .then(() => {
-  //     console.log('dine')
-  //     // dispatch(fetchScript(scriptId));
-  //   })
+const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
+  console.log('add answers', data);
+  Parse.Cloud.run('addAnswers', { data, questionId })
+    .then(() => {
+      console.log('Answers added to Question');
+    })
 }
-
-const createNewAnswer = ({ answer, questionId }) => (dispatch) => {
-  Parse.Cloud.run('updateScript', { body, questionId })
-}
-
 
 export const clearError = () => (dispatch) => {
   dispatch(_clearError());
@@ -169,16 +145,17 @@ const updateScript = (data, scriptId) => (dispatch) => {
 
 const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
   Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId })
-    .then(() => {console.log('yooo'); dispatch(fetchScript(scriptId, true))})
+    .then(() => {
+      console.log('updated Question');
+    })
 }
 
 export {
   fetchScript,
-  createNewAnswer,
   createNewScript,
   updateScript,
   setCurrentQuestion,
   createNewQuestion,
   currentScriptUpdate,
   updateQuestion,
-  batchImportAnswers };
+  addAnswersToQuestion };
