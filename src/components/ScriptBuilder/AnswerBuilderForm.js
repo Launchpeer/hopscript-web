@@ -26,7 +26,7 @@ const AnswerBlock = ({ answer, removeAnswer, idx, questions }) => {
      <div className="w-10">Answer</div>
      <div className="w-60">
        <div className="block-textarea">
-         <InputTextArea name={`answer${idx}`} body="answer" placeholder="Type Answer here" />
+         <InputTextArea name={`answer${idx}`} body="answer" placeholder={"Type Answer here"} />
        </div>
      </div>
      <div className="w-30">
@@ -83,6 +83,12 @@ class AnswerBuilderForm extends Component {
     this.setState({ answers: this.state.answers.filter((item, index) => index !== idx)})
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.currentQuestion) {
+        this.setState({ answers: nextProps.currentQuestion.attributes.answers })
+    }
+  }
+
   render() {
     const {
       handleSubmit, valid, loading, error, onSubmit, toggleStep
@@ -133,6 +139,7 @@ let Form = reduxForm({
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const { error, loading, currentQuestion, currentScript } = ScriptBuilderReducer;
+  console.log('currentQuestion', currentQuestion);
   return {
     loading,
     error,

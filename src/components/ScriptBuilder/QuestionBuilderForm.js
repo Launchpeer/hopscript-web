@@ -104,13 +104,15 @@ let Form = reduxForm({
 })(QuestionBuilderForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
-  const { error, loading, currentQuestion, currentScript } = ScriptBuilderReducer;
+  const { error, loading, currentQuestion, currentScript, questions } = ScriptBuilderReducer;
+  console.log('questions', questions)
   return {
     loading,
     error,
     initialValues: currentQuestion,
     currentQuestion,
-    currentScript
+    currentScript,
+    questions
   };
 };
 

@@ -69,6 +69,7 @@ const fetchScript = (scriptId, update) => (dispatch) => {
         type: CURRENT_SCRIPT_UPDATE,
         payload: script
       })
+      console.log('updating script', script);
       if (script.attributes.questions) {
         dispatch({
           type: QUESTIONS_UPDATE,
@@ -95,6 +96,7 @@ const fetchScript = (scriptId, update) => (dispatch) => {
 }
 
 const currentScriptUpdate = (script) => (dispatch) => {
+  console.log('updated script', script);
   _currentScriptUpdate(script);
   if(script && script.attributes.questions) {
     dispatch({
@@ -128,10 +130,16 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
 }
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
-  console.log('add answers', data);
-  Parse.Cloud.run('addAnswers', { data, questionId })
-    .then(() => {
-      console.log('Answers added to Question');
+  Parse.Cloud.run('addAnswers', { data, questionId, scriptId })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
+    })
+}
+
+const deleteAnswer = (questionId) => (dispatch) => {
+  Parse.Cloud.run('deleteAnswer', { questionId, answerId })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
     })
 }
 
@@ -144,9 +152,9 @@ const updateScript = (data, scriptId) => (dispatch) => {
 }
 
 const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
-  Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId })
-    .then(() => {
-      console.log('updated Question');
+  Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId, scriptId })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
     })
 }
 
