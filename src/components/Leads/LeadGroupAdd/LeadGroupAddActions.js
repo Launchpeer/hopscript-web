@@ -4,7 +4,8 @@ import {
   LEAD_GROUP_ADD_ERROR,
   LEAD_GROUP_ADD_CLEAR_ERROR,
   LEAD_GROUP_ADD_LOADING,
-  LEAD_GROUP_ADD_LOAD_END
+  LEAD_GROUP_ADD_LOAD_END,
+  ADD_LEADS_TO_GROUP
 } from './LeadGroupAddTypes';
 
 function _leadGroupAddError(error) {
@@ -31,12 +32,23 @@ function _clearError() {
   };
 }
 
+function _addLeadToGroup(lead) {
+  return {
+    type: ADD_LEADS_TO_GROUP,
+    payload: lead.attributes.name
+  };
+}
+
 const clearError = () => (dispatch) => {
   dispatch(_clearError());
 };
 
 const leadGroupAddError = err => (dispatch) => {
   dispatch(_leadGroupAddError(err));
+};
+
+export const addLeadToGroup = lead => (dispatch) => {
+  dispatch(_addLeadToGroup(lead));
 };
 
 /**

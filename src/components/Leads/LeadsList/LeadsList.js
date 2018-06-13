@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Colors } from '../../../config/styles';
 import { fetchUser } from '../../UserActions';
 import { LeadsListItem } from './';
 
@@ -14,7 +13,7 @@ class LeadsList extends Component {
     return (
       <div className="w-100">
         {leads &&
-          leads.map(lead => <LeadsListItem lead={lead} key={lead.id} buttonColor="brandPrimary" hover="brandRed" buttonContent="X" showPhone showEmail />)}
+          leads.map(lead => <LeadsListItem lead={lead} key={lead.id} />)}
       </div>
     );
   }

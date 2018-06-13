@@ -32,9 +32,6 @@ class LeadsListItem extends Component {
       attributes
     } = this.props.lead;
     const { modalOpen } = this.state;
-    const {
-      classOverrides, buttonContent, showPhone, showEmail
-    } = this.props;
     return (
       <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
         style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
@@ -51,14 +48,14 @@ class LeadsListItem extends Component {
         }
         <div className="flex w-100 items-center justify-between" role="button" onClick={() => browserHistory.push(`/list-leads/${this.props.lead.id}`)}>
           <div className="w-30-ns">{attributes.name}</div>
-          {showPhone && <div className="w-30-ns">{attributes.phone}</div>}
-          {showEmail && <div className="w-30-ns">{attributes.email}</div>}
+          <div className="w-30-ns">{attributes.phone}</div>
+          <div className="w-30-ns">{attributes.email}</div>
           <div
-            className={`br-100 bg-brand-primary hov-danger white flex items-center justify-center ${classOverrides}`}
+            className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
             role="button"
             style={{ width: '2rem', height: '2rem' }}
             onClick={this.toggleModal}>
-            {buttonContent}
+            X
           </div>
         </div>
       </div>
