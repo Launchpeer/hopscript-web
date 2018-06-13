@@ -62,7 +62,7 @@ class ResetPasswordView extends Component {
               style={{
                 color: Colors.white
               }} >
-              HopScript
+              Hopscript
             </div>
           </CenterThis>
           <CenterThis>

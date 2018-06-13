@@ -68,7 +68,7 @@ class StripeView extends Component {
               color: Colors.white
             }}
           >
-            HopScript
+            Hopscript
           </div>
         </CenterThis>
         {loading && <Loader />}
