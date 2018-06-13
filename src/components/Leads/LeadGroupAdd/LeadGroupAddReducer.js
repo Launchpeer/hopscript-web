@@ -23,7 +23,7 @@ export default function (state = INITIAL_STATE, action) {
     case LEAD_GROUP_ADD_LOADING:
       return { ...state, loading: true };
     case ADD_LEADS_TO_GROUP:
-      return { ...state, leadsToAdd: state.leadsToAdd.merge(action.payload) };
+      return { ...state, leadsToAdd: [...state.leadsToAdd, action.payload] };
     default:
       return state;
   }

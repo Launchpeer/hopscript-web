@@ -9,6 +9,8 @@ import {
   MY_LEAD_GROUP_DETAIL_UPDATE
 } from './LeadDetailTypes';
 
+import { UPDATE_USER } from '../../UserTypes';
+
 function _leadDetailLoading() {
   return {
     type: LEAD_DETAIL_LOADING
@@ -112,8 +114,10 @@ export const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
 export const deleteLead = lead => (dispatch) => {
   dispatch(_leadDetailLoading());
   Parse.Cloud.run("deleteLead", ({ lead }))
-    .then(() => {
-      dispatch(_leadDetailLoadEnd());
+    .then((r) => {
+      console.log("Gotem", r);
+      dispatch({ type: UPDATE_USER, payload: r[0] });
+      setTimeout(() => { dispatch(_leadDetailLoadEnd()); }, 1000);
     })
     .catch((e) => {
       dispatch(_leadDetailLoadEnd());

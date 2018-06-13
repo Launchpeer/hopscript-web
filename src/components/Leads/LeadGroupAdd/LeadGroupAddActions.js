@@ -35,7 +35,7 @@ function _clearError() {
 function _addLeadToGroup(lead) {
   return {
     type: ADD_LEADS_TO_GROUP,
-    payload: lead.attributes.name
+    payload: lead
   };
 }
 
@@ -107,13 +107,14 @@ function _createAndReconcileLeadGroup(leadGroup) {
  */
 
 const createLeadGroup = data => (dispatch) => {
+  console.log('data', data);
   dispatch(_leadGroupAddLoading());
   _createAndReconcileLeadGroup(data)
     .then(() => {
       dispatch(_leadGroupAddLoadEnd());
       browserHistory.push('/list-lead-groups');
     })
-    .catch(err => dispatch(_leadGroupAddError()));
+    .catch(() => dispatch(_leadGroupAddError()));
 };
 
 export { clearError, createLeadGroup };

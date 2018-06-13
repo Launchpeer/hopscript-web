@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { browserHistory } from 'react-router';
 import { FullScreenContainer, CenterThis, Button, HalfGrid, InputText } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadList } from './';
 import { createLeadGroup, clearError } from './LeadGroupAddActions';
@@ -12,15 +13,11 @@ class LeadGroupAddView extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.clearError = this.clearError.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      leadsToAdd: this.props.leadsToAdd
-    };
   }
 
   handleFormSubmit(data) {
     this.props.createLeadGroup(data);
+    // browserHistory.push('/list-lead-groups');
   }
 
   clearError() {
@@ -29,12 +26,8 @@ class LeadGroupAddView extends Component {
     }
   }
 
-
   render() {
-    const {
-      handleSubmit, valid, loading, error, leadsToAdd
-    } = this.props;
-    console.log('leadstoadd', leadsToAdd);
+    const { leadsToAdd, handleSubmit } = this.props;
     return (
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <div className="w-100" style={{ paddingLeft: "100px" }}>
@@ -79,7 +72,7 @@ class LeadGroupAddView extends Component {
                   </HalfGrid>
                 </div>
                 <div className="pv4 pr4">
-                  <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" backgroundColor={Colors.brandGreen} onClick={() => console.log("save")}>Save</Button>
+                  <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" backgroundColor={Colors.brandGreen} onClick={() => handleSubmit(this.handleFormSubmit)}>Save</Button>
                   <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={() => console.log("cancel")}>Cancel</Button>
                 </div>
               </div>

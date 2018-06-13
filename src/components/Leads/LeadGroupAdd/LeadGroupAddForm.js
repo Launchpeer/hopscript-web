@@ -12,9 +12,8 @@ import {
 
 const LeadGroupAddForm = ({ leadsToAdd }) => (
   <div>
-    {leadsToAdd && leadsToAdd.map(lead => <div key={lead}>{lead}</div>)}
-  </div>
-);
+    {leadsToAdd && leadsToAdd.map(lead => <div key={lead.id}>{lead.attributes.name}</div>)}
+  </div>);
 
 
 export default LeadGroupAddForm;

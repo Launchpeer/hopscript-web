@@ -4,13 +4,15 @@ import {
   LEADS_ADD_CLEAR_ERROR,
   LEADS_ADD_LOADING,
   CURRENT_LEAD,
-  CURRENT_LEAD_GROUP
+  CURRENT_LEAD_GROUP,
+  LEAD_LIST_UPDATE
 } from './LeadsListTypes';
 
 const INITIAL_STATE = {
   error: '',
   loading: false,
   lead: null,
+  leads: [],
   leadGroup: null
 };
 
@@ -28,6 +30,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, lead: action.payload };
     case CURRENT_LEAD_GROUP:
       return { ...state, leadGroup: action.payload };
+    case LEAD_LIST_UPDATE:
+      return { ...state, leads: action.payload };
     default:
       return state;
   }

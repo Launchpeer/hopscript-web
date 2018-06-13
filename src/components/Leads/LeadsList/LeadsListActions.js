@@ -2,7 +2,8 @@ import Parse from 'parse';
 
 import {
   LEADS_LIST_LOADING,
-  LEADS_LIST_LOAD_END
+  LEADS_LIST_LOAD_END,
+  LEAD_LIST_UPDATE
 } from './LeadsListTypes';
 
 import { fetchUser } from '../../UserActions';
@@ -16,6 +17,13 @@ function _leadsListLoading() {
 function _leadsListLoadEnd() {
   return {
     type: LEADS_LIST_LOAD_END
+  };
+}
+
+function _leadsListUpdate(l) {
+  return {
+    type: LEAD_LIST_UPDATE,
+    leads: l
   };
 }
 
@@ -49,6 +57,18 @@ export const removeLead = id => (dispatch) => {
     .catch(err => console.log('error deleting lead', err));
 };
 
+export const fetchLeads = () => (dispatch) => {
+  dispatch(_leadsListLoading());
+  Parse.Cloud.run("fetchLeads")
+    .then((r) => {
+      dispatch(_leadsListLoadEnd());
+      dispatch(_leadsListUpdate(r));
+    })
+    .catch((e) => {
+      dispatch(_leadsListLoadEnd());
+      console.log('error', e);
+    });
+};
 
 const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
   dispatch(_leadsListLoading());
