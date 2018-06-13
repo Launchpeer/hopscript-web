@@ -29,6 +29,7 @@ export { default as SideBar } from './SideBar';
 
 export { default as InputDatetime } from './input/InputDatetime';
 export { default as InputDropDown } from './input/InputDropDown';
+export { default as InputDropDownEditable } from './input/InputDropDownEditable';
 export { default as InputMultiSelect } from './input/InputMultiSelect';
 export { default as InputText } from './input/InputText';
 export { default as InputTextArea } from './input/InputTextArea';
