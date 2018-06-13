@@ -19,7 +19,7 @@ const LeadsAddView = () => (
 
       <CenterThis>
         <div className="flex flex-column w-90" style={{ backgroundColor: Colors.white }}>
-          <div className="items-center vh-75">
+          <div className="items-center vh-75 mt5">
             <HalfGrid>
               <CenterThis>
                 <div className="pa4 w-100" >

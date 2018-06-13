@@ -6,8 +6,6 @@ import {
   LEAD_LIST_UPDATE
 } from './LeadsListTypes';
 
-import { fetchUser } from '../../UserActions';
-
 function _leadsListLoading() {
   return {
     type: LEADS_LIST_LOADING
@@ -23,7 +21,7 @@ function _leadsListLoadEnd() {
 function _leadsListUpdate(l) {
   return {
     type: LEAD_LIST_UPDATE,
-    leads: l
+    payload: l
   };
 }
 
@@ -45,7 +43,6 @@ export const removeLead = id => (dispatch) => {
       _removeLeadFromAgent(lead).then(() => {
         lead.destroy({
           success() {
-            dispatch(fetchUser());
             dispatch(_leadsListLoadEnd());
           },
           error() {
@@ -57,7 +54,7 @@ export const removeLead = id => (dispatch) => {
     .catch(err => console.log('error deleting lead', err));
 };
 
-export const fetchLeads = () => (dispatch) => {
+const fetchLeads = () => (dispatch) => {
   dispatch(_leadsListLoading());
   Parse.Cloud.run("fetchLeads")
     .then((r) => {
@@ -84,4 +81,4 @@ const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
     });
 };
 
-export { reconcileLeadsAndGroups };
+export { reconcileLeadsAndGroups, fetchLeads };
