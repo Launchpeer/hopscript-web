@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { browserHistory } from 'react-router';
 import { Colors } from '../../../config/styles';
 import {
   InputText,
@@ -14,17 +15,19 @@ import {
   RenderAlert
 } from '../../common';
 import normalizePhone from '../../helpers/normalize';
-import { createLead, clearError } from './LeadsAddActions';
+import { createLead, clearError, fetchLeadGroups } from '../LeadsActions';
 
 class LeadsAddForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.clearError = this.clearError.bind(this);
+    this.props.fetchLeadGroups();
   }
 
   handleFormSubmit(data) {
     this.props.createLead(data);
+    browserHistory.push('/list-leads');
   }
 
   clearError() {
@@ -35,8 +38,16 @@ class LeadsAddForm extends Component {
 
   render() {
     const {
-      handleSubmit, loading, error
+      handleSubmit, loading, error, leadGroups
     } = this.props;
+    const leadGroupOptions = leadGroups.map((group) => {
+      group = {
+        value: group.id,
+        id: group.id,
+        display: group.attributes.groupName
+      };
+      return group;
+    });
     return (
       <div>
         <LoaderOrThis loading={loading}>
@@ -98,7 +109,7 @@ class LeadsAddForm extends Component {
               </div>
             </div>
 
-
+            {leadGroups &&
             <div className="flex flex-row w-100">
               <div className="w-30 mt2 mb2 pt3 pb3">Lead Group</div>
               <div className="w-70">
@@ -106,11 +117,12 @@ class LeadsAddForm extends Component {
                   name="leadGroup"
                   type="dropdown"
                   placeholder="Lead Group"
-                  options={['Lead Group 1', 'Lead Group 2', 'Lead Group 3']}
+                  options={leadGroupOptions}
                   borderColor="lightGray"
             />
               </div>
-            </div>
+            </div>}
+
             <div className="fr mt6 mb4">
               <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
             </div>
@@ -122,11 +134,12 @@ class LeadsAddForm extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadsAddReducer }) => {
-  const { error, loading } = LeadsAddReducer;
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { error, loading, leadGroups } = LeadsReducer;
   return {
     loading,
-    error
+    error,
+    leadGroups
   };
 };
 
@@ -144,5 +157,6 @@ export default reduxForm({
   validate
 })(connect(mapStateToProps, {
   createLead,
-  clearError
+  clearError,
+  fetchLeadGroups
 })(LeadsAddForm));

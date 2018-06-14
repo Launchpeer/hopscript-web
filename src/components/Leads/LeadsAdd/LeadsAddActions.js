@@ -108,7 +108,7 @@ function _reconcileLeadToDB({
       LObj.set('leadType', leadType);
     }
     if (leadGroup) {
-      LObj.set('leadGroup', leadGroup);
+      LObj.set('leadGroups', leadGroup);
     }
     LObj.set('agent', Agent);
     resolve(LObj.save());

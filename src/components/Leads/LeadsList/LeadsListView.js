@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FullScreenContainer, CenterThis } from '../../common';
-import { fetchLeads } from './LeadsListActions';
+import { fetchLeads } from '../LeadsActions';
 import { LeadsListItem } from './';
 import { LeadNavBar } from '../LeadsCommon';
 import { Colors } from '../../../config/styles';
@@ -37,8 +37,8 @@ class LeadsListView extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadsListReducer }) => {
-  const { leads } = LeadsListReducer;
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leads } = LeadsReducer;
   return {
     leads
   };
