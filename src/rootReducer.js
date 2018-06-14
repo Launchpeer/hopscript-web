@@ -12,6 +12,7 @@ import LeadDetailReducer from './components/Leads/LeadDetail/LeadDetailReducer';
 import LeadGroupAddReducer from './components/Leads/LeadGroupAdd/LeadGroupAddReducer';
 import LeadGroupListReducer from './components/Leads/LeadGroupList/LeadGroupListReducer';
 import StripeReducer from './components/Stripe/StripeReducer';
+import ScriptBuilderReducer from './components/ScriptBuilder/ScriptBuilderReducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   LeadDetailReducer,
   LeadGroupAddReducer,
   LeadGroupListReducer,
+  ScriptBuilderReducer,
   StripeReducer
 });
 

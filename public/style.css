@@ -23,11 +23,14 @@ input:focus {
 .bg-brand-primary {
   background-color: #6772e5; }
 
-.brand-near-black {
-  background-color: #3e3e3e; }
+.bg-brand-green {
+  background-color: #00cd6a; }
 
 .brand-secondary {
   color: #3943a5; }
+
+.brand-near-black {
+  color: #3e3e3e; }
 
 .brand-red {
   color: #ff5628; }
@@ -115,6 +118,51 @@ input:focus {
 
 .white-placeholder input:-moz-placeholder {
   color: white; }
+
+.half-circle {
+  height: 2rem;
+  width: 1rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem; }
+
+.steps {
+  border-radius: 4px; }
+
+.step-1 {
+  border-radius: 4px 0 0 4px; }
+
+.step-2 {
+  border-radius: 0 4px 4px 0; }
+
+.single-line-textarea textarea {
+  resize: none;
+  border: none;
+  border-bottom: 2px solid #CCCCCC;
+  width: 100%; }
+
+.block-textarea textarea {
+  resize: none;
+  border: 1px solid #CCCCCC;
+  width: 100%;
+  min-height: 60px;
+  border-radius: 4px; }
+
+textarea:focus {
+  outline: none; }
+
+.checkbox {
+  -webkit-appearance: none;
+  background-color: #EEEEEE;
+  border-radius: 4px;
+  border: none;
+  width: 1rem;
+  height: 1rem; }
+
+.checkbox:checked {
+  background-color: #00cd6a; }
+
+.brand-green {
+  color: #00cd6a; }
 
 /* Loading Spinner by @tobiasahlin */
 .spinner {

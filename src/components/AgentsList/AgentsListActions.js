@@ -57,4 +57,4 @@ const removeAgent = agent => (dispatch) => {
     });
 };
 
-export default removeAgent;
+export { removeAgent };

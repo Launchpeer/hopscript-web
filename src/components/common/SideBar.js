@@ -39,7 +39,7 @@ const agentItems = [
 
 const brokerItems = [
   {
-    route: '/agents',
+    route: '/list-agents',
     label: 'AGENTS',
     icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
   },

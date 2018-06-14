@@ -54,11 +54,16 @@ input {
   background-color: $brandPrimary;
 }
 
-.brand-near-black {
-  background-color: $brandNearBlack
+.bg-brand-green {
+  background-color: $brandGreen;
 }
+
 .brand-secondary {
   color: $brandSecondary;
+}
+
+.brand-near-black {
+  color: $brandNearBlack
 }
 
 .brand-red {
@@ -161,4 +166,62 @@ input {
 }
 .white-placeholder input:-moz-placeholder {
   color: white;
+}
+.half-circle {
+  height: 2rem;
+  width: 1rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.steps {
+  border-radius: 4px;
+}
+
+.step-1 {
+  border-radius: 4px 0 0 4px;
+}
+
+.step-2 {
+  border-radius: 0 4px 4px 0;
+}
+
+.single-line-textarea {
+  textarea {
+    resize: none;
+    border: none;
+    border-bottom: 2px solid $moonGray;
+    width: 100%;
+  }
+}
+
+.block-textarea {
+  textarea {
+    resize: none;
+    border: 1px solid $moonGray;
+    width: 100%;
+    min-height: 60px;
+    border-radius: 4px;
+  }
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.checkbox {
+  -webkit-appearance: none;
+  background-color: $lightGray;
+  border-radius: 4px;
+  border: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkbox:checked {
+  background-color: $brandGreen;
+}
+
+.brand-green {
+  color: $brandGreen;
 }
