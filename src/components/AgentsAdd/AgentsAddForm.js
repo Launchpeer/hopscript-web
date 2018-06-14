@@ -32,7 +32,7 @@ class AgentsAddForm extends Component {
 
   render() {
     const {
-      valid, loading, error, cancel
+      valid, loading, error, cancel, handleSubmit
     } = this.props;
     return (
       <div className="bg-brand-primary w-100" >
