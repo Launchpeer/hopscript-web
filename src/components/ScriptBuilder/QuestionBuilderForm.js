@@ -105,7 +105,6 @@ let Form = reduxForm({
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const { error, loading, currentQuestion, currentScript, questions } = ScriptBuilderReducer;
-  console.log('questions', questions)
   return {
     loading,
     error,

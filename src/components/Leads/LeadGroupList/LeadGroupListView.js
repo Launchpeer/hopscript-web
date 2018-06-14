@@ -5,7 +5,8 @@ import { LeadNavBar } from '../LeadsCommon';
 import { LeadGroupList } from './';
 import { Colors } from '../../../config/styles';
 
-const LeadGroupListView = () => (
+
+const LeadGroupListView = ({ location }) => (
   <FullScreenContainer classOverrides="vh-100 bg-light-gray">
     <div className="w-100" style={{ paddingLeft: "100px" }}>
       <div className="w-100" style={{ paddingLeft: "100px" }}>

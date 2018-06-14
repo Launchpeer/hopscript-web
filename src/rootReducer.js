@@ -8,6 +8,7 @@ import AgentsListReducer from './components/AgentsList/AgentsListReducer';
 import AgentProfileReducer from './components/AgentProfile/AgentProfileReducer';
 import LeadsAddReducer from './components/Leads/LeadsAdd/LeadsAddReducer';
 import LeadsListReducer from './components/Leads/LeadsList/LeadsListReducer';
+import LeadDetailReducer from './components/Leads/LeadDetail/LeadDetailReducer';
 import LeadGroupAddReducer from './components/Leads/LeadGroupAdd/LeadGroupAddReducer';
 import LeadGroupListReducer from './components/Leads/LeadGroupList/LeadGroupListReducer';
 import StripeReducer from './components/Stripe/StripeReducer';
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   AgentProfileReducer,
   LeadsAddReducer,
   LeadsListReducer,
+  LeadDetailReducer,
   LeadGroupAddReducer,
   LeadGroupListReducer,
   ScriptBuilderReducer,

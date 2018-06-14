@@ -1,6 +1,6 @@
 # Purpose
 
-The purpose of this repo is to provide a portal for Agents and Brokerages to interact with the HopScript database.
+The purpose of this repo is to provide a portal for Agents and Brokerages to interact with the Hopscript database.
 
 # Getting Started
 

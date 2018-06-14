@@ -39,7 +39,7 @@ const agentItems = [
 
 const brokerItems = [
   {
-    route: '/agents',
+    route: '/list-agents',
     label: 'AGENTS',
     icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
   },
@@ -80,7 +80,7 @@ const SideBar = ({ route, user }) => (
               <HeadphonesIcon width="30px" height="30px" color={Colors.white} />
             </div>
             <div className="f5 white tc">
-              HopScript
+              Hopscript
             </div>
           </div>
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />

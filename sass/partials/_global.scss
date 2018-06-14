@@ -8,6 +8,7 @@ $brandPrimaryShade: map_get($Colors, brandPrimaryShade);
 $brandSecondary: map_get($Colors, brandSecondary);
 $brandGreen: map_get($Colors, brandGreen);
 $brandRed: map_get($Colors, brandRed);
+$stripe: map_get($Colors, stripe);
 $silver: map_get($Colors, silver);
 $brandNearBlack: map_get($Colors, brandNearBlack);
 $black: map_get($Colors, black);
@@ -71,6 +72,10 @@ input {
 
 .brand-green {
   color: $brandGreen
+}
+
+.stripe {
+  color: $stripe
 }
 
 .moon-gray {

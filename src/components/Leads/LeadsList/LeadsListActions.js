@@ -49,27 +49,19 @@ export const removeLead = id => (dispatch) => {
     .catch(err => console.log('error deleting lead', err));
 };
 
-function _getLeadGroup(id) {
-  const LeadGroup = Parse.Object.extend('LeadGroup');
-  const query = new Parse.Query(LeadGroup);
-  query
-    .get(id)
-    .then(group => console.log('gotem', group))
-    .catch(err => console.log('err fetching', err));
-}
-
-function _getLead(id) {
-  const Lead = Parse.Object.extend('Lead');
-  const query = new Parse.Query(Lead);
-  query
-    .get(id)
-    .then(lead => console.log('gotem', lead))
-    .catch(err => console.log('err fetching', err));
-}
 
 const reconcileLeadsAndGroups = (leadGroup, lead) => (dispatch) => {
-  dispatch(_getLead(lead.id));
-  dispatch(_getLeadGroup(leadGroup.leadGroup));
+  dispatch(_leadsListLoading());
+  Parse.Cloud.run("updateLead", ({ leadGroup, lead }))
+    .then((r) => {
+      dispatch(_leadsListLoadEnd());
+      console.log("hotdog", r);
+      // dispatch(_updatedLead(r))
+    })
+    .catch((e) => {
+      dispatch(_leadsListLoadEnd());
+      console.log("ballhog", e);
+    });
 };
 
 export { reconcileLeadsAndGroups };
