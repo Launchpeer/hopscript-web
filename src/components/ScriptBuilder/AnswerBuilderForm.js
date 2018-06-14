@@ -16,8 +16,10 @@ import {
   PlusIcon
 } from '../common';
 import { addAnswersToQuestion } from './ScriptBuilderActions';
+import AnswerBlock from './AnswerBlock';
 
-const AnswerBlock = ({ answer, removeAnswer, idx, questions }) => {
+const NewAnswer = ({ idx, questions, onClick, onDismiss }) => {
+  console.log('new answer', idx)
  return (<div>
    <div className="flex mt4">
      <div className="w-10">
@@ -33,13 +35,16 @@ const AnswerBlock = ({ answer, removeAnswer, idx, questions }) => {
        <div
          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
          style={{ borderRadius: BorderRadius.all}}
-         onClick={() => removeAnswer(idx)}
+         onClick={onDismiss}
         >
          <TrashIcon color={Colors.silver} width="1rem" height="1rem" />
        </div>
      </div>
    </div>
    <div className="flex items-center">
+     <div className="w-10">
+       <div className="h2 w2 bg-white white br-100 flex justify-center items-center"></div>
+     </div>
      <div className="w-10">Route to</div>
      <div className="w-60">
        <InputDropDown
@@ -50,20 +55,24 @@ const AnswerBlock = ({ answer, removeAnswer, idx, questions }) => {
          borderColor={Colors.moonGray}
        />
      </div>
+     <div className="w-30">
+       <div
+         className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+         style={{ borderRadius: BorderRadius.all}}
+         onClick={onClick}
+        >
+         <TrashIcon color={Colors.brandGreen} width="1rem" height="1rem"/>
+       </div>
+     </div>
    </div>
  </div>)
 }
-
 
 class AnswerBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: [{
-        'key': 1,
-        'answer': 'answer1',
-        'route': 'route1'
-      }],
+      newAnswer: false
     }
     // options need to be { display: name, id: id, value: id };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -76,22 +85,17 @@ class AnswerBuilderForm extends Component {
   }
 
   addAnswer() {
-    this.setState({ answers: [...this.state.answers, { name: null, route: null, key: this.state.answers.length + 1 }]});
+    console.log('dingus')
   }
+
 
   removeAnswer(idx) {
     this.setState({ answers: this.state.answers.filter((item, index) => index !== idx)})
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.currentQuestion) {
-        this.setState({ answers: nextProps.currentQuestion.attributes.answers })
-    }
-  }
-
   render() {
     const {
-      handleSubmit, valid, loading, error, onSubmit, toggleStep
+      handleSubmit, valid, loading, error, onSubmit, toggleStep, currentQuestion
     } = this.props;
     const formattedQuestions = this.props.questions.map(question => ({
                 display: question.attributes.body || 'create question',
@@ -99,20 +103,27 @@ class AnswerBuilderForm extends Component {
                 value: question.id
             }))
     const questions = formattedQuestions;
-    const { answers } = this.state;
     return (
       <div>
         <LoaderOrThis loading={loading}>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
-            {answers && answers.map((answer, idx) => (
-              <AnswerBlock answer={answer} idx={idx} key={idx} removeAnswer={this.removeAnswer} questions={questions}/>
+            {currentQuestion && currentQuestion.attributes.answers && currentQuestion.attributes.answers.map((answer, idx) => (
+              <AnswerBlock answer={answer} idx={idx} key={idx} removeAnswer={this.removeAnswer} questions={questions} edit={false}/>
             ))}
-            <div className="flex items-center pointer" onClick={this.addAnswer}>
-              <PlusIcon color={Colors.brandNearBlack} width="2rem" height="2rem"/>
-              <div className="b brand-near-black">Add answer</div>
-            </div>
+            {this.state.newAnswer
+            ? <NewAnswer
+                idx={5}
+                questions={questions}
+                onClick={this.addAnswer}
+                onDismiss={() => { this.setState({ newAnswer: !this.state.newAnswer }) }}
+              />
+            : <div className="flex items-center pointer" onClick={() => { this.setState({ newAnswer: !this.state.newAnswer }) }}>
+                <PlusIcon color={Colors.brandNearBlack} width="2rem" height="2rem"/>
+                <div className="b brand-near-black">Add answer</div>
+              </div>
+            }
             <div className="flex justify-end mt6">
               <Button
                 onClick={(e) => {e.preventDefault(); toggleStep('question')}}

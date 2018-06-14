@@ -3,13 +3,16 @@
  * fetches the current script, manages state for steps,
  */
 
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Parse from 'parse';
 import { ChevronLeftCircle, ChevronRight, GridIcon, CheckCircle } from '../common';
 import { Colors } from '../../config/styles';
 import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate } from './ScriptBuilderActions';
 import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderForm, GlossaryView } from './';
 import subscribeToClass from '../helpers/subscribeToClass';
+import { logOutUser } from '../Auth/AuthActions';
 
 const ScriptInfo = ({ name, step, scriptId }) => (
   <div className="ml4">
@@ -57,7 +60,6 @@ class ScriptBuilderView extends Component {
      className: 'Script',
      callback: (data) => this.handleSubscriptionCallback(data)
    });
-
     this.props.fetchScript(this.props.params.id);
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);
