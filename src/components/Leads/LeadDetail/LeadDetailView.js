@@ -14,6 +14,9 @@ class LeadDetailView extends Component {
     super(props);
     this.state = {};
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentWillMount() {
     this.props.fetchLead(this.props.params.id);
     this.props.fetchLeadGroups();
   }

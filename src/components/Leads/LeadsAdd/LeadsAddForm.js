@@ -11,7 +11,6 @@ import {
   InputText,
   InputDropDown,
   Button,
-  LoaderOrThis,
   RenderAlert
 } from '../../common';
 import normalizePhone from '../../helpers/normalize';
@@ -22,6 +21,9 @@ class LeadsAddForm extends Component {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.clearError = this.clearError.bind(this);
+  }
+
+  componentWillMount() {
     this.props.fetchLeadGroups();
   }
 
@@ -38,7 +40,7 @@ class LeadsAddForm extends Component {
 
   render() {
     const {
-      handleSubmit, loading, error, leadGroups
+      handleSubmit, error, leadGroups
     } = this.props;
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
@@ -50,66 +52,65 @@ class LeadsAddForm extends Component {
     });
     return (
       <div>
-        <LoaderOrThis loading={loading}>
-          <div className="f3 b">Add a Single Lead</div>
-          <div className="mb3">You can add a Lead manually</div>
-          <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
-            <div className="flex flex-row w-100">
-              <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
-              <div className="w-70">
-                <InputText
-                  name="name"
-                  type="text"
-                  placeholder="Enter Client Name"
-                  borderColor="lightGray"
-                  height="50px"
-                  classOverrides="mt2 mb2" />
-              </div>
+        <div className="f3 b">Add a Single Lead</div>
+        <div className="mb3">You can add a Lead manually</div>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
+            <div className="w-70">
+              <InputText
+                name="name"
+                type="text"
+                placeholder="Enter Client Name"
+                borderColor="lightGray"
+                height="50px"
+                classOverrides="mt2 mb2" />
             </div>
+          </div>
 
-            <div className="flex flex-row w-100">
-              <div className="w-30 mt2 mb2 pt3 pb3 ">Phone Number</div>
-              <div className="w-70">
-                <InputText
-                  name="phone"
-                  type="text"
-                  placeholder="(000) 000 0000"
-                  borderColor="lightGray"
-                  normalize={normalizePhone}
-                  height="50px"
-                  classOverrides="mt2 mb2"
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3 ">Phone Number</div>
+            <div className="w-70">
+              <InputText
+                name="phone"
+                type="text"
+                placeholder="(000) 000 0000"
+                borderColor="lightGray"
+                normalize={normalizePhone}
+                height="50px"
+                classOverrides="mt2 mb2"
             />
-              </div>
             </div>
+          </div>
 
-            <div className="flex flex-row w-100">
-              <div className="w-30 mt2 mb2 pt3 pb3">Email</div>
-              <div className="w-70">
-                <InputText
-                  name="email"
-                  type="text"
-                  placeholder="example@gmail.com"
-                  borderColor="lightGray"
-                  height="50px"
-                  classOverrides="mt2 mb2"
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3">Email</div>
+            <div className="w-70">
+              <InputText
+                name="email"
+                type="text"
+                placeholder="example@gmail.com"
+                borderColor="lightGray"
+                height="50px"
+                classOverrides="mt2 mb2"
             />
-              </div>
             </div>
+          </div>
 
-            <div className="flex flex-row w-100">
-              <div className="w-30 mt2 mb2 pt3 pb3">Lead Type</div>
-              <div className="w-70">
-                <InputDropDown
-                  name="leadType"
-                  type="dropdown"
-                  placeholder="Lead Type"
-                  options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
-                  borderColor="lightGray"
+          <div className="flex flex-row w-100">
+            <div className="w-30 mt2 mb2 pt3 pb3">Lead Type</div>
+            <div className="w-70">
+              <InputDropDown
+                name="leadType"
+                type="dropdown"
+                placeholder="Lead Type"
+                options={['New Lead', 'Qualify', 'Nurture', 'Appointment', 'Active', 'Pending', 'Closed', 'SOI', 'Archive', 'Watch', 'Trash']}
+                borderColor="lightGray"
               />
-              </div>
             </div>
+          </div>
 
-            {leadGroups &&
+          {leadGroups &&
             <div className="flex flex-row w-100">
               <div className="w-30 mt2 mb2 pt3 pb3">Lead Group</div>
               <div className="w-70">
@@ -123,21 +124,19 @@ class LeadsAddForm extends Component {
               </div>
             </div>}
 
-            <div className="fr mt6 mb4">
-              <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
-            </div>
-            {error && <RenderAlert error={error} />}
-          </form>
-        </LoaderOrThis>
+          <div className="fr mt6 mb4">
+            <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
+          </div>
+          {error && <RenderAlert error={error} />}
+        </form>
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { error, loading, leadGroups } = LeadsReducer;
+  const { error, leadGroups } = LeadsReducer;
   return {
-    loading,
     error,
     leadGroups
   };

@@ -5,7 +5,6 @@ import { Colors } from '../../../config/styles';
 import {
   InputText,
   Button,
-  LoaderOrThis,
   RenderAlert
 } from '../../common';
 

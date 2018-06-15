@@ -7,8 +7,7 @@ import { LeadNavBar } from '../LeadsCommon';
 import { Colors } from '../../../config/styles';
 
 class LeadsListView extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.props.fetchLeads();
   }
 
