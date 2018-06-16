@@ -8,6 +8,7 @@ import {
   LEAD_GROUP_DETAIL_UPDATE,
   LEAD_GROUP_LIST_UPDATE,
   MY_LEAD_GROUPS,
+  MY_LEADS,
   LEADS_TO_ADD
 } from './LeadsTypes';
 
@@ -20,6 +21,7 @@ const INITIAL_STATE = {
   leadGroup: null,
   leadGroups: [],
   myLeadGroups: [],
+  myLeads: [],
   leadsToAdd: []
 };
 
@@ -43,6 +45,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, leadGroups: action.payload };
     case MY_LEAD_GROUPS:
       return { ...state, myLeadGroups: action.payload };
+    case MY_LEADS:
+      return { ...state, myLeads: action.payload };
     case LEADS_TO_ADD:
       return { ...state, leadsToAdd: [...state.leadsToAdd, action.payload] };
     default:

@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { Colors } from '../../../config/styles';
 import { InputTextEditable, InputDropDownEditable } from '../../common';
 import normalizePhone from '../../helpers/normalize';
-import { updateLead } from './LeadDetailActions';
+import { updateLead } from '../LeadsActions';
 
 
 class LeadDetailForm extends Component {

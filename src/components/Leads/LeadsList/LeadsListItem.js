@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Colors } from '../../../config/styles';
 import { Button, ModalCard } from '../../common';
-import { removeLead } from './LeadsListActions';
+import { removeLead } from '../LeadsActions';
 
 class LeadsListItem extends Component {
   constructor(props) {

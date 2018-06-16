@@ -71,7 +71,14 @@ function _leadGroupListUpdate(lg) {
   };
 }
 
-function _myLeadGroups(l) {
+function _myLeadGroups(lg) {
+  return {
+    type: MY_LEAD_GROUPS,
+    payload: lg
+  };
+}
+
+function _myLeads(l) {
   return {
     type: MY_LEAD_GROUPS,
     payload: l
@@ -90,7 +97,6 @@ const clearError = () => (dispatch) => {
 };
 
 // LEADS
-
 const createLead = lead => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("createLead", ({ lead }))
@@ -160,7 +166,8 @@ const deleteLead = lead => (dispatch) => {
 };
 
 
-// LEADGROUPS
+// LEADS & LEADGROUPS
+// Will remove a Lead from a LeadGroup and a LeadGroup from a Lead.
 const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("removeGroupFromLead", ({ leadGroup, lead }))
@@ -175,12 +182,57 @@ const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
     });
 };
 
+// LEADGROUPS
+const createLeadGroup = (leadGroup, leadsToAdd) => (dispatch) => {
+  console.log('action creator, leadgroup:', leadGroup, 'leadsToAdd', leadsToAdd);
+  dispatch(_leadsLoading());
+  Parse.Cloud.run("createLeadGroup", ({ leadGroup, leadsToAdd }))
+    .then(() => {
+      dispatch(_leadLoadEnd());
+      dispatch(fetchLeadGroups());
+    })
+    .catch(err => dispatch({ type: LEADS_ERROR, payload: err }));
+};
+
+const fetchLeadGroup = leadGroup => (dispatch) => {
+  dispatch(_leadsLoading());
+  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup }))
+    .then((lg) => {
+      dispatch(_leadLoadEnd());
+      dispatch(_leadGroupUpdate(lg));
+      dispatch(_myLeads(lg.attributes.leads));
+    })
+    .catch((e) => {
+      dispatch(_leadLoadEnd());
+      dispatch(_leadsError(e));
+    });
+};
+
+
 const fetchLeadGroups = () => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("fetchLeadGroups")
     .then((lg) => {
       dispatch(_leadLoadEnd());
       dispatch(_leadGroupListUpdate(lg));
+    })
+    .catch((e) => {
+      dispatch(_leadLoadEnd());
+      dispatch(_leadsError(e));
+    });
+};
+
+const updateLeadGroup = (data, leadGroup) => (dispatch) => {
+  const {
+    name, lead
+  } = data;
+  dispatch(_leadsLoading());
+  Parse.Cloud.run("updateLeadGroup", ({
+    name, lead
+  }))
+    .then(() => {
+      dispatch(fetchLeadGroup(leadGroup));
+      dispatch(_leadLoadEnd());
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -202,8 +254,12 @@ const deleteLeadGroup = leadGroup => (dispatch) => {
     });
 };
 
-// ADDING A LEAD VIA CSV OR MANUALLY
-// TO DO: TURN THESE INTO CLOUD CODE FUNCTIONS
+const addLeadToGroup = lead => (dispatch) => {
+  dispatch(_leadsToAdd(lead));
+};
+
+
+// ADDING A LEAD VIA CSV
 
 /**
  * A CSV file is parsed into javascript objects using papaparse
@@ -332,4 +388,4 @@ const parseCSV = data => (dispatch) => {
 };
 
 
-export { clearError, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, fetchLeadGroups, deleteLeadGroup, parseCSV, createLead };
+export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };

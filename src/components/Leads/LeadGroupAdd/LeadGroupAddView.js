@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
 import { browserHistory } from 'react-router';
+import { reduxForm } from 'redux-form';
 import { FullScreenContainer, CenterThis, Button, HalfGrid, InputText } from '../../common';
-import { LeadGroupAddForm, LeadGroupLeadList } from './';
-import { createLeadGroup, clearError } from './LeadGroupAddActions';
+import { LeadGroupAddForm, LeadGroupLeadsList } from './';
+import { createLeadGroup, clearError } from '../LeadsActions';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadNavBar } from '../LeadsCommon';
 
@@ -16,8 +16,10 @@ class LeadGroupAddView extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.createLeadGroup(data);
-    // browserHistory.push('/list-lead-groups');
+    const { leadsToAdd } = this.props;
+    const leadsToAddId = leadsToAdd.map(lead => lead.id);
+    this.props.createLeadGroup(data, leadsToAddId);
+    browserHistory.push('/list-lead-groups');
   }
 
   clearError() {
@@ -36,7 +38,8 @@ class LeadGroupAddView extends Component {
               <LeadNavBar route="/list-lead-groups" />
             </div>
           </CenterThis>
-          <form>
+
+          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <CenterThis>
               <div className="flex flex-column w-90" style={{ backgroundColor: Colors.white }}>
                 <div className="items-center vh-75">
@@ -54,7 +57,7 @@ class LeadGroupAddView extends Component {
                       <div className="pa4 w-100" >
                         <div className="b mb3">All Leads</div>
                         <div className="ba pa3 overflow-x-auto vh-50" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
-                          <LeadGroupLeadList />
+                          <LeadGroupLeadsList />
                         </div>
                       </div>
                     </CenterThis>
@@ -65,15 +68,15 @@ class LeadGroupAddView extends Component {
                       <div className="pa4 w-100" >
                         <div className="b mb3">Leads In Group</div>
                         <div className="ba pa3" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
-                          <LeadGroupAddForm leadsToAdd={leadsToAdd} />
+                          {leadsToAdd ? <LeadGroupAddForm leadsToAdd={leadsToAdd} /> : <div>You have not added any leads to the group.</div>}
                         </div>
                       </div>
                     </CenterThis>
                   </HalfGrid>
                 </div>
                 <div className="pv4 pr4">
-                  <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" backgroundColor={Colors.brandGreen} onClick={() => handleSubmit(this.handleFormSubmit)}>Save</Button>
-                  <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={() => console.log("cancel")}>Cancel</Button>
+                  <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" backgroundColor={Colors.brandGreen}>Save</Button>
+                  <Button classOverrides="fr f5 w4 pv2 mh2" borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={() => browserHistory.push('/list-lead-groups')}>Cancel</Button>
                 </div>
               </div>
             </CenterThis>
@@ -84,8 +87,8 @@ class LeadGroupAddView extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadGroupAddReducer }) => {
-  const { error, loading, leadsToAdd } = LeadGroupAddReducer;
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { error, loading, leadsToAdd } = LeadsReducer;
   return {
     loading,
     error,
