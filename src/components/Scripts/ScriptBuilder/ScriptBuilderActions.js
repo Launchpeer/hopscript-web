@@ -33,8 +33,8 @@ function _answerAddError(error) {
 function _clearError() {
   return {
     type: CURRENT_QUESTION_CLEAR_ERROR
-  }
-};
+  };
+}
 
 function _answerAddLoading() {
   return {
@@ -52,7 +52,7 @@ function _currentScriptUpdate(script) {
   return {
     type: CURRENT_SCRIPT_UPDATE,
     payload: script
-  }
+  };
 }
 
 // Fetch script with Cloud Code
@@ -63,48 +63,52 @@ function _currentScriptUpdate(script) {
 // set the blank question to currentQuestion
 
 const fetchScript = (scriptId, update) => (dispatch) => {
-  Parse.Cloud.run('fetchScript', {scriptId})
+  Parse.Cloud.run('fetchScript', { scriptId })
     .then((script) => {
       dispatch({
         type: CURRENT_SCRIPT_UPDATE,
         payload: script
-      })
+      });
       console.log('updating script', script);
       if (script.attributes.questions) {
         dispatch({
           type: QUESTIONS_UPDATE,
           payload: script.attributes.questions
-        })
-        if(!update) {
+        });
+        if (!update) {
           dispatch({
             type: CURRENT_QUESTION_UPDATE,
             payload: script.attributes.questions[0]
-          })
+          });
         }
       } else {
-        const newQuestion = {id: 'asdf', attributes : { name: '', category: 'intro', description: '', answers: [] }}
+        const newQuestion = {
+          id: 'asdf',
+          attributes: {
+            name: '', category: 'intro', description: '', answers: []
+          }
+        };
         dispatch({
           type: QUESTIONS_UPDATE,
           payload: [newQuestion]
-        })
+        });
         dispatch({
           type: CURRENT_QUESTION_UPDATE,
           payload: newQuestion
-        })
+        });
       }
     });
-}
+};
 
-const currentScriptUpdate = (script) => (dispatch) => {
-  console.log('updated script', script);
+const currentScriptUpdate = script => (dispatch) => {
   _currentScriptUpdate(script);
-  if(script && script.attributes.questions) {
+  if (script && script.attributes.questions) {
     dispatch({
       type: QUESTIONS_UPDATE,
       payload: script.attributes.questions
-    })
+    });
   }
-}
+};
 
 const createNewScript = () => (dispatch) => {
   const User = Parse.User.current();
@@ -113,50 +117,50 @@ const createNewScript = () => (dispatch) => {
       dispatch({
         type: CURRENT_SCRIPT_UPDATE,
         payload: script
-      })
+      });
       browserHistory.push(`/script-builder/:${script.id}`);
-    })
-}
+    });
+};
 
-const setCurrentQuestion = (question) => (dispatch) => {
+const setCurrentQuestion = question => (dispatch) => {
   dispatch({
     type: CURRENT_QUESTION_UPDATE,
     payload: question
-  })
-}
+  });
+};
 
 const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
-  Parse.Cloud.run('createNewQuestion', { question: question.attributes, scriptId })
-}
+  Parse.Cloud.run('createNewQuestion', { question: question.attributes, scriptId });
+};
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
   Parse.Cloud.run('addAnswers', { data, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
-    })
-}
+    });
+};
 
-const deleteAnswer = (questionId) => (dispatch) => {
+const deleteAnswer = questionId => (dispatch) => {
   Parse.Cloud.run('deleteAnswer', { questionId, answerId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
-    })
-}
+    });
+};
 
 export const clearError = () => (dispatch) => {
   dispatch(_clearError());
-}
+};
 
 const updateScript = (data, scriptId) => (dispatch) => {
-  Parse.Cloud.run('updateScript', { scriptId, data })
-}
+  Parse.Cloud.run('updateScript', { scriptId, data });
+};
 
 const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
   Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
-    })
-}
+    });
+};
 
 export {
   fetchScript,
@@ -166,4 +170,5 @@ export {
   createNewQuestion,
   currentScriptUpdate,
   updateQuestion,
-  addAnswersToQuestion };
+  addAnswersToQuestion
+};
