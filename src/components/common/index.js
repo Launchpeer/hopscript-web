@@ -27,7 +27,10 @@ export { default as TwoColumnFieldRow } from './TwoColumnFieldRow';
 export { default as TwoColumnRows } from './TwoColumnRows';
 export { default as SideBar } from './SideBar';
 export { default as CardRight } from './CardRight';
+
 export { default as HSCard } from './HSCard';
+export { default as HSButton } from './HSButton';
+export { default as HSCardHeader } from './HSCardHeader';
 
 export * from './input';
 export * from './icon';

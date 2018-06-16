@@ -19,7 +19,7 @@ const BrokerageDisplay = ({ user }) => {
       <CenterThis>
         <div className="w-90 mt3 mb1 pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
           <div className="b pt3 pb3 pl2">Agents</div>
-          <div onClick={() => browserHistory.push('/add-agents')} className="pointer white pt3 pb3 pl4 pr4 f5" style={{ backgroundColor: Colors.brandGreen, borderRadius: '4px' }} role="button">
+          <div onClick={() => browserHistory.push('/agents-add')} className="pointer white pt3 pb3 pl4 pr4 f5" style={{ backgroundColor: Colors.brandGreen, borderRadius: '4px' }} role="button">
             Add Agent
           </div>
 

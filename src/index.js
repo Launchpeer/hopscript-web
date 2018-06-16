@@ -28,6 +28,8 @@ import { AgentsListView } from './components/AgentsList';
 import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView } from './components/Leads';
 import { StripeView } from './components/Stripe';
 import { ScriptBuilderView, ScriptsListView } from './components/Scripts';
+import { CallView } from './components/Call';
+import { HistoryListView } from './components/History';
 
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
@@ -76,8 +78,7 @@ ReactDOM.render(
         <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerDetailView} />
         <Route path="agent-profile" component={AgentProfileView} />
-        <Route path="add-agents" component={AgentsAddView} />
-        <Route path="list-agents" component={AgentsListView} />
+        <Route path="agents-list" component={AgentsListView} />
         <Route path="scripts" component={ScriptsListView} />
         <Route path="leads-add" component={LeadsAddView} />
         <Route path="leads-list" component={LeadsListView} />
@@ -85,6 +86,8 @@ ReactDOM.render(
         <Route path="lead-groups-add" component={LeadGroupAddView} />
         <Route path="lead-groups-list" component={LeadGroupListView} />
         <Route path="script-builder/:id" component={ScriptBuilderView} />
+        <Route path="call" component={CallView} />
+        <Route path="history" component={HistoryListView} />
       </Route>
     </Router>
   </Provider>,

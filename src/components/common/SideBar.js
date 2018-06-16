@@ -39,7 +39,7 @@ const agentItems = [
 
 const brokerItems = [
   {
-    route: '/list-agents',
+    route: '/agents-list',
     label: 'AGENTS',
     icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
   },
@@ -105,7 +105,7 @@ const SideBar = ({ route, user }) => (
           <CenterThis>
             <div
               className="fixed bottom-1 mb2 pointer"
-              onClick={(user) => { user === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'); }}
+              onClick={() => { user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'); }}
             >
               <div
                 className="bg-white br-100 flex items-center justify-center ml2 mr2"
