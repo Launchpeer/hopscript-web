@@ -25,13 +25,9 @@ import { AgentProfileView } from './components/AgentProfile';
 import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
-import { LeadsAddView } from './components/Leads/LeadsAdd';
-import { LeadsListView } from './components/Leads/LeadsList';
-import { LeadDetailView } from './components/Leads/LeadDetail';
-import { LeadGroupAddView } from './components/Leads/LeadGroupAdd';
-import { LeadGroupListView } from './components/Leads/LeadGroupList';
+import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView } from './components/Leads';
 import { StripeView } from './components/Stripe';
-import { ScriptBuilderView } from './components/ScriptBuilder';
+import { ScriptBuilderView, ScriptsListView } from './components/Scripts';
 
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
@@ -63,7 +59,7 @@ browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
     document.body.style.backgroundColor = Colors.brandPrimary;
   } else {
-    document.body.style.backgroundColor = 'white';
+    document.body.style.backgroundColor = Colors.lightGray;
   }
 });
 
@@ -82,11 +78,12 @@ ReactDOM.render(
         <Route path="agent-profile" component={AgentProfileView} />
         <Route path="add-agents" component={AgentsAddView} />
         <Route path="list-agents" component={AgentsListView} />
-        <Route path="add-leads" component={LeadsAddView} />
-        <Route path="list-leads" component={LeadsListView} />
-        <Route path="list-leads/:id" component={LeadDetailView} />
-        <Route path="add-lead-group" component={LeadGroupAddView} />
-        <Route path="list-lead-groups" component={LeadGroupListView} />
+        <Route path="scripts" component={ScriptsListView} />
+        <Route path="leads-add" component={LeadsAddView} />
+        <Route path="leads-list" component={LeadsListView} />
+        <Route path="leads-list/:id" component={LeadDetailView} />
+        <Route path="lead-groups-add" component={LeadGroupAddView} />
+        <Route path="lead-groups-list" component={LeadGroupListView} />
         <Route path="script-builder/:id" component={ScriptBuilderView} />
       </Route>
     </Router>

@@ -1,31 +1,24 @@
 /**
- * The purpose of this file is to provide UI wrapping around LeadsAddForm
+ * The purpose of this file is to provide UI wrapping around LeadsCSVForm and LeadsAddForm
+ * location is passed to the leads nav
  */
 
 import React from 'react';
-import { FullScreenContainer, CenterThis } from '../../common';
-import { LeadsAddForm, LeadsCSVForm } from './';
-import { LeadNavBar } from '../LeadsCommon';
-import { Colors } from '../../../config/styles';
+import { LeadNavCard } from '../';
+import { LeadsCSVForm, LeadsAddForm } from './';
 
 const LeadsAddView = ({ location }) => (
-  <FullScreenContainer classOverrides="vh-100 bg-light-gray">
-    <div className="w-100" style={{ paddingLeft: "100px" }}>
-      <CenterThis>
-        <div className="w-90 mt3 mb1 pa3 f4" style={{ backgroundColor: Colors.white }} >
-          <LeadNavBar route={location.pathname} />
-        </div>
-      </CenterThis>
-
-      <CenterThis>
-        <div className="w-90 flex flex-row justify-around" style={{ backgroundColor: Colors.white }} >
-          <div className="w-40 mt6 "><LeadsCSVForm /></div>
-          <div className="w-40 mt6 mb5">  <LeadsAddForm /></div>
-        </div>
-      </CenterThis>
-
+  <LeadNavCard location={location}>
+    <div className="mt5 flex w-100">
+      <div className="w-50">
+        <LeadsCSVForm />
+      </div>
+      <div className="w-50 pl4">
+        <LeadsAddForm />
+      </div>
     </div>
-  </FullScreenContainer>);
+  </LeadNavCard>
+);
 
 
 export default LeadsAddView;

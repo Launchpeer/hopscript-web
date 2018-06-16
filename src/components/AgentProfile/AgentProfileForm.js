@@ -12,7 +12,9 @@ class AgentProfileForm extends Component {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
-    this.props.fetchBrokerage(this.props.user.attributes.brokerage.id);
+    if (this.props.user && this.props.user.attributes.brokerage) {
+      this.props.fetchBrokerage(this.props.user.attributes.brokerage.id);
+    }
   }
 
   handleFormSubmit(data) {

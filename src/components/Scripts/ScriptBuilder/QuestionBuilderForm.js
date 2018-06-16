@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
   InputDropDown,
@@ -16,9 +16,9 @@ import {
   RenderAlert,
   Button,
   PlusIcon
-} from '../common';
+} from '../../common';
 import { createNewQuestion, updateQuestion, fetchScript } from './ScriptBuilderActions';
-import subscribeToClass from '../helpers/subscribeToClass';
+import subscribeToClass from '../../helpers/subscribeToClass';
 
 class QuestionBuilderForm extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class QuestionBuilderForm extends Component {
   }
 
   handleNewQuestion() {
-    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId});
+    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
   }
 
   render() {
@@ -46,7 +46,7 @@ class QuestionBuilderForm extends Component {
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
             <div className="single-line-textarea">
-              <InputTextArea name="attributes.body" placeholder="Write Question Here"/>
+              <InputTextArea name="attributes.body" placeholder="Write Question Here" />
             </div>
             <div className="flex mt4">
               <div className="w-10">Description</div>
@@ -67,7 +67,7 @@ class QuestionBuilderForm extends Component {
                   borderColor={Colors.moonGray}
                 />
               </div>
-            <div className="flex items-center ml2">
+              <div className="flex items-center ml2">
                 <InputCheckbox name="closing" />
                 <div className="ml1">Closing Statement</div>
               </div>
@@ -86,7 +86,7 @@ class QuestionBuilderForm extends Component {
                 fontColor={Colors.brandGreen}
                 classOverrides="flex items-center mr2"
               >
-                <PlusIcon color={Colors.brandGreen} width="1.5rem" height="1.5rem"/>
+                <PlusIcon color={Colors.brandGreen} width="1.5rem" height="1.5rem" />
                 Add question
               </Button>
               <Button backgroundColor={Colors.brandGreen}>Save</Button>
@@ -98,13 +98,15 @@ class QuestionBuilderForm extends Component {
   }
 }
 
-let Form = reduxForm({
+const Form = reduxForm({
   form: 'questionBuilder',
   enableReinitialize: true
 })(QuestionBuilderForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
-  const { error, loading, currentQuestion, currentScript, questions } = ScriptBuilderReducer;
+  const {
+    error, loading, currentQuestion, currentScript, questions
+  } = ScriptBuilderReducer;
   return {
     loading,
     error,

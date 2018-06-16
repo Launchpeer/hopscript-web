@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Card, CenterThis, FullScreenContainer, HeadphonesIcon } from '../common';
 import { Colors } from '../../config/styles';
 import { SignInForm, BrokerageSignUpForm } from './';
-import { clearError } from './AuthActions';
+import { clearError, clearUser } from './AuthActions';
 
 const SignIn = (
   <div className="tc absolute right-0 pa3">
@@ -36,8 +36,10 @@ const SignUp = (
 );
 
 class AuthView extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     this.props.clearError();
+    this.props.clearUser();
   }
 
   render() {
@@ -90,4 +92,4 @@ class AuthView extends Component {
   }
 }
 
-export default connect(null, { clearError })(AuthView);
+export default connect(null, { clearError, clearUser })(AuthView);

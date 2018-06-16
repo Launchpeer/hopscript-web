@@ -5,7 +5,7 @@ import { ArrowLeftCircle } from 'react-feather';
 import { FullScreenContainer, CenterThis, HalfGrid, Button } from '../../common';
 import { fetchLead, fetchLeadGroups, deleteLead } from './LeadDetailActions';
 import { LeadDetailForm, LeadGroupForm } from './';
-import { LeadNavBar } from '../LeadsCommon';
+import { LeadNavBar } from '../';
 import { Colors } from '../../../config/styles';
 
 

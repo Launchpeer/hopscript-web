@@ -6,7 +6,34 @@ import { AgentsAddForm } from '../AgentsAdd';
 import { Button, LoaderOrThis, FullScreenContainer, CenterThis } from '../common';
 import { Colors } from '../../config/styles';
 
-class AgentsList extends Component {
+
+const InitialDisplay = () => (
+  <CenterThis>
+    <div className="w-90 flex flex-row justify-around" style={{ backgroundColor: Colors.white, height: "85vh" }} >
+      <div className="w-75 mt6 mb6 tc f4" style={{ color: Colors.silver }}>
+        Welcome to Hopscript! <br /> <br />
+        You currently do not have any agents. <br />
+      “Add Agents” to invite your team to Hopscript! <br /> <br />
+        Your agents will receive an email invitation<br />
+        to set up their account, create scripts and call leads!
+      </div>
+
+    </div>
+  </CenterThis>
+);
+
+const AgentsList = ({ toggleAddAgent, agents }) => (
+  <CenterThis>
+    <div className="w-90" style={{ backgroundColor: Colors.white }} >
+      {addAgentOpen && <AgentsAddForm cancel={toggleAddAgent} />}
+      <div>
+        {agents && agents.map(agent => (<AgentsListItem agent={agent} key={agent.id} />))}
+      </div>
+    </div>
+  </CenterThis>
+);
+
+class AgentsListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,16 +61,10 @@ class AgentsList extends Component {
                 <Button backgroundColor={Colors.brandGreen} onClick={this.toggleAddAgent} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Add Agents</Button>
               </div>
             </CenterThis>
-
-            <CenterThis>
-              <div className="w-90" style={{ backgroundColor: Colors.white }} >
-                {addAgentOpen && <AgentsAddForm cancel={this.toggleAddAgent} />}
-                <div>
-                  {agents && agents.map(agent => (<AgentsListItem agent={agent} key={agent.id} />))}
-                </div>
-              </div>
-            </CenterThis>
-
+            {agents
+              ? <AgentsList toggleAddAgent={this.toggleAddAgent} agents={agents} />
+              : <InitialDisplay />
+            }
           </div>
 
         </LoaderOrThis>
@@ -62,4 +83,4 @@ const mapStateToProps = ({ UserReducer, AgentsListReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchUser })(AgentsList);
+export default connect(mapStateToProps, { fetchUser })(AgentsListView);

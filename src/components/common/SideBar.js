@@ -26,7 +26,7 @@ const agentItems = [
     icon: (item, route) => <ScriptIcon width="25px" height="25px" color={textColor(item, route)} />
   },
   {
-    route: '/add-leads',
+    route: '/leads-add',
     label: 'LEADS',
     icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
   },
@@ -45,8 +45,25 @@ const brokerItems = [
   },
 ];
 
-const bgColor = (current, route) => route === current ? Colors.brandPrimaryShade : Colors.brandPrimary;
-const textColor = (current, route) => route === current ? Colors.white : Colors.brandSecondary;
+const leadsRoutes = ['/leads-add', '/leads-list', '/lead-groups-list'];
+
+const bgColor = (current, route) => {
+  if (route === current) {
+    Colors.brandPrimary;
+  } else if ((_.contains(leadsRoutes, route))) {
+    Colors.brandPrimary;
+  } else {
+    Colors.brandPrimaryShade;
+  }
+};
+const textColor = (current, route) => {
+  if (route === current) {
+    return Colors.white;
+  } else if (current === '/leads-add' && (_.contains(leadsRoutes, route))) {
+    return Colors.white;
+  }
+  return Colors.brandSecondary;
+};
 
 const mapSidebarContent = (user, route) => {
   const items = user === 'agent' ? agentItems : brokerItems;
@@ -86,7 +103,10 @@ const SideBar = ({ route, user }) => (
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
           {mapSidebarContent(user.attributes.role, route)}
           <CenterThis>
-            <div className="fixed bottom-1 mb2">
+            <div
+              className="fixed bottom-1 mb2 pointer"
+              onClick={(user) => { user === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'); }}
+            >
               <div
                 className="bg-white br-100 flex items-center justify-center ml2 mr2"
                 style={{

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Parse from 'parse';
-import { Colors } from '../../config/styles';
-import { InputTextEditable } from '../common';
+
+import { Colors } from '../../../config/styles';
+import { InputTextEditable } from '../../common';
 
 import { updateScript, fetchScript } from './ScriptBuilderActions';
 
@@ -16,8 +17,8 @@ class ScriptNameForm extends Component {
   handleFormSubmit(data) {
     this.props.updateScript(data, this.props.scriptId)
       .then(() => {
-        this.props.fetchScript(this.props.scriptId)
-      })
+        this.props.fetchScript(this.props.scriptId);
+      });
   }
 
   render() {
