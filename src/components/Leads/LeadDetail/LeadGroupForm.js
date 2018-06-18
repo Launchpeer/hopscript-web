@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { PlusCircle } from 'react-feather';
 import { InputDropDownEditable } from '../../common';
 import { Colors } from '../../../config/styles';
-import { updateLead, removeGroupFromLead, fetchLead } from './LeadDetailActions';
+import { updateLead, removeGroupFromLead, fetchLead } from '../LeadsActions';
 import { LeadGroupListItem } from '../LeadGroupList';
 
 
@@ -17,7 +17,7 @@ class LeadGroupForm extends Component {
 
   handleFormSubmit(data) {
     const { lead } = this.props;
-    this.props.updateLead(data.leadGroup, lead.id);
+    this.props.updateLead(data, lead.id);
   }
 
   handleRemoveLeadGroup(data) {
@@ -71,8 +71,8 @@ class LeadGroupForm extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadDetailReducer }) => {
-  const { lead, leadGroups, myLeadGroups } = LeadDetailReducer;
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { lead, leadGroups, myLeadGroups } = LeadsReducer;
   return {
     lead,
     leadGroups,

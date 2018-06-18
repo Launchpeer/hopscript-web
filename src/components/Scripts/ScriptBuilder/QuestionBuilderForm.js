@@ -13,12 +13,10 @@ import {
   InputCheckbox,
   InputAudio,
   LoaderOrThis,
-  RenderAlert,
   Button,
   PlusIcon
 } from '../../common';
-import { createNewQuestion, updateQuestion, fetchScript } from './ScriptBuilderActions';
-import subscribeToClass from '../../helpers/subscribeToClass';
+import { createNewQuestion, createQuestion, fetchScript } from './ScriptBuilderActions';
 
 class QuestionBuilderForm extends Component {
   constructor(props) {
@@ -28,7 +26,8 @@ class QuestionBuilderForm extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.updateQuestion({ question: data, questionId: this.props.currentQuestion.id }, this.props.currentScript.id);
+    console.log('data', this.props.currentScript.id);
+    this.props.createQuestion({ question: data, scriptId: this.props.currentScript.id });
   }
 
   handleNewQuestion() {
@@ -117,4 +116,4 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { createNewQuestion, updateQuestion, fetchScript })(Form);
+export default connect(mapStateToProps, { createNewQuestion, createQuestion, fetchScript })(Form);

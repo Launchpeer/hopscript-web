@@ -6,13 +6,11 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Parse from 'parse';
-import { ChevronLeftCircle, ChevronRight, GridIcon, CheckCircle } from '../../common';
+import { ChevronLeftCircle, ChevronRight, CardRight } from '../../common';
 import { Colors } from '../../../config/styles';
 import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate } from './ScriptBuilderActions';
 import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderForm, GlossaryView } from './';
 import subscribeToClass from '../../helpers/subscribeToClass';
-import { logOutUser } from '../../Auth/AuthActions';
 
 const ScriptInfo = ({ name, step, scriptId }) => (
   <div className="ml4">
@@ -88,8 +86,7 @@ class ScriptBuilderView extends Component {
     const { currentStep } = this.state;
     const { currentScript, currentQuestion, questions } = this.props;
     return (
-      <div className="ml6">
-        <div className="f2" onClick={this.createNewScript}>create new script</div>
+      <CardRight>
         {currentScript &&
         <div>
           <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
@@ -109,7 +106,7 @@ class ScriptBuilderView extends Component {
           </div>
         </div>
           }
-      </div>
+      </CardRight>
     );
   }
 }

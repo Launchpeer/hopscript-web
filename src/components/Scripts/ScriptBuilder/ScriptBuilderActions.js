@@ -69,7 +69,6 @@ const fetchScript = (scriptId, update) => (dispatch) => {
         type: CURRENT_SCRIPT_UPDATE,
         payload: script
       });
-      console.log('updating script', script);
       if (script.attributes.questions) {
         dispatch({
           type: QUESTIONS_UPDATE,
@@ -118,7 +117,7 @@ const createNewScript = () => (dispatch) => {
         type: CURRENT_SCRIPT_UPDATE,
         payload: script
       });
-      browserHistory.push(`/script-builder/:${script.id}`);
+      browserHistory.push(`/script-builder/${script.id}`);
     });
 };
 
@@ -151,12 +150,30 @@ export const clearError = () => (dispatch) => {
   dispatch(_clearError());
 };
 
+
 const updateScript = (data, scriptId) => (dispatch) => {
-  Parse.Cloud.run('updateScript', { scriptId, data });
+  console.log('scriptId', scriptId);
+  Parse.Cloud.run('updateScript', { scriptId, data })
+    .then(() => {
+      Parse.Cloud.run('fetchScript', { scriptId })
+        .then((script) => {
+          dispatch({
+            type: CURRENT_SCRIPT_UPDATE,
+            payload: script
+          });
+        });
+    });
 };
 
 const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
   Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId, scriptId })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
+    });
+};
+
+const createQuestion = ({ question, scriptId }) => (dispatch) => {
+  Parse.Cloud.run('createQuestion', { question, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
     });
@@ -170,5 +187,6 @@ export {
   createNewQuestion,
   currentScriptUpdate,
   updateQuestion,
-  addAnswersToQuestion
+  addAnswersToQuestion,
+  createQuestion
 };

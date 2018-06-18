@@ -49,7 +49,7 @@ export const signInUser = (email, password) => (dispatch) => {
         payload: user
       });
       if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
-        browserHistory.push('/dashboard');
+        browserHistory.push('/call');
       } else {
         browserHistory.push('/stripe');
       }

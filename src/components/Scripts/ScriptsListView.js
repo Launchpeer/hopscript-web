@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardRight, HSButton, HSCardHeader } from '../common';
-import { Colors } from '../../config/styles';
 import { createNewScript } from './ScriptBuilder/ScriptBuilderActions';
 
-const ScriptsList = ({ createNewScript }) => (
+const ScriptsList = ({ handleNewScript }) => (
   <div className="mt6 tc f4 pa3 silver">
     <div className="mb6">
     You currently do not have any scripts. <br />
     “Add New Script” to start building your first script!
     </div>
-    <HSButton onClick={createNewScript}>Add New Script</HSButton>
+    <HSButton onClick={handleNewScript}>Add New Script</HSButton>
   </div>
 );
 
@@ -29,7 +28,7 @@ class ScriptsListView extends Component {
     return (
       <CardRight loading={this.props.loading}>
         <HSCardHeader>My Scripts</HSCardHeader>
-        <ScriptsList createNewScript={createNewScript} />
+        <ScriptsList handleNewScript={this.handleNewScript} />
       </CardRight>
     );
   }

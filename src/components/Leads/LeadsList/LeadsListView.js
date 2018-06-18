@@ -1,12 +1,37 @@
-import React from 'react';
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchLeads } from '../LeadsActions';
+import { LeadsListItem } from './';
 import { LeadNavCard } from '../';
-import { LeadsList } from './';
 
-const LeadsListView = ({ location }) => (
-  <LeadNavCard location={location}>
-    <LeadsList />
-  </LeadNavCard>
+const LeadsList = ({ leads }) => (
+  <div>
+    {leads.map(lead => (
+      <LeadsListItem lead={lead} key={lead.id} />))
+    }
+  </div>
 );
 
-export default LeadsListView;
+class LeadsListView extends Component {
+  componentWillMount() {
+    this.props.fetchLeads();
+  }
+
+  render() {
+    const { leads, location } = this.props;
+    return (
+      <LeadNavCard location={location}>
+        {leads && <LeadsList leads={leads} />}
+      </LeadNavCard>
+    );
+  }
+}
+
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leads } = LeadsReducer;
+  return {
+    leads
+  };
+};
+
+export default connect(mapStateToProps, { fetchLeads })(LeadsListView);

@@ -92,7 +92,7 @@ const SideBar = ({ route, user }) => (
     {!(_.contains(PathsWithoutSideBarContent, route)) &&
       <div className="fl w-100" style={{ backgroundColor: Colors.brandPrimary, height: '100vh' }} >
         <div className="flex flex-column mt4" >
-          <div className="pb3" >
+          <div className="pb3 pointer" role="button" onClick={() => browserHistory.push('/dashboard')} >
             <div className="tc">
               <HeadphonesIcon width="30px" height="30px" color={Colors.white} />
             </div>
