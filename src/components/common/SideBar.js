@@ -49,12 +49,11 @@ const leadsRoutes = ['/leads-add', '/leads-list', '/lead-groups-list'];
 
 const bgColor = (current, route) => {
   if (route === current) {
-    Colors.brandPrimary;
-  } else if ((_.contains(leadsRoutes, route))) {
-    Colors.brandPrimary;
-  } else {
-    Colors.brandPrimaryShade;
+    return Colors.brandPrimaryShade;
+  } else if (current === '/leads-add' && (_.contains(leadsRoutes, route))) {
+    return Colors.brandPrimaryShade;
   }
+  return Colors.brandPrimary;
 };
 const textColor = (current, route) => {
   if (route === current) {
