@@ -46,7 +46,7 @@ class LeadsListItem extends Component {
             </div>
           </ModalCard>
         }
-        <div className="flex w-100 items-center justify-between" role="button" onClick={() => browserHistory.push(`/list-leads/${this.props.lead.id}`)}>
+        <div className="flex w-100 items-center justify-between" role="button" onClick={() => browserHistory.push(`/leads-list/${this.props.lead.id}`)}>
           <div className="w-30-ns">{attributes.name}</div>
           <div className="w-30-ns">{attributes.phone}</div>
           <div className="w-30-ns">{attributes.email}</div>

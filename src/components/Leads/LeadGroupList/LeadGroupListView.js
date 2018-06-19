@@ -26,7 +26,7 @@ class LeadGroupListView extends Component {
       <LeadNavCard location={location}>
         <div className="w-100">
           {leadGroups && <LeadGroupList leadGroups={leadGroups} />}
-          <HSButton onClick={() => browserHistory.push('/add-lead-group')}>New Lead Group</HSButton>
+          <HSButton onClick={() => browserHistory.push('/lead-groups-add')}>New Lead Group</HSButton>
         </div>
       </LeadNavCard>
     );

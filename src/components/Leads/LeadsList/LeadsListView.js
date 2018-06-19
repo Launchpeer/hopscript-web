@@ -21,7 +21,9 @@ class LeadsListView extends Component {
     const { leads, location } = this.props;
     return (
       <LeadNavCard location={location}>
-        {leads && <LeadsList leads={leads} />}
+        <div className="w-100">
+          {leads && <LeadsList leads={leads} />}
+        </div>
       </LeadNavCard>
     );
   }
