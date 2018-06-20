@@ -1,4 +1,5 @@
 export { default as LeadNavBar } from './LeadNavBar';
+export { default as LeadDetailBar } from './LeadDetailBar';
 export { default as LeadNavCard } from './LeadNavCard';
 export * from './LeadsList';
 export * from './LeadsAdd';

@@ -25,13 +25,21 @@ class LeadGroupListView extends Component {
     return (
       <LeadNavCard location={location}>
         <div className="w-100">
-          {leadGroups && <LeadGroupList leadGroups={leadGroups} />}
+          {leadGroups && leadGroups.length > 0 ?
+            <LeadGroupList leadGroups={leadGroups} /> :
+            <div className="mt6 tc f4 pa3 silver">
+              <div className="mb6">
+            You currently do not have any Lead Groups. <br />
+            “New Lead Group” to start adding some Lead Groups!
+              </div>
+            </div>}
           <HSButton onClick={() => browserHistory.push('/lead-groups-add')}>New Lead Group</HSButton>
         </div>
       </LeadNavCard>
     );
   }
 }
+
 
 const mapStateToProps = ({ LeadsReducer }) => {
   const { leadGroups } = LeadsReducer;

@@ -29,7 +29,7 @@ class LeadsAddForm extends Component {
 
   handleFormSubmit(data) {
     this.props.createLead(data);
-    browserHistory.push('/list-leads');
+    browserHistory.push('/leads-list');
   }
 
   clearError() {
@@ -110,7 +110,7 @@ class LeadsAddForm extends Component {
             </div>
           </div>
 
-          {leadGroups &&
+          {leadGroups && leadGroups.length > 0 ?
             <div className="flex flex-row w-100">
               <div className="w-30 mt2 mb2 pt3 pb3">Lead Group</div>
               <div className="w-70">
@@ -122,7 +122,7 @@ class LeadsAddForm extends Component {
                   borderColor="lightGray"
             />
               </div>
-            </div>}
+            </div> : null}
 
           <div className="fr mt6 mb4">
             <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
@@ -144,7 +144,7 @@ const mapStateToProps = ({ LeadsReducer }) => {
 
 function validate(values) {
   const errors = {};
-  if (!values.name || !values.phone || !values.leadType || !values.leadGroup) {
+  if (!values.name || !values.phone || !values.leadType) {
     errors._error = 'All fields required';
   }
 
