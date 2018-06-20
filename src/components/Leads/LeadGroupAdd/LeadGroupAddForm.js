@@ -1,89 +1,33 @@
-/**
- * The purpose of this file is to provide a ReduxForm component that allows an Agent to manually add a Lead.
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
-import { Colors } from '../../../config/styles';
-import {
-  InputText,
-  Button,
-  LoaderOrThis,
-  RenderAlert
-} from '../../common';
-import { createLeadGroup, clearError } from './LeadGroupAddActions';
+import LeadGroupLeadListItem from './LeadGroupLeadListItem';
 
 class LeadGroupAddForm extends Component {
   constructor(props) {
     super(props);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.clearError = this.clearError.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleFormSubmit(data) {
-    this.props.createLeadGroup(data);
-  }
-
-  clearError() {
-    if (this.props.error) {
-      this.props.clearError();
-    }
+  handleClick(lead) {
+    console.log('This will remove the lead from the list of leads to add. The lead you just clicked is:', lead.attributes.name);
   }
 
   render() {
-    const {
-      handleSubmit, valid, loading, error
-    } = this.props;
+    const { leadsToAdd } = this.props;
     return (
-      <div>
-        <LoaderOrThis loading={loading}>
-          <h1>New Lead Group</h1>
-          <form
-            onSubmit={handleSubmit(this.handleFormSubmit)}
-            onClick={this.clearError} >
-            <InputText
-              name="groupName"
-              label="Group Name"
-              type="text"
-              placeholder="Group Name"
-              borderColor="black"
-            />
-
-            {valid && (
-              <Button backgroundColor={Colors.brandPrimary}>
-                Add Lead Group
-              </Button>
-            )}
-            {error && <RenderAlert error={error} />}
-          </form>
-        </LoaderOrThis>
+      <div className="w-100">
+        {leadsToAdd &&
+          leadsToAdd.map(lead => <LeadGroupLeadListItem lead={lead} key={lead.id} onClick={() => this.handleClick(lead)} />)}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ LeadsAddReducer }) => {
-  const { error, loading } = LeadsAddReducer;
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leadsToAdd } = LeadsReducer;
   return {
-    loading,
-    error
+    leadsToAdd
   };
 };
 
-function validate(values) {
-  const errors = {};
-  if (!values.groupName) {
-    errors._error = 'All fields required';
-  }
-
-  return errors;
-}
-
-export default reduxForm({
-  form: 'createLeadGroup',
-  validate
-})(connect(mapStateToProps, {
-  createLeadGroup,
-  clearError
-})(LeadGroupAddForm));
+export default connect(mapStateToProps, null)(LeadGroupAddForm);

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { ArrowLeftCircle } from 'react-feather';
 import { FullScreenContainer, CenterThis, HalfGrid, Button } from '../../common';
-import { fetchLead, fetchLeadGroups, deleteLead } from './LeadDetailActions';
+import { fetchLead, fetchLeadGroups, deleteLead } from '../LeadsActions';
 import { LeadDetailForm, LeadGroupForm } from './';
-import { LeadNavBar } from '../LeadsCommon';
+import { LeadNavBar } from '../';
 import { Colors } from '../../../config/styles';
 
 
@@ -16,18 +16,18 @@ class LeadDetailView extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
+  componentWillMount() {
+    this.props.fetchLead(this.props.params.id);
+    this.props.fetchLeadGroups();
+  }
+
   handleDelete(lead) {
     this.props.deleteLead(lead);
     browserHistory.push('/list-leads');
   }
 
-  componentWillMount() {
-    this.props.fetchLead(this.props.params.id);
-    this.props.fetchLeadGroups();
-  }
   render() {
     const { lead, myLeadGroups, leadGroups } = this.props;
-
     return (
       <FullScreenContainer classOverrides="vh-100 bg-light-gray">
         <div className="w-100" style={{ paddingLeft: "100px" }}>
@@ -72,8 +72,8 @@ class LeadDetailView extends Component {
   }
 }
 
-const mapStateToProps = ({ LeadDetailReducer }) => {
-  const { lead, myLeadGroups, leadGroups } = LeadDetailReducer;
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { lead, myLeadGroups, leadGroups } = LeadsReducer;
   return {
     lead,
     myLeadGroups,

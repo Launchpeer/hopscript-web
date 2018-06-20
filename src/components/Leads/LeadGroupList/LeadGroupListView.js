@@ -1,29 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { FullScreenContainer, CenterThis, Button } from '../../common';
-import { LeadNavBar } from '../LeadsCommon';
-import { LeadGroupList } from './';
-import { Colors } from '../../../config/styles';
+import { connect } from 'react-redux';
 
+import { HSButton } from '../../common';
+import { LeadNavCard } from '../';
+import { fetchLeadGroups } from '../LeadsActions';
+import { LeadGroupListItem } from './';
 
-const LeadGroupListView = ({ location }) => (
-  <FullScreenContainer classOverrides="vh-100 bg-light-gray">
-    <div className="w-100" style={{ paddingLeft: "100px" }}>
-      <div className="w-100" style={{ paddingLeft: "100px" }}>
-        <CenterThis>
-          <div className="w-90 mt3 mb1 pa3 f4" style={{ backgroundColor: Colors.white }} >
-            <LeadNavBar route={location.pathname} />
-          </div>
-        </CenterThis>
-
-        <CenterThis>
-          <div className="w-90 flex flex-row justify-around pa4" style={{ backgroundColor: Colors.white }} >
-            <LeadGroupList />
-          </div>
-        </CenterThis>
-      </div>
-    </div>
-  </FullScreenContainer>
+const LeadGroupList = ({ leadGroups }) => (
+  <div className="w-100 mb5">
+    {leadGroups && leadGroups.map(group => (
+      <LeadGroupListItem leadGroup={group} key={group.id} />
+    ))}
+  </div>
 );
 
-export default LeadGroupListView;
+class LeadGroupListView extends Component {
+  componentWillMount() {
+    this.props.fetchLeadGroups();
+  }
+
+  render() {
+    const { leadGroups, location } = this.props;
+    return (
+      <LeadNavCard location={location}>
+        <div className="w-100">
+          {leadGroups && <LeadGroupList leadGroups={leadGroups} />}
+          <HSButton onClick={() => browserHistory.push('/add-lead-group')}>New Lead Group</HSButton>
+        </div>
+      </LeadNavCard>
+    );
+  }
+}
+
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leadGroups } = LeadsReducer;
+  return {
+    leadGroups
+  };
+};
+
+export default connect(mapStateToProps, { fetchLeadGroups })(LeadGroupListView);

@@ -26,6 +26,12 @@ input:focus {
 .bg-brand-green {
   background-color: #00cd6a; }
 
+.bg-brand-red {
+  background-color: #ff5628; }
+
+.bg-brand-near-black {
+  background-color: #3e3e3e; }
+
 .brand-secondary {
   color: #3943a5; }
 

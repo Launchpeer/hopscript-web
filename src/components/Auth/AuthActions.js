@@ -49,7 +49,7 @@ export const signInUser = (email, password) => (dispatch) => {
         payload: user
       });
       if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
-        browserHistory.push('/dashboard');
+        browserHistory.push('/call');
       } else {
         browserHistory.push('/stripe');
       }
@@ -152,6 +152,19 @@ export const resetPassword = (password, username) => (dispatch) => {
     });
 };
 
+const clearUser = () => (dispatch) => {
+  if (Parse.User.current()) {
+    // If a session token exists
+    // clear the user in parse
+    // clear the user in the reducer
+    _unAuthUser()
+      .then(() => {
+        dispatch(_clearUser());
+        dispatch({ type: UNAUTH_USER });
+      });
+  }
+};
+
 export const logOutUser = () => (dispatch) => {
   browserHistory.push('/');
   Parse.User.logOut(null, {
@@ -164,3 +177,5 @@ export const logOutUser = () => (dispatch) => {
     }
   });
 };
+
+export { clearUser };

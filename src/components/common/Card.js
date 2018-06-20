@@ -2,7 +2,7 @@
 // configurable props: borderRadius, bottomContent, maxWidth, bottomColor
 
 import React from 'react';
-import { BorderRadius, MaxWidth, Colors } from '../../config/styles';
+import { BorderRadius, Colors } from '../../config/styles';
 
 const Card = (props) => {
   if (!props.bottomContent) {

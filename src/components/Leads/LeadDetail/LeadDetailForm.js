@@ -4,9 +4,7 @@ import { reduxForm } from 'redux-form';
 import { Colors } from '../../../config/styles';
 import { InputTextEditable, InputDropDownEditable } from '../../common';
 import normalizePhone from '../../helpers/normalize';
-import { fetchLeadGroups } from '../LeadGroupList/LeadGroupListActions';
-import { reconcileLeadsAndGroups } from '../LeadsList/LeadsListActions';
-import { updateLead } from '../LeadsAdd/LeadsAddActions';
+import { updateLead } from '../LeadsActions';
 
 
 class LeadDetailForm extends Component {
@@ -17,12 +15,9 @@ class LeadDetailForm extends Component {
 
   handleFormSubmit(data) {
     const { lead } = this.props;
-    this.props.updateLead(lead.id, data);
+    this.props.updateLead(data, lead.id);
   }
 
-  componentWillMount() {
-    this.props.fetchLeadGroups();
-  }
 
   render() {
     const { handleSubmit, lead } = this.props;
@@ -85,7 +80,5 @@ class LeadDetailForm extends Component {
 export default reduxForm({
   form: 'LeadDetailForm'
 })(connect(null, {
-  fetchLeadGroups,
   updateLead,
-  reconcileLeadsAndGroups
 })(LeadDetailForm));

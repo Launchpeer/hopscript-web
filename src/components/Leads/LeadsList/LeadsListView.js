@@ -1,25 +1,37 @@
-import React from 'react';
-import { FullScreenContainer, CenterThis } from '../../common';
-import { LeadsList } from './';
-import { LeadNavBar } from '../LeadsCommon';
-import { Colors } from '../../../config/styles';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchLeads } from '../LeadsActions';
+import { LeadsListItem } from './';
+import { LeadNavCard } from '../';
 
-const LeadsListView = ({ location }) => (
-  <FullScreenContainer classOverrides="bg-light-gray">
-    <div className="w-100" style={{ paddingLeft: "100px" }}>
-      <CenterThis>
-        <div className="w-90 mt3 mb1 pa3 f4" style={{ backgroundColor: Colors.white }} >
-          <LeadNavBar route={location.pathname} />
-        </div>
-      </CenterThis>
-
-      <CenterThis>
-        <div className="w-90 flex flex-row justify-around pa4" style={{ backgroundColor: Colors.white }} >
-          <LeadsList />
-        </div>
-      </CenterThis>
-    </div>
-  </FullScreenContainer>
+const LeadsList = ({ leads }) => (
+  <div>
+    {leads.map(lead => (
+      <LeadsListItem lead={lead} key={lead.id} />))
+    }
+  </div>
 );
 
-export default LeadsListView;
+class LeadsListView extends Component {
+  componentWillMount() {
+    this.props.fetchLeads();
+  }
+
+  render() {
+    const { leads, location } = this.props;
+    return (
+      <LeadNavCard location={location}>
+        {leads && <LeadsList leads={leads} />}
+      </LeadNavCard>
+    );
+  }
+}
+
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leads } = LeadsReducer;
+  return {
+    leads
+  };
+};
+
+export default connect(mapStateToProps, { fetchLeads })(LeadsListView);
