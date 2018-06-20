@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
-import { FullScreenContainer, CenterThis, Button, HalfGrid, InputText } from '../../common';
+import { CenterThis, Button, HalfGrid, InputText } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadsList } from './';
-import { createLeadGroup, clearError } from '../LeadsActions';
+import { createLeadGroup, clearError, fetchLeads } from '../LeadsActions';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadNavCard } from '../';
 
@@ -31,6 +31,10 @@ class LeadGroupAddView extends Component {
     browserHistory.push('/lead-groups-list');
   }
 
+  componentWillMount() {
+    this.props.fetchLeads();
+  }
+
   clearError() {
     if (this.props.error) {
       this.props.clearError();
@@ -46,7 +50,7 @@ class LeadGroupAddView extends Component {
         {leads && leads.length > 0 ?
           <div className="w-100 flex flex-column">
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-              <div className="flex flex-row mv3 w-100">
+              <div className="flex flex-row mv3 w-100 pl4">
                 <div className="b mr3 mv3">Lead Group Name</div>
                 <div className="w-40">
                   <InputText
@@ -135,5 +139,6 @@ export default reduxForm({
   validate
 })(connect(mapStateToProps, {
   createLeadGroup,
+  fetchLeads,
   clearError
 })(LeadGroupAddView));
