@@ -6,3 +6,4 @@ export * from './LeadsAdd';
 export * from './LeadDetail';
 export * from './LeadGroupAdd';
 export * from './LeadGroupList';
+export * from './LeadGroupDetail';
