@@ -22,7 +22,6 @@ import { AuthView, ForgotPasswordView, ResetPasswordView } from './components/Au
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
-import { AgentsAddView } from './components/AgentsAdd';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
 import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView, LeadGroupDetailView } from './components/Leads';
