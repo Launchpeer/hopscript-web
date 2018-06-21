@@ -20,7 +20,7 @@ class LeadGroupDetailView extends Component {
       leadGroup &&
       <LeadNavCard leadDetailBar location={location} name={leadGroup.attributes.groupName} onClick={() => browserHistory.push('/lead-groups-list')}>
         <div className="flex flex-column w-100">
-          <div className="pa4 w-100" >
+          <div className="w-100 pb3" >
             {leadGroup.attributes.leads.map(lead => <LGDetailListItem lead={lead} key={lead.id} />)}
           </div>
           <HSButton onClick={() => console.log('this will take you to edit lead group')}>Edit Lead Group</HSButton>
