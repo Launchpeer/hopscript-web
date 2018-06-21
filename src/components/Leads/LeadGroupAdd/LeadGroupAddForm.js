@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LeadGroupLeadListItem from './LeadGroupLeadListItem';
+import { updateLeadsToAdd } from '../LeadsActions';
 
 class LeadGroupAddForm extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class LeadGroupAddForm extends Component {
   }
 
   handleClick(lead) {
-    console.log('This will remove the lead from the list of leads to add. The lead you just clicked is:', lead.attributes.name);
+    const newLeadsList = this.props.leadsToAdd.filter(leads => leads !== lead);
+    this.props.updateLeadsToAdd(newLeadsList);
   }
 
   render() {
@@ -17,7 +19,7 @@ class LeadGroupAddForm extends Component {
     return (
       <div className="w-100">
         {leadsToAdd &&
-          leadsToAdd.map(lead => <LeadGroupLeadListItem lead={lead} key={lead.id} onClick={() => this.handleClick(lead)} />)}
+          leadsToAdd.map(lead => <LeadGroupLeadListItem lead={lead} key={lead.id} removeLead={() => this.handleClick(lead)} />)}
       </div>
     );
   }
@@ -30,4 +32,4 @@ const mapStateToProps = ({ LeadsReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, null)(LeadGroupAddForm);
+export default connect(mapStateToProps, { updateLeadsToAdd })(LeadGroupAddForm);

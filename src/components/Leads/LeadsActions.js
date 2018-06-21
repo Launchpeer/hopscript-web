@@ -13,7 +13,8 @@ import {
   LEAD_GROUP_DETAIL_UPDATE,
   LEAD_GROUP_LIST_UPDATE,
   MY_LEAD_GROUPS,
-  LEADS_TO_ADD
+  LEADS_TO_ADD,
+  LEAD_LEADGROUP_UPDATE
 } from './LeadsTypes';
 
 
@@ -92,6 +93,13 @@ function _leadsToAdd(l) {
   };
 }
 
+function _updateLeadsToAdd(l) {
+  return {
+    type: LEAD_LEADGROUP_UPDATE,
+    payload: l
+  };
+}
+
 const clearError = () => (dispatch) => {
   dispatch(_leadsClearError());
 };
@@ -155,9 +163,8 @@ const updateLead = (data, lead) => (dispatch) => {
 const deleteLead = lead => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("deleteLead", ({ lead }))
-    .then((r) => {
-      dispatch(_leadListUpdate(r[0].attributes.leads));
-      setTimeout(() => { dispatch(_leadLoadEnd()); }, 1000);
+    .then(() => {
+      dispatch(fetchLeads());
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -243,9 +250,8 @@ const updateLeadGroup = (data, leadGroup) => (dispatch) => {
 const deleteLeadGroup = leadGroup => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("deleteLeadGroup", ({ leadGroup }))
-    .then((r) => {
-      dispatch({ type: LEAD_GROUP_LIST_UPDATE, payload: r[0].attributes.leadGroups });
-      setTimeout(() => { dispatch(_leadLoadEnd()); }, 1000);
+    .then(() => {
+      dispatch(fetchLeadGroups());
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -255,6 +261,10 @@ const deleteLeadGroup = leadGroup => (dispatch) => {
 
 const addLeadToGroup = lead => (dispatch) => {
   dispatch(_leadsToAdd(lead));
+};
+
+const updateLeadsToAdd = leads => (dispatch) => {
+  dispatch(_updateLeadsToAdd(leads));
 };
 
 
@@ -387,4 +397,4 @@ const parseCSV = data => (dispatch) => {
 };
 
 
-export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };
+export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, updateLeadsToAdd, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };

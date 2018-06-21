@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { Colors } from '../../../config/styles';
 import { Button, ModalCard } from '../../common';
 
@@ -35,8 +36,8 @@ class LeadGroupListItem extends Component {
             </div>
           </ModalCard>
         }
-        <div className="flex w-100 items-center justify-between" role="button" onClick={() => console.log('leadgroup detail view')}>
-          <div className="w-30-ns">{attributes.groupName}</div>
+        <div className="flex flex-row items-center w-100 ">
+          <div className="w-100" role="button" onClick={() => browserHistory.push(`/lead-groups-list/${this.props.leadGroup.id}`)}>{attributes.groupName}</div>
           <div
             className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
             role="button"
