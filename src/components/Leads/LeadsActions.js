@@ -184,7 +184,6 @@ const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
 
 // LEADGROUPS
 const createLeadGroup = (leadGroup, leadsToAdd) => (dispatch) => {
-  console.log('action creator, leadgroup:', leadGroup, 'leadsToAdd', leadsToAdd);
   dispatch(_leadsLoading());
   Parse.Cloud.run("createLeadGroup", ({ leadGroup, leadsToAdd }))
     .then(() => {

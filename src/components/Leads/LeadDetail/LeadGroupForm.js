@@ -62,7 +62,7 @@ class LeadGroupForm extends Component {
           <div>
             {myLeadGroups &&
           myLeadGroups.map(group => (
-            <LeadGroupListItem leadGroup={group} key={group.id} onClick={() => this.handleRemoveLeadGroup(group.id)} />
+            <LeadGroupListItem leadGroup={group} key={group.id} removeGroup={() => this.handleRemoveLeadGroup(group.id)} />
           ))}
           </div>
         </div>

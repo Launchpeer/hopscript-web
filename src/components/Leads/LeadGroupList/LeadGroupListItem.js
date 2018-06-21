@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import { browserHistory } from 'react-router';
 import { Colors } from '../../../config/styles';
 import { Button, ModalCard } from '../../common';
-import { removeLeadGroup } from '../LeadsActions';
 
 class LeadGroupListItem extends Component {
   constructor(props) {
@@ -11,13 +8,9 @@ class LeadGroupListItem extends Component {
     this.state = {
       modalOpen: false
     };
-    this.handleRemoveLeadGroup = this.handleRemoveLeadGroup.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
 
-  handleRemoveLeadGroup() {
-    this.props.removeLeadGroup(this.props.leadGroup.id);
-  }
   toggleModal() {
     this.setState({ modalOpen: !this.state.modalOpen });
   }
@@ -26,6 +19,7 @@ class LeadGroupListItem extends Component {
     const {
       attributes
     } = this.props.leadGroup;
+    const { removeGroup } = this.props;
     const { modalOpen } = this.state;
     return (
       <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
@@ -33,9 +27,9 @@ class LeadGroupListItem extends Component {
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>
             <div className="pa4 tc">
-            Are you sure you want to delete this Lead Group?
+            Are you sure you want to remove this Lead Group?
               <div className="w-100 flex justify-between pl4 pr4 mt4">
-                <Button onClick={this.handleRemoveLeadGroup} backgroundColor={Colors.darkRed}>yes</Button>
+                <Button onClick={removeGroup} backgroundColor={Colors.darkRed}>yes</Button>
                 <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
               </div>
             </div>
@@ -58,4 +52,4 @@ class LeadGroupListItem extends Component {
 }
 
 
-export default connect(null, { removeLeadGroup })(LeadGroupListItem);
+export default LeadGroupListItem;
