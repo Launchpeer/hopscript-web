@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-
 import { HSButton } from '../../common';
 import { LeadNavCard } from '../';
 import { fetchLeadGroups, deleteLeadGroup } from '../LeadsActions';

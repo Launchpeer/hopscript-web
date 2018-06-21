@@ -155,9 +155,8 @@ const updateLead = (data, lead) => (dispatch) => {
 const deleteLead = lead => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("deleteLead", ({ lead }))
-    .then((r) => {
-      dispatch(_leadListUpdate(r[0].attributes.leads));
-      setTimeout(() => { dispatch(_leadLoadEnd()); }, 1000);
+    .then(() => {
+      dispatch(fetchLeads());
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -243,9 +242,8 @@ const updateLeadGroup = (data, leadGroup) => (dispatch) => {
 const deleteLeadGroup = leadGroup => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("deleteLeadGroup", ({ leadGroup }))
-    .then((r) => {
-      dispatch({ type: LEAD_GROUP_LIST_UPDATE, payload: r[0].attributes.leadGroups });
-      setTimeout(() => { dispatch(_leadLoadEnd()); }, 1000);
+    .then(() => {
+      dispatch(fetchLeadGroups());
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
