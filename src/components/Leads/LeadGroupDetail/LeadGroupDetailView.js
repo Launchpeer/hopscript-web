@@ -4,13 +4,10 @@ import { browserHistory } from 'react-router';
 import { HSButton } from '../../common';
 import { fetchLeadGroup, deleteLeadGroup } from '../LeadsActions';
 import { LeadNavCard } from '../';
+import { LGDetailListItem } from './';
+
 
 class LeadGroupDetailView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   componentWillMount() {
     this.props.fetchLeadGroup(this.props.params.id);
   }
@@ -24,7 +21,7 @@ class LeadGroupDetailView extends Component {
       <LeadNavCard leadDetailBar location={location} name={leadGroup.attributes.groupName} onClick={() => browserHistory.push('/lead-groups-list')}>
         <div className="flex flex-column w-100">
           <div className="pa4 w-100" >
-                Here she is
+            {leadGroup.attributes.leads.map(lead => <LGDetailListItem lead={lead} key={lead.id} />)}
           </div>
           <HSButton onClick={() => console.log('this will take you to edit lead group')}>Edit Lead Group</HSButton>
         </div>
