@@ -7,7 +7,9 @@ import React from 'react';
 import { Plus } from 'react-feather';
 
 
-const LeadGroupLeadListItem = ({ onClick, lead, adds }) => (
+const LeadGroupLeadListItem = ({
+  onClick, lead, adds, removeLead
+}) => (
   <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
     style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
     <div className="flex w-100 items-center justify-between">
@@ -25,7 +27,7 @@ const LeadGroupLeadListItem = ({ onClick, lead, adds }) => (
           className="br-100 bg-brand-red white flex items-center justify-center dim"
           role="button"
           style={{ width: '2rem', height: '2rem' }}
-          onClick={onClick}>
+          onClick={removeLead}>
            X
         </div>
       }

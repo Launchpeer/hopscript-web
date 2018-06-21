@@ -13,7 +13,8 @@ import {
   LEAD_GROUP_DETAIL_UPDATE,
   LEAD_GROUP_LIST_UPDATE,
   MY_LEAD_GROUPS,
-  LEADS_TO_ADD
+  LEADS_TO_ADD,
+  LEAD_LEADGROUP_UPDATE
 } from './LeadsTypes';
 
 
@@ -88,6 +89,13 @@ function _myLeads(l) {
 function _leadsToAdd(l) {
   return {
     type: LEADS_TO_ADD,
+    payload: l
+  };
+}
+
+function _updateLeadsToAdd(l) {
+  return {
+    type: LEAD_LEADGROUP_UPDATE,
     payload: l
   };
 }
@@ -255,6 +263,10 @@ const addLeadToGroup = lead => (dispatch) => {
   dispatch(_leadsToAdd(lead));
 };
 
+const updateLeadsToAdd = leads => (dispatch) => {
+  dispatch(_updateLeadsToAdd(leads));
+};
+
 
 // ADDING A LEAD VIA CSV
 
@@ -385,4 +397,4 @@ const parseCSV = data => (dispatch) => {
 };
 
 
-export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };
+export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, updateLeadsToAdd, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };
