@@ -18,7 +18,7 @@ import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
 import { AUTH_USER } from './components/Auth/AuthTypes';
 import { UPDATE_USER } from './components/UserTypes';
-import { AuthView, ForgotPasswordView, ResetPasswordView } from './components/Auth';
+import { AuthView, ForgotPasswordView, ResetPasswordView, AgentGetStartedView } from './components/Auth';
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
@@ -54,7 +54,7 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe'];
+const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe', '/welcome'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -71,6 +71,7 @@ ReactDOM.render(
         <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
+        <Route path="welcome" component={AgentGetStartedView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />

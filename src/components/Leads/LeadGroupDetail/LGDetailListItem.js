@@ -6,7 +6,6 @@
  */
 
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 import { Button } from '../../common';
 import { Colors } from '../../../config/styles';
 
