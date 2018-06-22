@@ -65,6 +65,3 @@ const AgentWelcomeView = () => (
 );
 
 export default AgentWelcomeView;
-
-
-// <img style={{ height: '100px', alignSelf: 'center' }} alt="Stripe" src="/images/stripe-logo.png" />
