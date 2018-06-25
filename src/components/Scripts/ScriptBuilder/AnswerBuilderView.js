@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import { NewAnswerForm } from './';
 import { PlusIcon } from '../../common';
 import AnswerBlock from './AnswerBlock'
+import { removeAnswer } from './ScriptBuilderActions';
 
 const AddQuestionButton = ({ toggleForm }) => (
   <div className="flex items-center pointer" onClick={toggleForm}>
@@ -24,8 +27,8 @@ class AnswerBuilderView extends Component {
     this.setState({ newQuestionOpen: !this.state.newQuestionOpen });
   }
 
-  removeAnswer(id) {
-    console.log('remove this', id)
+  removeAnswer(answerId) {
+    this.props.removeAnswer(answerId, this.props.currentScript.id, this.props.currentQuestion.id);
   }
 
   render() {
@@ -44,4 +47,4 @@ class AnswerBuilderView extends Component {
   }
 }
 
-export default AnswerBuilderView;
+export default connect(null, { removeAnswer})(AnswerBuilderView);

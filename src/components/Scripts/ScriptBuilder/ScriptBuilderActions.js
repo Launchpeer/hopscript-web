@@ -170,6 +170,13 @@ const updateAnswer = (data, answerId, scriptId) => (dispatch) => {
     })
 }
 
+const removeAnswer = (answerId, scriptId, questionId) => (dispatch) => {
+  console.log('remove Answer', answerId, scriptId, questionId);
+  Parse.Cloud.run('deleteAnswer', { answerId, scriptId, questionId })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
+    })
+}
 
 export {
   fetchScript,
@@ -180,5 +187,6 @@ export {
   currentScriptUpdate,
   updateQuestion,
   addAnswersToQuestion,
-  updateAnswer
+  updateAnswer,
+  removeAnswer
 };

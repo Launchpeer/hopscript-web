@@ -79,7 +79,7 @@ const AnswerDisplay = ({ answer, onClick, removeAnswer }) => {
         <div
           className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
           style={{ borderRadius: BorderRadius.all }}
-          onClick={removeAnswer(answer.id)}
+          onClick={() => removeAnswer(answer.id)}
           >
           <TrashIcon color={Colors.silver} width="1rem" height="1rem" />
         </div>
@@ -119,6 +119,7 @@ class AnswerBlockEditable extends Component {
     console.log('clicked');
     this.setState({ edit: !this.state.edit });
   }
+
   render() {
     const {
       answer,
@@ -135,7 +136,7 @@ class AnswerBlockEditable extends Component {
             onClick={() => {
               this.setState({ edit: !this.state.edit });
             }}
-            removeAnswer={(id) => {console.log('id', id)}}
+            removeAnswer={removeAnswer}
           />
           :
           <UpdateAnswerForm
@@ -147,7 +148,6 @@ class AnswerBlockEditable extends Component {
             toggleForm={() => {
               this.setState({ edit: !this.state.edit });
             }}
-            removeAnswer={(id) => {console.log('id', id)}}
           />
         }
       </div>

@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { ChevronLeftCircle, ChevronRight, CardRight } from '../../common';
 import { Colors } from '../../../config/styles';
 import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate } from './ScriptBuilderActions';
@@ -27,12 +28,10 @@ const StepIndicator = ({ step, toggle }) => (
     >
     <div
       className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3"
-      onClick={() => toggle('question')}
     >STEP 1
     </div>
     <div
       className="half-circle bg-brand-primary items-center flex justify-center white"
-      onClick={() => toggle('question')}
   >
       <ChevronRight width="1rem" height="1rem" stroke="white" />
     </div>
@@ -42,7 +41,6 @@ const StepIndicator = ({ step, toggle }) => (
         backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
         color: step === 'answers' ? Colors.white : Colors.brandNearBlack
       }}
-      onClick={() => toggle('answers')}
       >STEP 2
     </div>
   </div>
@@ -93,7 +91,7 @@ class ScriptBuilderView extends Component {
         <div>
           <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
             <div className="flex items-center">
-              <ChevronLeftCircle width="2rem" height="2rem" fill="black" />
+              <div onClick={() => browserHistory.push('/scripts')}>              <ChevronLeftCircle width="2rem" height="2rem" fill="black" /></div>
               <ScriptInfo step={currentStep} name={currentScript.attributes.name} scriptId={currentScript.id} />
             </div>
             <StepIndicator step={currentStep} toggle={this.toggleStep} />
@@ -122,6 +120,7 @@ class ScriptBuilderView extends Component {
                       toggleStep={this.toggleStep}
                       questions={questions}
                       currentQuestion={currentQuestion}
+                      currentScript={currentScript}
                       />
                   }
                 </div>
