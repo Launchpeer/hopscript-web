@@ -9,7 +9,9 @@ const RenderInfoDisplay = ({
   fontColor,
   onClick,
   cash,
-  noEdit
+  noEdit,
+  editOrThis,
+  fontSize
 }) => (
   <div
     className="flex items-center justify-between"
@@ -19,9 +21,9 @@ const RenderInfoDisplay = ({
   >
 
     <div
-      className="ba w-100 f5 pa2 mt2 bn"
+      className={`ba w-100 pa2 mt2 bn ${fontSize} `}
       style={{
-        color: fontColor ? Colors[fontColor] : Colors.primaryGrey
+        color: fontColor ? Colors[fontColor] : Colors.primaryGrey,
       }}
     >
       {cash && '$ '}
@@ -36,7 +38,7 @@ const RenderInfoDisplay = ({
         role="button"
         onClick={onClick}
       >
-        Edit
+        {editOrThis || "Edit"}
       </div>
     )}
   </div>
@@ -51,7 +53,8 @@ const renderTextInput = (field) => {
     borderColor,
     onClick,
     normalize,
-    cash
+    cash,
+    fontSize
   } = field;
   const placeholderCashCheck = () => {
     if (cash) {
@@ -70,7 +73,7 @@ const renderTextInput = (field) => {
         {...input}
         type={type}
         placeholder={placeholderCashCheck()}
-        className="ba w-100 f5 pa2 mt2 bn"
+        className={`ba w-100 pa2 mt2 bn ${fontSize}`}
         style={{
           color: fontColor ? Colors[fontColor] : Colors.black
         }}
@@ -114,11 +117,13 @@ class InputTextEditable extends Component {
       onSubmit,
       normalize,
       cash,
-      noEdit
+      noEdit,
+      editOrThis,
+      fontSize
     } = this.props;
     return (
-      <div className={`w-100 input-height mb3 ${classOverrides}`}>
-        <div className="pa2">
+      <div className={`w-100 input-height ${classOverrides}`}>
+        <div>
           <Label name={name} label={label} />
           {this.state.edit ? (
             <Field
@@ -130,6 +135,7 @@ class InputTextEditable extends Component {
               fontColor={fontColor}
               borderRadius={borderRadius}
               normalize={normalize}
+              fontSize={fontSize}
               editInput
               cash={cash}
               onClick={() => {
@@ -144,6 +150,8 @@ class InputTextEditable extends Component {
               fontColor={fontColor}
               cash={cash}
               noEdit={noEdit}
+              editOrThis={editOrThis}
+              fontSize={fontSize}
               onClick={() => this.setState({ edit: !this.state.edit })}
             />
           )}

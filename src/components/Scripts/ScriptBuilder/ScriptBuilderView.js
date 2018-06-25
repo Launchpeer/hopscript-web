@@ -14,10 +14,10 @@ import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderView, GlossaryView, N
 import subscribeToClass from '../../helpers/subscribeToClass';
 
 const ScriptInfo = ({ name, step, scriptId }) => (
-  <div className="ml4">
+  <div>
     <ScriptNameForm name={name} scriptId={scriptId} />
-    {step === 'question' && <div className="brand-near-black">STEP 1: Add Questions to your Script</div>}
-    {step === 'answers' && <div className="brand-near-black">STEP 2: Add Answers to your Question</div>}
+    {step === 'question' && <div className="brand-near-black pl2">STEP 1: Add Questions to your Script</div>}
+    {step === 'answers' && <div className="brand-near-black pl2">STEP 2: Add Answers to your Question</div>}
   </div>
 );
 
@@ -26,17 +26,16 @@ const StepIndicator = ({ step, toggle }) => (
     className="flex items-center steps pointer"
     style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
     >
-    <div
-      className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3"
-    >STEP 1
+    <div className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3 f6">
+      STEP 1
     </div>
     <div
       className="half-circle bg-brand-primary items-center flex justify-center white"
   >
-      <ChevronRight width="1rem" height="1rem" stroke="white" />
+      <ChevronRight width="1rem" height="1rem" color="white" />
     </div>
     <div
-      className="h2 flex items-center tc pr4 pl4 step-2"
+      className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
       style={{
         backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
         color: step === 'answers' ? Colors.white : Colors.brandNearBlack
@@ -91,8 +90,12 @@ class ScriptBuilderView extends Component {
         <div>
           <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
             <div className="flex items-center">
-              <div onClick={() => browserHistory.push('/scripts')}>              <ChevronLeftCircle width="2rem" height="2rem" fill="black" /></div>
-              <ScriptInfo step={currentStep} name={currentScript.attributes.name} scriptId={currentScript.id} />
+              <div onClick={() => browserHistory.push('/scripts')}>
+                <ChevronLeftCircle width="2rem" height="2rem" fill="black" />
+              </div>
+              <div className="flex items-center pl3">
+                <ScriptInfo step={currentStep} name={currentScript.attributes.name} scriptId={currentScript.id} />
+              </div>
             </div>
             <StepIndicator step={currentStep} toggle={this.toggleStep} />
           </div>

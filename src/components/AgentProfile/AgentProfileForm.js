@@ -34,12 +34,14 @@ class AgentProfileForm extends Component {
           type="text"
           label="Brokerage"
           borderColor={Colors.moonGray}
+          classOverrides="mb3 pa2"
           placeholder={brokerage && brokerage.attributes.username}
           noEdit />
         <InputTextEditable
           name="username"
           type="text"
           label="Name"
+          classOverrides="mb3 pa2"
           borderColor={Colors.moonGray}
           placeholder={user && user.get('username')}
           onSubmit={handleSubmit(this.handleFormSubmit)} />
@@ -47,6 +49,7 @@ class AgentProfileForm extends Component {
           name="email"
           type="text"
           label="email"
+          classOverrides="mb3 pa2"
           borderColor={Colors.moonGray}
           placeholder={user && user.get('email')}
           noEdit />
