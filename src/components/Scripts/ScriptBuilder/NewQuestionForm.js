@@ -56,7 +56,7 @@ class NewQuestionForm extends Component {
                   name="category"
                   type="dropdown"
                   placeholder="Choose category"
-                  options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
+                  options={['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close']}
                   borderColor={Colors.moonGray}
                 />
               </div>

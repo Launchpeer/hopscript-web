@@ -5,15 +5,15 @@ import { Colors } from '../../../config/styles';
 const GlossaryItem = ({
   question, currentQuestion, setCurrentQuestion
 }) => {
-  console.log('question', question.id);
+  console.log('current', currentQuestion)
   return (
     <div className="flex justify-between items-center pointer mb2" onClick={() => setCurrentQuestion(question)}>
       <GridIcon width="1rem" height="1rem" fill={Colors.moonGray} />
       <div
         className="w2 h2 bg-light-gray br-100 flex items-center justify-center"
         style={{
-          backgroundColor: (currentQuestion.id === question.id || !currentQuestion) ? Colors.brandGreen : Colors.lightGray,
-          color: (currentQuestion.id === question.id || !currentQuestion) ? Colors.white : Colors.brandNearBlack,
+          backgroundColor: Colors.brandGreen,
+          color: Colors.white,
 
         }}
          />
@@ -23,17 +23,27 @@ const GlossaryItem = ({
   );
 };
 
+const GlossarySection = ({ questions, header, currentQuestion, setCurrentQuestion }) => {
+  return (
+    <div>
+      <div className="flex justify-between b brand-near-black mb4">
+        <div>{header}</div>
+        <div>Answers</div>
+      </div>
+      <div>
+        {questions && questions.filter(question => question.attributes.category === header).map((categoryItem) => <GlossaryItem question={categoryItem} key={categoryItem.id} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+      </div>
+    </div>
+  );
+}
+
+const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
+
 const GlossaryView = ({
   step, questions, currentQuestion, setCurrentQuestion, creatingNewQuestion
 }) => (
   <div className="pt5 br b--near-white h-100">
-    <div className="flex justify-between b brand-near-black mb4">
-      <div>Intro</div>
-      <div>Answers</div>
-    </div>
-    <div>
-      {(questions && currentQuestion) && questions.map((question, idx) => <GlossaryItem question={question} key={question.id} idx={idx} step={step} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
-    </div>
+    {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     <div className="mt4 pointer"
       style={{ color: creatingNewQuestion ? 'green' : 'black' }}
       onClick={() => setCurrentQuestion(null)}>create new question

@@ -27,10 +27,12 @@ class QuestionBuilderForm extends Component {
 
   handleFormSubmit(data) {
     this.props.createNewQuestion({ question: data, scriptId: this.props.currentScript.id });
+    this.props.toggleStep('answer');
   }
 
   handleNewQuestion() {
     this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
+    this.props.toggleStep('answer');
   }
 
   render() {
@@ -58,10 +60,10 @@ class QuestionBuilderForm extends Component {
               <div className="w-10">Category</div>
               <div className="w-60">
                 <InputDropDown
-                  name="attributes.category"
+                  name="category"
                   type="dropdown"
                   placeholder="Choose category"
-                  options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
+                  options={['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close']}
                   borderColor={Colors.moonGray}
                 />
               </div>
