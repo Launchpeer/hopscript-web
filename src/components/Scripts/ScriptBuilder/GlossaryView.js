@@ -5,7 +5,7 @@ import { Colors } from '../../../config/styles';
 const GlossaryItem = ({
   question, currentQuestion, setCurrentQuestion
 }) => {
-  console.log('question', question);
+  console.log('question', question.id);
   return (
     <div className="flex justify-between items-center pointer mb2" onClick={() => setCurrentQuestion(question)}>
       <GridIcon width="1rem" height="1rem" fill={Colors.moonGray} />
@@ -32,7 +32,7 @@ const GlossaryView = ({
       <div>Answers</div>
     </div>
     <div>
-      {questions && questions.map((question, idx) => <GlossaryItem question={question} key={question.id} idx={idx} step={step} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+      {(questions && currentQuestion) && questions.map((question, idx) => <GlossaryItem question={question} key={question.id} idx={idx} step={step} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     </div>
     <div className="mt4 pointer"
       style={{ color: creatingNewQuestion ? 'green' : 'black' }}

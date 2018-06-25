@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NewAnswerForm } from './';
 import { PlusIcon } from '../../common';
+import AnswerBlock from './AnswerBlock'
 
 const AddQuestionButton = ({ toggleForm }) => (
   <div className="flex items-center pointer" onClick={toggleForm}>
@@ -16,20 +17,28 @@ class AnswerBuilderView extends Component {
       newQuestionOpen: false
     };
     this.toggleForm = this.toggleForm.bind(this);
-    console.log('answer builder view');
+    this.removeAnswer = this.removeAnswer.bind(this);
   }
 
   toggleForm() {
     this.setState({ newQuestionOpen: !this.state.newQuestionOpen });
   }
 
+  removeAnswer(id) {
+    console.log('remove this', id)
+  }
+
   render() {
+    const { currentQuestion, answers, questions } = this.props;
     return (
       <div>
         {this.state.newQuestionOpen
         ? <NewAnswerForm toggleForm={this.toggleForm} />
         : <AddQuestionButton toggleForm={this.toggleForm} />
         }
+        {currentQuestion && currentQuestion.attributes.answers && currentQuestion.attributes.answers.map((answer, idx) => (
+          <AnswerBlock answer={answer} idx={idx} key={idx} removeAnswer={this.removeAnswer} questions={questions} edit={false} />
+        ))}
       </div>
     );
   }

@@ -121,6 +121,7 @@ class ScriptBuilderView extends Component {
                     : <AnswerBuilderView
                       toggleStep={this.toggleStep}
                       questions={questions}
+                      currentQuestion={currentQuestion}
                       />
                   }
                 </div>

@@ -124,7 +124,7 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
 };
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
-  Parse.Cloud.run('addAnswers', { data, questionId, scriptId })
+  Parse.Cloud.run('createNewAnswer', { data, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
     });
@@ -143,7 +143,6 @@ export const clearError = () => (dispatch) => {
 
 
 const updateScript = (data, scriptId) => (dispatch) => {
-  console.log('scriptId', scriptId);
   Parse.Cloud.run('updateScript', { scriptId, data })
     .then(() => {
       Parse.Cloud.run('fetchScript', { scriptId })
@@ -163,6 +162,14 @@ const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
     });
 };
 
+const updateAnswer = (data, answerId, scriptId) => (dispatch) => {
+  console.log('update answer');
+  Parse.Cloud.run('updateAnswer', { answer: data, answerId, scriptId })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
+    })
+}
+
 
 export {
   fetchScript,
@@ -172,5 +179,6 @@ export {
   createNewQuestion,
   currentScriptUpdate,
   updateQuestion,
-  addAnswersToQuestion
+  addAnswersToQuestion,
+  updateAnswer
 };

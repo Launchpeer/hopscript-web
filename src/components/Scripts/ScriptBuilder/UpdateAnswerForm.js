@@ -13,27 +13,26 @@ import {
   LoaderOrThis,
   PlusIcon
 } from '../../common';
-import { addAnswersToQuestion } from './ScriptBuilderActions';
+import { updateAnswer } from './ScriptBuilderActions';
 
-class NewAnswerForm extends Component {
+class UpdateAnswerForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.toggleForm()
-    this.props.addAnswersToQuestion(data, this.props.currentQuestion.id, this.props.currentScript.id);
+    this.props.toggleForm();
+    this.props.updateAnswer(data, this.props.answer.id, this.props.currentScript.id);
+    console.log('data', data);
   }
 
   render() {
     const {
       questions, loading, handleSubmit, toggleForm
     } = this.props;
-    console.log('questionsss', questions);
     return (
       <div>
-        <LoaderOrThis loading={loading}>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
@@ -63,16 +62,16 @@ class NewAnswerForm extends Component {
               </div>
               <div className="w-10">Route to</div>
               <div className="w-60">
-                {questions
-                  ? <InputDropDown
-                    name="route"
-                    type="dropdown"
-                    placeholder="Route to"
-                    options={questions}
-                    borderColor={Colors.moonGray}
-                   />
-                 : <div>N/A</div>
-                }
+              {questions
+                ? <InputDropDown
+                  name="route"
+                  type="dropdown"
+                  placeholder="Route to"
+                  options={questions.map((question) => { return { value: question.id, id: question.id, display: question.attributes.body }})}
+                  borderColor={Colors.moonGray}
+                 />
+               : <div>N/A</div>
+              }
               </div>
               <div className="w-30">
                 <button
@@ -85,15 +84,14 @@ class NewAnswerForm extends Component {
               </div>
             </div>
           </form>
-        </LoaderOrThis>
       </div>
     );
   }
 }
 
-const Form = reduxForm({
-  form: 'answerBuilder'
-})(NewAnswerForm);
+const AnswerForm = reduxForm({
+  form: 'updateAnswer'
+})(UpdateAnswerForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
@@ -102,10 +100,9 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   return {
     loading,
     error,
-    initialValues: currentQuestion,
     currentQuestion,
     currentScript
   };
 };
 
-export default connect(mapStateToProps, { addAnswersToQuestion })(Form);
+export default connect(mapStateToProps, { updateAnswer })(AnswerForm);
