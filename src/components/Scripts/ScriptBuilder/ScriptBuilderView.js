@@ -66,7 +66,6 @@ class ScriptBuilderView extends Component {
 
 
   newQuestion(script) {
-    console.log('ok ok ok');
     this.props.newQuestion(script);
   }
   handleSubscriptionCallback(script) {

@@ -92,7 +92,8 @@ function _setNewQuestion() {
 }
 
 const newQuestion = script => (dispatch) => {
-  dispatch(_setNewQuestion()).then(() => browserHistory.push(`/script-builder/${script.id}`));
+  dispatch(_setNewQuestion());
+  browserHistory.push(`/script-builder/${script.id}`);
 };
 
 const createNewScript = () => (dispatch) => {

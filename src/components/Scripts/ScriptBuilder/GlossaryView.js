@@ -7,18 +7,26 @@ const questionTrimmer = question => (
 );
 
 const GlossaryItem = ({
-  question, setCurrentQuestion
+  question, setCurrentQuestion, currentQuestion
 }) => (
   <div role="button" className="flex justify-between items-center pointer mb2" onClick={() => setCurrentQuestion(question)}>
     <div className="flex flex-row items-center">
       <GridIcon width="1rem" height="1rem" color={Colors.moonGray} />
-      <div
-        className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
-        style={{
-          backgroundColor: Colors.brandGreen,
-          color: Colors.white
-}} />
-      <div className="ml2"> {questionTrimmer(question.attributes.body) || 'create question'}</div>
+
+      {currentQuestion === question ?
+        <div
+          className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
+          style={{
+            backgroundColor: Colors.brandGreen,
+            color: Colors.white
+  }} /> :
+        <div
+          className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
+          style={{
+      backgroundColor: Colors.moonGray,
+      color: Colors.white
+  }} /> }
+      <div className="ml2"> {questionTrimmer(question.attributes.body)}</div>
     </div>
     <div className="b mr2">
       {question.attributes.answers ? question.attributes.answers.length : 0}
