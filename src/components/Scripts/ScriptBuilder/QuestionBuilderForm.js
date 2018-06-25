@@ -37,7 +37,7 @@ class QuestionBuilderForm extends Component {
 
   render() {
     const {
-      handleSubmit, valid, loading, error, onSubmit, toggleStep
+      handleSubmit, loading, toggleStep
     } = this.props;
     return (
       <div>
