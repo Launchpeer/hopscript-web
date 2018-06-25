@@ -23,7 +23,7 @@ const ScriptInfo = ({ name, step, scriptId }) => (
 
 const StepIndicator = ({ step, toggle }) => (
   <div
-    className="flex items-center steps pointer"
+    className="flex items-center steps"
     style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
     >
     <div className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3 f6">
@@ -90,7 +90,7 @@ class ScriptBuilderView extends Component {
         <div>
           <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
             <div className="flex items-center">
-              <div onClick={() => browserHistory.push('/scripts')}>
+              <div role="button" className="pointer" onClick={() => browserHistory.push('/scripts')}>
                 <ChevronLeftCircle width="2rem" height="2rem" fill="black" />
               </div>
               <div className="flex items-center pl3">
@@ -105,6 +105,7 @@ class ScriptBuilderView extends Component {
                 questions={questions}
                 step={currentStep}
                 currentQuestion={currentQuestion}
+                toggle={this.toggleStep}
                 setCurrentQuestion={this.setCurrentQuestion}
                 creatingNewQuestion={creatingNewQuestion} />
             </div>

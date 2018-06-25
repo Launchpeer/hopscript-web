@@ -81,8 +81,17 @@ class NewQuestionForm extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {};
+  if (!values.body || !values.category) {
+    errors._error = 'All fields required';
+  }
+  return errors;
+}
+
 const Form = reduxForm({
   form: 'newQuestion',
+  validate
 })(NewQuestionForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {

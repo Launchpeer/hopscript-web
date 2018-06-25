@@ -13,8 +13,7 @@ import {
   InputCheckbox,
   InputAudio,
   LoaderOrThis,
-  Button,
-  PlusIcon
+  Button
 } from '../../common';
 import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
@@ -22,7 +21,6 @@ class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleNewQuestion = this.handleNewQuestion.bind(this);
   }
 
   handleFormSubmit(data) {
@@ -30,21 +28,14 @@ class QuestionBuilderForm extends Component {
     this.props.toggleStep('answer');
   }
 
-  handleNewQuestion() {
-    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
-    this.props.toggleStep('answer');
-  }
-
   render() {
     const {
-      handleSubmit, valid, loading, error, onSubmit, toggleStep
+      handleSubmit, valid, loading, toggleStep
     } = this.props;
     return (
       <div>
         <LoaderOrThis loading={loading}>
-          <form
-            onSubmit={handleSubmit(this.handleFormSubmit)}
-          >
+          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div className="single-line-textarea">
               <InputTextArea name="attributes.body" placeholder="Write Question Here" />
             </div>
@@ -97,8 +88,18 @@ class QuestionBuilderForm extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {};
+  if (!values.attributes.body || !values.category) {
+    errors._error = 'All fields required';
+  }
+  return errors;
+}
+
+
 const Form = reduxForm({
   form: 'questionBuilder',
+  validate,
   enableReinitialize: true
 })(QuestionBuilderForm);
 
