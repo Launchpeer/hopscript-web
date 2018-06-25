@@ -44,13 +44,13 @@ const GlossarySection = ({
 const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
 
 const GlossaryView = ({
-  questions, currentQuestion, setCurrentQuestion
+  questions, currentQuestion, setCurrentQuestion, onClick
 }) => (
   <div className="pt5 pl2 pr3 br b--near-white h-100">
     {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     <div role="button"
       className="pointer"
-      onClick={() => console.log('this does nothing right now')}
+      onClick={onClick}
     > toggle
     </div>
   </div>

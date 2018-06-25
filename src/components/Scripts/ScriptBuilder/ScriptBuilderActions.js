@@ -84,11 +84,15 @@ const currentScriptUpdate = script => (dispatch) => {
   }
 };
 
-const newQuestion = () => (dispatch) => {
-  dispatch({
+function _setNewQuestion() {
+  return {
     type: CREATING_NEW_QUESTION_UPDATE,
     payload: true
-  });
+  };
+}
+
+const newQuestion = script => (dispatch) => {
+  dispatch(_setNewQuestion()).then(() => browserHistory.push(`/script-builder/${script.id}`));
 };
 
 const createNewScript = () => (dispatch) => {

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { ChevronLeftCircle, ChevronRight, CardRight } from '../../common';
 import { Colors } from '../../../config/styles';
-import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate } from './ScriptBuilderActions';
+import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate, newQuestion } from './ScriptBuilderActions';
 import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderView, GlossaryView, NewQuestionForm } from './';
 import subscribeToClass from '../../helpers/subscribeToClass';
 
@@ -61,8 +61,14 @@ class ScriptBuilderView extends Component {
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
+    this.newQuestion = this.newQuestion.bind(this);
   }
 
+
+  newQuestion(script) {
+    console.log('ok ok ok');
+    this.props.newQuestion(script);
+  }
   handleSubscriptionCallback(script) {
     this.props.currentScriptUpdate(script);
   }
@@ -107,6 +113,7 @@ class ScriptBuilderView extends Component {
                 currentQuestion={currentQuestion}
                 toggle={this.toggleStep}
                 setCurrentQuestion={this.setCurrentQuestion}
+                onClick={() => this.newQuestion(currentScript)}
                 creatingNewQuestion={creatingNewQuestion} />
             </div>
             <div className="w-70 pa3">
@@ -154,5 +161,6 @@ export default connect(mapStateToProps, {
   fetchScript,
   createNewScript,
   setCurrentQuestion,
-  currentScriptUpdate
+  currentScriptUpdate,
+  newQuestion
 })(ScriptBuilderView);
