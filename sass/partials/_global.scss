@@ -137,7 +137,7 @@ input {
 }
 
 .hov-image-uploader {
-  background-color: $lightGray;
+  background-color: white;
 }
 
 .hov-image-uploader:hover {
@@ -232,4 +232,9 @@ textarea:focus {
 
 .brand-green {
   color: $brandGreen;
+}
+
+
+.b--brand-green {
+  border: 1px solid $brandGreen;
 }

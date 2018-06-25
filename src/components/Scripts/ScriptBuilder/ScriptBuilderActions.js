@@ -108,19 +108,45 @@ const setCurrentQuestion = question => (dispatch) => {
   });
 };
 
+function _createNewAudio(audioFile) {
+  return new Promise((resolve) => {
+    console.log('audioFile', audioFile[0]);
+    const parseFile = new Parse.File('file', audioFile[0]);
+    resolve(parseFile.save());
+  });
+}
+
 const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
-  Parse.Cloud.run('createNewQuestion', { question, scriptId })
-    .then((res) => {
-      dispatch(fetchScript(scriptId, true));
-      dispatch({
-        type: CREATING_NEW_QUESTION_UPDATE,
-        payload: false
+  if (question.audio) {
+    _createNewAudio(question.audio)
+      .then((parseAudio) => {
+        Parse.Cloud.run('createNewQuestion', { question: { ...question, audio: parseAudio }, scriptId })
+          .then((res) => {
+            dispatch(fetchScript(scriptId, true));
+            dispatch({
+              type: CREATING_NEW_QUESTION_UPDATE,
+              payload: false
+            });
+            dispatch({
+              type: CURRENT_QUESTION_UPDATE,
+              payload: res
+            });
+          });
       });
-      dispatch({
-        type: CURRENT_QUESTION_UPDATE,
-        payload: res
+  } else {
+    Parse.Cloud.run('createNewQuestion', { question, scriptId })
+      .then((res) => {
+        dispatch(fetchScript(scriptId, true));
+        dispatch({
+          type: CREATING_NEW_QUESTION_UPDATE,
+          payload: false
+        });
+        dispatch({
+          type: CURRENT_QUESTION_UPDATE,
+          payload: res
+        });
       });
-    });
+  }
 };
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
@@ -166,15 +192,15 @@ const updateAnswer = (data, answerId, scriptId) => (dispatch) => {
   Parse.Cloud.run('updateAnswer', { answer: data, answerId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
-    })
-}
+    });
+};
 
 const removeAnswer = (answerId, scriptId, questionId) => (dispatch) => {
   Parse.Cloud.run('deleteAnswer', { answerId, scriptId, questionId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
-    })
-}
+    });
+};
 
 export {
   fetchScript,

@@ -15,27 +15,28 @@ class renderAudioUpload extends Component {
   render() {
     const {
       input,
-      name,
       classOverrides,
       meta: { error }
     } = this.props;
     const files = input.value;
     return (
       <div className="pointer">
-        <div className="flex items-center w-100 ba br2 pa2" style={{ borderColor: Colors.brandGreen, height: '3rem' }}>
-          {files[0] && (<div>File exists</div>)}
-          <div>
-            <MicrophoneIcon width="2rem" height="2rem" color={Colors.brandGreen} />
-          </div>
-          <div className="brand-green">Optional Audio</div>
+        <div>
           <Dropzone
-            name='audio'
-            className={`${this.state.dragging === true ? "bg-brand-primary" : "hov-image-uploader"} ${classOverrides}`}
+            name="audio"
+            accept="audio/x-m4a, audio/*"
+            className={`${this.state.dragging === true ? "bg-brand-primary" : "hov-image-uploader"} ${classOverrides} flex items-center w-100 ba br2 pa2 b--brand-green`}
             onDrop={filesToUpload => input.onChange(filesToUpload)}
             dropClass={this.state.dragging === true ? "bg-brand-primary" : "bg-moon-grey"}
             onDragOver={() => this.setState({ dragging: true })}
             onDragLeave={() => this.setState({ dragging: false })}
-          />
+          >
+            <div>
+              <MicrophoneIcon width="2rem" height="2rem" color={Colors.brandGreen} />
+            </div>
+            <div className="brand-green">Optional Audio</div>
+            {files[0] && (<div className="ml4 brand-green">Audio loaded!</div>)}
+          </Dropzone>
         </div>
         {error &&
         <span className="error">{error}</span>}
@@ -44,7 +45,7 @@ class renderAudioUpload extends Component {
   }
 }
 
-const InputAudio = (props) => (
+const InputAudio = props => (
   <div className="w-100 tc">
     <Field {...props} component={renderAudioUpload} />
   </div>
