@@ -14,28 +14,23 @@ import {
   InputAudio,
   LoaderOrThis,
   Button,
-  PlusIcon
 } from '../../common';
 import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
-class QuestionBuilderForm extends Component {
+class NewQuestionForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleNewQuestion = this.handleNewQuestion.bind(this);
   }
 
   handleFormSubmit(data) {
     this.props.createNewQuestion({ question: data, scriptId: this.props.currentScript.id });
-  }
-
-  handleNewQuestion() {
-    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
+    this.props.toggleStep('answers');
   }
 
   render() {
     const {
-      handleSubmit, valid, loading, error, onSubmit, toggleStep
+      handleSubmit, loading,
     } = this.props;
     return (
       <div>
@@ -44,13 +39,13 @@ class QuestionBuilderForm extends Component {
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
             <div className="single-line-textarea">
-              <InputTextArea name="attributes.body" placeholder="Write Question Here" />
+              <InputTextArea name="body" placeholder="Write Question Here" />
             </div>
             <div className="flex mt4">
               <div className="w-10">Description</div>
               <div className="w-90">
                 <div className="block-textarea">
-                  <InputTextArea name="attributes.description" placeholder="Optional Description" />
+                  <InputTextArea name="description" placeholder="Optional Description" />
                 </div>
               </div>
             </div>
@@ -58,7 +53,7 @@ class QuestionBuilderForm extends Component {
               <div className="w-10">Category</div>
               <div className="w-60">
                 <InputDropDown
-                  name="attributes.category"
+                  name="category"
                   type="dropdown"
                   placeholder="Choose category"
                   options={['Lead Type 1', 'Lead Type 2', 'Lead Type 3']}
@@ -76,17 +71,8 @@ class QuestionBuilderForm extends Component {
                 <InputAudio name="audio" />
               </div>
             </div>
-            <Button
-              onClick={(e) => { e.preventDefault(); toggleStep('answer'); }}
-              borderColor={Colors.brandGreen}
-              borderWidth="1px"
-              fontColor={Colors.brandGreen}
-              classOverrides="flex items-center mr2"
-            >
-              Go to Step 2: Answers
-            </Button>
             <div className="flex justify-end mt6">
-              <Button backgroundColor={Colors.brandGreen}>save</Button>
+              <Button backgroundColor={Colors.brandGreen}>Create</Button>
             </div>
           </form>
         </LoaderOrThis>
@@ -96,21 +82,17 @@ class QuestionBuilderForm extends Component {
 }
 
 const Form = reduxForm({
-  form: 'questionBuilder',
-  enableReinitialize: true
-})(QuestionBuilderForm);
+  form: 'newQuestion',
+})(NewQuestionForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
-    error, loading, currentQuestion, currentScript, questions
+    error, loading, currentScript
   } = ScriptBuilderReducer;
   return {
     loading,
     error,
-    initialValues: currentQuestion,
-    currentQuestion,
     currentScript,
-    questions
   };
 };
 

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { ChevronLeftCircle, ChevronRight, CardRight } from '../../common';
 import { Colors } from '../../../config/styles';
 import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate } from './ScriptBuilderActions';
-import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderForm, GlossaryView } from './';
+import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderView, GlossaryView, NewQuestionForm } from './';
 import subscribeToClass from '../../helpers/subscribeToClass';
 
 const ScriptInfo = ({ name, step, scriptId }) => (
@@ -84,7 +84,9 @@ class ScriptBuilderView extends Component {
 
   render() {
     const { currentStep } = this.state;
-    const { currentScript, currentQuestion, questions } = this.props;
+    const {
+      currentScript, currentQuestion, questions, creatingNewQuestion
+    } = this.props;
     return (
       <CardRight>
         {currentScript &&
@@ -98,10 +100,31 @@ class ScriptBuilderView extends Component {
           </div>
           <div className="w-100 flex">
             <div className="w-30 pa3">
-              {questions && currentQuestion && <GlossaryView questions={questions} step={currentStep} currentQuestion={currentQuestion} setCurrentQuestion={this.setCurrentQuestion} /> }
+              <GlossaryView
+                questions={questions}
+                step={currentStep}
+                currentQuestion={currentQuestion}
+                setCurrentQuestion={this.setCurrentQuestion}
+                creatingNewQuestion={creatingNewQuestion} />
             </div>
             <div className="w-70 pa3">
-              {(currentStep === 'question' && currentQuestion && questions) ? <QuestionBuilderForm scriptId={this.props.params.id} /> : <AnswerBuilderForm toggleStep={this.toggleStep} questions={questions} />}
+              {creatingNewQuestion
+              ?
+                <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} />
+              :
+                <div>
+                  {(currentStep === 'question')
+                    ? <QuestionBuilderForm
+                      scriptId={this.props.params.id}
+                      toggleStep={this.toggleStep}
+                      />
+                    : <AnswerBuilderView
+                      toggleStep={this.toggleStep}
+                      questions={questions}
+                      />
+                  }
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -112,11 +135,14 @@ class ScriptBuilderView extends Component {
 }
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
-  const { currentScript, currentQuestion, questions } = ScriptBuilderReducer;
+  const {
+    currentScript, currentQuestion, questions, creatingNewQuestion
+  } = ScriptBuilderReducer;
   return {
     currentScript,
     currentQuestion,
-    questions
+    questions,
+    creatingNewQuestion
   };
 };
 
