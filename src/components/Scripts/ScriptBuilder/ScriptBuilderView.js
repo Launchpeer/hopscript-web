@@ -61,7 +61,6 @@ class ScriptBuilderView extends Component {
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
-    this.newQuestion = this.newQuestion.bind(this);
   }
 
   handleSubscriptionCallback(script) {
@@ -72,10 +71,6 @@ class ScriptBuilderView extends Component {
     this.setState({ currentStep: step });
   }
 
-  newQuestion() {
-    this.props.newQuestion();
-    this.setState({ currentStep: 'question' });
-  }
   createNewScript() {
     this.props.createNewScript();
   }
@@ -111,7 +106,6 @@ class ScriptBuilderView extends Component {
                 step={currentStep}
                 currentQuestion={currentQuestion}
                 toggle={this.toggleStep}
-                onClick={this.newQuestion}
                 setCurrentQuestion={this.setCurrentQuestion}
                 creatingNewQuestion={creatingNewQuestion} />
             </div>
@@ -160,6 +154,5 @@ export default connect(mapStateToProps, {
   fetchScript,
   createNewScript,
   setCurrentQuestion,
-  currentScriptUpdate,
-  newQuestion
+  currentScriptUpdate
 })(ScriptBuilderView);
