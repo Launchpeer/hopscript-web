@@ -4,3 +4,4 @@ export { default as ResetPasswordView } from './ResetPasswordView';
 export { default as BrokerageSignUpForm } from './BrokerageSignUpForm';
 export { default as SignInForm } from './SignInForm';
 export { default as AuthInput } from './AuthInput';
+export { default as AgentWelcomeView } from './AgentWelcomeView';
