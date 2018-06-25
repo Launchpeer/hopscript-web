@@ -22,7 +22,7 @@ class NewAnswerForm extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.toggleForm()
+    this.props.toggleForm();
     this.props.addAnswersToQuestion(data, this.props.currentQuestion.id, this.props.currentScript.id);
   }
 
@@ -30,7 +30,7 @@ class NewAnswerForm extends Component {
     const {
       questions, loading, handleSubmit, toggleForm
     } = this.props;
-    console.log('questionsss', questions);
+    console.log('questions', questions);
     return (
       <div>
         <LoaderOrThis loading={loading}>
@@ -49,6 +49,7 @@ class NewAnswerForm extends Component {
               </div>
               <div className="w-30">
                 <div
+                  role="button"
                   className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
                   style={{ borderRadius: BorderRadius.all }}
                   onClick={toggleForm}

@@ -21,6 +21,7 @@ class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleNewQuestion = this.handleNewQuestion.bind(this);
   }
 
   handleFormSubmit(data) {
@@ -28,9 +29,14 @@ class QuestionBuilderForm extends Component {
     this.props.toggleStep('answer');
   }
 
+  handleNewQuestion() {
+    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
+    this.props.toggleStep('answer');
+  }
+
   render() {
     const {
-      handleSubmit, valid, loading, toggleStep
+      handleSubmit, loading, toggleStep
     } = this.props;
     return (
       <div>
@@ -88,18 +94,9 @@ class QuestionBuilderForm extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-  if (!values.attributes.body || !values.category) {
-    errors._error = 'All fields required';
-  }
-  return errors;
-}
-
 
 const Form = reduxForm({
   form: 'questionBuilder',
-  validate,
   enableReinitialize: true
 })(QuestionBuilderForm);
 

@@ -84,6 +84,13 @@ const currentScriptUpdate = script => (dispatch) => {
   }
 };
 
+const newQuestion = () => (dispatch) => {
+  dispatch({
+    type: CREATING_NEW_QUESTION_UPDATE,
+    payload: true
+  });
+};
+
 const createNewScript = () => (dispatch) => {
   const User = Parse.User.current();
   Parse.Cloud.run('createNewScript', { userId: User.id })
@@ -212,5 +219,6 @@ export {
   updateQuestion,
   addAnswersToQuestion,
   updateAnswer,
-  removeAnswer
+  removeAnswer,
+  newQuestion
 };
