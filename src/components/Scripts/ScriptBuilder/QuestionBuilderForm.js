@@ -45,17 +45,17 @@ class QuestionBuilderForm extends Component {
             <div className="single-line-textarea">
               <InputTextArea name="attributes.body" placeholder="Write Question Here" />
             </div>
-            <div className="flex mt4">
-              <div className="w-10">Description</div>
-              <div className="w-90">
+            <div className="flex mt4 justify-between">
+              <div className="w-20">Description</div>
+              <div className="w-80">
                 <div className="block-textarea">
                   <InputTextArea name="attributes.description" placeholder="Optional Description" />
                 </div>
               </div>
             </div>
-            <div className="flex items-center mt4">
-              <div className="w-10">Category</div>
-              <div className="w-60">
+            <div className="flex items-center mt4 justify-between">
+              <div className="w-20">Category</div>
+              <div className="w-80">
                 <InputDropDown
                   name="category"
                   type="dropdown"
@@ -64,14 +64,10 @@ class QuestionBuilderForm extends Component {
                   borderColor={Colors.moonGray}
                 />
               </div>
-              <div className="flex items-center ml2">
-                <InputCheckbox name="closing" />
-                <div className="ml1">Closing Statement</div>
-              </div>
             </div>
             <div className="flex">
-              <div className="w-10">Audio</div>
-              <div className="w-90">
+              <div className="w-20">Audio</div>
+              <div className="w-80">
                 <InputAudio name="audio" />
               </div>
             </div>

@@ -9,7 +9,7 @@ import { removeAnswer } from './ScriptBuilderActions';
 
 const AddAnswerButton = ({ toggleForm }) => (
   <div className="flex items-center pointer" onClick={toggleForm}>
-    <PlusIcon color="green" width="2rem" height="2rem" />
+    <PlusIcon color={Colors.brandNearBlack} width="2rem" height="2rem" />
     <div className="b brand-near-black">Add answer</div>
   </div>
 );

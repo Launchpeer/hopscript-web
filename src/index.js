@@ -18,13 +18,13 @@ import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
 import { AUTH_USER } from './components/Auth/AuthTypes';
 import { UPDATE_USER } from './components/UserTypes';
-import { AuthView, ForgotPasswordView, ResetPasswordView } from './components/Auth';
+import { AuthView, ForgotPasswordView, ResetPasswordView, AgentWelcomeView } from './components/Auth';
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
 import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
-import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView } from './components/Leads';
+import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView, LeadGroupDetailView } from './components/Leads';
 import { StripeView } from './components/Stripe';
 import { ScriptBuilderView, ScriptsListView } from './components/Scripts';
 import { CallView } from './components/Call';
@@ -54,7 +54,7 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe'];
+const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe', '/welcome'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
@@ -71,6 +71,7 @@ ReactDOM.render(
         <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
+        <Route path="welcome" component={AgentWelcomeView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />
@@ -84,6 +85,7 @@ ReactDOM.render(
         <Route path="leads-list/:id" component={LeadDetailView} />
         <Route path="lead-groups-add" component={LeadGroupAddView} />
         <Route path="lead-groups-list" component={LeadGroupListView} />
+        <Route path="lead-groups-list/:id" component={LeadGroupDetailView} />
         <Route path="script-builder/:id" component={ScriptBuilderView} />
         <Route path="call" component={CallView} />
         <Route path="history" component={HistoryListView} />

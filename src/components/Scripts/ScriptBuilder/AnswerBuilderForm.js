@@ -120,7 +120,7 @@ class AnswerBuilderForm extends Component {
               />
             : <div className="flex items-center pointer" onClick={() => { this.setState({ newAnswer: !this.state.newAnswer }); }}>
               <PlusIcon color={Colors.brandNearBlack} width="2rem" height="2rem" />
-              <div className="b brand-near-black">Add answer</div>
+              <div className="b bg-brand-near-black">Add answer</div>
               </div>
             }
             <div className="flex justify-end mt6">
