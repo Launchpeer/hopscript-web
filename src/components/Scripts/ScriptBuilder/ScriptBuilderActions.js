@@ -113,6 +113,10 @@ const createNewScript = () => (dispatch) => {
         type: CREATING_NEW_QUESTION_UPDATE,
         payload: true
       });
+      dispatch({
+        type: QUESTIONS_UPDATE,
+        payload: null
+      });
       browserHistory.push(`/script-builder/${script.id}`);
     });
 };
