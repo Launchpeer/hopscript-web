@@ -201,8 +201,9 @@ const updateScript = (data, scriptId) => (dispatch) => {
     });
 };
 
-const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
-  Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId, scriptId })
+const updateQuestion = ({ data, questionId, scriptId }) => (dispatch) => {
+  console.log({ data, questionId, scriptId });
+  Parse.Cloud.run('updateQuestion', { data, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
     });

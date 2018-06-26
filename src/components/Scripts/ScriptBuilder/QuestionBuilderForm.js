@@ -15,23 +15,16 @@ import {
   LoaderOrThis,
   Button
 } from '../../common';
-import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript, updateQuestion } from './ScriptBuilderActions';
 
 class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleNewQuestion = this.handleNewQuestion.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.createNewQuestion({ question: data, scriptId: this.props.currentScript.id });
-    this.props.toggleStep('answers');
-  }
-
-  handleNewQuestion() {
-    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
-    this.props.toggleStep('answers');
+    this.props.updateQuestion({ data, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id });
   }
 
   render() {
@@ -43,13 +36,13 @@ class QuestionBuilderForm extends Component {
         <LoaderOrThis loading={loading}>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div className="single-line-textarea">
-              <InputTextArea name="attributes.body" placeholder="Write Question Here" />
+              <InputTextArea name="body" placeholder="Write Question Here" />
             </div>
             <div className="flex mt4 justify-between">
               <div className="w-20">Description</div>
               <div className="w-80">
                 <div className="block-textarea">
-                  <InputTextArea name="attributes.description" placeholder="Optional Description" />
+                  <InputTextArea name="description" placeholder="Optional Description" />
                 </div>
               </div>
             </div>
@@ -103,11 +96,11 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   return {
     loading,
     error,
-    initialValues: currentQuestion,
+    initialValues: currentQuestion.attributes,
     currentQuestion,
     currentScript,
     questions
   };
 };
 
-export default connect(mapStateToProps, { createNewQuestion, fetchScript })(Form);
+export default connect(mapStateToProps, { createNewQuestion, fetchScript, updateQuestion })(Form);
