@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { ChevronLeftCircle, ChevronRight, CardRight } from '../../common';
 import { Colors } from '../../../config/styles';
-import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate, newQuestion } from './ScriptBuilderActions';
+import { fetchScript, createNewScript, setCurrentQuestion, currentScriptUpdate, newQuestion, toggleCreationState } from './ScriptBuilderActions';
 import { QuestionBuilderForm, ScriptNameForm, AnswerBuilderView, GlossaryView, NewQuestionForm } from './';
 import subscribeToClass from '../../helpers/subscribeToClass';
 
@@ -21,29 +21,32 @@ const ScriptInfo = ({ name, step, scriptId }) => (
   </div>
 );
 
-const StepIndicator = ({ step, toggle }) => (
-  <div
-    className="flex items-center steps"
-    style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
-    >
-    <div className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3 f6">
-      STEP 1
-    </div>
-    <div
-      className="half-circle bg-brand-primary items-center flex justify-center white"
-  >
-      <ChevronRight width="1rem" height="1rem" color="white" />
-    </div>
-    <div
-      className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
-      style={{
-        backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
-        color: step === 'answers' ? Colors.white : Colors.brandNearBlack
-      }}
-      >STEP 2
-    </div>
-  </div>
-);
+const StepIndicator = ({ step, toggle }) => {
+    console.log('step', step);
+    return (
+      <div
+        className="flex items-center steps"
+        style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
+        >
+        <div className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3 f6">
+          STEP 1
+        </div>
+        <div
+          className="half-circle bg-brand-primary items-center flex justify-center white"
+      >
+          <ChevronRight width="1rem" height="1rem" color="white" />
+        </div>
+        <div
+          className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
+          style={{
+            backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
+            color: step === 'answers' ? Colors.white : Colors.brandNearBlack
+          }}
+          >STEP 2
+        </div>
+      </div>
+    );
+}
 
 class ScriptBuilderView extends Component {
   constructor(props) {
@@ -66,7 +69,9 @@ class ScriptBuilderView extends Component {
 
 
   newQuestion(script) {
+    this.toggleStep('question');
     this.props.newQuestion(script);
+    this.props.setCurrentQuestion(null);
   }
   handleSubscriptionCallback(script) {
     this.props.currentScriptUpdate(script);
@@ -82,6 +87,8 @@ class ScriptBuilderView extends Component {
 
   setCurrentQuestion(question) {
     this.props.setCurrentQuestion(question);
+    this.toggleStep('question');
+    this.props.toggleCreationState(false);
   }
 
   render() {
@@ -161,5 +168,6 @@ export default connect(mapStateToProps, {
   createNewScript,
   setCurrentQuestion,
   currentScriptUpdate,
-  newQuestion
+  newQuestion,
+  toggleCreationState
 })(ScriptBuilderView);

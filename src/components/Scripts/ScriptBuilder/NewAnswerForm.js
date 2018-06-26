@@ -30,14 +30,13 @@ class NewAnswerForm extends Component {
     const {
       questions, loading, handleSubmit, toggleForm
     } = this.props;
-    console.log('questions', questions);
     return (
       <div>
         <LoaderOrThis loading={loading}>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
-            <div className="flex mt4">
+            <div className="flex mt4 mb2">
               <div className="w-10">
                 <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center" />
               </div>
@@ -47,7 +46,7 @@ class NewAnswerForm extends Component {
                   <InputTextArea name="answer" body="answer" placeholder="Type Answer here" />
                 </div>
               </div>
-              <div className="w-30">
+              <div className="w-20 flex items-end flex-column">
                 <div
                   role="button"
                   className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
@@ -75,13 +74,13 @@ class NewAnswerForm extends Component {
                  : <div>N/A</div>
                 }
               </div>
-              <div className="w-30">
+              <div className="w-20 flex items-end flex-column">
                 <button
-                  className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+                  className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
                   style={{ borderRadius: BorderRadius.all }}
                   type="submit"
                   >
-                  <PlusIcon color={Colors.brandGreen} width="1rem" height="1rem" />
+                  <PlusIcon color={Colors.brandGreen} width="1.5rem" height="1.5rem" />
                 </button>
               </div>
             </div>

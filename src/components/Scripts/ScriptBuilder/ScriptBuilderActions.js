@@ -84,17 +84,22 @@ const currentScriptUpdate = script => (dispatch) => {
   }
 };
 
-function _setNewQuestion() {
+function _setNewQuestion(state) {
+  console.log('setting state', state);
   return {
     type: CREATING_NEW_QUESTION_UPDATE,
-    payload: true
+    payload: state
   };
 }
 
 const newQuestion = script => (dispatch) => {
-  dispatch(_setNewQuestion());
-  browserHistory.push(`/script-builder/${script.id}`);
+  console.log('new question');
+  dispatch(_setNewQuestion(true));
 };
+
+const toggleCreationState = state => (dispatch) => {
+  dispatch(_setNewQuestion(false));
+}
 
 const createNewScript = () => (dispatch) => {
   const User = Parse.User.current();
@@ -113,7 +118,6 @@ const createNewScript = () => (dispatch) => {
 };
 
 const setCurrentQuestion = question => (dispatch) => {
-  console.log('current question');
   dispatch({
     type: CURRENT_QUESTION_UPDATE,
     payload: question
@@ -225,5 +229,6 @@ export {
   addAnswersToQuestion,
   updateAnswer,
   removeAnswer,
-  newQuestion
+  newQuestion,
+  toggleCreationState
 };

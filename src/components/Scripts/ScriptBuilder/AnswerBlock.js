@@ -17,7 +17,7 @@ const AnswerEdit = ({
   answer, removeAnswer, questions, onClick
 }) => (
   <div>
-    <div className="flex mt4">
+    <div className="flex mt4 mb2">
       <div className="w-10">
         <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center"></div>
       </div>
@@ -51,9 +51,9 @@ const AnswerEdit = ({
           borderColor={Colors.moonGray}
          />
       </div>
-      <div className="w-30">
+      <div className="w-20 flex items-end flex-column">
         <div
-          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer bn"
           style={{ borderRadius: BorderRadius.all }}
           onClick={onClick}
           >
@@ -65,7 +65,7 @@ const AnswerEdit = ({
 
 const AnswerDisplay = ({ answer, onClick, removeAnswer }) => {
   return (<div>
-    <div className="flex mt4">
+    <div className="flex mt4 mb2">
       <div className="w-10">
         <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center"></div>
       </div>
@@ -75,7 +75,7 @@ const AnswerDisplay = ({ answer, onClick, removeAnswer }) => {
           {answer.attributes && answer.attributes.body}
         </div>
       </div>
-      <div className="w-30">
+      <div className="w-20 flex items-end flex-column">
         <div
           className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
           style={{ borderRadius: BorderRadius.all }}
@@ -93,9 +93,9 @@ const AnswerDisplay = ({ answer, onClick, removeAnswer }) => {
       <div className="w-60">
         NA
       </div>
-      <div className="w-30">
+      <div className="w-20 flex items-end flex-column">
         <div
-          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer bn"
           style={{ borderRadius: BorderRadius.all }}
           onClick={onClick}
           >
