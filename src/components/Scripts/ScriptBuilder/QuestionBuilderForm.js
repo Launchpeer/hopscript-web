@@ -26,12 +26,12 @@ class QuestionBuilderForm extends Component {
 
   handleFormSubmit(data) {
     this.props.createNewQuestion({ question: data, scriptId: this.props.currentScript.id });
-    this.props.toggleStep('answer');
+    this.props.toggleStep('answers');
   }
 
   handleNewQuestion() {
     this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
-    this.props.toggleStep('answer');
+    this.props.toggleStep('answers');
   }
 
   render() {
@@ -75,16 +75,16 @@ class QuestionBuilderForm extends Component {
                 <InputAudio name="audio" />
               </div>
             </div>
-            <Button
-              onClick={(e) => { e.preventDefault(); toggleStep('answer'); }}
-              borderColor={Colors.brandGreen}
-              borderWidth="1px"
-              fontColor={Colors.brandGreen}
-              classOverrides="flex items-center mr2"
-            >
-              Go to Step 2: Answers
-            </Button>
             <div className="flex justify-end mt6">
+              <Button
+                onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}
+                borderColor={Colors.brandGreen}
+                borderWidth="1px"
+                fontColor={Colors.brandGreen}
+                classOverrides="flex items-center mr2"
+              >
+                Go to Step 2: Answers
+              </Button>
               <Button backgroundColor={Colors.brandGreen}>save</Button>
             </div>
           </form>

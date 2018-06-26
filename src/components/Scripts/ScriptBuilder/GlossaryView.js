@@ -20,14 +20,14 @@ const GlossaryItem = ({
             backgroundColor: Colors.brandGreen,
             color: Colors.white
                 }} />
-          :
+      :
         <div
           className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
           style={{
             backgroundColor: Colors.moonGray,
             color: Colors.white
                 }} />
-        }
+      }
       <div className="ml2"> {questionTrimmer(question.attributes.body)}</div>
     </div>
     <div className="b mr2">
@@ -59,9 +59,9 @@ const GlossaryView = ({
   <div className="pt5 pl2 pr3 br b--near-white h-100">
     {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     <div role="button"
-      className="pointer"
+      className="pointer brand-green w-100 tc pa3 b bg-light-gray"
       onClick={onClick}
-    > toggle
+    > Create New Question
     </div>
   </div>
 
