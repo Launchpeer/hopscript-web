@@ -33,7 +33,7 @@ class ScriptsListView extends Component {
           <div className="mb4">
             {scripts && scripts.length > 0 ?
               scripts.map(script => (
-                <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript}/>))
+                <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript} />))
             :
               <div className="mt6 tc f4 pa3 silver">
                 <div className="mb6">
