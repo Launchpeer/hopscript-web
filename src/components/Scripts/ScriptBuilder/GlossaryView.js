@@ -19,13 +19,15 @@ const GlossaryItem = ({
           style={{
             backgroundColor: Colors.brandGreen,
             color: Colors.white
-  }} /> :
+                }} />
+          :
         <div
           className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
           style={{
-      backgroundColor: Colors.moonGray,
-      color: Colors.white
-  }} /> }
+            backgroundColor: Colors.moonGray,
+            color: Colors.white
+                }} />
+        }
       <div className="ml2"> {questionTrimmer(question.attributes.body)}</div>
     </div>
     <div className="b mr2">
