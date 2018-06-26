@@ -9,6 +9,7 @@ import {
   Button,
   Loader
 } from '../common';
+import { StripeForm } from './';
 
 import { STRIPE_CONNECT_URI } from '../../config/globals';
 import { connectingToStripe, sendStripeIdToParse, stripeError } from './StripeActions';
@@ -79,9 +80,8 @@ class StripeView extends Component {
             classOverrides="mw6 justify-center items-center flex flex-column"
             >
             <div className="flex justify-center mb3"><img style={{ height: '100px', alignSelf: 'center' }} alt="Stripe" src="/images/stripe-logo.png" /></div>
-            <div style={{ color: Colors.brandNearBlack, textAlign: 'center' }}>Please log in or create a Stripe account to pay for you account.</div>
+            <StripeForm />
             {error && <div className="pb4" style={{ color: 'red' }}>An error occurred. Please try again.</div>}
-            <Button backgroundColor={Colors.brandGreen} onClick={this.onButtonClick} classOverrides="w-100 mt5" borderRadius={BorderRadius.none}>Connect to Stripe</Button>
           </Card>
         </CenterThis>
       </FullScreenContainer>
