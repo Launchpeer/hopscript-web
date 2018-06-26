@@ -48,5 +48,17 @@ const fetchScripts = () => (dispatch) => {
     });
 };
 
+const removeScript = id => (dispatch) => {
+  dispatch(_scriptsLoading());
+  Parse.Cloud.run("deleteScript", { id })
+    .then((r) => {
+      dispatch(_scriptsLoadEnd());
+      dispatch(_scriptsListUpdate(r));
+    })
+    .catch((e) => {
+      dispatch(_scriptsLoadEnd());
+      dispatch(_scriptsError(e));
+    });
+};
 
-export default fetchScripts;
+export { fetchScripts, removeScript };
