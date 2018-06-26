@@ -21,32 +21,29 @@ const ScriptInfo = ({ name, step, scriptId }) => (
   </div>
 );
 
-const StepIndicator = ({ step, toggle }) => {
-    console.log('step', step);
-    return (
-      <div
-        className="flex items-center steps"
-        style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
+const StepIndicator = ({ step, toggle }) => (
+  <div
+    className="flex items-center steps"
+    style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
         >
-        <div className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3 f6">
+    <div className="bg-brand-primary flex items-center h2 pl4 step-1 white pr3 f6">
           STEP 1
-        </div>
-        <div
-          className="half-circle bg-brand-primary items-center flex justify-center white"
+    </div>
+    <div
+      className="half-circle bg-brand-primary items-center flex justify-center white"
       >
-          <ChevronRight width="1rem" height="1rem" color="white" />
-        </div>
-        <div
-          className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
-          style={{
+      <ChevronRight width="1rem" height="1rem" color="white" />
+    </div>
+    <div
+      className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
+      style={{
             backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
             color: step === 'answers' ? Colors.white : Colors.brandNearBlack
           }}
           >STEP 2
-        </div>
-      </div>
-    );
-}
+    </div>
+  </div>
+);
 
 class ScriptBuilderView extends Component {
   constructor(props) {

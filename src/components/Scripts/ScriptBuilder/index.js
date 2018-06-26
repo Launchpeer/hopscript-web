@@ -3,6 +3,7 @@ export { default as AnswerBuilderForm } from './AnswerBuilderForm';
 export { default as ScriptBuilderView } from './ScriptBuilderView';
 export { default as ScriptNameForm } from './ScriptNameForm';
 export { default as GlossaryView } from './GlossaryView';
+export { default as GlossaryListItem } from './GlossaryListItem';
 export { default as ScriptBuilderReducer } from './ScriptBuilderReducer';
 export { default as NewQuestionForm } from './NewQuestionForm';
 export { default as NewAnswerForm } from './NewAnswerForm';

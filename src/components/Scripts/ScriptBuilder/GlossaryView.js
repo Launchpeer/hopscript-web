@@ -1,40 +1,5 @@
 import React from 'react';
-import { GridIcon } from '../../common';
-import { Colors } from '../../../config/styles';
-
-const questionTrimmer = question => (
-  question.length > 25 ? `${question.slice(0, 25)}...` : question
-);
-
-const GlossaryItem = ({
-  question, setCurrentQuestion, currentQuestion
-}) => (
-  <div role="button" className="flex justify-between items-center pointer mb2" onClick={() => setCurrentQuestion(question)}>
-    <div className="flex flex-row items-center">
-      <GridIcon width="1rem" height="1rem" color={Colors.moonGray} />
-
-      {currentQuestion === question ?
-        <div
-          className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
-          style={{
-            backgroundColor: Colors.brandGreen,
-            color: Colors.white
-                }} />
-      :
-        <div
-          className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
-          style={{
-            backgroundColor: Colors.moonGray,
-            color: Colors.white
-                }} />
-      }
-      <div className="ml2"> {questionTrimmer(question.attributes.body)}</div>
-    </div>
-    <div className="b mr2">
-      {question.attributes.answers ? question.attributes.answers.length : 0}
-    </div>
-  </div>
-);
+import { GlossaryListItem } from './';
 
 const GlossarySection = ({
   questions, header, currentQuestion, setCurrentQuestion
@@ -45,7 +10,7 @@ const GlossarySection = ({
       <div className="mr1">Answers</div>
     </div>
     <div>
-      {questions && questions.filter(question => question.attributes.category === header).map(categoryItem => <GlossaryItem question={categoryItem} key={categoryItem.id} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+      {questions && questions.filter(question => question.attributes.category === header).map(categoryItem => <GlossaryListItem question={categoryItem} key={categoryItem.id} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     </div>
     <div className="mh1 bb b--near-white" style={{ borderWidth: '3px' }} />
   </div>
@@ -66,4 +31,5 @@ const GlossaryView = ({
   </div>
 
 );
+
 export default GlossaryView;

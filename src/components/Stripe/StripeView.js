@@ -24,8 +24,6 @@ class StripeView extends Component {
     if (this.props.location.search.includes("error=")) this.props.stripeError();
   }
 
-  componentDidMount() {
-  }
 
   onButtonClick() {
     location.href = `${STRIPE_CONNECT_URI}`;

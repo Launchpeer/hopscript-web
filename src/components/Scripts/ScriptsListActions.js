@@ -48,4 +48,5 @@ const fetchScripts = () => (dispatch) => {
     });
 };
 
-export { fetchScripts };
+
+export default fetchScripts;

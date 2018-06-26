@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardRight, HSButton, HSCardHeader } from '../common';
 import { createNewScript } from './ScriptBuilder/ScriptBuilderActions';
-import { fetchScripts } from './ScriptsListActions';
+import fetchScripts from './ScriptsListActions';
 import { ScriptsListItem } from './';
 
 class ScriptsListView extends Component {

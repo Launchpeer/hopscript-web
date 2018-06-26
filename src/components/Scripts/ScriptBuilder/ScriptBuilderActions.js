@@ -99,7 +99,7 @@ const newQuestion = script => (dispatch) => {
 
 const toggleCreationState = state => (dispatch) => {
   dispatch(_setNewQuestion(false));
-}
+};
 
 const createNewScript = () => (dispatch) => {
   const User = Parse.User.current();
@@ -218,6 +218,14 @@ const removeAnswer = (answerId, scriptId, questionId) => (dispatch) => {
     });
 };
 
+const deleteQuestion = (question, script) => (dispatch) => {
+  Parse.Cloud.run('deleteQuestion', { question, script })
+    .then((res) => {
+      dispatch(currentScriptUpdate(res));
+    });
+};
+
+
 export {
   fetchScript,
   createNewScript,
@@ -230,5 +238,6 @@ export {
   updateAnswer,
   removeAnswer,
   newQuestion,
-  toggleCreationState
+  toggleCreationState,
+  deleteQuestion
 };
