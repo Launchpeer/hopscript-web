@@ -98,7 +98,7 @@ const newQuestion = script => (dispatch) => {
 };
 
 const toggleCreationState = state => (dispatch) => {
-  dispatch(_setNewQuestion(false));
+  dispatch(_setNewQuestion(state));
 };
 
 const createNewScript = () => (dispatch) => {
