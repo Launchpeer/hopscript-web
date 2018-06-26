@@ -6,8 +6,8 @@
 
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { Colors } from '../../config/styles';
-import { Button, ModalCard } from '../common';
+import { Colors } from '../../../config/styles';
+import { Button, ModalCard } from '../../common';
 
 class ScriptsListItem extends Component {
   constructor(props) {
