@@ -4,3 +4,8 @@ export { default as ScriptBuilderView } from './ScriptBuilderView';
 export { default as ScriptNameForm } from './ScriptNameForm';
 export { default as GlossaryView } from './GlossaryView';
 export { default as ScriptBuilderReducer } from './ScriptBuilderReducer';
+export { default as NewQuestionForm } from './NewQuestionForm';
+export { default as NewAnswerForm } from './NewAnswerForm';
+export { default as EditAnswerForm } from './EditAnswerForm';
+export { default as AnswerBuilderView } from './AnswerBuilderView';
+export { default as AnswerBlock } from './AnswerBlock';

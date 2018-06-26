@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { Edit2 } from 'react-feather';
 
 import { InputTextEditable } from '../../common';
 
@@ -20,11 +21,13 @@ class ScriptNameForm extends Component {
     const { name, handleSubmit } = this.props;
     return (
       <div>
-        <form className="mv4">
+        <form>
           <InputTextEditable
             name="name"
             type="text"
-            placeholder={name}
+            placeholder={name || "Script Name Here"}
+            editOrThis={<Edit2 />}
+            fontSize="f3"
             onSubmit={handleSubmit(this.handleFormSubmit)}
           />
         </form>

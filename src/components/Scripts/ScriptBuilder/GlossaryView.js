@@ -1,45 +1,69 @@
 import React from 'react';
-import { GridIcon, CheckCircle } from '../../common';
+import { GridIcon } from '../../common';
 import { Colors } from '../../../config/styles';
 
-const GlossaryItem = ({
-  question, idx, step, currentQuestion, setCurrentQuestion
-}) => (
-  <div className="flex justify-between items-center pointer mb2" onClick={() => setCurrentQuestion(question)}>
-    <GridIcon width="1rem" height="1rem" fill={Colors.moonGray} />
-    { step === 'question'
-        ? <div
-          className="w2 h2 bg-light-gray br-100 flex items-center justify-center"
-          style={{
-            backgroundColor: (currentQuestion.id === question.id || !currentQuestion) ? Colors.brandGreen : Colors.lightGray,
-            color: (currentQuestion.id === question.id || !currentQuestion) ? Colors.white : Colors.brandNearBlack,
+const questionTrimmer = question => (
+  question.length > 25 ? `${question.slice(0, 25)}...` : question
+);
 
-          }}
-           />
-        : <div>
-          {currentQuestion.id === question.id
-              ? <CheckCircle width="2rem" height="2rem" color={Colors.brandGreen} checked={question.attributes.questions} />
-              : <CheckCircle width="2rem" height="2rem" color={Colors.lightGray} checked={question.attributes.questions} />
-            }
-        </div>
+const GlossaryItem = ({
+  question, setCurrentQuestion, currentQuestion
+}) => (
+  <div role="button" className="flex justify-between items-center pointer mb2" onClick={() => setCurrentQuestion(question)}>
+    <div className="flex flex-row items-center">
+      <GridIcon width="1rem" height="1rem" color={Colors.moonGray} />
+
+      {currentQuestion === question ?
+        <div
+          className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
+          style={{
+            backgroundColor: Colors.brandGreen,
+            color: Colors.white
+                }} />
+      :
+        <div
+          className="w2 h2 bg-light-gray br-100 ml2 flex items-center justify-center"
+          style={{
+            backgroundColor: Colors.moonGray,
+            color: Colors.white
+                }} />
       }
-    {question.attributes.body || 'create question'}
-    {question.attributes.answers ? question.attributes.answers.length : 0}
+      <div className="ml2"> {questionTrimmer(question.attributes.body)}</div>
+    </div>
+    <div className="b mr2">
+      {question.attributes.answers ? question.attributes.answers.length : 0}
+    </div>
   </div>
 );
 
-const GlossaryView = ({
-  step, questions, currentQuestion, setCurrentQuestion
+const GlossarySection = ({
+  questions, header, currentQuestion, setCurrentQuestion
 }) => (
-  <div className="pt5 br b--near-white h-100">
+  <div className="mb4">
     <div className="flex justify-between b brand-near-black mb4">
-      <div>Intro</div>
-      <div>Answers</div>
+      <div>{header}</div>
+      <div className="mr1">Answers</div>
     </div>
     <div>
-      {questions.map((question, idx) => <GlossaryItem question={question} key={question.id} idx={idx} step={step} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+      {questions && questions.filter(question => question.attributes.category === header).map(categoryItem => <GlossaryItem question={categoryItem} key={categoryItem.id} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     </div>
+    <div className="mh1 bb b--near-white" style={{ borderWidth: '3px' }} />
   </div>
 );
 
+const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
+
+const GlossaryView = ({
+  questions, currentQuestion, setCurrentQuestion, onClick
+}) => (
+  <div className="pt5 pl2 pr3 br b--near-white h-100">
+    {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+    <div role="button"
+      className="pointer brand-green w-100 tc pa3 b bg-light-gray"
+      onClick={onClick}
+    > Create New Question
+    </div>
+  </div>
+
+);
 export default GlossaryView;

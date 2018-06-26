@@ -13,15 +13,14 @@ import {
   InputCheckbox,
   InputAudio,
   LoaderOrThis,
-  Button
+  Button,
 } from '../../common';
 import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
-class QuestionBuilderForm extends Component {
+class NewQuestionForm extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleNewQuestion = this.handleNewQuestion.bind(this);
   }
 
   handleFormSubmit(data) {
@@ -29,27 +28,24 @@ class QuestionBuilderForm extends Component {
     this.props.toggleStep('answers');
   }
 
-  handleNewQuestion() {
-    this.props.createNewQuestion({ question: {}, scriptId: this.props.scriptId });
-    this.props.toggleStep('answers');
-  }
-
   render() {
     const {
-      handleSubmit, loading, toggleStep
+      handleSubmit, loading,
     } = this.props;
     return (
       <div>
         <LoaderOrThis loading={loading}>
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+          <form
+            onSubmit={handleSubmit(this.handleFormSubmit)}
+          >
             <div className="single-line-textarea">
-              <InputTextArea name="attributes.body" placeholder="Write Question Here" />
+              <InputTextArea name="body" placeholder="Write Question Here" />
             </div>
             <div className="flex mt4 justify-between">
               <div className="w-20">Description</div>
               <div className="w-80">
                 <div className="block-textarea">
-                  <InputTextArea name="attributes.description" placeholder="Optional Description" />
+                  <InputTextArea name="description" placeholder="Optional Description" />
                 </div>
               </div>
             </div>
@@ -65,23 +61,14 @@ class QuestionBuilderForm extends Component {
                 />
               </div>
             </div>
-            <div className="flex">
+            <div className="flex justify-between">
               <div className="w-20">Audio</div>
               <div className="w-80">
                 <InputAudio name="audio" />
               </div>
             </div>
             <div className="flex justify-end mt6">
-              <Button
-                onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}
-                borderColor={Colors.brandGreen}
-                borderWidth="1px"
-                fontColor={Colors.brandGreen}
-                classOverrides="flex items-center mr2"
-              >
-                Go to Step 2: Answers
-              </Button>
-              <Button backgroundColor={Colors.brandGreen}>save</Button>
+              <Button backgroundColor={Colors.brandGreen}>Create</Button>
             </div>
           </form>
         </LoaderOrThis>
@@ -90,23 +77,18 @@ class QuestionBuilderForm extends Component {
   }
 }
 
-
 const Form = reduxForm({
-  form: 'questionBuilder',
-  enableReinitialize: true
-})(QuestionBuilderForm);
+  form: 'newQuestion'
+})(NewQuestionForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
-    error, loading, currentQuestion, currentScript, questions
+    error, loading, currentScript
   } = ScriptBuilderReducer;
   return {
     loading,
     error,
-    initialValues: currentQuestion,
-    currentQuestion,
     currentScript,
-    questions
   };
 };
 

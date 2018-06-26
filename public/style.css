@@ -93,7 +93,7 @@ input:focus {
   pointer-events: none; }
 
 .hov-image-uploader {
-  background-color: #EEEEEE; }
+  background-color: white; }
 
 .hov-image-uploader:hover {
   background-color: #6772e5; }
@@ -169,6 +169,9 @@ textarea:focus {
 
 .brand-green {
   color: #00cd6a; }
+
+.b--brand-green {
+  border: 1px solid #00cd6a; }
 
 /* Loading Spinner by @tobiasahlin */
 .spinner {
