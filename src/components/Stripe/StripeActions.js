@@ -28,3 +28,22 @@ export const sendStripeIdToParse = stripeAuthToken => (dispatch) => {
       }));
   });
 };
+
+
+const createStripeCustomer = (data) => (dispatch) => {
+    dispatch({ type: STRIPE_LOADING });
+    Parse.Cloud.run('createStripeCustomer', {
+      number: data.cardNumber,
+      expMonth: data.expiry.slice(0,2),
+      expYear: data.expiry.slice(5,8),
+      cvc: data.cvc
+    })
+      .then(() => {
+        dispatch({
+          type: STRIPE_SUCCESS
+        });
+        browserHistory.push('/agents-list');
+      })
+}
+
+export { createStripeCustomer };

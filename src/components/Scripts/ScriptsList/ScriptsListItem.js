@@ -6,8 +6,8 @@
 
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { Colors } from '../../config/styles';
-import { Button, ModalCard } from '../common';
+import { Colors } from '../../../config/styles';
+import { Button, ModalCard } from '../../common';
 
 class ScriptsListItem extends Component {
   constructor(props) {
@@ -36,20 +36,28 @@ class ScriptsListItem extends Component {
             <div className="pa4 tc">
             Are you sure you want to delete this script?
               <div className="w-100 flex justify-between pl4 pr4 mt4">
-                <Button onClick={removeScript} backgroundColor={Colors.darkRed}>yes</Button>
+                <Button onClick={() => removeScript(this.props.script.id)} backgroundColor={Colors.darkRed}>yes</Button>
                 <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
               </div>
             </div>
           </ModalCard>
         }
-        <div className="flex w-100 items-center justify-between" role="button" onClick={() => browserHistory.push(`/script-builder/${this.props.script.id}`)}>
-          <div className="w-30-ns">{attributes.name}</div>
+        <div className="flex w-100 items-center justify-between">
           <div
-            className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+            className="w-90"
             role="button"
-            style={{ width: '2rem', height: '2rem' }}
-            onClick={this.toggleModal}>
-            X
+            onClick={() => browserHistory.push(`/script-builder/${this.props.script.id}`)}
+            >
+            {attributes.name || 'Unnamed Script'}
+          </div>
+          <div className="w-10 flex items-end flex-column">
+            <div
+              className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+              role="button"
+              style={{ width: '2rem', height: '2rem' }}
+              onClick={this.toggleModal}>
+              X
+            </div>
           </div>
         </div>
       </div>
