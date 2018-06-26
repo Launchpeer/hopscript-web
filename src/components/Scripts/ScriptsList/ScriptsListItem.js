@@ -48,7 +48,7 @@ class ScriptsListItem extends Component {
             role="button"
             onClick={() => browserHistory.push(`/script-builder/${this.props.script.id}`)}
             >
-            {attributes.name}
+            {attributes.name || 'Unnamed Script'}
           </div>
           <div className="w-10 flex items-end flex-column">
             <div
