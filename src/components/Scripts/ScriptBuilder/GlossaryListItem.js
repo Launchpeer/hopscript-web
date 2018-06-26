@@ -21,10 +21,10 @@ const unSelectedButton = (
 
 const deleteButton = onClick => (
   <div
-    className="w1 h1 bg-moon-gray white br-100 ml2 flex items-center justify-center hov-danger"
+    className="w2 h2 bg-moon-gray white br-100 flex items-center justify-center hov-danger"
     role="button"
     onClick={onClick}>
-        x
+X
   </div>
 );
 
