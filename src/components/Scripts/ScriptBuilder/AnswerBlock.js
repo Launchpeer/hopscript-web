@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
+import { connect } from 'react-redux';
 import { Edit } from 'react-feather';
 import { Colors, BorderRadius } from '../../../config/styles';
 import {
@@ -10,7 +11,7 @@ import {
   TrashIcon,
   PlusIcon
 } from '../../common';
-import { addAnswersToQuestion } from './ScriptBuilderActions';
+import { addAnswersToQuestion, setCurrentAnswer } from './ScriptBuilderActions';
 import UpdateAnswerForm from './UpdateAnswerForm';
 
 const AnswerEdit = ({
@@ -63,7 +64,7 @@ const AnswerEdit = ({
     </div>
   </div>);
 
-const AnswerDisplay = ({ answer, onClick, removeAnswer }) => {
+const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => {
   return (<div>
     <div className="flex mt4 mb2">
       <div className="w-10">
@@ -91,13 +92,13 @@ const AnswerDisplay = ({ answer, onClick, removeAnswer }) => {
       </div>
       <div className="w-10">Route to</div>
       <div className="w-60">
-        NA
+        {answer.attributes ? answer.attributes.route.attributes.body : 'NA'}
       </div>
       <div className="w-20 flex items-end flex-column">
         <div
           className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer bn"
           style={{ borderRadius: BorderRadius.all }}
-          onClick={onClick}
+          onClick={() => handleAnswer(answer)}
           >
           <Edit color={Colors.brandGreen} size={16}/>
         </div>
@@ -112,12 +113,16 @@ class AnswerBlockEditable extends Component {
     this.state = {
       edit: false
     };
-    console.log('block life', this.props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleSetCurrentAnswer = this.handleSetCurrentAnswer.bind(this);
   }
   handleClick() {
-    console.log('clicked');
     this.setState({ edit: !this.state.edit });
+  }
+
+  handleSetCurrentAnswer(answer) {
+    this.props.setCurrentAnswer(answer);
+    this.handleClick();
   }
 
   render() {
@@ -133,9 +138,7 @@ class AnswerBlockEditable extends Component {
           ?
           <AnswerDisplay
             answer={answer}
-            onClick={() => {
-              this.setState({ edit: !this.state.edit });
-            }}
+            handleAnswer={this.handleSetCurrentAnswer}
             removeAnswer={removeAnswer}
           />
           :
@@ -155,4 +158,4 @@ class AnswerBlockEditable extends Component {
   }
 }
 
-export default AnswerBlockEditable;
+export default connect(null, { setCurrentAnswer })(AnswerBlockEditable);

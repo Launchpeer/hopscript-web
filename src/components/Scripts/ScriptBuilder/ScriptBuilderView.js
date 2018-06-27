@@ -35,7 +35,7 @@ const StepIndicator = ({ step, toggle }) => (
       <ChevronRight width="1rem" height="1rem" color="white" />
     </div>
     <div
-      className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
+      className="h2 flex items-center tc pr4 pl4 step-2 f6"
       style={{
             backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
             color: step === 'answers' ? Colors.white : Colors.brandNearBlack

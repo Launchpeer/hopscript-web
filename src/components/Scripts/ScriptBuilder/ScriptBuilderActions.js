@@ -15,7 +15,8 @@ import {
   CURRENT_QUESTION_UPDATE,
   CURRENT_SCRIPT_UPDATE,
   QUESTIONS_UPDATE,
-  CREATING_NEW_QUESTION_UPDATE
+  CREATING_NEW_QUESTION_UPDATE,
+  UPDATE_CURRENT_ANSWER
 } from './ScriptBuilderTypes';
 
 
@@ -85,7 +86,6 @@ const currentScriptUpdate = script => (dispatch) => {
 };
 
 function _setNewQuestion(state) {
-  console.log('setting state', state);
   return {
     type: CREATING_NEW_QUESTION_UPDATE,
     payload: state
@@ -93,7 +93,6 @@ function _setNewQuestion(state) {
 }
 
 const newQuestion = script => (dispatch) => {
-  console.log('new question');
   dispatch(_setNewQuestion(true));
 };
 
@@ -130,7 +129,6 @@ const setCurrentQuestion = question => (dispatch) => {
 
 function _createNewAudio(audioFile) {
   return new Promise((resolve) => {
-    console.log('audioFile', audioFile[0]);
     const parseFile = new Parse.File('file', audioFile[0]);
     resolve(parseFile.save());
   });
@@ -202,7 +200,6 @@ const updateScript = (data, scriptId) => (dispatch) => {
 };
 
 const updateQuestion = ({ data, questionId, scriptId }) => (dispatch) => {
-  console.log({ data, questionId, scriptId });
   Parse.Cloud.run('updateQuestion', { data, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
@@ -230,6 +227,13 @@ const deleteQuestion = (question, script) => (dispatch) => {
     });
 };
 
+const setCurrentAnswer = (answer) => (dispatch) => {
+  dispatch({
+    type: UPDATE_CURRENT_ANSWER,
+    payload: answer
+  });
+}
+
 
 export {
   fetchScript,
@@ -244,5 +248,6 @@ export {
   removeAnswer,
   newQuestion,
   toggleCreationState,
-  deleteQuestion
+  deleteQuestion,
+  setCurrentAnswer
 };

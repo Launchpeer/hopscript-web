@@ -13,7 +13,7 @@ import {
   LoaderOrThis,
   PlusIcon
 } from '../../common';
-import { updateAnswer } from './ScriptBuilderActions';
+import { updateAnswer, setCurrentAnswer } from './ScriptBuilderActions';
 
 class UpdateAnswerForm extends Component {
   constructor(props) {
@@ -23,8 +23,8 @@ class UpdateAnswerForm extends Component {
 
   handleFormSubmit(data) {
     this.props.toggleForm();
+    this.props.setCurrentAnswer(null);
     this.props.updateAnswer(data, this.props.answer.id, this.props.currentScript.id);
-    console.log('data', data);
   }
 
   render() {
@@ -43,12 +43,12 @@ class UpdateAnswerForm extends Component {
               <div className="w-10">Answer</div>
               <div className="w-60">
                 <div className="block-textarea">
-                  <InputTextArea name="answer" body="answer" placeholder="Type Answer here" />
+                  <InputTextArea name="body" body="answer" placeholder="Type Answer here" />
                 </div>
               </div>
-              <div className="w-30">
+              <div className="w-20 flex items-end flex-column">
                 <div
-                  className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+                  className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
                   style={{ borderRadius: BorderRadius.all }}
                   onClick={toggleForm}
                   >
@@ -73,13 +73,15 @@ class UpdateAnswerForm extends Component {
                : <div>N/A</div>
               }
               </div>
-              <div className="w-30">
+              <div className="w-20 flex items-end flex-column">
                 <button
-                  className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+                  className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
                   style={{ borderRadius: BorderRadius.all }}
                   type="submit"
                   >
-                  <PlusIcon color={Colors.brandGreen} width="1rem" height="1rem" />
+                  <div className="bg-brand-green br-100 flex items-center justify-center white" style={{ height: '1.25rem', width: '1.25rem' }}>
+                      +
+                  </div>
                 </button>
               </div>
             </div>
@@ -90,19 +92,22 @@ class UpdateAnswerForm extends Component {
 }
 
 const AnswerForm = reduxForm({
-  form: 'updateAnswer'
+  form: 'updateAnswer',
+  enableReinitialize: true
 })(UpdateAnswerForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
-    error, loading, currentQuestion, currentScript
+    error, loading, currentQuestion, currentScript, currentAnswer
   } = ScriptBuilderReducer;
+  console.log('currentAnswer', currentAnswer);
   return {
     loading,
     error,
     currentQuestion,
-    currentScript
+    currentScript,
+    initialValues: currentAnswer.attributes
   };
 };
 
-export default connect(mapStateToProps, { updateAnswer })(AnswerForm);
+export default connect(mapStateToProps, { updateAnswer, setCurrentAnswer })(AnswerForm);
