@@ -9,6 +9,7 @@ import AgentProfileReducer from './components/AgentProfile/AgentProfileReducer';
 import LeadsReducer from './components/Leads/LeadsReducer';
 import StripeReducer from './components/Stripe/StripeReducer';
 import { ScriptBuilderReducer, ScriptsListReducer } from './components/Scripts';
+import { StartCallReducer } from './components/Call';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   LeadsReducer,
   ScriptBuilderReducer,
   ScriptsListReducer,
-  StripeReducer
+  StripeReducer,
+  StartCallReducer
 });
 
 export default rootReducer;

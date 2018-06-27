@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputDropDown } from '../common';
+import { InputDropDown } from '../../common';
 
 class SelectGroup extends Component {
   constructor(props) {
