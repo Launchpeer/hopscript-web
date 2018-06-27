@@ -10,7 +10,8 @@ import {
   MY_LEAD_GROUPS,
   MY_LEADS,
   LEADS_TO_ADD,
-  LEAD_LEADGROUP_UPDATE
+  LEAD_LEADGROUP_UPDATE,
+  CLEAR_LEADS_TO_ADD
 } from './LeadsTypes';
 
 
@@ -50,6 +51,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, myLeads: action.payload };
     case LEADS_TO_ADD:
       return { ...state, leadsToAdd: [...state.leadsToAdd, action.payload] };
+    case CLEAR_LEADS_TO_ADD:
+      return { ...state, leadsToAdd: null };
     case LEAD_LEADGROUP_UPDATE:
       return { ...state, leadsToAdd: action.payload };
     default:

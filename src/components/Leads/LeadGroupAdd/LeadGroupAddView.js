@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { CenterThis, Button, HalfGrid, InputText } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadsList } from './';
-import { createLeadGroup, clearError, fetchLeads } from '../LeadsActions';
+import { createLeadGroup, clearError, fetchLeads, updateLeadsToAdd } from '../LeadsActions';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadNavCard } from '../';
 
@@ -92,7 +92,7 @@ class LeadGroupAddView extends Component {
                     borderRadius="4px"
                     borderWidth="1px"
                     fontColor={Colors.brandGreen}
-                    onClick={() => browserHistory.push('/list-lead-groups')}>
+                    onClick={() => browserHistory.push('/lead-groups-list')}>
                 Cancel
                   </Button>
 
@@ -140,5 +140,6 @@ export default reduxForm({
 })(connect(mapStateToProps, {
   createLeadGroup,
   fetchLeads,
-  clearError
+  clearError,
+  updateLeadsToAdd
 })(LeadGroupAddView));
