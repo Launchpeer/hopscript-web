@@ -73,7 +73,7 @@ const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => {
       <div className="w-10">Answer</div>
       <div className="w-60">
         <div className="block-textarea">
-          {answer.attributes && answer.attributes.body}
+          {answer && answer.attributes.body}
         </div>
       </div>
       <div className="w-20 flex items-end flex-column">
@@ -92,7 +92,7 @@ const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => {
       </div>
       <div className="w-10">Route to</div>
       <div className="w-60">
-        {answer.attributes ? answer.attributes.route.attributes.body : 'NA'}
+        {(answer && answer.attributes.route) ? answer.attributes.route.attributes.body : 'NA'}
       </div>
       <div className="w-20 flex items-end flex-column">
         <div
