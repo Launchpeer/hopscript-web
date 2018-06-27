@@ -135,6 +135,7 @@ function _createNewAudio(audioFile) {
 }
 
 const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
+  dispatch(_answerAddLoading());
   if (question.audio) {
     _createNewAudio(question.audio)
       .then((parseAudio) => {
@@ -149,6 +150,7 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
               type: CURRENT_QUESTION_UPDATE,
               payload: res
             });
+            dispatch(_answerAddLoadEnd());
           });
       });
   } else {
@@ -163,6 +165,7 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
           type: CURRENT_QUESTION_UPDATE,
           payload: res
         });
+        dispatch(_answerAddLoadEnd());
       });
   }
 };

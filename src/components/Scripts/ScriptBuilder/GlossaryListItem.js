@@ -66,6 +66,7 @@ class GlossaryListItem extends Component {
     const {
       question, setCurrentQuestion, currentQuestion, currentScript
     } = this.props;
+    console.log('currentQuestion', question.id);
     return (
       <div role="button"
         className="flex justify-between items-center pointer mb2 pv2 list-hover"
@@ -89,7 +90,7 @@ class GlossaryListItem extends Component {
 
         <div className="flex flex-row items-center">
           <GridIcon width="1rem" height="1rem" color={Colors.moonGray} />
-          {currentQuestion === question ? selectedButton : unSelectedButton }
+          {(currentQuestion && currentQuestion.id === question.id) ? selectedButton : unSelectedButton }
           <div className="ml2"> {questionTrimmer(question.attributes.body)}</div>
         </div>
         <div className="mr2">
