@@ -41,7 +41,7 @@ class LeadGroupListView extends Component {
 
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { leadGroups, } = LeadsReducer;
+  const { leadGroups } = LeadsReducer;
   return {
     leadGroups
   };
