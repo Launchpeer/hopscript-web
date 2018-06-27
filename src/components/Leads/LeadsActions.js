@@ -14,7 +14,8 @@ import {
   LEAD_GROUP_LIST_UPDATE,
   MY_LEAD_GROUPS,
   LEADS_TO_ADD,
-  LEAD_LEADGROUP_UPDATE
+  LEAD_LEADGROUP_UPDATE,
+  CLEAR_LEADS_TO_ADD
 } from './LeadsTypes';
 
 
@@ -99,6 +100,7 @@ function _updateLeadsToAdd(l) {
     payload: l
   };
 }
+
 
 const clearError = () => (dispatch) => {
   dispatch(_leadsClearError());
@@ -190,11 +192,19 @@ const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
 };
 
 // LEADGROUPS
+
+function _clearLeadsToAdd() {
+  return {
+    type: CLEAR_LEADS_TO_ADD
+  };
+}
+
 const createLeadGroup = (leadGroup, leadsToAdd) => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("createLeadGroup", ({ leadGroup, leadsToAdd }))
     .then(() => {
       dispatch(_leadLoadEnd());
+      dispatch(_clearLeadsToAdd());
       dispatch(fetchLeadGroups());
     })
     .catch(err => dispatch({ type: LEADS_ERROR, payload: err }));
@@ -262,6 +272,7 @@ const deleteLeadGroup = leadGroup => (dispatch) => {
 const addLeadToGroup = lead => (dispatch) => {
   dispatch(_leadsToAdd(lead));
 };
+
 
 const updateLeadsToAdd = leads => (dispatch) => {
   dispatch(_updateLeadsToAdd(leads));

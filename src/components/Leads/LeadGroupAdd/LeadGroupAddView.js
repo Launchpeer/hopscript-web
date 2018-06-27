@@ -92,7 +92,7 @@ class LeadGroupAddView extends Component {
                     borderRadius="4px"
                     borderWidth="1px"
                     fontColor={Colors.brandGreen}
-                    onClick={() => browserHistory.push('/list-lead-groups')}>
+                    onClick={() => browserHistory.push('/lead-groups-list')}>
                 Cancel
                   </Button>
 
