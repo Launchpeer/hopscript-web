@@ -42,6 +42,7 @@ class StartCallView extends Component {
                 onClick={() => this.setState({ selectedGroup: true })}
                 classOverrides={!this.state.selectedGroup && 'moon-gray'} />
               <SelectLead
+                leads={leads}
                 selectedGroup={!this.state.selectedGroup}
                 onClick={() => this.setState({ selectedGroup: false })}
                 classOverrides={this.state.selectedGroup && 'moon-gray'} />
@@ -60,7 +61,6 @@ class StartCallView extends Component {
 
 const mapStateToProps = ({ LeadsReducer }) => {
   const { leads } = LeadsReducer;
-  console.log('leads', leads);
   return {
     leads
   }
