@@ -27,7 +27,7 @@ import { AgentsListView } from './components/AgentsList';
 import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView, LeadGroupDetailView } from './components/Leads';
 import { StripeView } from './components/Stripe';
 import { ScriptBuilderView, ScriptsListView } from './components/Scripts';
-import { CallView } from './components/Call';
+import { StartCallView } from './components/Call';
 import { HistoryListView } from './components/History';
 
 import './../sass/style.scss';
@@ -87,7 +87,7 @@ ReactDOM.render(
         <Route path="lead-groups-list" component={LeadGroupListView} />
         <Route path="lead-groups-list/:id" component={LeadGroupDetailView} />
         <Route path="script-builder/:id" component={ScriptBuilderView} />
-        <Route path="call" component={CallView} />
+        <Route path="start-call" component={StartCallView} />
         <Route path="history" component={HistoryListView} />
       </Route>
     </Router>

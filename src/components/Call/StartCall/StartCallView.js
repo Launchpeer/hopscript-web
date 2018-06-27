@@ -13,24 +13,29 @@ import {
   Card,
   CardRight,
   HSCardHeader
-} from '../common';
+} from '../../common';
 import { SelectGroup, SelectLead } from './';
-import { Colors } from '../../config/styles';
+import { Colors } from '../../../config/styles';
+import { fetchLeads } from '../../Leads/LeadsActions';
 
-class CallView extends Component {
+class StartCallView extends Component {
   constructor(props) {
     super(props);
     this.state = { selectedGroup: true };
+    console.log('call view');
+    this.props.fetchLeads();
   }
   handleFormSubmit(d) {
     console.log(d);
   }
+
   render() {
+    const { handleSubmit, leads } = this.props;
     return (
       <CardRight>
         <HSCardHeader>Start a Call</HSCardHeader>
         <div className="pa3 mt4">
-          <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <HalfGrid>
               <SelectGroup
                 selectedGroup={this.state.selectedGroup}
@@ -53,6 +58,14 @@ class CallView extends Component {
   }
 }
 
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leads } = LeadsReducer;
+  console.log('leads', leads);
+  return {
+    leads
+  }
+}
+
 export default reduxForm({
   form: 'callForm',
-})(connect(null)(CallView));
+})(connect(mapStateToProps, { fetchLeads })(StartCallView));
