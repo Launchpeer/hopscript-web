@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { ArrowLeftCircle } from 'react-feather';
-import { Colors } from '../../config/styles';
-import { CardRight, HSButton } from '../common';
-import ScriptNotes from './ScriptNotes';
+import { Colors } from '../../../config/styles';
+import { CardRight, HSButton } from '../../common';
 
-
-class ScriptInCallView extends Component {
+class InCallView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +46,7 @@ class ScriptInCallView extends Component {
             </div>
             {notes &&
             <div>
-              <ScriptNotes placeholder="Write notes here" />
+              notes
             </div>
            }
           </div>
@@ -65,4 +63,4 @@ class ScriptInCallView extends Component {
   }
 }
 
-export default ScriptInCallView;
+export default InCallView;

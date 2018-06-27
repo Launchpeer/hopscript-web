@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { InputSearch } from '../common';
-import { Colors, BorderRadius } from '../../config/styles';
+import { InputSearch } from '../../common';
+import { Colors, BorderRadius } from '../../../config/styles';
 
 class SelectLead extends Component {
   constructor(props) {
