@@ -39,11 +39,11 @@ class SelectLead extends Component {
   render() {
     const { leads, selectLead, leadLoaded, removeLead } = this.props;
     return (
-      <div>
+      <div className="mb4">
         <div
           role="button"
           onClick={this.props.onClick}
-          className={`f4 mb2 pointer ${this.props.classOverrides}`}>
+          className={`f3 b mb4 pointer ${this.props.classOverrides}`}>
           Select a Lead
         </div>
         {(this.props.selectedGroup && !leadLoaded)
@@ -58,9 +58,9 @@ class SelectLead extends Component {
                   borderWidth: '1px',
                 }}
             >
-              <div className="w-100 flex">
-                <div style={{ width: '9rem' }} className="mr2 f7 w-30">Search Leads</div>
-                <div className="w-70">
+              <div className="w-100 flex items-center">
+                <div style={{ width: '9rem' }} className="f6 w-20">Search Leads</div>
+                <div className="w-80">
                   <input
                     type="text"
                     placeholder="Search Leads..."

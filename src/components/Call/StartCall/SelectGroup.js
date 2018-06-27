@@ -9,16 +9,16 @@ class SelectGroup extends Component {
 
   render() {
     return (
-      <div>
+      <div className="mb4">
         <div
           role="button"
           onClick={this.props.onClick}
-          className={`f4 mb2 pointer ${this.props.classOverrides}`}>
+          className={`f3 b mb4 pointer ${this.props.classOverrides}`}>
           Select a Lead Group
         </div>
         {this.props.selectedGroup &&
-          <div className="flex items-center pr4">
-            <div style={{ width: '9rem' }} className="mr2 f7">Lead Group</div>
+          <div className="flex items-center">
+            <div style={{ width: '9rem' }} className="mr2 f6">Lead Group</div>
             <InputDropDown classOverrides="w-100" name="leadGroup" />
           </div>
         }
