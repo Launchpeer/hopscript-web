@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { CenterThis, Button, HalfGrid, InputText } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadsList } from './';
-import { createLeadGroup, clearError, fetchLeads, updateLeadsToAdd } from '../LeadsActions';
+import { createLeadGroup, clearError, fetchLeads } from '../LeadsActions';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadNavCard } from '../';
 
@@ -140,6 +140,5 @@ export default reduxForm({
 })(connect(mapStateToProps, {
   createLeadGroup,
   fetchLeads,
-  clearError,
-  updateLeadsToAdd
+  clearError
 })(LeadGroupAddView));

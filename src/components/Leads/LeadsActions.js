@@ -199,11 +199,6 @@ function _clearLeadsToAdd() {
   };
 }
 
-const clearLeadsToAdd = () => (dispatch) => {
-  dispatch(_clearLeadsToAdd());
-};
-
-
 const createLeadGroup = (leadGroup, leadsToAdd) => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("createLeadGroup", ({ leadGroup, leadsToAdd }))
@@ -413,4 +408,4 @@ const parseCSV = data => (dispatch) => {
 };
 
 
-export { clearError, clearLeadsToAdd, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, updateLeadsToAdd, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };
+export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, updateLeadsToAdd, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };
