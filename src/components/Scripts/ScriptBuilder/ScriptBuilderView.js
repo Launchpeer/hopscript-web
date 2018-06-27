@@ -35,7 +35,7 @@ const StepIndicator = ({ step, toggle }) => (
       <ChevronRight width="1rem" height="1rem" color="white" />
     </div>
     <div
-      className="h2 flex items-center tc pr4 pl4 step-2 f6 b"
+      className="h2 flex items-center tc pr4 pl4 step-2 f6"
       style={{
             backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite,
             color: step === 'answers' ? Colors.white : Colors.brandNearBlack
@@ -57,6 +57,8 @@ class ScriptBuilderView extends Component {
       className: 'Script',
       callback: data => this.handleSubscriptionCallback(data)
     });
+    this.props.toggleCreationState(true);
+    console.log('sup nerd');
     this.props.fetchScript(this.props.params.id);
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);

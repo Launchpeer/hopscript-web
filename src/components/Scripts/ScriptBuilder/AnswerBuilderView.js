@@ -9,7 +9,11 @@ import { removeAnswer } from './ScriptBuilderActions';
 
 const AddAnswerButton = ({ toggleForm }) => (
   <div className="flex items-center pointer" onClick={toggleForm}>
-    <PlusIcon color={Colors.brandNearBlack} width="2rem" height="2rem" />
+    <div className="w-10">
+      <div className="bg-brand-near-black br-100 flex items-center justify-center white w2 h2">
+          +
+      </div>
+    </div>
     <div className="b brand-near-black">Add answer</div>
   </div>
 );
@@ -37,7 +41,7 @@ class AnswerBuilderView extends Component {
     return (
       <div>
         {this.state.newQuestionOpen
-        ? <NewAnswerForm toggleForm={this.toggleForm} />
+        ? <NewAnswerForm toggleForm={this.toggleForm} questions={questions} />
         : <AddAnswerButton toggleForm={this.toggleForm} />
         }
         {currentQuestion && currentQuestion.attributes.answers && currentQuestion.attributes.answers.map((answer, idx) => (

@@ -8,14 +8,16 @@ import {
   CURRENT_SCRIPT_LOADING,
   CURRENT_SCRIPT_UPDATE,
   QUESTIONS_UPDATE,
-  CREATING_NEW_QUESTION_UPDATE
+  CREATING_NEW_QUESTION_UPDATE,
+  UPDATE_CURRENT_ANSWER
 } from './ScriptBuilderTypes';
 
 const INITIAL_STATE = {
   loading: false,
   currentScript: null,
   questions: [],
-  creatingNewQuestion: false
+  creatingNewQuestion: false,
+  currentAnswer: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -40,6 +42,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, questions: action.payload };
     case CREATING_NEW_QUESTION_UPDATE:
       return { ...state, creatingNewQuestion: action.payload };
+    case UPDATE_CURRENT_ANSWER:
+      return { ...state, currentAnswer: action.payload };
     default:
       return state;
   }

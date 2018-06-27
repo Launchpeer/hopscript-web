@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MicrophoneIcon = props => (
+const PlusIcon = props => (
   <svg width={props.width} height={props.height} viewBox="0 0 26 26">
     <g stroke="none" strokeWidth="1" fillRule="evenodd">
         <g fill={props.color}>
@@ -10,4 +10,4 @@ const MicrophoneIcon = props => (
   </svg>
 );
 
-export default MicrophoneIcon;
+export default PlusIcon;

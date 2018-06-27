@@ -30,7 +30,7 @@ class NewQuestionForm extends Component {
 
   render() {
     const {
-      handleSubmit, loading,
+      handleSubmit, loading
     } = this.props;
     return (
       <div>

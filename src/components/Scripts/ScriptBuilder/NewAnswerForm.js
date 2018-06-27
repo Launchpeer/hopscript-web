@@ -68,7 +68,7 @@ class NewAnswerForm extends Component {
                     name="route"
                     type="dropdown"
                     placeholder="Route to"
-                    options={questions}
+                    options={questions.map((question) => { return { value: question.id, id: question.id, display: question.attributes.body }})}
                     borderColor={Colors.moonGray}
                    />
                  : <div>N/A</div>
@@ -80,7 +80,9 @@ class NewAnswerForm extends Component {
                   style={{ borderRadius: BorderRadius.all }}
                   type="submit"
                   >
-                  <PlusIcon color={Colors.brandGreen} width="1.5rem" height="1.5rem" />
+                  <div className="bg-brand-green br-100 flex items-center justify-center white" style={{ height: '1.25rem', width: '1.25rem' }}>
+                      +
+                  </div>
                 </button>
               </div>
             </div>

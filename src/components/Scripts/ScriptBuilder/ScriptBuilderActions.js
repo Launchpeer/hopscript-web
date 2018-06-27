@@ -15,7 +15,8 @@ import {
   CURRENT_QUESTION_UPDATE,
   CURRENT_SCRIPT_UPDATE,
   QUESTIONS_UPDATE,
-  CREATING_NEW_QUESTION_UPDATE
+  CREATING_NEW_QUESTION_UPDATE,
+  UPDATE_CURRENT_ANSWER
 } from './ScriptBuilderTypes';
 
 
@@ -85,7 +86,6 @@ const currentScriptUpdate = script => (dispatch) => {
 };
 
 function _setNewQuestion(state) {
-  console.log('setting state', state);
   return {
     type: CREATING_NEW_QUESTION_UPDATE,
     payload: state
@@ -93,12 +93,11 @@ function _setNewQuestion(state) {
 }
 
 const newQuestion = script => (dispatch) => {
-  console.log('new question');
   dispatch(_setNewQuestion(true));
 };
 
 const toggleCreationState = state => (dispatch) => {
-  dispatch(_setNewQuestion(false));
+  dispatch(_setNewQuestion(state));
 };
 
 const createNewScript = () => (dispatch) => {
@@ -113,6 +112,10 @@ const createNewScript = () => (dispatch) => {
         type: CREATING_NEW_QUESTION_UPDATE,
         payload: true
       });
+      dispatch({
+        type: QUESTIONS_UPDATE,
+        payload: null
+      });
       browserHistory.push(`/script-builder/${script.id}`);
     });
 };
@@ -126,13 +129,13 @@ const setCurrentQuestion = question => (dispatch) => {
 
 function _createNewAudio(audioFile) {
   return new Promise((resolve) => {
-    console.log('audioFile', audioFile[0]);
     const parseFile = new Parse.File('file', audioFile[0]);
     resolve(parseFile.save());
   });
 }
 
 const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
+  dispatch(_answerAddLoading());
   if (question.audio) {
     _createNewAudio(question.audio)
       .then((parseAudio) => {
@@ -147,6 +150,7 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
               type: CURRENT_QUESTION_UPDATE,
               payload: res
             });
+            dispatch(_answerAddLoadEnd());
           });
       });
   } else {
@@ -161,6 +165,7 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
           type: CURRENT_QUESTION_UPDATE,
           payload: res
         });
+        dispatch(_answerAddLoadEnd());
       });
   }
 };
@@ -197,8 +202,8 @@ const updateScript = (data, scriptId) => (dispatch) => {
     });
 };
 
-const updateQuestion = ({ question, questionId }, scriptId) => (dispatch) => {
-  Parse.Cloud.run('updateQuestion', { question: question.attributes, questionId, scriptId })
+const updateQuestion = ({ data, questionId, scriptId }) => (dispatch) => {
+  Parse.Cloud.run('updateQuestion', { data, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
     });
@@ -225,6 +230,13 @@ const deleteQuestion = (question, script) => (dispatch) => {
     });
 };
 
+const setCurrentAnswer = (answer) => (dispatch) => {
+  dispatch({
+    type: UPDATE_CURRENT_ANSWER,
+    payload: answer
+  });
+}
+
 
 export {
   fetchScript,
@@ -239,5 +251,6 @@ export {
   removeAnswer,
   newQuestion,
   toggleCreationState,
-  deleteQuestion
+  deleteQuestion,
+  setCurrentAnswer
 };
