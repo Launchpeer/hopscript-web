@@ -18,7 +18,7 @@ const PathsWithoutSideBarContent = [
 
 const agentItems = [
   {
-    route: '/call',
+    route: '/start-call',
     label: 'CALL',
     icon: (item, route) => <CallIcon width="25px" height="25px" color={textColor(item, route)} />
   },

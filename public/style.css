@@ -110,6 +110,9 @@ input:focus {
 .hov-danger:hover {
   background-color: #D0021B; }
 
+.hov-green:hover {
+  background-color: #00cd6a; }
+
 .brand-near-black {
   color: #3e3e3e; }
 
