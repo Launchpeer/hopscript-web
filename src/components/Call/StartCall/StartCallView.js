@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, change, Field } from 'redux-form';
 import {
   FullScreenContainer,
   Title,
@@ -18,19 +18,23 @@ import { SelectGroup, SelectLead } from './';
 import { Colors } from '../../../config/styles';
 import { fetchLeads } from '../../Leads/LeadsActions';
 
+const SelectLeadField = () => {
+
+}
 class StartCallView extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedGroup: true };
+    this.state = { selectedGroup: true, lead: null };
     console.log('call view');
     this.props.fetchLeads();
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
   handleFormSubmit(d) {
-    console.log(d);
+    console.log('data', d);
   }
 
   render() {
-    const { handleSubmit, leads } = this.props;
+    const { handleSubmit, leads, change } = this.props;
     return (
       <CardRight>
         <HSCardHeader>Start a Call</HSCardHeader>
@@ -41,11 +45,14 @@ class StartCallView extends Component {
                 selectedGroup={this.state.selectedGroup}
                 onClick={() => this.setState({ selectedGroup: true })}
                 classOverrides={!this.state.selectedGroup && 'moon-gray'} />
-              <SelectLead
-                leads={leads}
-                selectedGroup={!this.state.selectedGroup}
-                onClick={() => this.setState({ selectedGroup: false })}
-                classOverrides={this.state.selectedGroup && 'moon-gray'} />
+                <SelectLead
+                  leads={leads}
+                  selectedGroup={!this.state.selectedGroup}
+                  leadLoaded={this.state.lead}
+                  onClick={() => this.setState({ selectedGroup: false })}
+                  selectLead={(lead) => {change('lead', lead); this.setState({ lead })}}
+                  removeLead={(lead) => {change('lead', null); this.setState({ lead: null })}}
+                  classOverrides={this.state.selectedGroup && 'moon-gray'} />
             </HalfGrid>
             <HalfGrid>
               <div>SELECT A LEAD SCRIPT</div>

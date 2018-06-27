@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LeadsListItem = ({ lead }) => {
+const LeadsListItem = ({ lead, selectLead }) => {
   const { name } = lead.attributes;
   return (
     <div
@@ -11,20 +11,20 @@ const LeadsListItem = ({ lead }) => {
         className="br-100 bg-brand-near-black white flex items-center justify-center hov-green"
         role="button"
         style={{ width: '2rem', height: '2rem' }}
-        onClick={() => {console.log('lead', lead)}}>
+        onClick={() => {selectLead(lead)}}>
         +
       </div>
     </div>
   )
 }
-const LeadsList = ({ leads, search }) => {
+const LeadsList = ({ leads, search, selectLead }) => {
   return (
     <div>
     {search.length > 0
       ?
-        leads.filter(lead => lead.attributes.name.includes(search)).map(filteredLead => (<LeadsListItem lead={filteredLead} key={filteredLead.id}/>))
+        leads.filter(lead => lead.attributes.name.includes(search)).map(filteredLead => (<LeadsListItem lead={filteredLead} key={filteredLead.id} selectLead={selectLead} />))
       :
-        leads.map(lead => (<LeadsListItem lead={lead} key={lead.id}/>))
+        leads.map(lead => (<LeadsListItem lead={lead} key={lead.id} selectLead={selectLead} />))
     }
     </div>
   );
