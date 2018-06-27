@@ -77,8 +77,18 @@ class NewQuestionForm extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {};
+  if (!values.category) {
+    errors.category = '*required';
+  }
+
+  return errors;
+}
+
 const Form = reduxForm({
-  form: 'newQuestion'
+  form: 'newQuestion',
+  validate
 })(NewQuestionForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
