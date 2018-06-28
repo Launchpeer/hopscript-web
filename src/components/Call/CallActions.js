@@ -77,5 +77,12 @@ const fetchCall = callId => (dispatch) => {
 
 const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
+const startACall = number => () => axios({
+  method: 'post',
+  url: `${TWILIO_SERVER_URL}/voice`,
+  data: { number }
+})
+  .then(data => (data));
 
-export { startCall, fetchCall, fetchToken };
+
+export { startCall, fetchCall, fetchToken, startACall };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ArrowLeftCircle } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton } from '../../common';
-import { fetchCall, fetchToken } from '../CallActions';
+import { fetchCall, fetchToken, startACall } from '../CallActions';
 
 class InCallView extends Component {
   constructor(props) {
@@ -19,7 +19,11 @@ class InCallView extends Component {
     });
     Twilio.Device.ready(() => {
       console.log('Phone is connected');
-      Twilio.Device.connect({ phone: '+13236211433' });
+      this.props.startACall('+13236211433')
+        .then((callRes) => {
+          console.log('call res', callRes);
+          Twilio.Device.connect({ To: '+13236211433' });
+        });
     });
 
     Twilio.Device.error(err => console.log('err', err));
@@ -89,4 +93,4 @@ const mapStateToProps = ({ CallReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCall, fetchToken })(InCallView);
+export default connect(mapStateToProps, { fetchCall, fetchToken, startACall })(InCallView);
