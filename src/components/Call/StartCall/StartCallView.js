@@ -12,12 +12,14 @@ import {
   HSButton,
   Card,
   CardRight,
-  HSCardHeader
+  HSCardHeader,
+  LoaderOrThis
 } from '../../common';
 import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
 import { Colors } from '../../../config/styles';
 import { fetchLeads } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
+import { startCall } from '../CallActions';
 
 class StartCallView extends Component {
   constructor(props) {
@@ -28,7 +30,7 @@ class StartCallView extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
   handleFormSubmit(d) {
-    console.log('data', d);
+    this.props.startCall(d);
   }
 
   render() {
@@ -36,47 +38,52 @@ class StartCallView extends Component {
       handleSubmit,
       leads,
       change,
-      scripts } = this.props;
+      scripts,
+      loading } = this.props;
     return (
       <CardRight>
-        <HSCardHeader>Start a Call</HSCardHeader>
-        <div className="pa3 mt4">
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-            <HalfGrid classOverrides="pr3">
-              <SelectGroup
-                selectedGroup={this.state.selectedGroup}
-                onClick={() => this.setState({ selectedGroup: true })}
-                classOverrides={!this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
-              <SelectLead
-                leads={leads}
-                selectedGroup={!this.state.selectedGroup}
-                leadLoaded={this.state.lead}
-                onClick={() => this.setState({ selectedGroup: false })}
-                selectLead={(lead) => {change('lead', lead); this.setState({ lead })}}
-                removeLead={(lead) => {change('lead', null); this.setState({ lead: null })}}
-                classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
-            </HalfGrid>
-            <HalfGrid classOverrides="pl3 mb4">
-              {scripts.length > 0 && <SelectScript scripts={scripts} />}
-              <CallTitle />
-            </HalfGrid>
-            <HSButton>Start Call</HSButton>
-          </form>
-        </div>
+        <LoaderOrThis loading={loading}>
+          <HSCardHeader>Start a Call</HSCardHeader>
+          <div className="pa3 mt4">
+            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+              <HalfGrid classOverrides="pr3">
+                <SelectGroup
+                  selectedGroup={this.state.selectedGroup}
+                  onClick={() => this.setState({ selectedGroup: true })}
+                  classOverrides={!this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
+                <SelectLead
+                  leads={leads}
+                  selectedGroup={!this.state.selectedGroup}
+                  leadLoaded={this.state.lead}
+                  onClick={() => this.setState({ selectedGroup: false })}
+                  selectLead={(lead) => {change('lead', lead); this.setState({ lead })}}
+                  removeLead={(lead) => {change('lead', null); this.setState({ lead: null })}}
+                  classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
+              </HalfGrid>
+              <HalfGrid classOverrides="pl3 mb4">
+                {scripts.length > 0 && <SelectScript scripts={scripts} />}
+                <CallTitle />
+              </HalfGrid>
+              <HSButton>Start Call</HSButton>
+            </form>
+          </div>
+        </LoaderOrThis>
       </CardRight>
     );
   }
 }
 
-const mapStateToProps = ({ LeadsReducer, ScriptsListReducer }) => {
+const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
   const { leads } = LeadsReducer;
   const { scripts } = ScriptsListReducer;
+  const { loading } = CallReducer;
   return {
     leads,
-    scripts
+    scripts,
+    loading
   }
 }
 
 export default reduxForm({
   form: 'callForm',
-})(connect(mapStateToProps, { fetchLeads, fetchScripts })(StartCallView));
+})(connect(mapStateToProps, { fetchLeads, fetchScripts, startCall })(StartCallView));

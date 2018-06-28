@@ -1,4 +1,3 @@
-
 export const LEADS_ERROR = "LEADS_ERROR";
 export const LEADS_CLEAR_ERROR = "LEADS_CLEAR_ERROR";
 export const LEADS_LOADING = "LEADS_LOADING";
