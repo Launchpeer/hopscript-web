@@ -39,7 +39,8 @@ class StartCallView extends Component {
       leads,
       change,
       scripts,
-      loading } = this.props;
+      loading
+    } = this.props;
     return (
       <CardRight>
         <LoaderOrThis loading={loading}>
@@ -56,8 +57,8 @@ class StartCallView extends Component {
                   selectedGroup={!this.state.selectedGroup}
                   leadLoaded={this.state.lead}
                   onClick={() => this.setState({ selectedGroup: false })}
-                  selectLead={(lead) => {change('lead', lead); this.setState({ lead })}}
-                  removeLead={(lead) => {change('lead', null); this.setState({ lead: null })}}
+                  selectLead={(lead) => { change('lead', lead); this.setState({ lead }); }}
+                  removeLead={(lead) => { change('lead', null); this.setState({ lead: null }); }}
                   classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
               </HalfGrid>
               <HalfGrid classOverrides="pl3 mb4">
@@ -81,9 +82,11 @@ const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
     leads,
     scripts,
     loading
-  }
-}
+  };
+};
 
 export default reduxForm({
   form: 'callForm',
-})(connect(mapStateToProps, { fetchLeads, fetchScripts, startCall })(StartCallView));
+})(connect(mapStateToProps, {
+  fetchLeads, fetchScripts, startCall
+})(StartCallView));

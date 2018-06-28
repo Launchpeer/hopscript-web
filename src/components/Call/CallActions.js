@@ -1,5 +1,8 @@
 import Parse from 'parse';
-import { browserHistory} from 'react-router';
+
+import { browserHistory } from 'react-router';
+import axios from 'axios';
+import { TWILIO_SERVER_URL } from '../../config/globals';
 
 import {
   CALL_LOADING,
@@ -43,13 +46,15 @@ function _callUpdate(c) {
 
 const startCall = call => (dispatch) => {
   dispatch(_callLoading());
-  Parse.Cloud.run("createCall", (
-    { call:
+  Parse.Cloud.run(
+    "createCall", (
+      {
+        call:
       {
         ...call,
         lead: call.lead.id
       }
-    })
+      })
   )
     .then((newCall) => {
       dispatch(_callLoadEnd());
@@ -61,13 +66,16 @@ const startCall = call => (dispatch) => {
 
 const fetchCall = callId => (dispatch) => {
   dispatch(_callLoading());
-  console.log('call id', callId)
+  console.log('call id', callId);
   Parse.Cloud.run("fetchCall", ({ callId }))
     .then((call) => {
       dispatch(_callLoadEnd());
       dispatch(_callUpdate(call));
     })
     .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
-}
+};
 
-export { startCall, fetchCall };
+const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
+
+
+export { startCall, fetchCall, fetchToken };
