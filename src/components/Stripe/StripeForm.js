@@ -17,7 +17,7 @@ class StripeForm extends Component {
       cardNumber: '',
       expiry: '',
       cvc: ''
-    }
+    };
     this.handleCardNumberChange = this.handleCardNumberChange.bind(this);
     this.handleCardExpiryChange = this.handleCardExpiryChange.bind(this);
     this.handleCardCVCChange = this.handleCardCVCChange.bind(this);
@@ -25,15 +25,15 @@ class StripeForm extends Component {
   }
 
   handleCardNumberChange(e) {
-    this.setState({cardNumber: e.target.value});
+    this.setState({ cardNumber: e.target.value });
   }
 
   handleCardExpiryChange(e) {
-    this.setState({expiry: e.target.value});
+    this.setState({ expiry: e.target.value });
   }
 
   handleCardCVCChange(e) {
-    this.setState({cvc: e.target.value});
+    this.setState({ cvc: e.target.value });
   }
 
   handleStripeSubmit() {
@@ -52,10 +52,10 @@ class StripeForm extends Component {
             cardCVCInputProps={{ value: cvc, onChange: this.handleCardCVCChange }}
             fieldClassName="input"
           />
-        <Button backgroundColor={Colors.brandGreen} onClick={this.handleStripeSubmit} classOverrides="w-100 mt5" borderRadius={BorderRadius.none}>Add Card To Account</Button>
+          <Button backgroundColor={Colors.brandPrimary} onClick={this.handleStripeSubmit} classOverrides="w-100 mt5" borderRadius={BorderRadius.none}>Connect to Stripe</Button>
         </form>
       </LoaderOrThis>
-    )
+    );
   }
 }
 

@@ -54,6 +54,10 @@ input {
   background-color: $brandPrimary;
 }
 
+.bg-brand-secondary {
+  background-color: $brandSecondary;
+}
+
 .bg-brand-green {
   background-color: $brandGreen;
 }
@@ -66,6 +70,10 @@ input {
   background-color: $brandNearBlack
 }
 
+.bg-near-white {
+  background-color: $nearWhite
+}
+
 .brand-secondary {
   color: $brandSecondary;
 }
@@ -73,6 +81,7 @@ input {
 .brand-near-black {
   color: $brandNearBlack
 }
+
 
 .brand-red {
   color: $brandRed;

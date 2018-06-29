@@ -35,12 +35,8 @@ class ForgotPasswordView extends Component {
       <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
-            <div
-              className="mw5 mb5 mt6 f2 b"
-              style={{
-                color: Colors.white
-              }} >
-              Swift Script
+            <div className="w-40-l mw6 mt6 mb5">
+              <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
@@ -59,7 +55,7 @@ class ForgotPasswordView extends Component {
                     placeholder="Email Address" />
                   <Button
                     classOverrides="w-100"
-                    backgroundColor={Colors.brandGreen} >
+                    backgroundColor={Colors.brandPrimary} >
                     Send Reset Password Email
                   </Button>
                   <RenderAlert error={error} />
@@ -72,7 +68,7 @@ class ForgotPasswordView extends Component {
             <div
               className="underline pointer mt4 p5 white"
               style={{
-                color: Colors.white
+                color: Colors.brandPrimary
               }}
               role="button"
               onClick={() => browserHistory.push('/')} >

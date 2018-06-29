@@ -52,7 +52,7 @@ class ScriptsListItem extends Component {
           </div>
           <div className="w-10 flex items-end flex-column">
             <div
-              className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+              className="br-100 bg-brand-secondary white flex items-center justify-center hov-danger"
               role="button"
               style={{ width: '2rem', height: '2rem' }}
               onClick={this.toggleModal}>

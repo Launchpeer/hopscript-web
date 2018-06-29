@@ -26,7 +26,7 @@ class LeadsListView extends Component {
       <LeadNavCard location={location}>
         <div className="w-100">
           {leads && leads.length > 0 ?
-            <div className="w-100 mb5">
+            <div className="w-100 mb5 mt4">
               {leads.map(lead => <LeadsListItem lead={lead} key={lead.id} removeLead={() => this.handleDelete(lead.id)} />)}
             </div> :
             <div className="mt6 tc f4 pa3 silver">

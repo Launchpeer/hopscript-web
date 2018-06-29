@@ -56,7 +56,7 @@ class BrokerageSignUpForm extends Component {
                 Terms of Service, Privacy Policy, and End User Agreement
             </div>
           </div>
-          <Button classOverrides="w-100" backgroundColor={Colors.brandGreen}>
+          <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
             Create Account
           </Button>
           <RenderAlert error={error} />
