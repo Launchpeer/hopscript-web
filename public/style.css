@@ -176,6 +176,15 @@ textarea:focus {
 .b--brand-green {
   border: 1px solid #00cd6a; }
 
+.rounded-children-block {
+  border: 1px solid #EEEEEE; }
+
+.rounded-children-block:first-child {
+  border-radius: 4px 4px 0px 0px; }
+
+.rounded-children-block:last-child {
+  border-radius: 0px 0px 4px 4px; }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;
