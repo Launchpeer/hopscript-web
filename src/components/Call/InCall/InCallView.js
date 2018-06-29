@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ArrowLeftCircle } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton } from '../../common';
 import { fetchCall, fetchToken, startACall } from '../CallActions';
@@ -14,20 +13,19 @@ class InCallView extends Component {
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     }
+    const { phone } = this.props.currentCall.attributes.lead.attributes;
     this.props.fetchToken().then((token) => {
       Twilio.Device.setup(token);
     });
     Twilio.Device.ready(() => {
-      console.log('Phone is connected');
-      this.props.startACall('+13236211433')
-        .then((callRes) => {
-          console.log('call res', callRes);
-          Twilio.Device.connect({ To: '+13236211433' });
+      this.props.startACall(phone)
+        .then(() => {
+          Twilio.Device.connect({ To: phone });
         });
     });
 
     Twilio.Device.error(err => console.log('err', err));
-    // this.handleHangUp = this.handleHangUp.bind(this);
+    this.handleHangUp = this.handleHangUp.bind(this);
   }
 
   handleHangUp(e) {
@@ -92,7 +90,6 @@ class InCallView extends Component {
 
 const mapStateToProps = ({ CallReducer }) => {
   const { loading, currentCall } = CallReducer;
-  console.log('currentCall', currentCall);
   return {
     loading,
     currentCall
