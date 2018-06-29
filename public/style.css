@@ -15,13 +15,13 @@ input:focus {
   opacity: 0.75; }
 
 .brand-primary {
-  color: #6772e5; }
+  color: #1d79ad; }
 
 .brand-primary-shade {
   color: #5c66d5; }
 
 .bg-brand-primary {
-  background-color: #6772e5; }
+  background-color: #1d79ad; }
 
 .bg-brand-green {
   background-color: #00cd6a; }
@@ -33,7 +33,7 @@ input:focus {
   background-color: #3e3e3e; }
 
 .brand-secondary {
-  color: #3943a5; }
+  color: #124968; }
 
 .brand-near-black {
   color: #3e3e3e; }
@@ -57,7 +57,7 @@ input:focus {
   background: #EEEEEE; }
 
 .hov-primary:hover {
-  background: #6772e5; }
+  background: #1d79ad; }
 
 .rounded-profile {
   border-radius: 50%;
@@ -96,7 +96,7 @@ input:focus {
   background-color: white; }
 
 .hov-image-uploader:hover {
-  background-color: #6772e5; }
+  background-color: #1d79ad; }
 
 .list-alt-color-rows {
   background-color: #ffffff; }
@@ -278,7 +278,7 @@ textarea:focus {
   content: '';
   display: inline-block;
   border-left: 7px solid transparent;
-  border-bottom: 7px solid #6772e5;
+  border-bottom: 7px solid #1d79ad;
   border-top-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   bottom: 4px;
@@ -286,7 +286,7 @@ textarea:focus {
 
 .rdtPicker td.rdtActive,
 .rdtPicker td.rdtActive:hover {
-  background-color: #6772e5;
+  background-color: #1d79ad;
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
@@ -405,7 +405,7 @@ td.rdtYear:hover {
   -ms-user-select: none;
   /* Internet Explorer/Edge */
   user-select: none;
-  color: #6772e5; }
+  color: #1d79ad; }
 
 .rdtCounter .rdtBtn:hover {
   background: #eee; }
