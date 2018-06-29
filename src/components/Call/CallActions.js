@@ -5,7 +5,8 @@ import {
   CALL_LOADING,
   CALL_ERROR,
   CALL_LOAD_END,
-  CALL_UPDATE
+  CALL_UPDATE,
+  CURRENT_QUESTION_UPDATE
 } from './CallTypes';
 
 function _callError(err) {
@@ -61,7 +62,6 @@ const startCall = call => (dispatch) => {
 
 const fetchCall = callId => (dispatch) => {
   dispatch(_callLoading());
-  console.log('call id', callId)
   Parse.Cloud.run("fetchCall", ({ callId }))
     .then((call) => {
       dispatch(_callLoadEnd());
@@ -70,4 +70,22 @@ const fetchCall = callId => (dispatch) => {
     .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
 }
 
-export { startCall, fetchCall };
+const fetchQuestion = questionId => dispatch => {
+  Parse.Cloud.run("fetchQuestion", ({ questionId }))
+    .then((question) => {
+      dispatch({
+        type: CURRENT_QUESTION_UPDATE,
+        payload: question
+      });
+    })
+    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+}
+
+const setCurrentQuestion = question => dispatch => {
+  dispatch({
+    type: CURRENT_QUESTION_UPDATE,
+    payload: question
+  });
+}
+
+export { startCall, fetchCall, setCurrentQuestion };
