@@ -242,3 +242,15 @@ textarea:focus {
 .b--brand-green {
   border: 1px solid $brandGreen;
 }
+
+.rounded-children-block {
+  border: 1px solid $lightGray;
+}
+
+.rounded-children-block:first-child {
+  border-radius: 4px 4px 0px 0px;
+}
+
+.rounded-children-block:last-child {
+  border-radius: 0px 0px 4px 4px;
+}
