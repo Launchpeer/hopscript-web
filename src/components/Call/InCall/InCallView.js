@@ -27,6 +27,12 @@ class InCallView extends Component {
     });
 
     Twilio.Device.error(err => console.log('err', err));
+    // this.handleHangUp = this.handleHangUp.bind(this);
+  }
+
+  handleHangUp(e) {
+    e.preventDefault();
+    Twilio.Device.disconnectAll();
   }
 
 
@@ -74,7 +80,7 @@ class InCallView extends Component {
 
             </div>
             <div className="mr5 mb4">
-              <HSButton backgroundColor={Colors.brandRed} onClick={() => console.log('This will end the call')}>End Call</HSButton>
+              <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
             </div>
           </div>
         }
