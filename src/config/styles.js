@@ -3,7 +3,7 @@
 var Colors = {
   // Brand
   brandPrimary: '#1d79ad',
-  brandPrimaryShade: '#5c66d5',
+  brandPrimaryShade: '#124968',
   brandSecondary: '#124968',
   brandGreen: '#00cd6a',
   brandRed: '#ff5628',
