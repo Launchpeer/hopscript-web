@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactQuill from 'react-quill';
+import { currentTime } from '../../common';
 import { saveNotes } from '../CallActions';
 
 class NotesView extends Component {
@@ -17,16 +18,9 @@ class NotesView extends Component {
 
   // saves the notes and tells the user when the last save occured.
   handleClick(currentCall, text) {
-    const timeAdjusted = (hours, minutes) => {
-      if (hours > 12) {
-        return (`${hours - 12}:${minutes}pm`);
-      }
-      return (`${hours}:${minutes}am`);
-    };
-    const currentTime = new Date();
-    const time = timeAdjusted(currentTime.getHours(), currentTime.getMinutes());
     let thistext = text;
     thistext = thistext.split('<p>').join('').split('</p>').join('');
+    const time = currentTime();
     this.props.saveNotes(currentCall, thistext);
     this.setState({ saved: time });
   }
@@ -48,7 +42,7 @@ class NotesView extends Component {
           Save notes
           </div>
           {saved &&
-          <div className="pl2 moon-gray i">Last saved at {saved}</div>}
+          <div className="pl2 moon-gray i">Last saved at {saved} </div>}
         </div>
       </div>
     );
