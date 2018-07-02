@@ -1,5 +1,5 @@
 import Parse from 'parse';
-import { browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 
 import {
   CALL_LOADING,
@@ -44,13 +44,15 @@ function _callUpdate(c) {
 
 const startCall = call => (dispatch) => {
   dispatch(_callLoading());
-  Parse.Cloud.run("createCall", (
-    { call:
+  Parse.Cloud.run(
+    "createCall", (
+      {
+        call:
       {
         ...call,
         lead: call.lead.id
       }
-    })
+      })
   )
     .then((newCall) => {
       dispatch(_callLoadEnd());
@@ -68,9 +70,9 @@ const fetchCall = callId => (dispatch) => {
       dispatch(_callUpdate(call));
     })
     .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
-}
+};
 
-const fetchQuestion = questionId => dispatch => {
+const fetchQuestion = questionId => (dispatch) => {
   Parse.Cloud.run("fetchQuestion", ({ questionId }))
     .then((question) => {
       dispatch({
@@ -79,13 +81,20 @@ const fetchQuestion = questionId => dispatch => {
       });
     })
     .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
-}
+};
 
-const setCurrentQuestion = question => dispatch => {
+const setCurrentQuestion = question => (dispatch) => {
   dispatch({
     type: CURRENT_QUESTION_UPDATE,
     payload: question
   });
-}
+};
 
-export { startCall, fetchCall, setCurrentQuestion };
+const saveNotes = (callId, notes) => (dispatch) => {
+  Parse.Cloud.run("updateCall", ({ callId, notes }))
+    .then((call) => {
+      dispatch(_callUpdate(call));
+    }).catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+};
+
+export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes };

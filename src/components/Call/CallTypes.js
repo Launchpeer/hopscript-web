@@ -6,3 +6,4 @@ export const CALL_LOADING = "CALL_LOADING";
 export const CALL_LOAD_END = "CALL_LOAD_END";
 export const CALL_UPDATE = 'CALL_UPDATE';
 export const CURRENT_QUESTION_UPDATE = 'CURRENT_QUESTION_UPDATE';
+export const SAVE_NOTES = 'SAVE_NOTES';

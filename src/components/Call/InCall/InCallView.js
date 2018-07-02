@@ -19,8 +19,7 @@ class InCallView extends Component {
   }
 
   setCurrentQuestion(data) {
-    console.log('data', data);
-    this.props.setCurrentQuestion(data)
+    this.props.setCurrentQuestion(data);
   }
 
 
@@ -91,7 +90,7 @@ const mapStateToProps = ({ CallReducer }) => {
     loading,
     currentCall,
     currentQuestion
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, { fetchCall, setCurrentQuestion })(InCallView);

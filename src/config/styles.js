@@ -2,13 +2,13 @@
 
 var Colors = {
   // Brand
-  brandPrimary: '#6772e5',
+  brandPrimary: '#1d79ad',
   brandPrimaryShade: '#5c66d5',
-  brandSecondary: '#3943a5',
+  brandSecondary: '#124968',
   brandGreen: '#00cd6a',
   brandRed: '#ff5628',
   brandNearBlack: '#3e3e3e',
-  
+
   stripe: '#6772E5',
 
   // Basic Tachyon
