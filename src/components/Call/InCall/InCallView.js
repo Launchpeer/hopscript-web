@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
-import { CardRight, HSButton } from '../../common';
-import { fetchCall, fetchToken, startACall } from '../CallActions';
+import { CardRight, HSButton, currentTime } from '../../common';
+import { fetchCall, fetchToken, startACall, saveNotes } from '../CallActions';
+import { NotesView } from './';
 
 class InCallView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: true
+      notes: true,
+      notesText: '',
+      notesSave: null
     };
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
@@ -26,15 +29,28 @@ class InCallView extends Component {
 
     Twilio.Device.error(err => console.log('err', err));
     this.handleHangUp = this.handleHangUp.bind(this);
+    this.handleNotes = this.handleNotes.bind(this);
   }
 
   handleHangUp(e) {
     e.preventDefault();
     Twilio.Device.disconnectAll();
   }
-  
+
   setCurrentQuestion(data) {
     this.props.setCurrentQuestion(data);
+  }
+
+  handleNotes(text) {
+    let thistext = text;
+    thistext = thistext.split('<p>').join('').split('</p>').join('');
+    const time = currentTime();
+    this.setState({ saved: time });
+    this.props.saveNotes(this.props.currentCall, thistext);
+  }
+
+  handleNotesChange(value) {
+    this.setState({ text: value });
   }
 
 
@@ -71,9 +87,7 @@ class InCallView extends Component {
                   </div>
                 </div>
                 {notes &&
-                <div>
-                  notes
-                </div>
+                <NotesView saveNotes={this.handleNotes} handleChange={this.handleNotesChange} text={this.state.notesText} saved={this.state.notesSave}/>
                }
               </div>
               <div className="mr5 mv4 w-60">
