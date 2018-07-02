@@ -18,10 +18,13 @@ input:focus {
   color: #1d79ad; }
 
 .brand-primary-shade {
-  color: #5c66d5; }
+  color: #1c6a96; }
 
 .bg-brand-primary {
   background-color: #1d79ad; }
+
+.bg-brand-secondary {
+  background-color: #124968; }
 
 .bg-brand-green {
   background-color: #00cd6a; }
@@ -31,6 +34,9 @@ input:focus {
 
 .bg-brand-near-black {
   background-color: #3e3e3e; }
+
+.bg-near-white {
+  background-color: #f2f2f2; }
 
 .brand-secondary {
   color: #124968; }
@@ -102,7 +108,7 @@ input:focus {
   background-color: #ffffff; }
 
 .list-alt-color-rows:nth-child(odd) {
-  background-color: #f4f4f4; }
+  background-color: #f2f2f2; }
 
 .list-alt-color-rows:nth-child(even) {
   background-color: #ffffff; }

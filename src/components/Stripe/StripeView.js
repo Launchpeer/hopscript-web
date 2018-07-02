@@ -40,9 +40,9 @@ class StripeView extends Component {
   render() {
     const { loading, error } = this.props;
     return (
-      <FullScreenContainer color={Colors.brandPrimary}>
+      <FullScreenContainer color={Colors.nearWhite}>
         <div className="tc absolute right-0 pa3">
-          <div className="dib pr3" style={{ color: Colors.white }}> Already have an account?</div>
+          <div className="dib pr3" style={{ color: Colors.brandPrimary }}> Already have an account?</div>
           <div
             className="pointer dib pa2"
             onClick={() => { browserHistory.push('/', { authType: 'signin' }); }}
@@ -56,18 +56,8 @@ class StripeView extends Component {
           </div>
         </div>
         <CenterThis>
-          <div className="mt5 tc">
-            <HeadphonesIcon width="20%" fill={Colors.white} />
-          </div>
-        </CenterThis>
-        <CenterThis>
-          <div
-            className="mw5 mb5 f1"
-            style={{
-              color: Colors.white
-            }}
-          >
-            Hopscript
+          <div className="w-40-l mw6 mt6 mb5">
+            <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
           </div>
         </CenterThis>
         {loading && <Loader />}

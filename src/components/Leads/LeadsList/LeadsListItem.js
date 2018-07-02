@@ -50,7 +50,7 @@ class LeadsListItem extends Component {
             <div className="w-30-ns">{attributes.email}</div>
           </div>
           <div
-            className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+            className="br-100 bg-brand-secondary white flex items-center justify-center hov-danger"
             role="button"
             style={{ width: '2rem', height: '2rem' }}
             onClick={this.toggleModal}>

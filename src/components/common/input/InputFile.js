@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import Dropzone from 'react-dropzone';
+import { Colors } from '../../../config/styles';
 
 class renderFileUpload extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class renderFileUpload extends Component {
           {files[0] && (<div>File exists</div>)}
           <Dropzone
             name={name}
+            style={{ backgroundColor: Colors.lightGray }}
             accept="text/csv"
             className={`${this.state.photoDragging === true ? "bg-moon-gray" : "hov-image-uploader"} pointer w-100 h-100 pt4`}
             onDrop={filesToUpload => input.onChange(filesToUpload)}
@@ -42,7 +44,7 @@ class renderFileUpload extends Component {
 }
 
 const InputFile = props => (
-  <div className="w-100 tc">
+  <div className="w-100 tc" style={{ backgroundColor: Colors.silver }}>
     <Field {...props} component={renderFileUpload} />
   </div>
 );
