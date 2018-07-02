@@ -10,10 +10,10 @@ import { LeadsCSVForm, LeadsAddForm } from './';
 const LeadsAddView = ({ location }) => (
   <LeadNavCard location={location}>
     <div className="mt5 flex w-100">
-      <div className="w-50">
+      <div className="w-50 ph5">
         <LeadsCSVForm />
       </div>
-      <div className="w-50 pl4">
+      <div className="w-50 ph5">
         <LeadsAddForm />
       </div>
     </div>

@@ -1,5 +1,4 @@
 import Parse from 'parse';
-
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { TWILIO_SERVER_URL } from '../../config/globals';
@@ -74,7 +73,7 @@ const fetchCall = callId => (dispatch) => {
     })
     .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
 };
-
+  
 const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
 const startACall = number => () => axios({
@@ -84,5 +83,29 @@ const startACall = number => () => axios({
 })
   .then(data => (data));
 
+const fetchQuestion = questionId => (dispatch) => {
+  Parse.Cloud.run("fetchQuestion", ({ questionId }))
+    .then((question) => {
+      dispatch({
+        type: CURRENT_QUESTION_UPDATE,
+        payload: question
+      });
+    })
+    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+};
 
-export { startCall, fetchCall, fetchToken, startACall };
+const setCurrentQuestion = question => (dispatch) => {
+  dispatch({
+    type: CURRENT_QUESTION_UPDATE,
+    payload: question
+  });
+};
+
+const saveNotes = (callId, notes) => (dispatch) => {
+  Parse.Cloud.run("updateCall", ({ callId, notes }))
+    .then((call) => {
+      dispatch(_callUpdate(call));
+    }).catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+};
+
+export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall };

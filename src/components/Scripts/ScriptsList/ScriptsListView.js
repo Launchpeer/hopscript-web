@@ -30,7 +30,7 @@ class ScriptsListView extends Component {
       <CardRight loading={this.props.loading}>
         <HSCardHeader>My Scripts</HSCardHeader>
         <div className="pa3">
-          <div className="mb4">
+          <div className="mv4">
             {scripts && scripts.length > 0 ?
               scripts.map(script => (
                 <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript} />))

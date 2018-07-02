@@ -8,7 +8,7 @@ import { clearError, clearUser } from './AuthActions';
 
 const SignIn = (
   <div className="tc absolute right-0 pa3">
-    <div className="dib pr3" style={{ color: Colors.white }}> Already have an account?</div>
+    <div className="dib pr3" style={{ color: Colors.brandPrimary }}> Already have an account?</div>
     <div
       className="pointer dib pa2"
       onClick={() => { browserHistory.push('/', { authType: 'signin' }); }}
@@ -44,18 +44,12 @@ class AuthView extends Component {
 
   render() {
     return (
-      <FullScreenContainer color={Colors.brandPrimary}>
+      <FullScreenContainer color={Colors.nearWhite}>
         { this.props.route.authType !== 'signin' && SignIn }
         <div className="w-100">
           <CenterThis>
-            <div className="mt5 tc">
-              <HeadphonesIcon width="20%" fill={Colors.white} />
-            </div>
-          </CenterThis>
-          <CenterThis>
-
-            <div className="mw5 mb5 f1" style={{ color: Colors.white }} >
-              Hopscript
+            <div className="w-40-l mw6 mt6 mb5">
+              <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
@@ -71,7 +65,7 @@ class AuthView extends Component {
                 <CenterThis>
                   <div
                     className="underline pointer dib p5 mb7 f3 "
-                    style={{ color: Colors.white }}
+                    style={{ color: Colors.gray }}
                     role="button"
                     onClick={() => browserHistory.push('/forgot-password')}
                     onKeyPress={() => browserHistory.push('/forgot-password')} >

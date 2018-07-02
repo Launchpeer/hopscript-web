@@ -1,4 +1,5 @@
 export { default as HeadphonesIcon } from './HeadphonesIcon';
+export { default as KangarooIcon } from './KangarooIcon';
 export { default as CallIcon } from './CallIcon';
 export { default as HistoryIcon } from './HistoryIcon';
 export { default as PeopleIcon } from './PeopleIcon';

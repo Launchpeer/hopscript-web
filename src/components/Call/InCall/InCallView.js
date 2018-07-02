@@ -32,6 +32,10 @@ class InCallView extends Component {
     e.preventDefault();
     Twilio.Device.disconnectAll();
   }
+  
+  setCurrentQuestion(data) {
+    this.props.setCurrentQuestion(data);
+  }
 
 
   render() {
@@ -92,7 +96,8 @@ const mapStateToProps = ({ CallReducer }) => {
   const { loading, currentCall } = CallReducer;
   return {
     loading,
-    currentCall
+    currentCall,
+    currentQuestion
   };
 };
 

@@ -52,17 +52,8 @@ class ResetPasswordView extends Component {
       <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
-            <div className="mt5 tc">
-              <HeadphonesIcon width="20%" color={Colors.white} />
-            </div>
-          </CenterThis>
-          <CenterThis>
-            <div
-              className="mw5 mb5 f1"
-              style={{
-                color: Colors.white
-              }} >
-              Hopscript
+            <div className="w-40-l mw6 mt6 mb5">
+              <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
@@ -81,7 +72,7 @@ class ResetPasswordView extends Component {
                       placeholder="Password" />
                     <Button
                       classOverrides="w-100"
-                      backgroundColor={Colors.brandGreen} >
+                      backgroundColor={Colors.brandPrimary} >
                       Reset Password
                     </Button>
                     <RenderAlert error={error} />
@@ -99,7 +90,7 @@ class ResetPasswordView extends Component {
                   browserHistory.push('/', { authType: 'signin' });
                 }}
                 role="button"
-                style={{ color: Colors.white }} >
+                style={{ color: Colors.gray }} >
                 {`< Return to Login`}
               </div>
             </div>

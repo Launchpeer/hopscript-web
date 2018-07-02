@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { User } from 'react-feather';
 import { Colors } from '../../config/styles';
-import { CenterThis, HeadphonesIcon, CallIcon, PeopleIcon, HistoryIcon, ScriptIcon } from './';
+import { CenterThis, KangarooIcon, CallIcon, PeopleIcon, HistoryIcon, ScriptIcon } from './';
 
 const PathsWithoutSideBarContent = [
   '/',
@@ -82,7 +82,7 @@ const mapSidebarContent = (user, route) => {
           </div>
           <div className="f5 tc mt1">{item.label}</div>
         </div>
-        <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
+        <div className="ba brand-primary-shade" />
       </div>
     ))
   );
@@ -95,10 +95,7 @@ const SideBar = ({ route, user }) => (
         <div className="flex flex-column mt4" >
           <div className="pb3 pointer">
             <div className="tc">
-              <HeadphonesIcon width="30px" height="30px" color={Colors.white} />
-            </div>
-            <div className="f5 white tc">
-              Hopscript
+              <KangarooIcon width="60px" height="60px" color={Colors.white} />
             </div>
           </div>
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
