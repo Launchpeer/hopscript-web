@@ -18,6 +18,6 @@ const QuestionView = ({ currentQuestion, setCurrentQuestion }) => (
         <div>No answers</div>
     }
   </div>
-)
+);
 
 export default QuestionView;

@@ -54,13 +54,13 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe', '/welcome'];
+const bodyColorPaths = ['/welcome'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
-    document.body.style.backgroundColor = Colors.nearWhite;
+    document.body.style.backgroundColor = Colors.brandPrimary;
   } else {
-    document.body.style.backgroundColor = Colors.lightGray;
+    document.body.style.backgroundColor = Colors.nearWhite;
   }
 });
 

@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes } from '../CallActions';
-import { NotesView } from './';
+import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion } from '../CallActions';
+import { NotesView, QuestionsGlossaryView, QuestionView } from './';
 
 class InCallView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: true,
+      notes: false,
+      questions: true,
       notesText: '',
       notesSave: null
     };
@@ -31,6 +32,7 @@ class InCallView extends Component {
     }
     this.handleHangUp = this.handleHangUp.bind(this);
     this.handleNotes = this.handleNotes.bind(this);
+    this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
   }
 
   handleHangUp(e) {
@@ -56,8 +58,8 @@ class InCallView extends Component {
 
 
   render() {
-    const { currentCall } = this.props;
-    const { notes } = this.state;
+    const { currentCall, currentQuestion } = this.props;
+    const { notes, questions } = this.state;
     const notesStyle = notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     const questionsStyle = !notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
 
@@ -79,19 +81,29 @@ class InCallView extends Component {
               <div className="flex flex-column ml4 mr5 mv4 w-40 pa2">
                 <div className="pb2">
                   <div className="flex flex-row">
-                    <div style={notesStyle} className="pointer b bb w4 tc pb2 bw2 f4" role="button" onClick={() => this.setState({ notes: true })}>
+                    <div style={notesStyle} className="pointer b bb w4 tc pb2 bw2 f4" role="button" onClick={() => this.setState({ notes: true, questions: false })}>
                   Notes
                     </div>
-                    <div style={questionsStyle} className="pointer b bb w4 tc pb2 bw2 f4" role="button" onClick={() => this.setState({ notes: false })}>
+                    <div style={questionsStyle} className="pointer b bb w4 tc pb2 bw2 f4" role="button" onClick={() => this.setState({ notes: false, questions: true })}>
                   Questions
                     </div>
                   </div>
+                  {notes && <div>notes</div>}
+                  {questions &&
+                    (currentCall.attributes.script.attributes.questions
+                      ?
+                        <QuestionsGlossaryView questions={currentCall.attributes.script.attributes.questions} setCurrentQuestion={this.setCurrentQuestion} currentQuestion={currentQuestion} />
+                      : <div>No Questions</div>)
+                  }
                 </div>
               </div>
-              <div className="mr5 mv4 w-60">
-              Question, audio player, answers
+              <div className="w-60 ph3 mv4">
+                <div className="w-100">
+                  {currentQuestion
+                     ? <QuestionView currentQuestion={currentQuestion} setCurrentQuestion={this.setCurrentQuestion} />
+                     : <div>Select a Question to get Started!</div>}
+                </div>
               </div>
-
             </div>
             <div className="mr5 mb4">
               <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
@@ -113,4 +125,6 @@ const mapStateToProps = ({ CallReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCall, fetchToken, startACall })(InCallView);
+export default connect(mapStateToProps, {
+  fetchCall, fetchToken, startACall, setCurrentQuestion
+})(InCallView);

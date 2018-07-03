@@ -31,7 +31,7 @@ export default function (state = INITIAL_STATE, action) {
     case CALL_LEAD_GROUP_UPDATE:
       return { ...state, leadGroup: action.payload };
     case CALL_LEAD_GROUP_INDEX_UPDATE:
-     return { ...state, leadGroupIndex: action.payload };
+      return { ...state, leadGroupIndex: action.payload };
     default:
       return state;
   }

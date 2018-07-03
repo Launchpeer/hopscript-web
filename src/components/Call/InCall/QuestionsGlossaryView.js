@@ -3,23 +3,23 @@ import { Colors } from '../../../config/styles';
 
 const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
 
-const QuestionsGlossaryItem = ({ question, setCurrentQuestion, currentQuestion }) => {
-  return (
-    <div
-      className="flex w-100 items-center justify-between pa3 pointer list-hover"
-      onClick={() => setCurrentQuestion(question)}
-      style={{
+const QuestionsGlossaryItem = ({ question, setCurrentQuestion, currentQuestion }) => (
+  <div
+    className="flex w-100 items-center justify-between pa3 pointer list-hover"
+    onClick={() => setCurrentQuestion(question)}
+    role="button"
+    style={{
         backgroundColor: (currentQuestion && currentQuestion.id === question.id) ? Colors.lightGray : Colors.white,
       }}
     >
-      <div
-        style={{
+    <div
+      style={{
           color: (currentQuestion && currentQuestion.id === question.id) ? Colors.brandGreen : Colors.brandNearBlack,
         }}
-        >{question.attributes.body || 'unnamed question'}</div>
+        >{question.attributes.body || 'unnamed question'}
     </div>
-  )
-}
+  </div>
+);
 
 const GlossarySection = ({
   questions, header, setCurrentQuestion, currentQuestion
@@ -38,6 +38,6 @@ const QuestionsGlossaryView = ({ questions, setCurrentQuestion, currentQuestion 
   <div>
     {sections.map(section => <GlossarySection questions={questions} header={section} key={section} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />)}
   </div>
-)
+);
 
 export default QuestionsGlossaryView;

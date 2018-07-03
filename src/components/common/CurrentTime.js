@@ -2,10 +2,16 @@
 
 const currentTime = () => {
   const timeAdjusted = (hours, minutes) => {
+    const minsAdjusted = () => {
+      if (minutes < 10) {
+        return `0${minutes}`;
+      }
+      return minutes;
+    };
     if (hours > 12) {
-      return (`${hours - 12}:${minutes}pm`);
+      return (`${hours - 12}:${minsAdjusted()}pm`);
     }
-    return (`${hours}:${minutes}am`);
+    return (`${hours}:${minsAdjusted()}am`);
   };
   const time = new Date();
 

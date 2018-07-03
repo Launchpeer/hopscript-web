@@ -9,7 +9,8 @@ import {
   CALL_LOAD_END,
   CALL_UPDATE,
   CALL_LEAD_GROUP_INDEX_UPDATE,
-  CALL_LEAD_GROUP_UPDATE
+  CALL_LEAD_GROUP_UPDATE,
+  CURRENT_QUESTION_UPDATE
 } from './CallTypes';
 
 function _callError(err) {
@@ -125,16 +126,17 @@ const saveNotes = (callId, notes) => (dispatch) => {
 
 
 function _fetchLeadGroup(leadGroup) {
-  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup }))
+  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup }));
 }
-const startLeadGroupCalls = d => dispatch => {
+
+const startLeadGroupCalls = d => (dispatch) => {
   Parse.Cloud.run("fetchLeadGroup", ({ leadGroup: d.leadGroup }))
     .then((leadGroup) => {
-      const currentLead = leadGroup.attributes.leads[0]
-      dispatch(_setCurrentLeadGroup(currentLead))
-      dispatch(_setLeadGroupIndex(0))
-      dispatch(startCall({ ...d, lead: { id: currentLead.id}}))
-    })
-}
+      const currentLead = leadGroup.attributes.leads[0];
+      dispatch(_setCurrentLeadGroup(currentLead));
+      dispatch(_setLeadGroupIndex(0));
+      dispatch(startCall({ ...d, lead: { id: currentLead.id } }));
+    });
+};
 
 export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
