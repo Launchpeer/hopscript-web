@@ -7,7 +7,9 @@ import {
   CALL_LOADING,
   CALL_ERROR,
   CALL_LOAD_END,
-  CALL_UPDATE
+  CALL_UPDATE,
+  CALL_LEAD_GROUP_INDEX_UPDATE,
+  CALL_LEAD_GROUP_UPDATE
 } from './CallTypes';
 
 function _callError(err) {
@@ -43,7 +45,22 @@ function _callUpdate(c) {
   };
 }
 
+function _setCurrentLeadGroup(leadGroup) {
+  return {
+    type: CALL_LEAD_GROUP_UPDATE,
+    payload: leadGroup
+  };
+}
+
+function _setLeadGroupIndex(idx) {
+  return {
+    type: CALL_LEAD_GROUP_INDEX_UPDATE,
+    payload: idx
+  };
+}
+
 const startCall = call => (dispatch) => {
+  console.log('call', call);
   dispatch(_callLoading());
   Parse.Cloud.run(
     "createCall", (
@@ -65,7 +82,6 @@ const startCall = call => (dispatch) => {
 
 const fetchCall = callId => (dispatch) => {
   dispatch(_callLoading());
-  console.log('call id', callId);
   Parse.Cloud.run("fetchCall", ({ callId }))
     .then((call) => {
       dispatch(_callLoadEnd());
@@ -73,7 +89,7 @@ const fetchCall = callId => (dispatch) => {
     })
     .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
 };
-  
+
 const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
 const startACall = number => () => axios({
@@ -108,4 +124,18 @@ const saveNotes = (callId, notes) => (dispatch) => {
     }).catch(err => dispatch({ type: CALL_ERROR, payload: err }));
 };
 
-export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall };
+
+function _fetchLeadGroup(leadGroup) {
+  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup }))
+}
+const startLeadGroupCalls = d => dispatch => {
+  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup: d.leadGroup }))
+    .then((leadGroup) => {
+      const currentLead = leadGroup.attributes.leads[0]
+      dispatch(_setCurrentLeadGroup(currentLead))
+      dispatch(_setLeadGroupIndex(0))
+      dispatch(startCall({ ...d, lead: { id: currentLead.id}}))
+    })
+}
+
+export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };

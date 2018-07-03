@@ -11,15 +11,14 @@ const SelectGroup = ({ onClick, leadGroups, selectedGroup, classOverrides }) => 
         className={`f3 b mb4 pointer ${classOverrides}`}>
         Select a Lead Group
       </div>
-      {selectedGroup &&
+      {(selectedGroup && leadGroups.length > 0) && 
         <div className="flex items-center">
           <div style={{ width: '9rem' }} className="mr2 f6">Lead Group</div>
-          {leadGroups &&
             <InputDropDown
               classOverrides="w-100"
               name="leadGroup"
               options={leadGroups.map(({ id, attributes: { groupName }}) => { return { value: id, id, display: groupName }})}
-            />}
+            />
         </div>
       }
     </div>

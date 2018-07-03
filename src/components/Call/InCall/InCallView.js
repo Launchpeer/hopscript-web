@@ -15,19 +15,20 @@ class InCallView extends Component {
     };
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
-    }
-    const { phone } = this.props.currentCall.attributes.lead.attributes;
-    this.props.fetchToken().then((token) => {
-      Twilio.Device.setup(token);
-    });
-    Twilio.Device.ready(() => {
-      this.props.startACall(phone)
-        .then(() => {
-          Twilio.Device.connect({ To: phone });
-        });
-    });
+    } else {
+      const { phone } = this.props.currentCall.attributes.lead.attributes;
+      this.props.fetchToken().then((token) => {
+        Twilio.Device.setup(token);
+      });
+      Twilio.Device.ready(() => {
+        this.props.startACall(phone)
+          .then(() => {
+            Twilio.Device.connect({ To: phone });
+          });
+      });
 
-    Twilio.Device.error(err => console.log('err', err));
+      Twilio.Device.error(err => console.log('err', err));
+    }
     this.handleHangUp = this.handleHangUp.bind(this);
     this.handleNotes = this.handleNotes.bind(this);
   }
@@ -86,9 +87,6 @@ class InCallView extends Component {
                     </div>
                   </div>
                 </div>
-                {notes &&
-                <NotesView saveNotes={this.handleNotes} handleChange={this.handleNotesChange} text={this.state.notesText} saved={this.state.notesSave}/>
-               }
               </div>
               <div className="mr5 mv4 w-60">
               Question, audio player, answers
@@ -107,7 +105,7 @@ class InCallView extends Component {
 
 
 const mapStateToProps = ({ CallReducer }) => {
-  const { loading, currentCall } = CallReducer;
+  const { loading, currentCall, currentQuestion } = CallReducer;
   return {
     loading,
     currentCall,
