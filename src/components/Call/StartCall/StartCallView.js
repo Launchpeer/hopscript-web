@@ -17,7 +17,7 @@ import {
 } from '../../common';
 import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
 import { Colors } from '../../../config/styles';
-import { fetchLeads } from '../../Leads/LeadsActions';
+import { fetchLeads, fetchLeadGroups } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall } from '../CallActions';
 
@@ -27,6 +27,7 @@ class StartCallView extends Component {
     this.state = { selectedGroup: true, lead: null };
     this.props.fetchLeads();
     this.props.fetchScripts();
+    this.props.fetchLeadGroups();
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
   handleFormSubmit(d) {
@@ -39,7 +40,8 @@ class StartCallView extends Component {
       leads,
       change,
       scripts,
-      loading
+      loading,
+      leadGroups
     } = this.props;
     return (
       <CardRight>
@@ -49,6 +51,7 @@ class StartCallView extends Component {
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <HalfGrid classOverrides="pr3">
                 <SelectGroup
+                  leadGroups={leadGroups}
                   selectedGroup={this.state.selectedGroup}
                   onClick={() => this.setState({ selectedGroup: true })}
                   classOverrides={!this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
@@ -75,18 +78,19 @@ class StartCallView extends Component {
 }
 
 const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
-  const { leads } = LeadsReducer;
+  const { leads, leadGroups } = LeadsReducer;
   const { scripts } = ScriptsListReducer;
   const { loading } = CallReducer;
   return {
     leads,
     scripts,
-    loading
+    loading,
+    leadGroups
   };
 };
 
 export default reduxForm({
   form: 'callForm',
 })(connect(mapStateToProps, {
-  fetchLeads, fetchScripts, startCall
+  fetchLeads, fetchScripts, startCall, fetchLeadGroups
 })(StartCallView));

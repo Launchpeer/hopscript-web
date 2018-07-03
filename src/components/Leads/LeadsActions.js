@@ -408,4 +408,19 @@ const parseCSV = data => (dispatch) => {
 };
 
 
-export { clearError, createLead, fetchLead, fetchLeads, updateLead, deleteLead, removeGroupFromLead, updateLeadsToAdd, createLeadGroup, fetchLeadGroup, fetchLeadGroups, updateLeadGroup, deleteLeadGroup, addLeadToGroup, parseCSV };
+export {
+  clearError,
+  createLead,
+  fetchLead,
+  fetchLeads,
+  updateLead,
+  deleteLead,
+  removeGroupFromLead,
+  updateLeadsToAdd,
+  createLeadGroup,
+  fetchLeadGroup,
+  fetchLeadGroups,
+  updateLeadGroup,
+  deleteLeadGroup,
+  addLeadToGroup,
+  parseCSV };
