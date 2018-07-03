@@ -60,7 +60,6 @@ function _setLeadGroupIndex(idx) {
 }
 
 const startCall = call => (dispatch) => {
-  console.log('call', call);
   dispatch(_callLoading());
   Parse.Cloud.run(
     "createCall", (
