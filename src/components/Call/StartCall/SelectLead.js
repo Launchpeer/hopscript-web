@@ -31,7 +31,6 @@ class SelectLead extends Component {
   }
 
   handleRemoveLead() {
-    console.log('handle')
     this.props.removeLead();
     this.setState({ search: '' });
   }
