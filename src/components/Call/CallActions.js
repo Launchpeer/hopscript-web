@@ -92,17 +92,21 @@ const fetchCall = callId => (dispatch) => {
 
 const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
-const startACall = number => () => axios({
+const startACall = (number, callId) => () => axios({
   method: 'post',
   url: `${TWILIO_SERVER_URL}/voice`,
-  data: { number }
-}).then(data => (data));
+  data: { number, callId }
+}).then(() => (
+  fetchCall(callId)
+));
 
-const playAudio = callSid => () => axios({
-  method: 'post',
-  url: `${TWILIO_SERVER_URL}/bot`,
-  data: { callSid }
-});
+const playAudio = (callSid, conferenceSid) => () => {
+  axios({
+    method: 'post',
+    url: `${TWILIO_SERVER_URL}/bot`,
+    params: { callSid, conferenceSid }
+  }).then(data => (data)).catch(err => console.log('boogie', err));
+};
 
 
 const fetchQuestion = questionId => (dispatch) => {

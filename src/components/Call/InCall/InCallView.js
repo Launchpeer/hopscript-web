@@ -13,7 +13,8 @@ class InCallView extends Component {
       questions: true,
       notesText: '',
       notesSave: null,
-      callSid: null
+      callSid: null,
+      confSid: null
     };
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
@@ -23,9 +24,9 @@ class InCallView extends Component {
         Twilio.Device.setup(token);
       });
       Twilio.Device.ready(() => {
-        this.props.startACall(phone)
-          .then(() => {
-            Twilio.Device.connect();
+        this.props.startACall(phone, this.props.params.id)
+          .then((data) => {
+            Twilio.Device.connect({ To: phone });
           });
       });
       Twilio.Device.connect((conn) => {
@@ -63,7 +64,7 @@ class InCallView extends Component {
 
   playAudio(e) {
     e.preventDefault();
-    this.props.playAudio(this.state.callSid);
+    this.props.playAudio(this.state.callSid, this.props.currentCall.conferenceSid);
   }
 
   render() {
