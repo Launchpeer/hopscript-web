@@ -30,7 +30,6 @@ class InCallView extends Component {
       });
       Twilio.Device.connect((conn) => {
         this.setState({ callSid: conn.parameters.CallSid });
-        console.log('callsid', conn.parameters.CallSid);
       });
 
       Twilio.Device.error(err => console.log('err', err));

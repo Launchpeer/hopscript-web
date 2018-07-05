@@ -98,11 +98,6 @@ const startACall = number => () => axios({
   data: { number }
 }).then(data => (data));
 
-const joinConference = () => dispatch => axios({
-  method: 'get',
-  url: `${TWILIO_SERVER_URL}/conference`
-}).then(data => (data));
-
 const playAudio = callSid => () => axios({
   method: 'post',
   url: `${TWILIO_SERVER_URL}/bot`,
@@ -150,4 +145,4 @@ const startLeadGroupCalls = d => (dispatch) => {
     });
 };
 
-export { joinConference, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
+export { playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
