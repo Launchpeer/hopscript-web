@@ -1,13 +1,13 @@
 import React from 'react';
 import { AnswersList } from './';
 
-const QuestionView = ({ currentQuestion, setCurrentQuestion }) => (
+const QuestionView = ({ currentQuestion, setCurrentQuestion, playAudio }) => (
   <div>
     <div className="b f3 mb4 brand-near-black">{currentQuestion.attributes.body || 'Unnamed Question'}</div>
     {currentQuestion.attributes.description && <div className="f5 mb4">{currentQuestion.attributes.description}</div>}
     {currentQuestion.attributes.audio &&
       <div>
-        <div className="f4 b brand-near-black mb2">Play audio</div>
+        <div className="f4 b brand-near-black mb2 pointer" role="button" onClick={playAudio} >Play audio</div>
         <div className="f5 mb4 pa3 bg-light-gray">has audio</div>
       </div>
     }

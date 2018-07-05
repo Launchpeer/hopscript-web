@@ -87,7 +87,7 @@ const fetchCall = callId => (dispatch) => {
       dispatch(_callLoadEnd());
       dispatch(_callUpdate(call));
     })
-    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    .catch(err => dispatch(_callError(err)));
 };
 
 const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
@@ -96,8 +96,19 @@ const startACall = number => () => axios({
   method: 'post',
   url: `${TWILIO_SERVER_URL}/voice`,
   data: { number }
-})
-  .then(data => (data));
+}).then(data => (data));
+
+const joinConference = () => dispatch => axios({
+  method: 'get',
+  url: `${TWILIO_SERVER_URL}/conference`
+}).then(data => (data));
+
+const playAudio = callSid => () => axios({
+  method: 'post',
+  url: `${TWILIO_SERVER_URL}/bot`,
+  data: { callSid }
+});
+
 
 const fetchQuestion = questionId => (dispatch) => {
   Parse.Cloud.run("fetchQuestion", ({ questionId }))
@@ -107,7 +118,7 @@ const fetchQuestion = questionId => (dispatch) => {
         payload: question
       });
     })
-    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    .catch(err => dispatch(_callError(err)));
 };
 
 const setCurrentQuestion = question => (dispatch) => {
@@ -121,7 +132,7 @@ const saveNotes = (callId, notes) => (dispatch) => {
   Parse.Cloud.run("updateCall", ({ callId, notes }))
     .then((call) => {
       dispatch(_callUpdate(call));
-    }).catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    }).catch(err => dispatch(_callError(err)));
 };
 
 
@@ -139,4 +150,4 @@ const startLeadGroupCalls = d => (dispatch) => {
     });
 };
 
-export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
+export { joinConference, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };

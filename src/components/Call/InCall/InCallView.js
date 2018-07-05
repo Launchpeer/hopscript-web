@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion } from '../CallActions';
+import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, joinConference } from '../CallActions';
 import { NotesView, QuestionsGlossaryView, QuestionView } from './';
 
 class InCallView extends Component {
@@ -12,7 +12,8 @@ class InCallView extends Component {
       notes: false,
       questions: true,
       notesText: '',
-      notesSave: null
+      notesSave: null,
+      callSid: null
     };
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
@@ -24,8 +25,12 @@ class InCallView extends Component {
       Twilio.Device.ready(() => {
         this.props.startACall(phone)
           .then(() => {
-            Twilio.Device.connect({ To: phone });
+            Twilio.Device.connect();
           });
+      });
+      Twilio.Device.connect((conn) => {
+        this.setState({ callSid: conn.parameters.CallSid });
+        console.log('callsid', conn.parameters.CallSid);
       });
 
       Twilio.Device.error(err => console.log('err', err));
@@ -33,6 +38,7 @@ class InCallView extends Component {
     this.handleHangUp = this.handleHangUp.bind(this);
     this.handleNotes = this.handleNotes.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
+    this.playAudio = this.playAudio.bind(this);
   }
 
   handleHangUp(e) {
@@ -56,6 +62,10 @@ class InCallView extends Component {
     this.setState({ text: value });
   }
 
+  playAudio(e) {
+    e.preventDefault();
+    this.props.playAudio();
+  }
 
   render() {
     const { currentCall, currentQuestion } = this.props;
@@ -100,7 +110,7 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} playAudio={e => this.playAudio(e)} setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>
@@ -126,5 +136,5 @@ const mapStateToProps = ({ CallReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchCall, fetchToken, startACall, setCurrentQuestion
+  fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, joinConference
 })(InCallView);
