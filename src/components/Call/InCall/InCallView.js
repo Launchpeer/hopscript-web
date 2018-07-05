@@ -63,7 +63,7 @@ class InCallView extends Component {
 
   playAudio(e) {
     e.preventDefault();
-    this.props.playAudio();
+    this.props.playAudio(this.state.callSid);
   }
 
   render() {
