@@ -31,6 +31,7 @@ class InCallView extends Component {
         Twilio.Device.connect();
         this.props.startACall(phone, this.props.params.id);
       });
+
       Twilio.Device.connect((conn) => {
         this.setState({ callSid: conn.parameters.CallSid });
       });
