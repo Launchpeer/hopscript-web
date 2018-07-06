@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, joinConference } from '../CallActions';
+import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, joinConference, } from '../CallActions';
 import { NotesView, QuestionsGlossaryView, QuestionView } from './';
+
 
 class InCallView extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class InCallView extends Component {
       callSid: null,
       confSid: null
     };
+
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
@@ -25,7 +27,7 @@ class InCallView extends Component {
         Twilio.Device.setup(token);
       });
 
-      Twilio.Device.ready(() => {
+      Twilio.Device.ready((dispatch) => {
         Twilio.Device.connect();
         this.props.startACall(phone, this.props.params.id);
       });
@@ -35,6 +37,8 @@ class InCallView extends Component {
 
       Twilio.Device.error(err => console.log('err', err));
     }
+
+
     this.handleHangUp = this.handleHangUp.bind(this);
     this.handleNotes = this.handleNotes.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
@@ -70,7 +74,7 @@ class InCallView extends Component {
 
   render() {
     const { currentCall, currentQuestion } = this.props;
-    console.log('CURRENTCALL TRIBUTES', currentCall.attributes);
+    console.log('CURRENTCALL TRIBUTES', currentCall);
     const { notes, questions } = this.state;
     const notesStyle = notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     const questionsStyle = !notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
