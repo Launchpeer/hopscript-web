@@ -20,14 +20,14 @@ class InCallView extends Component {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
+
       this.props.fetchToken().then((token) => {
         Twilio.Device.setup(token);
       });
+
       Twilio.Device.ready(() => {
-        this.props.startACall(phone, this.props.params.id)
-          .then((data) => {
-            Twilio.Device.connect({ To: phone });
-          });
+        Twilio.Device.connect();
+        this.props.startACall(phone, this.props.params.id);
       });
       Twilio.Device.connect((conn) => {
         this.setState({ callSid: conn.parameters.CallSid });
@@ -64,15 +64,16 @@ class InCallView extends Component {
 
   playAudio(e) {
     e.preventDefault();
-    this.props.playAudio(this.state.callSid, this.props.currentCall.conferenceSid);
+    console.log('omg is this it', this.props.currentCall.attributes.conferenceSid);
+    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
   }
 
   render() {
     const { currentCall, currentQuestion } = this.props;
+    console.log('CURRENTCALL TRIBUTES', currentCall.attributes);
     const { notes, questions } = this.state;
     const notesStyle = notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     const questionsStyle = !notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
-
     return (
       <CardRight>
         {currentCall &&

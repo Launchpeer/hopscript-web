@@ -3,7 +3,9 @@ import { Colors } from '../../../config/styles';
 
 const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
 
-const QuestionsGlossaryItem = ({ question, setCurrentQuestion, currentQuestion }) => (
+const QuestionsGlossaryItem = ({
+  question, setCurrentQuestion, currentQuestion
+}) => (
   <div
     className="flex w-100 items-center justify-between pa3 pointer list-hover"
     onClick={() => setCurrentQuestion(question)}

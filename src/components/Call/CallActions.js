@@ -32,13 +32,6 @@ function _callLoadEnd() {
   };
 }
 
-
-function _callLoading() {
-  return {
-    type: CALL_LOADING
-  };
-}
-
 function _callUpdate(c) {
   return {
     type: CALL_UPDATE,
@@ -92,13 +85,15 @@ const fetchCall = callId => (dispatch) => {
 
 const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
-const startACall = (number, callId) => () => axios({
-  method: 'post',
-  url: `${TWILIO_SERVER_URL}/voice`,
-  data: { number, callId }
-}).then(() => (
-  fetchCall(callId)
-));
+const startACall = (number, callId) => () => {
+  axios({
+    method: 'post',
+    url: `${TWILIO_SERVER_URL}/voice`,
+    params: { number, callId }
+  });
+  return (callId);
+};
+
 
 const playAudio = (callSid, conferenceSid) => () => {
   axios({
