@@ -13,7 +13,7 @@ const NotesView = () => {
       <div className="flex flex-row">
         <div role="button"
           className="brand-primary underline pointer hov-transparent"
-          onClick={() => {saveNotes(this.state.text)}}>
+          onClick={() => {saveNotes(text)}}>
         Save notes
         </div>
         {saved &&

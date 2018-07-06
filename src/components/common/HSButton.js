@@ -3,8 +3,8 @@ import React from 'react';
 import { Colors } from '../../config/styles';
 import { Button } from './';
 
-const HSButton = ({ children, onClick, backgroundColor }) => (
-  <div className="w-100 flex items-end flex-column">
+const HSButton = ({ children, onClick, backgroundColor, classOverrides }) => (
+  <div className={`w-100 flex items-end flex-column ${classOverrides}`}>
     <Button
       borderRadius="4px"
       backgroundColor={backgroundColor || Colors.brandGreen}

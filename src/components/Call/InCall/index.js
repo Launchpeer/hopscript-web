@@ -3,3 +3,4 @@ export { default as NotesView } from './NotesView';
 export { default as QuestionsGlossaryView } from './QuestionsGlossaryView';
 export { default as QuestionView } from './QuestionView';
 export { default as AnswersList } from './AnswersList';
+export { default as NextCallView } from './NextCallView';

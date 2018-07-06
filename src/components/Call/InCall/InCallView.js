@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes } from '../CallActions';
+import { fetchCall, fetchToken, startACall, saveNotes, nextLeadGroupCall } from '../CallActions';
 import { NotesView } from './';
 
 class InCallView extends Component {
@@ -13,6 +14,7 @@ class InCallView extends Component {
       notesText: '',
       notesSave: null
     };
+
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
@@ -36,6 +38,11 @@ class InCallView extends Component {
   handleHangUp(e) {
     e.preventDefault();
     Twilio.Device.disconnectAll();
+    if (this.props.callType === 'leadGroup') {
+      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex)
+    } else {
+      browserHistory.push('/start-call');
+    }
   }
 
   setCurrentQuestion(data) {
@@ -105,12 +112,28 @@ class InCallView extends Component {
 
 
 const mapStateToProps = ({ CallReducer }) => {
-  const { loading, currentCall, currentQuestion } = CallReducer;
+  const {
+    loading,
+    currentCall,
+    currentQuestion,
+    callType,
+    leadGroup,
+    leadGroupIndex
+  } = CallReducer;
   return {
     loading,
     currentCall,
-    currentQuestion
+    currentQuestion,
+    callType,
+    leadGroup,
+    leadGroupIndex
   };
 };
 
-export default connect(mapStateToProps, { fetchCall, fetchToken, startACall })(InCallView);
+export default connect(mapStateToProps, {
+  fetchCall,
+  fetchToken,
+  startACall,
+  nextLeadGroupCall,
+  saveNotes
+})(InCallView);
