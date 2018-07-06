@@ -78,11 +78,9 @@ const startCall = call => (dispatch) => {
 };
 
 const fetchCall = callId => (dispatch) => {
-  console.log('k we are here in fetchcall', callId);
   dispatch(_callLoading());
   Parse.Cloud.run("fetchCall", ({ callId }))
     .then((call) => {
-      console.log('k we hae returned from fetchall in parse cloud with this', call);
       dispatch(_callLoadEnd());
       dispatch(_callUpdate(call));
     })
@@ -96,17 +94,16 @@ const startACall = (number, callId) => (dispatch) => {
     method: 'post',
     url: `${TWILIO_SERVER_URL}/voice`,
     params: { number, callId }
-  }).then((res) => { console.log('res', res); dispatch(fetchCall(callId)); });
+  }).then(() => { dispatch(fetchCall(callId)); });
 };
 
 
-const playAudio = (callSid, conferenceSid) => () => {
-  console.log('callsid:', callSid, 'conferenceSid:', conferenceSid);
+const playAudio = (callSid, conferenceSid) => (dispatch) => {
   axios({
     method: 'post',
     url: `${TWILIO_SERVER_URL}/bot`,
     params: { callSid, conferenceSid }
-  }).then(data => (data)).catch(err => console.log('boogie', err));
+  }).then(data => (data)).catch(err => dispatch(_callError(err)));
 };
 
 

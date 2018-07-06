@@ -35,7 +35,7 @@ class InCallView extends Component {
         this.setState({ callSid: conn.parameters.CallSid });
       });
 
-      Twilio.Device.error(err => console.log('err', err));
+      Twilio.Device.error(err => (err));
     }
 
 
@@ -68,13 +68,11 @@ class InCallView extends Component {
 
   playAudio(e) {
     e.preventDefault();
-    console.log('omg is this it', this.props.currentCall.attributes.conferenceSid);
     this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
   }
 
   render() {
     const { currentCall, currentQuestion } = this.props;
-    console.log('CURRENTCALL TRIBUTES', currentCall);
     const { notes, questions } = this.state;
     const notesStyle = notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     const questionsStyle = !notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
