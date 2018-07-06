@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, joinConference, } from '../CallActions';
+import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, stopAudio } from '../CallActions';
 import { NotesView, QuestionsGlossaryView, QuestionView } from './';
 
 
@@ -71,6 +71,11 @@ class InCallView extends Component {
     this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
   }
 
+  stopAudio(e) {
+    e.preventDefault();
+    this.props.stopAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
+  }
+
   render() {
     const { currentCall, currentQuestion } = this.props;
     const { notes, questions } = this.state;
@@ -113,7 +118,7 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} playAudio={e => this.playAudio(e)} setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} playAudio={e => this.playAudio(e)} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>
@@ -139,5 +144,5 @@ const mapStateToProps = ({ CallReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, joinConference
+  fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio
 })(InCallView);

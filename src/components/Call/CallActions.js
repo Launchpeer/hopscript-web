@@ -106,6 +106,14 @@ const playAudio = (callSid, conferenceSid) => (dispatch) => {
   }).then(data => (data)).catch(err => dispatch(_callError(err)));
 };
 
+const stopAudio = (callSid, conferenceSid) => (dispatch) => {
+  axios({
+    method: 'post',
+    url: `${TWILIO_SERVER_URL}/stop`,
+    params: { callSid, conferenceSid }
+  }).then(data => (data)).catch(err => dispatch(_callError(err)));
+};
+
 
 const fetchQuestion = questionId => (dispatch) => {
   Parse.Cloud.run("fetchQuestion", ({ questionId }))
@@ -147,4 +155,4 @@ const startLeadGroupCalls = d => (dispatch) => {
     });
 };
 
-export { currentCallUpdate, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
+export { stopAudio, currentCallUpdate, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
