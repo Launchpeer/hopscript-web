@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, stopAudio } from '../CallActions';
-import { NotesView, QuestionsGlossaryView, QuestionView } from './';
+import { fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio } from '../CallActions';
+import { QuestionsGlossaryView, QuestionView } from './';
 
 
 class InCallView extends Component {
@@ -17,12 +17,10 @@ class InCallView extends Component {
       callSid: null,
       confSid: null
     };
-
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
-
       this.props.fetchToken().then((token) => {
         Twilio.Device.setup(token);
       });
@@ -38,8 +36,6 @@ class InCallView extends Component {
 
       Twilio.Device.error(err => (err));
     }
-
-
     this.handleHangUp = this.handleHangUp.bind(this);
     this.handleNotes = this.handleNotes.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
@@ -67,9 +63,8 @@ class InCallView extends Component {
     this.setState({ text: value });
   }
 
-  playAudio(e) {
-    e.preventDefault();
-    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
+  playAudio(audio) {
+    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, audio._url);
   }
 
   stopAudio(e) {
@@ -119,7 +114,7 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} playAudio={e => this.playAudio(e)} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} playAudio={this.playAudio} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>
