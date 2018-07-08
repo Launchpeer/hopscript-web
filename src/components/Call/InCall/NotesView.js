@@ -2,7 +2,9 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 
 const NotesView = () => {
-  const { handleChange, saveNotes, saved, text } = this.props;
+  const {
+    handleChange, saveNotes, saved, text
+  } = this.props;
   return (
     <div>
       <ReactQuill
@@ -13,7 +15,7 @@ const NotesView = () => {
       <div className="flex flex-row">
         <div role="button"
           className="brand-primary underline pointer hov-transparent"
-          onClick={() => {saveNotes(this.state.text)}}>
+          onClick={() => { saveNotes(text); }}>
         Save notes
         </div>
         {saved &&
@@ -21,6 +23,6 @@ const NotesView = () => {
       </div>
     </div>
   );
-}
+};
 
 export default NotesView;
