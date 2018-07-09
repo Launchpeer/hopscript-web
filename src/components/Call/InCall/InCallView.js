@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
-import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio } from '../CallActions';
+import { CardRight, HSButton } from '../../common';
+import { fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio, saveNotes } from '../CallActions';
 import { QuestionsGlossaryView, QuestionView, NotesView } from './';
 
 
@@ -42,7 +42,8 @@ class InCallView extends Component {
 
   handleHangUp(e) {
     e.preventDefault();
-    console.log('state', this.state);
+    const notes = this.state.text.split('<p>').join('').split('</p>').join('');
+    this.props.saveNotes(this.props.params.id, notes);
     Twilio.Device.disconnectAll();
   }
 
@@ -131,5 +132,5 @@ const mapStateToProps = ({ CallReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio
+  fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio, saveNotes
 })(InCallView);
