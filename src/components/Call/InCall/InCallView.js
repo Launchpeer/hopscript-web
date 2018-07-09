@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton } from '../../common';
 import { fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio, hangUpCall } from '../CallActions';
@@ -43,7 +42,7 @@ class InCallView extends Component {
 
   handleHangUp(e) {
     e.preventDefault();
-    const endTime = moment().format('MMM Do YYYY, h:mm a');
+    const endTime = new Date().getTime();
     this.props.hangUpCall(this.props.params.id, this.state.text, endTime);
     Twilio.Device.disconnectAll();
   }
