@@ -113,7 +113,10 @@ class InCallView extends Component {
               </div>
             </div>
             <div className="mr5 mb4">
+
               <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
+
+
             </div>
           </div>
         }
