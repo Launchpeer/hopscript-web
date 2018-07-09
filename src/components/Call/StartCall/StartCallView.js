@@ -4,19 +4,16 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, change, Field } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import {
-  FullScreenContainer,
-  Title,
+  RenderAlert,
   HalfGrid,
   HSButton,
-  Card,
   CardRight,
   HSCardHeader,
   LoaderOrThis
 } from '../../common';
 import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
-import { Colors } from '../../../config/styles';
 import { fetchLeads, fetchLeadGroups } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall, startLeadGroupCalls } from '../CallActions';
@@ -42,10 +39,11 @@ class StartCallView extends Component {
     const {
       handleSubmit,
       leads,
-      change,
       scripts,
       loading,
-      leadGroups
+      leadGroups,
+      error,
+      change
     } = this.props;
     return (
       <CardRight>
@@ -57,30 +55,49 @@ class StartCallView extends Component {
                 <SelectGroup
                   leadGroups={leadGroups}
                   selectedGroup={this.state.selectedGroup}
-                  onClick={() => { this.setState({ selectedGroup: true }); change('lead', null); this.setState({ lead: null }); }}
-                  selectLeadGroup={(leadGroup) => { change('leadGroup', leadGroup) }}
-                  removeLeadGroup={(leadGroup) => { change('leadGroup', null) }}
+                  onClick={() => { this.setState({ selectedGroup: true, lead: null }); change('lead', null); }}
                   classOverrides={!this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
                 <SelectLead
                   leads={leads}
                   selectedGroup={!this.state.selectedGroup}
                   leadLoaded={this.state.lead}
-                  onClick={() => { this.setState({ selectedGroup: false }); change('leadGroup', null); } }
+                  onClick={() => { this.setState({ selectedGroup: false }); change('leadGroup', null); }}
                   selectLead={(lead) => { change('lead', lead); this.setState({ lead }); }}
-                  removeLead={(lead) => { change('lead', null); this.setState({ lead: null }); }}
+                  removeLead={() => { change('lead', null); this.setState({ lead: null }); }}
                   classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
               </HalfGrid>
               <HalfGrid classOverrides="pl3 mb4">
                 {scripts.length > 0 && <SelectScript scripts={scripts} />}
                 <CallTitle />
               </HalfGrid>
-              <HSButton>Start Call</HSButton>
+              {error
+                ?
+                  <HSButton onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Start Call</HSButton>
+                :
+                  <HSButton>Start Call</HSButton>
+              }
+              {this.state.showError && error &&
+                <div className="pa2">
+                  <RenderAlert error={{ message: error }} />
+                </div>
+              }
             </form>
           </div>
         </LoaderOrThis>
       </CardRight>
     );
   }
+}
+
+function validate(values) {
+  const errors = {};
+  if (!values.leadGroup && !values.lead) {
+    errors._error = 'All fields are required';
+  } else if (!values.title || !values.script) {
+    errors._error = 'All fields are required';
+  }
+  console.log('errors', errors);
+  return errors;
 }
 
 const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
@@ -97,6 +114,7 @@ const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
 
 export default reduxForm({
   form: 'callForm',
+  validate
 })(connect(mapStateToProps, {
   fetchLeads, fetchScripts, startCall, fetchLeadGroups, startLeadGroupCalls
 })(StartCallView));
