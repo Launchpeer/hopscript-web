@@ -133,8 +133,8 @@ const setCurrentQuestion = question => (dispatch) => {
   });
 };
 
-const saveNotes = (callId, notes) => (dispatch) => {
-  Parse.Cloud.run("updateCall", ({ callId, notes }))
+const hangUpCall = (callId, notes, endTime) => (dispatch) => {
+  Parse.Cloud.run("updateCall", ({ callId, notes, endTime }))
     .then((call) => {
       dispatch(_callUpdate(call));
     }).catch(err => dispatch(_callError(err)));
@@ -150,4 +150,4 @@ const startLeadGroupCalls = d => (dispatch) => {
     });
 };
 
-export { stopAudio, currentCallUpdate, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls };
+export { stopAudio, currentCallUpdate, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, hangUpCall, fetchToken, startACall, startLeadGroupCalls };
