@@ -12,7 +12,8 @@ import {
 import reduxThunk from 'redux-thunk';
 import Parse from 'parse';
 import _ from 'underscore';
-
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
 import App from './components/app';
 import rootReducer from './rootReducer';
 import { Colors } from './config/styles';

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, currentTime } from '../../common';
-import { fetchCall, fetchToken, startACall, saveNotes, setCurrentQuestion, playAudio, stopAudio } from '../CallActions';
-import { NotesView, QuestionsGlossaryView, QuestionView } from './';
+import { fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio } from '../CallActions';
+import { QuestionsGlossaryView, QuestionView, NotesView } from './';
 
 
 class InCallView extends Component {
@@ -12,22 +12,18 @@ class InCallView extends Component {
     this.state = {
       notes: false,
       questions: true,
-      notesText: '',
-      notesSave: null,
-      callSid: null,
-      confSid: null
+      text: '',
+      callSid: null
     };
-
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
-
       this.props.fetchToken().then((token) => {
         Twilio.Device.setup(token);
       });
 
-      Twilio.Device.ready((dispatch) => {
+      Twilio.Device.ready(() => {
         Twilio.Device.connect();
         this.props.startACall(phone, this.props.params.id);
       });
@@ -38,16 +34,15 @@ class InCallView extends Component {
 
       Twilio.Device.error(err => (err));
     }
-
-
     this.handleHangUp = this.handleHangUp.bind(this);
-    this.handleNotes = this.handleNotes.bind(this);
+    this.handleNotesChange = this.handleNotesChange.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
     this.playAudio = this.playAudio.bind(this);
   }
 
   handleHangUp(e) {
     e.preventDefault();
+    console.log('state', this.state);
     Twilio.Device.disconnectAll();
   }
 
@@ -55,21 +50,12 @@ class InCallView extends Component {
     this.props.setCurrentQuestion(data);
   }
 
-  handleNotes(text) {
-    let thistext = text;
-    thistext = thistext.split('<p>').join('').split('</p>').join('');
-    const time = currentTime();
-    this.setState({ saved: time });
-    this.props.saveNotes(this.props.currentCall, thistext);
-  }
-
   handleNotesChange(value) {
     this.setState({ text: value });
   }
 
-  playAudio(e) {
-    e.preventDefault();
-    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
+  playAudio(audio) {
+    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, audio._url);
   }
 
   stopAudio(e) {
@@ -107,7 +93,7 @@ class InCallView extends Component {
                   Questions
                     </div>
                   </div>
-                  {notes && <div>notes</div>}
+                  {notes && <NotesView handleChange={this.handleNotesChange} text={this.state.text} />}
                   {questions &&
                     (currentCall.attributes.script.attributes.questions
                       ?
@@ -119,7 +105,7 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} playAudio={e => this.playAudio(e)} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} playAudio={this.playAudio} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>

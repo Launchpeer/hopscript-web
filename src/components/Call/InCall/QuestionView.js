@@ -9,7 +9,7 @@ const QuestionView = ({
     {currentQuestion.attributes.description && <div className="f5 mb4">{currentQuestion.attributes.description}</div>}
     {currentQuestion.attributes.audio &&
       <div>
-        <div className="f4 b brand-near-black mb2 pointer" role="button" onClick={playAudio} >Play audio</div>
+        <div className="f4 b brand-near-black mb2 pointer" role="button" onClick={() => playAudio(currentQuestion.attributes.audio)} >Play audio</div>
         <div className="f4 b brand-near-black mb2 pointer" role="button" onClick={stopAudio} >Stop audio</div>
         <div className="f5 mb4 pa3 bg-light-gray">has audio</div>
       </div>
