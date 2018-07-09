@@ -140,14 +140,42 @@ const hangUpCall = (callId, notes, endTime) => (dispatch) => {
     }).catch(err => dispatch(_callError(err)));
 };
 
+
 const startLeadGroupCalls = d => (dispatch) => {
+  dispatch({
+    type: 'CALL_UPDATE_TYPE',
+    payload: 'leadGroup'
+  });
   Parse.Cloud.run("fetchLeadGroup", ({ leadGroup: d.leadGroup }))
     .then((leadGroup) => {
       const currentLead = leadGroup.attributes.leads[0];
-      dispatch(_setCurrentLeadGroup(currentLead));
+      dispatch(_setCurrentLeadGroup(leadGroup));
       dispatch(_setLeadGroupIndex(0));
       dispatch(startCall({ ...d, lead: { id: currentLead.id } }));
     });
 };
 
-export { stopAudio, currentCallUpdate, playAudio, startCall, fetchCall, setCurrentQuestion, fetchQuestion, hangUpCall, fetchToken, startACall, startLeadGroupCalls };
+const nextLeadGroupCall = (leadGroup, leadGroupIndex) => (dispatch) => {
+  if (leadGroupIndex < leadGroup.attributes.leads.length - 1) {
+    const nextLeadIndex = leadGroupIndex + 1;
+    dispatch(_setLeadGroupIndex(nextLeadIndex));
+    browserHistory.push('/next-call');
+  } else {
+    browserHistory.push('/start-call');
+  }
+};
+
+export {
+  startCall,
+  fetchCall,
+  setCurrentQuestion,
+  fetchQuestion,
+  fetchToken,
+  startACall,
+  startLeadGroupCalls,
+  nextLeadGroupCall,
+  hangUpCall,
+  playAudio,
+  stopAudio,
+  currentCallUpdate
+};

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton } from '../../common';
-import { fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio, hangUpCall } from '../CallActions';
+import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall } from '../CallActions';
 import { QuestionsGlossaryView, QuestionView, NotesView } from './';
 
 
@@ -15,6 +16,7 @@ class InCallView extends Component {
       text: '',
       callSid: null
     };
+
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
@@ -45,6 +47,11 @@ class InCallView extends Component {
     const endTime = new Date().getTime();
     this.props.hangUpCall(this.props.params.id, this.state.text, endTime);
     Twilio.Device.disconnectAll();
+    if (this.props.callType === 'leadGroup') {
+      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex)
+    } else {
+      browserHistory.push('/start-call');
+    }
   }
 
   setCurrentQuestion(data) {
@@ -112,10 +119,7 @@ class InCallView extends Component {
               </div>
             </div>
             <div className="mr5 mb4">
-
               <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
-
-
             </div>
           </div>
         }
@@ -126,14 +130,30 @@ class InCallView extends Component {
 
 
 const mapStateToProps = ({ CallReducer }) => {
-  const { loading, currentCall, currentQuestion } = CallReducer;
+  const {
+    loading,
+    currentCall,
+    currentQuestion,
+    callType,
+    leadGroup,
+    leadGroupIndex
+  } = CallReducer;
   return {
     loading,
     currentCall,
-    currentQuestion
+    currentQuestion,
+    callType,
+    leadGroup,
+    leadGroupIndex
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchCall, fetchToken, startACall, setCurrentQuestion, playAudio, stopAudio, hangUpCall
+  fetchCall,
+  fetchToken,
+  startACall,
+  nextLeadGroupCall,
+  playAudio,
+  stopAudio,
+  hangUpCall
 })(InCallView);

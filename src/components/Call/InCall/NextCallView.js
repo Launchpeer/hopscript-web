@@ -39,7 +39,7 @@ const mapStateToProps = ({ CallReducer }) => {
   return {
     leadGroup,
     leadGroupIndex
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(NextCallView);
