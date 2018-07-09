@@ -96,7 +96,6 @@ function validate(values) {
   } else if (!values.title || !values.script) {
     errors._error = 'All fields are required';
   }
-  console.log('errors', errors);
   return errors;
 }
 
