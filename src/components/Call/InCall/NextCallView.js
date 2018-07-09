@@ -12,7 +12,7 @@ class NextCallView extends Component {
 
   handleNextCall(e) {
     e.preventDefault();
-    browserHistory.push(`/in-call/${this.props.leadGroup.attributes.leads[this.props.leadGroupIndex].id}`)
+    browserHistory.push(`/in-call/${this.props.leadGroup.attributes.leads[this.props.leadGroupIndex].id}`);
   }
 
   render() {
@@ -39,7 +39,7 @@ const mapStateToProps = ({ CallReducer }) => {
   return {
     leadGroup,
     leadGroupIndex
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(NextCallView);

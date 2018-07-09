@@ -12,7 +12,8 @@ import {
 import reduxThunk from 'redux-thunk';
 import Parse from 'parse';
 import _ from 'underscore';
-
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
 import App from './components/app';
 import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
@@ -54,13 +55,13 @@ if (currentUser) {
   redirect = '/dashboard';
 }
 
-const bodyColorPaths = ['/', '/signup', '/forgot-password', '/reset-password', '/stripe', '/welcome'];
+const bodyColorPaths = ['/welcome'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
-    document.body.style.backgroundColor = Colors.nearWhite;
+    document.body.style.backgroundColor = Colors.brandPrimary;
   } else {
-    document.body.style.backgroundColor = Colors.lightGray;
+    document.body.style.backgroundColor = Colors.nearWhite;
   }
 });
 

@@ -9,7 +9,8 @@ import {
   CALL_LOAD_END,
   CALL_UPDATE,
   CALL_LEAD_GROUP_INDEX_UPDATE,
-  CALL_LEAD_GROUP_UPDATE
+  CALL_LEAD_GROUP_UPDATE,
+  CURRENT_QUESTION_UPDATE
 } from './CallTypes';
 
 function _callError(err) {
@@ -28,13 +29,6 @@ function _callLoading() {
 function _callLoadEnd() {
   return {
     type: CALL_LOAD_END
-  };
-}
-
-
-function _callLoading() {
-  return {
-    type: CALL_LOADING
   };
 }
 
@@ -58,6 +52,10 @@ function _setLeadGroupIndex(idx) {
     payload: idx
   };
 }
+
+const currentCallUpdate = call => (dispatch) => {
+  dispatch(_callUpdate(call));
+};
 
 const startCall = call => (dispatch) => {
   dispatch(_callLoading());
@@ -86,17 +84,36 @@ const fetchCall = callId => (dispatch) => {
       dispatch(_callLoadEnd());
       dispatch(_callUpdate(call));
     })
-    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    .catch(err => dispatch(_callError(err)));
 };
 
-const fetchToken = () => dispatch => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
+const fetchToken = () => () => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
-const startACall = number => () => axios({
-  method: 'post',
-  url: `${TWILIO_SERVER_URL}/voice`,
-  data: { number }
-})
-  .then(data => (data));
+const startACall = (number, callId) => (dispatch) => {
+  axios({
+    method: 'post',
+    url: `${TWILIO_SERVER_URL}/start-call`,
+    data: { number, callId }
+  }).then(() => { dispatch(fetchCall(callId)); });
+};
+
+
+const playAudio = (callSid, conferenceSid, audioUrl) => (dispatch) => {
+  axios({
+    method: 'post',
+    url: `${TWILIO_SERVER_URL}/bot`,
+    data: { callSid, conferenceSid, audioUrl }
+  }).then(data => (data)).catch(err => dispatch(_callError(err)));
+};
+
+const stopAudio = (callSid, conferenceSid) => (dispatch) => {
+  axios({
+    method: 'post',
+    url: `${TWILIO_SERVER_URL}/stop`,
+    data: { callSid, conferenceSid }
+  }).then(data => (data)).catch(err => dispatch(_callError(err)));
+};
+
 
 const fetchQuestion = questionId => (dispatch) => {
   Parse.Cloud.run("fetchQuestion", ({ questionId }))
@@ -106,7 +123,7 @@ const fetchQuestion = questionId => (dispatch) => {
         payload: question
       });
     })
-    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    .catch(err => dispatch(_callError(err)));
 };
 
 const setCurrentQuestion = question => (dispatch) => {
@@ -116,32 +133,29 @@ const setCurrentQuestion = question => (dispatch) => {
   });
 };
 
-const saveNotes = (callId, notes) => (dispatch) => {
-  Parse.Cloud.run("updateCall", ({ callId, notes }))
+const hangUpCall = (callId, notes, endTime) => (dispatch) => {
+  Parse.Cloud.run("updateCall", ({ callId, notes, endTime }))
     .then((call) => {
       dispatch(_callUpdate(call));
-    }).catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    }).catch(err => dispatch(_callError(err)));
 };
 
 
-function _fetchLeadGroup(leadGroup) {
-  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup }))
-}
-const startLeadGroupCalls = d => dispatch => {
+const startLeadGroupCalls = d => (dispatch) => {
   dispatch({
     type: 'CALL_UPDATE_TYPE',
     payload: 'leadGroup'
-  })
+  });
   Parse.Cloud.run("fetchLeadGroup", ({ leadGroup: d.leadGroup }))
     .then((leadGroup) => {
-      const currentLead = leadGroup.attributes.leads[0]
-      dispatch(_setCurrentLeadGroup(leadGroup))
-      dispatch(_setLeadGroupIndex(0))
-      dispatch(startCall({ ...d, lead: { id: currentLead.id}}))
-    })
-}
+      const currentLead = leadGroup.attributes.leads[0];
+      dispatch(_setCurrentLeadGroup(leadGroup));
+      dispatch(_setLeadGroupIndex(0));
+      dispatch(startCall({ ...d, lead: { id: currentLead.id } }));
+    });
+};
 
-const nextLeadGroupCall = (leadGroup, leadGroupIndex) => dispatch => {
+const nextLeadGroupCall = (leadGroup, leadGroupIndex) => (dispatch) => {
   if (leadGroupIndex < leadGroup.attributes.leads.length - 1) {
     const nextLeadIndex = leadGroupIndex + 1;
     dispatch(_setLeadGroupIndex(nextLeadIndex));
@@ -149,6 +163,19 @@ const nextLeadGroupCall = (leadGroup, leadGroupIndex) => dispatch => {
   } else {
     browserHistory.push('/start-call');
   }
-}
+};
 
-export { startCall, fetchCall, setCurrentQuestion, fetchQuestion, saveNotes, fetchToken, startACall, startLeadGroupCalls, nextLeadGroupCall };
+export {
+  startCall,
+  fetchCall,
+  setCurrentQuestion,
+  fetchQuestion,
+  fetchToken,
+  startACall,
+  startLeadGroupCalls,
+  nextLeadGroupCall,
+  hangUpCall,
+  playAudio,
+  stopAudio,
+  currentCallUpdate
+};
