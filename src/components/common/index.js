@@ -16,7 +16,6 @@ export { default as LoaderOrThis } from './LoaderOrThis';
 export { default as OutsideClicker } from './OutsideClicker';
 export { default as SideBar } from './SideBar';
 export { default as CardRight } from './CardRight';
-export { default as currentTimeAndDate } from './CurrentTimeAndDate';
 
 export { default as HSCard } from './HSCard';
 export { default as HSButton } from './HSButton';
