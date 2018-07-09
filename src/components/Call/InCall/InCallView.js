@@ -45,11 +45,12 @@ class InCallView extends Component {
   handleHangUp(e) {
     e.preventDefault();
     const endTime = new Date().getTime();
-    this.props.hangUpCall(this.props.params.id, this.state.text, endTime);
     Twilio.Device.disconnectAll();
     if (this.props.callType === 'leadGroup') {
-      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex)
+      this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.props.leadGroup.id);
+      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex);
     } else {
+      this.props.hangUpCall(this.props.params.id, this.state.text, endTime);
       browserHistory.push('/start-call');
     }
   }

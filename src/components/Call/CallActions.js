@@ -133,8 +133,13 @@ const setCurrentQuestion = question => (dispatch) => {
   });
 };
 
-const hangUpCall = (callId, notes, endTime) => (dispatch) => {
-  Parse.Cloud.run("updateCall", ({ callId, notes, endTime }))
+const hangUpCall = (callId, notes, endTime, leadGroup) => (dispatch) => {
+  Parse.Cloud.run("updateCall", ({
+    callId,
+    notes,
+    endTime,
+    leadGroup
+  }))
     .then((call) => {
       dispatch(_callUpdate(call));
     }).catch(err => dispatch(_callError(err)));
