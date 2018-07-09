@@ -194,6 +194,11 @@ textarea:focus {
 .rounded-children-block:last-child {
   border-radius: 0px 0px 4px 4px; }
 
+.green-glow {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite; }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;
@@ -222,6 +227,17 @@ textarea:focus {
     -webkit-transform: scale(0); }
   40% {
     -webkit-transform: scale(1); } }
+
+@-webkit-keyframes greenPulse {
+  from {
+    background-color: #00cd6a;
+    -webkit-box-shadow: 0 0 9px #333; }
+  50% {
+    background-color: #00b85f;
+    -webkit-box-shadow: 0 0 18px #00b85f; }
+  to {
+    background-color: #00cd6a;
+    -webkit-box-shadow: 0 0 9px #333; } }
 
 @keyframes sk-bouncedelay {
   0%, 80%, 100% {

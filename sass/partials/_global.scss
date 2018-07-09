@@ -251,7 +251,6 @@ textarea:focus {
   color: $brandGreen;
 }
 
-
 .b--brand-green {
   border: 1px solid $brandGreen;
 }
@@ -266,4 +265,10 @@ textarea:focus {
 
 .rounded-children-block:last-child {
   border-radius: 0px 0px 4px 4px;
+}
+
+.green-glow {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
 }
