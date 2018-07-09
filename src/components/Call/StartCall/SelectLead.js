@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { InputSearch } from '../../common';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadsList } from './';
 
@@ -18,8 +17,8 @@ const SelectedLeadItem = ({ lead, removeLead }) => {
         X
       </div>
     </div>
-  )
-}
+  );
+};
 
 class SelectLead extends Component {
   constructor(props) {
@@ -36,7 +35,11 @@ class SelectLead extends Component {
   }
 
   render() {
-    const { leads, selectLead, leadLoaded, removeLead } = this.props;
+    const {
+      leads,
+      selectLead,
+      leadLoaded
+    } = this.props;
     return (
       <div className="mb4">
         <div
@@ -64,7 +67,7 @@ class SelectLead extends Component {
                     type="text"
                     placeholder="Search Leads..."
                     className="ba w-100 pa3"
-                    onChange={(e) => {this.setState({ search: e.target.value })}}
+                    onChange={(e) => { this.setState({ search: e.target.value }); }}
                     style={{
                         color: Colors.inputFontColor,
                         borderRadius: BorderRadius.all,
@@ -79,7 +82,7 @@ class SelectLead extends Component {
                 {leads && <LeadsList leads={leads} search={this.state.search} selectLead={selectLead} />}
               </div>
             </div>
-          : <div>{leadLoaded && <SelectedLeadItem lead={leadLoaded} removeLead={this.handleRemoveLead}/>}</div>
+          : <div>{leadLoaded && <SelectedLeadItem lead={leadLoaded} removeLead={this.handleRemoveLead} />}</div>
         }
       </div>
     );
