@@ -5,18 +5,38 @@ import { Button, ModalCard } from '../common';
 import moment from 'moment';
 
 const ExpandedItem = ({ history, lead, onClick }) => (
-  <div className="flex flex-row justify-between bg-brand-primary items-center w-100 pa3">
-    <div className="b w-25 white">{history.title}</div>
-    <div className="w-25 tc white">{lead.phone}</div>
-    <div className="w-25 tc white">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
-    <div className="w-25">
-      <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba near-white bg-transparent b--near-white pv1 ph3 fr br" onClick={onClick}>less</div>
+  <div className="flex flex-column w-100 bg-brand-primary pa3">
+    <div className="flex flex-row justify-between items-center">
+      <div className="b w-25 white">{lead.name}</div>
+      <div className="w-25 tc white">{lead.phone}</div>
+      <div className="w-25 tc white">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+      <div className="w-25">
+        <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba near-white bg-transparent b--near-white pv1 ph3 fr br" onClick={onClick}>less</div>
+      </div>
     </div>
+    <div className="flex flex-row pv3 white">
+      <div className="b pr1">Call Title:</div>
+      <div>{history.title}</div>
+    </div>
+    {history.leadGroup &&
+    <div className="flex flex-row pv3 white">
+      <div className="b pr1">Lead Group:</div>
+      <div>{history.leadGroup}</div>
+    </div>}
+    {history.notes &&
+      <div>
+        <div className="pv3 white">
+          <div className="b">Notes:</div>
+        </div>
+        <div className="pv3 white">
+          <div className="">{history.notes}</div>
+        </div>
+      </div>}
   </div>);
 
 const SmallItem = ({ history, lead, onClick }) => (
   <div className="flex flex-row justify-between items-center w-100 pa3">
-    <div className="b w-25">{history.title}</div>
+    <div className="b w-25">{lead.name}</div>
     <div className="w-25 tc">{lead.phone}</div>
     <div className="w-25 tc">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
     <div className="w-25">
