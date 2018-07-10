@@ -15,7 +15,7 @@ class HistoryListView extends Component {
     const { historyItems } = this.props;
     return (
       <CardRight>
-        <HSCardHeader>My History</HSCardHeader>
+        <HSCardHeader>Call History</HSCardHeader>
         <div className="ph3 pt4 pb3">
           <div className="w-100">
             {historyItems && historyItems.length > 0 ?

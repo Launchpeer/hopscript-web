@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
+import Parser from 'html-react-parser';
+import { render } from 'react-dom';
+import moment from 'moment';
 import { browserHistory } from 'react-router';
 import { Colors, BorderRadius } from '../../config/styles';
 import { Button, ModalCard } from '../common';
-import moment from 'moment';
 
-const ExpandedItem = ({ history, lead, onClick }) => (
+const notesConverter = notes => (
+  React.createElement('div', {}, Parser(notes)));
+
+const ExpandedItem = ({
+  history, lead, onClick
+}) => (
   <div className="flex flex-column w-100 bg-brand-primary pa3">
-    <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-row justify-between items-center pb3">
       <div className="b w-25 white">{lead.name}</div>
       <div className="w-25 tc white">{lead.phone}</div>
-      <div className="w-25 tc white">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+      <div className="w-25 tc white">{moment(history.endTime).format('h:mm a, MMM D Y')}</div>
       <div className="w-25">
         <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba near-white bg-transparent b--near-white pv1 ph3 fr br" onClick={onClick}>less</div>
       </div>
     </div>
     <div className="flex flex-row pv3 white">
-      <div className="b pr1">Call Title:</div>
-      <div>{history.title}</div>
+      <div className="b pr2">Call Title:</div>
+      <div>{`'${history.title}'`}</div>
     </div>
     {history.leadGroup &&
     <div className="flex flex-row pv3 white">
-      <div className="b pr1">Lead Group:</div>
+      <div className="b pr2">Lead Group:</div>
       <div>{history.leadGroup}</div>
     </div>}
     {history.notes &&
-      <div>
-        <div className="pv3 white">
+      <div className="pv3 white">
+        <div>
           <div className="b">Notes:</div>
         </div>
-        <div className="pv3 white">
-          <div className="">{history.notes}</div>
+        <div className="pt2 white">
+          <div>{notesConverter(history.notes.toString())}</div>
         </div>
       </div>}
   </div>);
@@ -56,6 +63,7 @@ class HistoryListItem extends Component {
   toggleExpand() {
     this.setState({ expanded: !this.state.expanded });
   }
+
 
   render() {
     const history = this.props.historyItem.attributes;
