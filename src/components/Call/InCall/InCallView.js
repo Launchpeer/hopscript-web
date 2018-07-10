@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
-import { CardRight, HSButton } from '../../common';
-import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall } from '../CallActions';
+import { CardRight, HSButton, InputCheckbox } from '../../common';
+import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
 import { QuestionsGlossaryView, QuestionView, NotesView } from './';
 
 
@@ -14,7 +14,9 @@ class InCallView extends Component {
       notes: false,
       questions: true,
       text: '',
-      callSid: null
+      callSid: null,
+      audio: false,
+      noAnswer: false,
     };
 
     if (!this.props.currentCall) {
@@ -47,10 +49,10 @@ class InCallView extends Component {
     const endTime = new Date().getTime();
     Twilio.Device.disconnectAll();
     if (this.props.callType === 'leadGroup') {
-      this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.props.leadGroup.id);
+      this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer, this.props.leadGroup.id);
       this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex);
     } else {
-      this.props.hangUpCall(this.props.params.id, this.state.text, endTime);
+      this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
       browserHistory.push('/start-call');
     }
   }
@@ -64,17 +66,21 @@ class InCallView extends Component {
   }
 
   playAudio(audio) {
+    this.setState = ({ audio: true });
     this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, audio._url);
   }
 
   stopAudio(e) {
     e.preventDefault();
+    this.setState = ({ audio: false });
     this.props.stopAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
   }
 
   render() {
     const { currentCall, currentQuestion } = this.props;
-    const { notes, questions } = this.state;
+    const {
+      notes, questions, audio, noAnswer
+    } = this.state;
     const notesStyle = notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     const questionsStyle = !notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     return (
@@ -114,11 +120,17 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} playAudio={this.playAudio} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} audioState={audio} playAudio={this.playAudio} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>
             </div>
+
+            <div className="flex flex-row pa3" role="button" onClick={() => this.setState({ noAnswer: !this.state.noAnswer })}>
+              <InputCheckbox name="noAnswer" />
+              <div>Check if no answer</div>
+            </div>
+
             <div className="mr5 mb4">
               <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
             </div>
@@ -156,5 +168,6 @@ export default connect(mapStateToProps, {
   nextLeadGroupCall,
   playAudio,
   stopAudio,
-  hangUpCall
+  hangUpCall,
+  setCurrentQuestion
 })(InCallView);
