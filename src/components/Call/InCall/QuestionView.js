@@ -6,7 +6,7 @@ const stopUI = (state) => {
   if (state === true) {
     return "brand-near-black pa2 mh2 items-center bg-light-grey pointer";
   }
-  return "near-white pa2 mh2 items-center bg-brand-green pointer";
+  return "near-white pa2 mh2 items-center green-glow pointer";
 };
 
 const playUI = (state) => {
