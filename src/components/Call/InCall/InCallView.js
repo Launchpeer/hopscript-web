@@ -15,7 +15,7 @@ class InCallView extends Component {
       questions: true,
       text: '',
       callSid: null,
-      audio: false,
+      playingAudio: null,
       noAnswer: false,
     };
 
@@ -32,6 +32,7 @@ class InCallView extends Component {
         this.props.startACall(phone, this.props.params.id);
       });
 
+
       Twilio.Device.connect((conn) => {
         this.setState({ callSid: conn.parameters.CallSid });
       });
@@ -41,7 +42,8 @@ class InCallView extends Component {
     this.handleHangUp = this.handleHangUp.bind(this);
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
-    this.playAudio = this.playAudio.bind(this);
+    this.playAudioFile = this.playAudioFile.bind(this);
+    this.stopAudio = this.stopAudio.bind(this);
   }
 
   handleHangUp(e) {
@@ -58,6 +60,7 @@ class InCallView extends Component {
   }
 
   setCurrentQuestion(data) {
+    this.props.fetchCall(this.props.params.id);
     this.props.setCurrentQuestion(data);
   }
 
@@ -65,21 +68,21 @@ class InCallView extends Component {
     this.setState({ text: value });
   }
 
-  playAudio(audio) {
-    this.setState = ({ audio: true });
-    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, audio._url);
+  playAudioFile(e) {
+    e.preventDefault();
+    this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, this.props.currentQuestion.attributes.audio._url);
   }
+
 
   stopAudio(e) {
     e.preventDefault();
-    this.setState = ({ audio: false });
     this.props.stopAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
   }
 
   render() {
     const { currentCall, currentQuestion } = this.props;
     const {
-      notes, questions, audio, noAnswer
+      notes, questions, playingAudio, noAnswer
     } = this.state;
     const notesStyle = notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
     const questionsStyle = !notes ? { color: Colors.brandPrimary, borderColor: Colors.brandPrimary } : { color: Colors.black, borderColor: Colors.lightGray };
@@ -120,16 +123,12 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} audioState={audio} playAudio={this.playAudio} stopAudio={e => this.stopAudio(e)}setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} audioState={playingAudio} playAudio={(e) => { this.setState({ playingAudio: true }); this.playAudioFile(e); }} stopAudio={(e) => { this.setState({ playingAudio: false }); this.stopAudio(e); }} setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-row pa3" role="button" onClick={() => this.setState({ noAnswer: !this.state.noAnswer })}>
-              <InputCheckbox name="noAnswer" />
-              <div>Check if no answer</div>
-            </div>
 
             <div className="mr5 mb4">
               <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
@@ -171,3 +170,10 @@ export default connect(mapStateToProps, {
   hangUpCall,
   setCurrentQuestion
 })(InCallView);
+
+/*
+<div className="flex flex-row pa3" role="button" onClick={() => this.setState({ noAnswer: !noAnswer })}>
+  <InputCheckbox name="noAnswer" />
+  <div>Check if no answer</div>
+</div>
+*/

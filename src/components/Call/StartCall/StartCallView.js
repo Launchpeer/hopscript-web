@@ -22,17 +22,21 @@ class StartCallView extends Component {
   constructor(props) {
     super(props);
     this.state = { selectedGroup: true, lead: null };
-    this.props.fetchLeads();
-    this.props.fetchScripts();
-    this.props.fetchLeadGroups();
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
+
   handleFormSubmit(d) {
     if (d.lead) {
       this.props.startCall(d);
     } else if (d.leadGroup) {
       this.props.startLeadGroupCalls(d);
     }
+  }
+
+  componentWillMount() {
+    this.props.fetchLeads();
+    this.props.fetchScripts();
+    this.props.fetchLeadGroups();
   }
 
   render() {
