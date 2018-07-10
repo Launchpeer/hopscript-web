@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { Square, CheckSquare } from 'react-feather';
 import { Colors } from '../../../config/styles';
-import { CardRight, HSButton, InputCheckbox } from '../../common';
+import { CardRight, HSButton } from '../../common';
 import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
 import { QuestionsGlossaryView, QuestionView, NotesView } from './';
 
@@ -15,7 +16,7 @@ class InCallView extends Component {
       questions: true,
       text: '',
       callSid: null,
-      playingAudio: null,
+      playingAudio: false,
       noAnswer: false,
     };
 
@@ -128,7 +129,14 @@ class InCallView extends Component {
                 </div>
               </div>
             </div>
-
+            <div className="flex flex-column items-end pr5 pv3 w-100" >
+              <div className="flex flex-row items-center">
+                <div className="pr2" role="button" onClick={() => this.setState({ noAnswer: !noAnswer })}>
+                  {!noAnswer ? <Square /> : <CheckSquare /> }
+                </div>
+                <div>Check if no answer</div>
+              </div>
+            </div>
 
             <div className="mr5 mb4">
               <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
@@ -170,10 +178,3 @@ export default connect(mapStateToProps, {
   hangUpCall,
   setCurrentQuestion
 })(InCallView);
-
-/*
-<div className="flex flex-row pa3" role="button" onClick={() => this.setState({ noAnswer: !noAnswer })}>
-  <InputCheckbox name="noAnswer" />
-  <div>Check if no answer</div>
-</div>
-*/
