@@ -94,7 +94,9 @@ const startACall = (number, callId) => (dispatch) => {
     method: 'post',
     url: `${TWILIO_SERVER_URL}/start-call`,
     data: { number, callId }
-  }).then(() => { dispatch(fetchCall(callId)); });
+  }).then(() => {
+    dispatch(fetchCall(callId));
+  });
 };
 
 

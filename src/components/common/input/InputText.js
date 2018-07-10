@@ -34,7 +34,7 @@ const renderTextInput = (fieldProps) => {
         {...input}
         type="text"
         placeholder={placeholder}
-        className={`${borderColor ? 'ba' : 'bn'} w-100 pa3`}
+        className={`${borderColor ? 'ba' : 'bn'} w-100 pa3 bg-transparent`}
         style={{
           color: fontColor || Colors.inputFontColor,
           borderRadius: BorderRadius.all,
