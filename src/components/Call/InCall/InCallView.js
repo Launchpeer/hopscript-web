@@ -69,14 +69,12 @@ class InCallView extends Component {
     this.setState({ text: value });
   }
 
-  playAudioFile(e) {
-    e.preventDefault();
+  playAudioFile() {
     this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, this.props.currentQuestion.attributes.audio._url);
   }
 
 
-  stopAudio(e) {
-    e.preventDefault();
+  stopAudio() {
     this.props.stopAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid);
   }
 
@@ -124,7 +122,7 @@ class InCallView extends Component {
               <div className="w-60 ph3 mv4">
                 <div className="w-100">
                   {currentQuestion
-                     ? <QuestionView currentQuestion={currentQuestion} audioState={playingAudio} playAudio={(e) => { this.setState({ playingAudio: true }); this.playAudioFile(e); }} stopAudio={(e) => { this.setState({ playingAudio: false }); this.stopAudio(e); }} setCurrentQuestion={this.setCurrentQuestion} />
+                     ? <QuestionView currentQuestion={currentQuestion} audioState={playingAudio} playAudio={() => { this.setState({ playingAudio: true }); this.playAudioFile(); }} stopAudio={() => { this.setState({ playingAudio: false }); this.stopAudio(); }} setCurrentQuestion={this.setCurrentQuestion} />
                      : <div>Select a Question to get Started!</div>}
                 </div>
               </div>
