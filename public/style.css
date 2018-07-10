@@ -185,6 +185,9 @@ textarea:focus {
 .b--brand-green {
   border: 1px solid #00cd6a; }
 
+.b--brand-primary {
+  border: 1px solid #1d79ad; }
+
 .rounded-children-block {
   border: 1px solid #EEEEEE; }
 
