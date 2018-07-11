@@ -13,9 +13,6 @@ import { BorderRadius } from '../../../config/styles';
 const notesConverter = notes => (
   React.createElement('div', {}, Parser(notes)));
 
-//    <div className="w-25 tc white">{moment(call.endTime).format('h:mm a, MMM D Y')}</div>
-//  <div>{`'${call.title}'`}</div>
-//      <div>{notesConverter(call.notes.toString())}</div>
 const ExpandedItem = ({
   history, lead, onClick,
 }) => (
