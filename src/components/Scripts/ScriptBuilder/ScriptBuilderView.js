@@ -21,7 +21,7 @@ const ScriptInfo = ({ name, step, scriptId }) => (
   </div>
 );
 
-const StepIndicator = ({ step, toggle }) => (
+const StepIndicator = ({ step }) => (
   <div
     className="flex items-center steps"
     style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
@@ -58,7 +58,6 @@ class ScriptBuilderView extends Component {
       callback: data => this.handleSubscriptionCallback(data)
     });
     this.props.toggleCreationState(true);
-    console.log('sup nerd');
     this.props.fetchScript(this.props.params.id);
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);
@@ -99,7 +98,7 @@ class ScriptBuilderView extends Component {
       <CardRight>
         {currentScript &&
         <div>
-          <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
+          <div className="flex justify-between items-center pa3 b--near-white bb bw1">
             <div className="flex items-center">
               <div role="button" className="pointer" onClick={() => browserHistory.push('/scripts')}>
                 <ChevronLeftCircle width="2rem" height="2rem" fill="black" />

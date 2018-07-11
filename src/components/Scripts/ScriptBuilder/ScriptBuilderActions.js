@@ -8,7 +8,6 @@ import Parse from 'parse';
 import { browserHistory } from 'react-router';
 
 import {
-  CURRENT_QUESTION_ERROR,
   CURRENT_QUESTION_CLEAR_ERROR,
   CURRENT_QUESTION_LOADING,
   CURRENT_QUESTION_LOAD_END,
@@ -18,14 +17,6 @@ import {
   CREATING_NEW_QUESTION_UPDATE,
   UPDATE_CURRENT_ANSWER
 } from './ScriptBuilderTypes';
-
-
-function _answerAddError(error) {
-  return {
-    type: CURRENT_QUESTION_ERROR,
-    payload: error
-  };
-}
 
 function _clearError() {
   return {
@@ -59,7 +50,7 @@ function _currentScriptUpdate(script) {
 // hydrate the store with a question list containing the blank question
 // set the blank question to currentQuestion
 
-const fetchScript = (scriptId, update) => (dispatch) => {
+const fetchScript = scriptId => (dispatch) => {
   Parse.Cloud.run('fetchScript', { scriptId })
     .then((script) => {
       dispatch({
@@ -92,7 +83,7 @@ function _setNewQuestion(state) {
   };
 }
 
-const newQuestion = script => (dispatch) => {
+const newQuestion = () => (dispatch) => {
   dispatch(_setNewQuestion(true));
 };
 
@@ -139,7 +130,8 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
   if (question.audio) {
     _createNewAudio(question.audio)
       .then((parseAudio) => {
-        Parse.Cloud.run('createNewQuestion', { question: { ...question, audio: parseAudio }, scriptId })
+        delete question.audio;
+        Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url }, scriptId })
           .then((res) => {
             dispatch(fetchScript(scriptId, true));
             dispatch({
@@ -177,29 +169,42 @@ const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
     });
 };
 
-const deleteAnswer = questionId => (dispatch) => {
-  Parse.Cloud.run('deleteAnswer', { questionId, answerId })
-    .then((res) => {
-      dispatch(currentScriptUpdate(res));
-    });
-};
-
 export const clearError = () => (dispatch) => {
   dispatch(_clearError());
 };
 
 
 const updateScript = (data, scriptId) => (dispatch) => {
-  Parse.Cloud.run('updateScript', { scriptId, data })
-    .then(() => {
-      Parse.Cloud.run('fetchScript', { scriptId })
-        .then((script) => {
-          dispatch({
-            type: CURRENT_SCRIPT_UPDATE,
-            payload: script
+  dispatch(_answerAddLoading());
+  if (data.audio) {
+    _createNewAudio(data.audio)
+      .then((parseAudio) => {
+        delete data.audio;
+        Parse.Cloud.run('updateScript', { scriptId, data: { ...data, audioURI: parseAudio._url } })
+          .then(() => {
+            Parse.Cloud.run('fetchScript', { scriptId })
+              .then((script) => {
+                dispatch({
+                  type: CURRENT_SCRIPT_UPDATE,
+                  payload: script
+                });
+                dispatch(_answerAddLoadEnd());
+              });
           });
-        });
-    });
+      });
+  } else {
+    Parse.Cloud.run('updateScript', { scriptId, data })
+      .then(() => {
+        Parse.Cloud.run('fetchScript', { scriptId })
+          .then((script) => {
+            dispatch({
+              type: CURRENT_SCRIPT_UPDATE,
+              payload: script
+            });
+            dispatch(_answerAddLoadEnd());
+          });
+      });
+  }
 };
 
 const updateQuestion = ({ data, questionId, scriptId }) => (dispatch) => {
@@ -230,12 +235,12 @@ const deleteQuestion = (question, script) => (dispatch) => {
     });
 };
 
-const setCurrentAnswer = (answer) => (dispatch) => {
+const setCurrentAnswer = answer => (dispatch) => {
   dispatch({
     type: UPDATE_CURRENT_ANSWER,
     payload: answer
   });
-}
+};
 
 
 export {

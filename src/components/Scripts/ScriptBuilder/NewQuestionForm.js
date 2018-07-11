@@ -10,7 +10,6 @@ import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
   InputDropDown,
-  InputCheckbox,
   InputAudio,
   LoaderOrThis,
   Button,
