@@ -11,7 +11,7 @@ import {
   MY_LEADS,
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
-  CLEAR_LEADS_TO_ADD
+  CLEAR_LEADS_TO_ADD,
 } from './LeadsTypes';
 
 

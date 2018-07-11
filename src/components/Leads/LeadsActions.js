@@ -15,7 +15,8 @@ import {
   MY_LEAD_GROUPS,
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
-  CLEAR_LEADS_TO_ADD
+  CLEAR_LEADS_TO_ADD,
+  LEAD_LATEST_CALL
 } from './LeadsTypes';
 
 
@@ -98,6 +99,13 @@ function _updateLeadsToAdd(l) {
   return {
     type: LEAD_LEADGROUP_UPDATE,
     payload: l
+  };
+}
+
+function _latestCall(c) {
+  return {
+    type: LEAD_LATEST_CALL,
+    payload: c
   };
 }
 
@@ -408,6 +416,18 @@ const parseCSV = data => (dispatch) => {
 };
 
 
+const fetchLastLeadCall = lead => (dispatch) => {
+  dispatch(_leadsLoading());
+  Parse.Cloud.run("fetchLastLeadCall", ({ lead }))
+    .then(call =>
+      console.log(call))
+    .catch((e) => {
+      dispatch(_leadLoadEnd());
+      dispatch(_leadsError(e));
+    });
+};
+
+
 export {
   clearError,
   createLead,
@@ -423,4 +443,6 @@ export {
   updateLeadGroup,
   deleteLeadGroup,
   addLeadToGroup,
-  parseCSV };
+  parseCSV,
+  fetchLastLeadCall
+};

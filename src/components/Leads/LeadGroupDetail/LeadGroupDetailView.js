@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { HSButton } from '../../common';
-import { fetchLeadGroup, deleteLeadGroup } from '../LeadsActions';
+import { fetchLeadGroup, deleteLeadGroup, } from '../LeadsActions';
 import { LeadNavCard } from '../';
 import { LGDetailListItem } from './';
 
@@ -11,10 +11,9 @@ class LeadGroupDetailView extends Component {
   componentWillMount() {
     this.props.fetchLeadGroup(this.props.params.id);
   }
-
   render() {
     const {
-      leadGroup, location
+      leadGroup, location,
     } = this.props;
     return (
       leadGroup &&
@@ -31,7 +30,7 @@ class LeadGroupDetailView extends Component {
 }
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { leadGroup } = LeadsReducer;
+  const { leadGroup, } = LeadsReducer;
   return {
     leadGroup
   };

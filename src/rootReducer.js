@@ -10,6 +10,7 @@ import LeadsReducer from './components/Leads/LeadsReducer';
 import StripeReducer from './components/Stripe/StripeReducer';
 import { ScriptBuilderReducer, ScriptsListReducer } from './components/Scripts';
 import { CallReducer } from './components/Call';
+import HistoryReducer from './components/History/HistoryReducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   ScriptBuilderReducer,
   ScriptsListReducer,
   StripeReducer,
-  CallReducer
+  CallReducer,
+  HistoryReducer
 });
 
 export default rootReducer;
