@@ -30,10 +30,9 @@ class LeadGroupDetailView extends Component {
 }
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { leadGroup, loading } = LeadsReducer;
+  const { leadGroup } = LeadsReducer;
   return {
-    leadGroup,
-    loading
+    leadGroup
   };
 };
 
