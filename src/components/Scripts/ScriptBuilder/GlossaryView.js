@@ -21,13 +21,13 @@ const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
 const GlossaryView = ({
   questions, currentQuestion, setCurrentQuestion, onClick
 }) => (
-  <div className="pt5 pl2 pr3 br b--near-white h-100">
-    {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+  <div className="pt3 pl2 pr3 br b--near-white h-100">
     <div role="button"
-      className="pointer brand-green w-100 tc pa3 b bg-light-gray"
+      className="pointer brand-green w-100 tc pa3 b bg-light-gray mb4"
       onClick={onClick}
     > Create New Question
     </div>
+    {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
   </div>
 
 );

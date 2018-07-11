@@ -21,7 +21,7 @@ const ScriptInfo = ({ name, step, scriptId }) => (
   </div>
 );
 
-const StepIndicator = ({ step, toggle }) => (
+const StepIndicator = ({ step }) => (
   <div
     className="flex items-center steps"
     style={{ backgroundColor: step === 'answers' ? Colors.brandPrimary : Colors.nearWhite }}
@@ -58,7 +58,6 @@ class ScriptBuilderView extends Component {
       callback: data => this.handleSubscriptionCallback(data)
     });
     this.props.toggleCreationState(true);
-    console.log('sup nerd');
     this.props.fetchScript(this.props.params.id);
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);
@@ -99,7 +98,7 @@ class ScriptBuilderView extends Component {
       <CardRight>
         {currentScript &&
         <div>
-          <div className="flex justify-between items-center pa3 bb bw1 b--near-white">
+          <div className="flex justify-between items-center pa3 b--near-white bb bw1">
             <div className="flex items-center">
               <div role="button" className="pointer" onClick={() => browserHistory.push('/scripts')}>
                 <ChevronLeftCircle width="2rem" height="2rem" fill="black" />
@@ -111,7 +110,7 @@ class ScriptBuilderView extends Component {
             <StepIndicator step={currentStep} toggle={this.toggleStep} />
           </div>
           <div className="w-100 flex">
-            <div className="w-30 pa3">
+            <div className="w-40 pa3">
               <GlossaryView
                 questions={questions}
                 step={currentStep}
@@ -121,7 +120,7 @@ class ScriptBuilderView extends Component {
                 onClick={() => this.newQuestion(currentScript)}
                 creatingNewQuestion={creatingNewQuestion} />
             </div>
-            <div className="w-70 pa3">
+            <div className="w-60 pa3">
               {creatingNewQuestion
               ?
                 <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} />

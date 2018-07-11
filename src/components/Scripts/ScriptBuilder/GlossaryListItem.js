@@ -66,7 +66,6 @@ class GlossaryListItem extends Component {
     const {
       question, setCurrentQuestion, currentQuestion, currentScript
     } = this.props;
-    console.log('currentQuestion', question.id);
     return (
       <div role="button"
         className="flex justify-between items-center pointer mb2 pv2 list-hover"
