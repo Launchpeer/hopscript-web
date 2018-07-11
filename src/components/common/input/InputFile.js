@@ -23,7 +23,8 @@ class renderFileUpload extends Component {
       <div>
         <div className="rectangle-profile relative">
           {files[0] ? <div className="center bg-light-grey pt4 w-100 h-100">
-            <p className="brand-green mt4">{files[0].name}</p></div> :
+            <p className="brand-green mt4 f4">{files[0].name}</p>
+          </div> :
           <Dropzone
             name={name}
             style={{ backgroundColor: Colors.lightGray }}
