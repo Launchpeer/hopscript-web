@@ -154,11 +154,12 @@ const fetchLeads = () => (dispatch) => {
 
 const updateLead = (data, lead) => (dispatch) => {
   const {
-    phone, leadGroup, email, name, leadType
+    phone, leadGroup, email, name, leadType, lastCallTitle, lastContact, lastCallNotes
   } = data;
+  console.log('data in updatelead front end', data);
   dispatch(_leadsLoading());
   Parse.Cloud.run("updateLead", ({
-    phone, leadGroup, email, name, leadType, lead
+    phone, leadGroup, email, name, leadType, lead, lastCallTitle, lastContact, lastCallNotes
   }))
     .then(() => {
       dispatch(fetchLead(lead));
@@ -415,21 +416,6 @@ const parseCSV = data => (dispatch) => {
     });
 };
 
-
-const fetchLastLeadCall = lead => (dispatch) => {
-  dispatch(_leadsLoading());
-  Parse.Cloud.run("fetchLastLeadCall", ({ lead }))
-    .then(() => {
-      fetchLead(lead);
-      dispatch(_leadLoadEnd());
-    })
-    .catch((e) => {
-      dispatch(_leadLoadEnd());
-      dispatch(_leadsError(e));
-    });
-};
-
-
 export {
   clearError,
   createLead,
@@ -445,6 +431,5 @@ export {
   updateLeadGroup,
   deleteLeadGroup,
   addLeadToGroup,
-  parseCSV,
-  fetchLastLeadCall
+  parseCSV
 };

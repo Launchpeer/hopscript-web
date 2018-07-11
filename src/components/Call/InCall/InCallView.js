@@ -5,6 +5,7 @@ import { Square, CheckSquare } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton } from '../../common';
 import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
+import { updateLead } from '../../Leads/LeadsActions';
 import { QuestionsGlossaryView, QuestionView, NotesView } from './';
 
 
@@ -50,12 +51,15 @@ class InCallView extends Component {
   handleHangUp(e) {
     e.preventDefault();
     const endTime = new Date().getTime();
+    const data = { lastContact: endTime, lastCallTitle: this.props.currentCall.attributes.title, lastCallNotes: this.state.text };
     Twilio.Device.disconnectAll();
     if (this.props.callType === 'leadGroup') {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer, this.props.leadGroup.id);
+      this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
       this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex);
     } else {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
+      this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
       browserHistory.push('/start-call');
     }
   }
@@ -174,5 +178,6 @@ export default connect(mapStateToProps, {
   playAudio,
   stopAudio,
   hangUpCall,
-  setCurrentQuestion
+  setCurrentQuestion,
+  updateLead
 })(InCallView);

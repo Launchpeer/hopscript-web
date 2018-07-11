@@ -2,6 +2,7 @@ import Parse from 'parse';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { TWILIO_SERVER_URL } from '../../config/globals';
+import { fetchLead } from '../Leads/LeadsActions';
 
 import {
   CALL_LOADING,

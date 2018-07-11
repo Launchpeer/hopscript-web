@@ -6,11 +6,10 @@
  */
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Parser from 'html-react-parser';
 import moment from 'moment';
 import { BorderRadius } from '../../../config/styles';
-import { fetchLastLeadCall } from '../LeadsActions';
+
 
 const notesConverter = notes => (
   React.createElement('div', {}, Parser(notes)));
@@ -67,26 +66,16 @@ class LGDetailListItem extends Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
-  componentWillMount() {
-    this.props.fetchLastLeadCall(this.props.lead.id);
-  }
-
   render() {
     const lead = this.props.lead.attributes;
     const { expanded } = this.state;
     return (
       <div className="flex justify-between pointer list-hover list-alt-color-rows">
-
         {expanded ? <ExpandedItem lead={lead} onClick={() => this.toggleExpand()} /> : <SmallItem lead={lead} onClick={() => this.toggleExpand()} /> }
-
       </div>
-
-
     );
   }
 }
 
 
-export default connect(null, {
-  fetchLastLeadCall
-})(LGDetailListItem);
+export default (LGDetailListItem);
