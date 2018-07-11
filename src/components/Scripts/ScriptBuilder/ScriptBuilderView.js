@@ -58,7 +58,6 @@ class ScriptBuilderView extends Component {
       callback: data => this.handleSubscriptionCallback(data)
     });
     this.props.toggleCreationState(true);
-    console.log('sup nerd');
     this.props.fetchScript(this.props.params.id);
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);

@@ -6,13 +6,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { PlusCircle } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
   InputDropDown,
-  InputCheckbox,
   InputAudio,
   LoaderOrThis,
+  HSButton,
   Button
 } from '../../common';
 import { createNewQuestion, fetchScript, updateQuestion } from './ScriptBuilderActions';
@@ -64,18 +65,12 @@ class QuestionBuilderForm extends Component {
                 <InputAudio name="audio" />
               </div>
             </div>
-            <div className="flex justify-end mt6">
-              <Button
-                onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}
-                borderColor={Colors.brandGreen}
-                borderWidth="1px"
-                fontColor={Colors.brandGreen}
-                classOverrides="flex items-center mr2"
-              >
-                Go to Step 2: Answers
-              </Button>
-              <Button backgroundColor={Colors.brandGreen}>save</Button>
+
+            <div className="flex flex-row justify-end mt6 w-100">
+              <HSButton backgroundColor={Colors.white} borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>Add Answers</HSButton>
+              <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
             </div>
+
           </form>
         </LoaderOrThis>
       </div>

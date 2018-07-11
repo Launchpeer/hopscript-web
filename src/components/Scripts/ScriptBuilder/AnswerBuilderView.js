@@ -37,7 +37,9 @@ class AnswerBuilderView extends Component {
   }
 
   render() {
-    const { currentQuestion, answers, questions, toggleStep } = this.props;
+    const {
+      currentQuestion, answers, questions, toggleStep
+    } = this.props;
     return (
       <div>
         {this.state.newQuestionOpen
@@ -47,17 +49,6 @@ class AnswerBuilderView extends Component {
         {currentQuestion && currentQuestion.attributes.answers && currentQuestion.attributes.answers.map((answer, idx) => (
           <AnswerBlock answer={answer} idx={idx} key={idx} removeAnswer={this.removeAnswer} questions={questions} edit={false} />
         ))}
-        <div className="flex justify-end mt6">
-          <Button
-            onClick={() => toggleStep('question')}
-            borderColor={Colors.brandGreen}
-            borderWidth="1px"
-            fontColor={Colors.brandGreen}
-            classOverrides="flex items-center mr2"
-          >
-            Back to Step 1: Questions
-          </Button>
-        </div>
       </div>
     );
   }
