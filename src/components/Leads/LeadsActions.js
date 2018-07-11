@@ -102,13 +102,6 @@ function _updateLeadsToAdd(l) {
   };
 }
 
-function _latestCall(c) {
-  return {
-    type: LEAD_LATEST_CALL,
-    payload: c
-  };
-}
-
 
 const clearError = () => (dispatch) => {
   dispatch(_leadsClearError());
