@@ -156,7 +156,6 @@ const updateLead = (data, lead) => (dispatch) => {
   const {
     phone, leadGroup, email, name, leadType, lastCallTitle, lastContact, lastCallNotes
   } = data;
-  console.log('data in updatelead front end', data);
   dispatch(_leadsLoading());
   Parse.Cloud.run("updateLead", ({
     phone, leadGroup, email, name, leadType, lead, lastCallTitle, lastContact, lastCallNotes
