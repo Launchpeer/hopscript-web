@@ -89,11 +89,11 @@ const fetchCall = callId => (dispatch) => {
 
 const fetchToken = () => () => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
-const startACall = (number, callId) => (dispatch) => {
+const startACall = (number, callId, conferenceName) => (dispatch) => {
   axios({
     method: 'post',
     url: `${TWILIO_SERVER_URL}/start-call`,
-    data: { number, callId }
+    data: { number, callId, conferenceName }
   }).then(() => {
     dispatch(fetchCall(callId));
   });

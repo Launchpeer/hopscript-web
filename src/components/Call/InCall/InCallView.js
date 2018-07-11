@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Square, CheckSquare } from 'react-feather';
+import uuidv4 from 'uuid/v4';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton } from '../../common';
 import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
@@ -21,6 +22,8 @@ class InCallView extends Component {
       noAnswer: false,
     };
 
+    const conferenceName = uuidv4();
+
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
@@ -30,8 +33,8 @@ class InCallView extends Component {
       });
 
       Twilio.Device.ready(() => {
-        Twilio.Device.connect();
-        this.props.startACall(phone, this.props.params.id);
+        Twilio.Device.connect({ conferenceName });
+        this.props.startACall(phone, this.props.params.id, conferenceName);
       });
 
 
@@ -53,13 +56,12 @@ class InCallView extends Component {
     const endTime = new Date().getTime();
     const data = { lastContact: endTime, lastCallTitle: this.props.currentCall.attributes.title, lastCallNotes: this.state.text };
     Twilio.Device.disconnectAll();
+    this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
     if (this.props.callType === 'leadGroup') {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer, this.props.leadGroup.id);
-      this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
       this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex);
     } else {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
-      this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
       browserHistory.push('/start-call');
     }
   }
