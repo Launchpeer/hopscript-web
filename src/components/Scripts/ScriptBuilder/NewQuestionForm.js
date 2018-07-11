@@ -12,7 +12,7 @@ import {
   InputDropDown,
   InputAudio,
   LoaderOrThis,
-  Button,
+  HSButton
 } from '../../common';
 import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
@@ -37,38 +37,41 @@ class NewQuestionForm extends Component {
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
-            <div className="single-line-textarea">
-              <InputTextArea name="body" placeholder="Write Question Here" />
-            </div>
-            <div className="flex mt4 justify-between">
-              <div className="w-20">Description</div>
-              <div className="w-80">
-                <div className="block-textarea">
-                  <InputTextArea name="description" placeholder="Optional Description" />
+            <div className="mb6">
+              <div className="single-line-textarea">
+                <InputTextArea name="body" placeholder="Write Question Here" />
+              </div>
+              <div className="flex mt4 justify-between">
+                <div className="w-20">Description</div>
+                <div className="w-80">
+                  <div className="block-textarea">
+                    <InputTextArea name="description" placeholder="Optional Description" />
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center mt4 justify-between">
+                <div className="w-20">Category</div>
+                <div className="w-80">
+                  <InputDropDown
+                    name="category"
+                    type="dropdown"
+                    placeholder="Choose category"
+                    options={['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close']}
+                    borderColor={Colors.moonGray}
+                />
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div className="w-20">Audio</div>
+                <div className="w-80">
+                  <InputAudio name="audio" />
                 </div>
               </div>
             </div>
-            <div className="flex items-center mt4 justify-between">
-              <div className="w-20">Category</div>
-              <div className="w-80">
-                <InputDropDown
-                  name="category"
-                  type="dropdown"
-                  placeholder="Choose category"
-                  options={['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close']}
-                  borderColor={Colors.moonGray}
-                />
-              </div>
+            <div className="pt5">
+              <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
             </div>
-            <div className="flex justify-between">
-              <div className="w-20">Audio</div>
-              <div className="w-80">
-                <InputAudio name="audio" />
-              </div>
-            </div>
-            <div className="flex justify-end mt6">
-              <Button backgroundColor={Colors.brandGreen}>Create</Button>
-            </div>
+
           </form>
         </LoaderOrThis>
       </div>

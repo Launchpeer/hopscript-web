@@ -12,22 +12,24 @@ const GlossarySection = ({
     <div>
       {questions && questions.filter(question => question.attributes.category === header).map(categoryItem => <GlossaryListItem question={categoryItem} key={categoryItem.id} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
     </div>
-    <div className="mh1 bb b--near-white" style={{ borderWidth: '3px' }} />
+    <div className="mh1 bb bb--near-white" style={{ borderWidth: '3px' }} />
   </div>
 );
 
 const sections = ['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close'];
 
 const GlossaryView = ({
-  questions, currentQuestion, setCurrentQuestion, onClick
+  questions, currentQuestion, setCurrentQuestion, onClick, step
 }) => (
-  <div className="pt3 pl2 pr3 br b--near-white h-100">
-    <div role="button"
-      className="pointer brand-green w-100 tc pa3 b bg-light-gray mb4"
-      onClick={onClick}
-    > Create New Question
-    </div>
+  <div className="pt4 pl2 pr3 br b--near-white h-100">
     {sections.map(section => <GlossarySection questions={questions} header={section} key={section} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />)}
+    { step === 'answers' &&
+      <div role="button"
+        className="pointer brand-green w-100 tc pa3 mb3 b bg-light-gray"
+        onClick={onClick}
+    > Create New Question
+      </div> }
+
   </div>
 
 );
