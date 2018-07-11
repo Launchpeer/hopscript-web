@@ -419,8 +419,10 @@ const parseCSV = data => (dispatch) => {
 const fetchLastLeadCall = lead => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("fetchLastLeadCall", ({ lead }))
-    .then(call =>
-      console.log(call))
+    .then(() => {
+      fetchLead(lead);
+      dispatch(_leadLoadEnd());
+    })
     .catch((e) => {
       dispatch(_leadLoadEnd());
       dispatch(_leadsError(e));
