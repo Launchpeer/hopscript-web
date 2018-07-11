@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Parser from 'html-react-parser';
-import { render } from 'react-dom';
 import moment from 'moment';
-import { browserHistory } from 'react-router';
-import { Colors, BorderRadius } from '../../config/styles';
-import { Button, ModalCard } from '../common';
+import { BorderRadius } from '../../config/styles';
+
 
 const notesConverter = notes => (
   React.createElement('div', {}, Parser(notes)));

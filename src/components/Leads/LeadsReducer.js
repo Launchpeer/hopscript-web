@@ -11,7 +11,8 @@ import {
   MY_LEADS,
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
-  CLEAR_LEADS_TO_ADD
+  CLEAR_LEADS_TO_ADD,
+  LEAD_LATEST_CALL
 } from './LeadsTypes';
 
 
@@ -24,7 +25,8 @@ const INITIAL_STATE = {
   leadGroups: [],
   myLeadGroups: [],
   myLeads: [],
-  leadsToAdd: []
+  leadsToAdd: [],
+  latestCall: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -55,6 +57,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, leadsToAdd: null };
     case LEAD_LEADGROUP_UPDATE:
       return { ...state, leadsToAdd: action.payload };
+    case LEAD_LATEST_CALL:
+      return { ...state, latestCall: action.payload };
     default:
       return state;
   }

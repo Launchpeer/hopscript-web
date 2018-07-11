@@ -11,3 +11,4 @@ export const MY_LEADS = "MY_LEADS";
 export const LEADS_TO_ADD = "LEADS_TO_ADD";
 export const LEAD_LEADGROUP_UPDATE = 'LEAD_LEADGROUP_UPDATE';
 export const CLEAR_LEADS_TO_ADD = 'CLEAR_LEADS_TO_ADD';
+export const LEAD_LATEST_CALL = 'LEAD_LATEST_CALL';

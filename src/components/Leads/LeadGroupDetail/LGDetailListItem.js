@@ -6,57 +6,78 @@
  */
 
 import React, { Component } from 'react';
-import { Button } from '../../common';
-import { Colors } from '../../../config/styles';
+import Parser from 'html-react-parser';
+import moment from 'moment';
+import { BorderRadius } from '../../../config/styles';
+
+const notesConverter = notes => (
+  React.createElement('div', {}, Parser(notes)));
+
+
+const ExpandedItem = ({
+  history, lead, onClick, call
+}) => (
+  <div className="flex flex-column w-100 bg-brand-primary pa3">
+    <div className="flex flex-row justify-between items-center pb3">
+      <div className="b w-25 white">{lead.name}</div>
+      <div className="w-25 tc white">{lead.phone}</div>
+      <div className="w-25 tc white">{moment(call.endTime).format('h:mm a, MMM D Y')}</div>
+      <div className="w-25">
+        <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba near-white bg-transparent b--near-white pv1 ph3 fr br" onClick={onClick}>less</div>
+      </div>
+    </div>
+    <div className="flex flex-row pv3 white">
+      <div className="b pr2">Call Title:</div>
+      <div>{`'${call.title}'`}</div>
+    </div>
+    {call.notes &&
+      <div className="pv3 white">
+        <div>
+          <div className="b">Notes:</div>
+        </div>
+        <div className="pt2 white">
+          <div>{notesConverter(call.notes.toString())}</div>
+        </div>
+      </div>}
+  </div>);
+
+const SmallItem = ({ lead, onClick, call }) => (
+  <div className="flex flex-row justify-between items-center w-100 pa3">
+    <div className="b w-25">{lead.name}</div>
+    <div className="w-25 tc">{lead.phone}</div>
+    <div className="w-25 tc">{moment(call.endTime).format('h:mm A, MMM D Y')}</div>
+    <div className="w-25">
+      <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba brand-primary bg-transparent b--brand-primary pv1 ph3 fr br" onClick={onClick}>more</div>
+    </div>
+  </div>);
+
 
 class LGDetailListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expandLead: false
+      expanded: false
     };
     this.toggleExpand = this.toggleExpand.bind(this);
   }
 
   toggleExpand() {
-    this.setState({ expandLead: !this.state.expandLead });
+    this.setState({ expanded: !this.state.expanded });
   }
+
   render() {
-    const {
-      lead
-    } = this.props;
-    const { expandLead } = this.state;
+    const lead = this.props.lead.attributes;
+    const { expanded } = this.state;
+    const call = this.props.call.attributes;
+
     return (
-      expandLead ? (
-        <div className="flex flex-column justify-between items-center pointer pa3 bg-brand-primary"
-          style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-          <div className="flex w-100 items-center justify-between">
-            <div className="w-30-ns white b">{lead.attributes.name}</div>
-            <div className="w-30-ns white">{lead.attributes.phone}</div>
-            <div className="w-30-ns white">1:18 pm, March 04 2018</div>
-            <Button classOverrides="f5" buttonPadding="ph4 pv1" borderWidth="1px" backgroundColor={Colors.brandPrimary} borderColor={Colors.white} fontColor={Colors.white} onClick={() => this.toggleExpand()}>less</Button>
-          </div>
-          <div className="white items-start w-100 pv3">
-            <div className="flex flex-row pv3"><div className="b pr2">Call Title:</div> <div>'A Friendly Call'</div></div>
-            <div className="b pv3">Notes:</div>
-            <div>Wow, what a friendly call that was.</div>
-          </div>
-        </div>
-      ) :
-        (
-          <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
-            style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-            <div className="flex w-100 items-center justify-between">
-              <div className="w-30-ns b">{lead.attributes.name}</div>
-              <div className="w-30-ns">{lead.attributes.phone}</div>
-              <div className="w-30-ns silver">not contacted yet</div>
-              <Button classOverrides="f5" buttonPadding="ph4 pv1" borderWidth="1px" borderColor={Colors.brandPrimary} fontColor={Colors.brandPrimary} onClick={() => this.toggleExpand()}>more</Button>
-            </div>
-          </div>
-        )
+      <div className="flex justify-between pointer list-hover list-alt-color-rows">
+        {expanded ? <ExpandedItem call={call} lead={lead} onClick={() => this.toggleExpand()} /> : <SmallItem call={call} lead={lead} onClick={() => this.toggleExpand()} /> }
+      </div>
+
     );
   }
 }
 
 
-export default LGDetailListItem;
+export default (LGDetailListItem);
