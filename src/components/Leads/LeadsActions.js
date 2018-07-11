@@ -420,7 +420,7 @@ const fetchLastLeadCall = lead => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("fetchLastLeadCall", ({ lead }))
     .then(call =>
-      dispatch(_latestCall(call)))
+      console.log(call))
     .catch((e) => {
       dispatch(_leadLoadEnd());
       dispatch(_leadsError(e));
