@@ -111,7 +111,7 @@ class ScriptBuilderView extends Component {
             <StepIndicator step={currentStep} toggle={this.toggleStep} />
           </div>
           <div className="w-100 flex">
-            <div className="w-30 pa3">
+            <div className="w-40 pa3">
               <GlossaryView
                 questions={questions}
                 step={currentStep}
@@ -121,7 +121,7 @@ class ScriptBuilderView extends Component {
                 onClick={() => this.newQuestion(currentScript)}
                 creatingNewQuestion={creatingNewQuestion} />
             </div>
-            <div className="w-70 pa3">
+            <div className="w-60 pa3">
               {creatingNewQuestion
               ?
                 <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} />
