@@ -22,7 +22,9 @@ class renderFileUpload extends Component {
     return (
       <div>
         <div className="rectangle-profile relative">
-          {files[0] && (<div>File exists</div>)}
+          {files[0] ? <div className="center bg-light-grey pt4 w-100 h-100">
+            <p className="brand-green mt4 f4">{files[0].name}</p>
+          </div> :
           <Dropzone
             name={name}
             style={{ backgroundColor: Colors.lightGray }}
@@ -34,7 +36,7 @@ class renderFileUpload extends Component {
             onDragLeave={() => this.setState({ photoDragging: false })}
            >
             <div >{dropzoneContents}</div>
-          </Dropzone>
+          </Dropzone>}
         </div>
         {error &&
         <span className="error">{error}</span>}

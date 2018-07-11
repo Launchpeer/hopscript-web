@@ -208,6 +208,9 @@ textarea:focus {
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite; }
 
+.w-95 {
+  width: 95%; }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;
