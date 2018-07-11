@@ -20,6 +20,9 @@ input:focus {
 .brand-primary-shade {
   color: #1c6a96; }
 
+.near-white {
+  color: #f2f2f2; }
+
 .bg-brand-primary {
   background-color: #1d79ad; }
 
@@ -182,6 +185,15 @@ textarea:focus {
 .b--brand-green {
   border: 1px solid #00cd6a; }
 
+.b--brand-primary {
+  border: 1px solid #1d79ad; }
+
+.b--near-white {
+  border: 1px solid #f2f2f2; }
+
+.bb--near-white {
+  border-bottom: 1px solid #f2f2f2; }
+
 .rounded-children-block {
   border: 1px solid #EEEEEE; }
 
@@ -190,6 +202,11 @@ textarea:focus {
 
 .rounded-children-block:last-child {
   border-radius: 0px 0px 4px 4px; }
+
+.green-glow {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite; }
 
 /* Loading Spinner by @tobiasahlin */
 .spinner {
@@ -219,6 +236,17 @@ textarea:focus {
     -webkit-transform: scale(0); }
   40% {
     -webkit-transform: scale(1); } }
+
+@-webkit-keyframes greenPulse {
+  from {
+    background-color: #00cd6a;
+    -webkit-box-shadow: 0 0 9px #333; }
+  50% {
+    background-color: #00b85f;
+    -webkit-box-shadow: 0 0 18px #00b85f; }
+  to {
+    background-color: #00cd6a;
+    -webkit-box-shadow: 0 0 9px #333; } }
 
 @keyframes sk-bouncedelay {
   0%, 80%, 100% {

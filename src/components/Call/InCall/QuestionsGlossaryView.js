@@ -26,7 +26,7 @@ const QuestionsGlossaryItem = ({
 const GlossarySection = ({
   questions, header, setCurrentQuestion, currentQuestion
 }) => (
-  <div className="mb4 bb b--near-white bw1 pb3">
+  <div className="mb4 bb bb--near-white bw1 pb3">
     <div className="flex justify-between b brand-near-black mb4">
       <div className="pa3">{header}</div>
     </div>

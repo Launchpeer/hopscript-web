@@ -50,6 +50,10 @@ input {
   color: $brandPrimaryShade;
 }
 
+.near-white {
+  color: $nearWhite
+}
+
 .bg-brand-primary {
   background-color: $brandPrimary;
 }
@@ -247,9 +251,20 @@ textarea:focus {
   color: $brandGreen;
 }
 
-
 .b--brand-green {
   border: 1px solid $brandGreen;
+}
+
+.b--brand-primary {
+  border: 1px solid $brandPrimary;
+}
+
+.b--near-white {
+  border: 1px solid $nearWhite;
+}
+
+.bb--near-white {
+  border-bottom: 1px solid $nearWhite;
 }
 
 .rounded-children-block {
@@ -262,4 +277,10 @@ textarea:focus {
 
 .rounded-children-block:last-child {
   border-radius: 0px 0px 4px 4px;
+}
+
+.green-glow {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
 }

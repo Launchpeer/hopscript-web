@@ -94,7 +94,9 @@ const startACall = (number, callId) => (dispatch) => {
     method: 'post',
     url: `${TWILIO_SERVER_URL}/start-call`,
     data: { number, callId }
-  }).then(() => { dispatch(fetchCall(callId)); });
+  }).then(() => {
+    dispatch(fetchCall(callId));
+  });
 };
 
 
@@ -133,11 +135,12 @@ const setCurrentQuestion = question => (dispatch) => {
   });
 };
 
-const hangUpCall = (callId, notes, endTime, leadGroup) => (dispatch) => {
+const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
   Parse.Cloud.run("updateCall", ({
     callId,
     notes,
     endTime,
+    noAnswer,
     leadGroup
   }))
     .then((call) => {

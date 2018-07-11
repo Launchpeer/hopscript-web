@@ -8,7 +8,7 @@ const CallTitle = ({ classOverrides }) => (
       className={`f3 mb4 brand-near-black b ${classOverrides}`}>
       Title Your Call
     </div>
-    <div className="flex items-center pr4 ba b--silver" style={{ borderRadius: BorderRadius.all }}>
+    <div className="flex items-center pr4 ba b--silver bg-transparent" style={{ borderRadius: BorderRadius.all }}>
       <InputText
         classOverrides="w-100"
         name="title"
@@ -16,6 +16,6 @@ const CallTitle = ({ classOverrides }) => (
       />
     </div>
   </div>
-)
+);
 
 export default CallTitle;
