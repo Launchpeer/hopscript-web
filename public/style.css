@@ -191,6 +191,9 @@ textarea:focus {
 .b--near-white {
   border: 1px solid #f2f2f2; }
 
+.bb--near-white {
+  border-bottom: 1px solid #f2f2f2; }
+
 .rounded-children-block {
   border: 1px solid #EEEEEE; }
 

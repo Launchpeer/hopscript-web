@@ -263,6 +263,10 @@ textarea:focus {
   border: 1px solid $nearWhite;
 }
 
+.bb--near-white {
+  border-bottom: 1px solid $nearWhite;
+}
+
 .rounded-children-block {
   border: 1px solid $lightGray;
 }
