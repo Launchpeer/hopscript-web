@@ -13,7 +13,8 @@ const PathsWithoutSideBarContent = [
   '/forgot-password',
   '/reset-password',
   '/welcome',
-  '/stripe'
+  '/agent-onboard',
+  '/stripe',
 ];
 
 const agentItems = [

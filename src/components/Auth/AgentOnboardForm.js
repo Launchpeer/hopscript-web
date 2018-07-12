@@ -1,16 +1,30 @@
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-
+import { LoaderOrThis } from '../common';
 import { AuthInput } from './';
-
 import { resetPassword } from './AuthActions';
-import { fetchUser } from '../UserActions';
+
 
 // components
 import { Button, RenderAlert, Loader } from '../common';
 
 import { Colors } from '../../config/styles';
+
+const successBlock = () => (
+  <div className="tc">
+    <div className="di">
+      Your password has been reset. <br />Log into your account
+    </div>
+    <div
+      className="di brand-primary ml1 pointer b"
+      onClick={() => browserHistory.push('/')}
+      role="button" >
+      here.
+    </div>
+  </div>
+);
 
 class AgentOnboardForm extends Component {
   constructor(props) {
@@ -19,12 +33,9 @@ class AgentOnboardForm extends Component {
     this.openPdf = this.openPdf.bind(this);
   }
 
-  componentWillMount() {
-    this.props.fetchUser();
-  }
 
   handleFormSubmit({ password }) {
-    this.props.resetPassword(password, this.props.user.username);
+    this.props.resetPassword(password, this.props.user.attributes.username);
   }
 
   openPdf() {
@@ -34,33 +45,40 @@ class AgentOnboardForm extends Component {
 
   render() {
     const {
-      handleSubmit, error, loading, user
+      handleSubmit, error, loading, user, success
     } = this.props;
     return (
       <div>
-        {loading ? <Loader /> :
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <div>`Welcome, ${user.name}. Please enter a new password to log in.`</div>
-          <AuthInput
-            name="password"
-            type="password"
-            label="password"
-            placeholder="Password" />
-          <div className="tc center w-100 mb4 moonGray">
-              * By clicking Create Account, you agree to our
-            <div className="brand-primary pointer w-100"
-              role="button"
-              onKeyPress={this.openPdf}
-              onClick={this.openPdf}>
-                Terms of Service, Privacy Policy, and End User Agreement
+        <LoaderOrThis loading={loading}>
+          {success ? successBlock() :
+          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+            <div className="tc">
+              <div className="b">Welcome, {user.attributes.name}. </div>
+              <div className="pb3">Please enter a new password to log in.</div>
             </div>
-          </div>
-          <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
-            Create Account
-          </Button>
-          <RenderAlert error={error} />
-        </form>
-        }
+            <AuthInput
+              name="password"
+              type="password"
+              label="password"
+              placeholder="New Password" />
+            <div className="tc center w-100 mb4 moonGray">
+                * By clicking Set Password, you agree to our
+              <div className="brand-primary pointer w-100"
+                role="button"
+                onKeyPress={this.openPdf}
+                onClick={this.openPdf}>
+                  Terms of Service, Privacy Policy, and End User Agreement
+              </div>
+            </div>
+            <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
+              Set Password
+            </Button>
+            <RenderAlert error={error} />
+            {success && successBlock()}
+          </form>
+          }
+
+        </LoaderOrThis>
       </div>
     );
   }
@@ -81,17 +99,19 @@ function validate(values) {
 }
 
 const mapStateToProps = ({ AuthReducer, UserReducer }) => {
-  const { error, authenticated, loading } = AuthReducer;
+  const {
+    error, authenticated, loading, success
+  } = AuthReducer;
   const { user } = UserReducer;
   return {
     error,
     authenticated,
     loading,
-    user
+    user,
+    success
   };
 };
 
 export default reduxForm({ form: 'onboard', validate })(connect(mapStateToProps, {
-  fetchUser,
   resetPassword
 })(AgentOnboardForm));
