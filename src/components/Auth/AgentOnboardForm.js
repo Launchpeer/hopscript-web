@@ -1,15 +1,10 @@
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { LoaderOrThis } from '../common';
 import { AuthInput } from './';
 import { resetPassword } from './AuthActions';
-
-
-// components
-import { Button, RenderAlert, Loader } from '../common';
-
+import { Button, RenderAlert, LoaderOrThis } from '../common';
 import { Colors } from '../../config/styles';
 
 const successBlock = () => (
