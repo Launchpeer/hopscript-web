@@ -48,7 +48,7 @@ export const signInUser = (email, password) => (dispatch) => {
         type: AUTH_USER,
         payload: user
       });
-      if (user.attributes.role === 'agent' && !user.attributes.leads) {
+      if (user.attributes.role === 'agent' && user.attributes.firstLogin !== 'true') {
         browserHistory.push('/welcome');
       } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
         browserHistory.push('/start-call');
@@ -179,5 +179,6 @@ export const logOutUser = () => (dispatch) => {
     }
   });
 };
+
 
 export { clearUser };
