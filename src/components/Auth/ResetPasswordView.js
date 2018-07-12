@@ -11,8 +11,7 @@ import {
   RenderAlert,
   Loader,
   FullScreenCenter,
-  CenterThis,
-  HeadphonesIcon
+  CenterThis
 } from '../common';
 import { resetPassword, clearError } from './AuthActions';
 
