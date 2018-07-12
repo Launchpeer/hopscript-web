@@ -22,7 +22,7 @@ const QuestionView = ({
   <div>
     <div className="b f3 mb4 brand-near-black">{currentQuestion.attributes.body || 'Unnamed Question'}</div>
     {currentQuestion.attributes.description && <div className="f5 mb4">{currentQuestion.attributes.description}</div>}
-    {currentQuestion.attributes.audio &&
+    {currentQuestion.attributes.audioURI &&
       <div className="flex flex-row mv2 ">
         <div className="f4 b brand-near-black pa2 mh2 items-center ">Play Audio</div>
         <div
