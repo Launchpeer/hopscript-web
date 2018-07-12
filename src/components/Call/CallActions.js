@@ -100,11 +100,11 @@ const startACall = (number, callId, conferenceName) => (dispatch) => {
 };
 
 
-const playAudio = (callSid, conferenceSid, audioUrl) => (dispatch) => {
+const playAudio = (callSid, conferenceSid, audioURI) => (dispatch) => {
   axios({
     method: 'post',
     url: `${TWILIO_SERVER_URL}/bot`,
-    data: { callSid, conferenceSid, audioUrl }
+    data: { callSid, conferenceSid, audioURI }
   }).then(data => (data)).catch(err => dispatch(_callError(err)));
 };
 
