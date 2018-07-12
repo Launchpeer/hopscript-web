@@ -401,7 +401,6 @@ const parseCSV = data => (dispatch) => {
     .then((results) => {
       Promise.all(results.map(lead => _createAndReconcileLead(lead)))
         .then(() => {
-          console.log('submitted');
           dispatch(fetchUser());
           dispatch(_leadsLoading());
           dispatch(_leadListSuccess(true));
