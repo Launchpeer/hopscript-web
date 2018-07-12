@@ -104,9 +104,9 @@ class InCallView extends Component {
                   <div className="b f5 mb2">{currentCall.attributes.lead && currentCall.attributes.lead.attributes.name}</div>
                   <div className="silver f5">{currentCall.attributes.lead && currentCall.attributes.lead.attributes.phone}</div>
                 </div>
-                <a className="btn-floating green-glow pointer-none">
-                  <i className="fa fa-phone" />
-                </a>
+                <div className="circle-button green-glow pointer-none">
+                  <i className="fa fa-phone white" />
+                </div>
               </div>
             </div>
             <div className="w-100 mt4 flex flex-row">

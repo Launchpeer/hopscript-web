@@ -211,6 +211,20 @@ textarea:focus {
 .w-95 {
   width: 95%; }
 
+.circle-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #00cd6a;
+  position: relative; }
+  .circle-button i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%); }
+
 /* Loading Spinner by @tobiasahlin */
 .spinner {
   margin: 100px auto 0;
