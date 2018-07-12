@@ -48,7 +48,7 @@ export const signInUser = (email, password) => (dispatch) => {
         type: AUTH_USER,
         payload: user
       });
-      if (user.attributes.role === 'agent' && !user.attributes.firstLogin) {
+      if (user.attributes.role === 'agent' && user.attributes.firstLogin !== 'true') {
         browserHistory.push('/welcome');
       } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
         browserHistory.push('/start-call');
@@ -178,22 +178,6 @@ export const logOutUser = () => (dispatch) => {
       dispatch(_authError(error));
     }
   });
-};
-
-
-function _setFirstLogin(user) {
-  return new Promise((resolve) => {
-    user.set('firstLogin', true);
-    resolve(user.save());
-  });
-}
-
-export const firstLogin = user => (dispatch) => {
-  const userQuery = new Parse.Query('User');
-  userQuery.find(user.id)
-    .then(() => {
-      dispatch(_setFirstLogin(user));
-    }).catch(err => dispatch(_authError(err)));
 };
 
 

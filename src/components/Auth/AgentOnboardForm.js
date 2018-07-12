@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { AuthInput } from './';
-import { resetPassword, firstLogin } from './AuthActions';
+import { resetPassword } from './AuthActions';
 import { Button, RenderAlert, LoaderOrThis } from '../common';
 import { Colors } from '../../config/styles';
 
@@ -31,7 +31,6 @@ class AgentOnboardForm extends Component {
 
   handleFormSubmit({ password }) {
     this.props.resetPassword(password, this.props.user.attributes.username);
-    this.props.firstLogin(this.props.user);
   }
 
   openPdf() {
@@ -109,5 +108,5 @@ const mapStateToProps = ({ AuthReducer, UserReducer }) => {
 };
 
 export default reduxForm({ form: 'onboard', validate })(connect(mapStateToProps, {
-  resetPassword, firstLogin
+  resetPassword
 })(AgentOnboardForm));
