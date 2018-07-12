@@ -5,7 +5,7 @@ const LeadsListItem = ({ lead, selectLead }) => {
   return (
     <div
       className="flex w-100 items-center justify-between list-alt-color-rows pa3 pointer list-hover"
-      onClick={() => { selectLead(lead) }}
+      onClick={() => { selectLead(lead); }}
     >
       <div className="w-30-ns brand-near-black">{name}</div>
       <div
@@ -23,7 +23,7 @@ const LeadsList = ({ leads, search, selectLead }) => (
   <div>
     {search.length > 0
       ?
-        leads.filter(lead => lead.attributes.name.includes(search)).map(filteredLead => (<LeadsListItem lead={filteredLead} key={filteredLead.id} selectLead={selectLead} />))
+        leads.filter(lead => lead.attributes.name.toLowerCase().includes(search.toLowerCase())).map(filteredLead => (<LeadsListItem lead={filteredLead} key={filteredLead.id} selectLead={selectLead} />))
       :
         leads.map(lead => (<LeadsListItem lead={lead} key={lead.id} selectLead={selectLead} />))
     }

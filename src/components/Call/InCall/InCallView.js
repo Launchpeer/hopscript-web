@@ -99,9 +99,14 @@ class InCallView extends Component {
               <div className="flex flex-row items-center">
                 <div className="pl3 b">{currentCall.attributes.title}</div>
               </div>
-              <div className="flex flex-column items-end pr4">
-                <div className="b f5 mb2">{currentCall.attributes.lead && currentCall.attributes.lead.attributes.name}</div>
-                <div className="silver f5">{currentCall.attributes.lead && currentCall.attributes.lead.attributes.phone}</div>
+              <div className="flex flex-row items-center pr4">
+                <div className="flex flex-column items-end pr4">
+                  <div className="b f5 mb2">{currentCall.attributes.lead && currentCall.attributes.lead.attributes.name}</div>
+                  <div className="silver f5">{currentCall.attributes.lead && currentCall.attributes.lead.attributes.phone}</div>
+                </div>
+                <a className="btn-floating green-glow pointer-none">
+                  <i className="fa fa-phone" />
+                </a>
               </div>
             </div>
             <div className="w-100 mt4 flex flex-row">
