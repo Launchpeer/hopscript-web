@@ -19,7 +19,7 @@ import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
 import { AUTH_USER } from './components/Auth/AuthTypes';
 import { UPDATE_USER } from './components/UserTypes';
-import { AuthView, ForgotPasswordView, ResetPasswordView, AgentWelcomeView } from './components/Auth';
+import { AuthView, ForgotPasswordView, ResetPasswordView, AgentWelcomeView, AgentOnboardView } from './components/Auth';
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
@@ -73,6 +73,7 @@ ReactDOM.render(
         <IndexRoute component={AuthView} authType="signin" />
         <Route path="signup" component={AuthView} />
         <Route path="welcome" component={AgentWelcomeView} />
+        <Route path="agent-onboard" component={AgentOnboardView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />
