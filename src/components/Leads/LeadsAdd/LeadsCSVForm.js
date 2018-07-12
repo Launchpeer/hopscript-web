@@ -29,7 +29,7 @@ class LeadsCSVForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, leadsListSuccess } = this.props;
 
     return (
       <div>
@@ -45,7 +45,7 @@ class LeadsCSVForm extends Component {
             backgroundColor={Colors.brandGreen}
             borderRadius="4px"
             classOverrides="w-100 f4">
-              Submit List
+            {leadsListSuccess ? "List Imported!" : "Submit List"}
           </Button>
         </form>
       </div>
@@ -53,8 +53,14 @@ class LeadsCSVForm extends Component {
   }
 }
 
+const mapStateToProps = ({ LeadsReducer }) => {
+  const { leadsListSuccess } = LeadsReducer;
+  return {
+    leadsListSuccess
+  };
+};
 export default reduxForm({
   form: 'batchLeads',
-})(connect(null, {
+})(connect(mapStateToProps, {
   parseCSV
 })(LeadsCSVForm));
