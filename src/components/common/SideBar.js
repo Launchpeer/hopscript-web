@@ -68,66 +68,41 @@ const textColor = (current, route) => {
 };
 
 const userButton = (user, route) => (
-  route.includes('in-call') ?
+  <div
+    role="button"
+    style={{ cursor: route.includes('in-call') ? 'not-allowed' : 'pointer' }}
+    className="fixed bottom-1 mb2"
+    onClick={() => !route.includes('in-call') && (user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'))}>
     <div
-      style={{ cursor: 'not-allowed' }}
-      className="fixed bottom-1 mb2">
-      <div
-        className="bg-white br-100 flex items-center justify-center ml2 mr2"
-        style={{
-          width: '3rem',
-          height: '3rem'
-        }} >
-        <User color={Colors.brandPrimary} size={30} scale={3} />
-      </div>
-    </div>
-    :
-    <div
-      role="button"
-      className="fixed bottom-1 mb2 pointer"
-      onClick={() => user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile')}>
-      <div
-        className="bg-white br-100 flex items-center justify-center ml2 mr2"
-        style={{
+      className="bg-white br-100 flex items-center justify-center ml2 mr2"
+      style={{
           width: '3rem',
           height: '3rem'
 }} >
-        <User color={Colors.brandPrimary} size={30} scale={3} />
-      </div>
+      <User color={Colors.brandPrimary} size={30} scale={3} />
     </div>
+  </div>
 );
 
 const mapSidebarContent = (user, route) => {
   const items = user === 'agent' ? agentItems : brokerItems;
   return (
-    items.map(item =>
-      route.includes('in-call') ?
-        <div
-          key={item.label}
-          style={{ backgroundColor: Colors.brandPrimary, color: Colors.brandSecondary, cursor: 'not-allowed' }}>
-          <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
-            <div className="tc">
-              {item.icon(item.route, route)}
-            </div>
-            <div className="f5 tc mt1">{item.label}</div>
+    items.map(item => (
+      <div
+        key={item.label}
+        role="button"
+        style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route), cursor: route.includes('in-call') ? 'not-allowed' : 'pointer' }}
+        onClick={() => !route.includes('in-call') && browserHistory.push(item.route)} >
+        <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
+          <div className="tc">
+            {item.icon(item.route, route)}
           </div>
-          <div className="ba brand-primary-shade" />
+          <div className="f5 tc mt1">{item.label}</div>
         </div>
-        :
-        <div
-          className="pointer"
-          key={item.label}
-          role="button"
-          style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route) }}
-          onClick={() => browserHistory.push(item.route)} >
-          <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
-            <div className="tc">
-              {item.icon(item.route, route)}
-            </div>
-            <div className="f5 tc mt1">{item.label}</div>
-          </div>
-          <div className="ba brand-primary-shade" />
-        </div>));
+        <div className="ba brand-primary-shade" />
+      </div>
+    ))
+  );
 };
 
 
