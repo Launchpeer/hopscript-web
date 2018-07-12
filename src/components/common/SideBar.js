@@ -67,27 +67,69 @@ const textColor = (current, route) => {
   return Colors.brandSecondary;
 };
 
+const userButton = (user, route) => (
+  route.includes('in-call') ?
+    <div
+      style={{ cursor: 'not-allowed' }}
+      className="fixed bottom-1 mb2">
+      <div
+        className="bg-white br-100 flex items-center justify-center ml2 mr2"
+        style={{
+          width: '3rem',
+          height: '3rem'
+        }} >
+        <User color={Colors.brandPrimary} size={30} scale={3} />
+      </div>
+    </div>
+    :
+    <div
+      role="button"
+      className="fixed bottom-1 mb2 pointer"
+      onClick={() => user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile')}>
+      <div
+        className="bg-white br-100 flex items-center justify-center ml2 mr2"
+        style={{
+          width: '3rem',
+          height: '3rem'
+}} >
+        <User color={Colors.brandPrimary} size={30} scale={3} />
+      </div>
+    </div>
+);
+
 const mapSidebarContent = (user, route) => {
   const items = user === 'agent' ? agentItems : brokerItems;
   return (
-    items.map(item => (
-      <div
-        className="pointer"
-        key={item.label}
-        role="button"
-        style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route) }}
-        onClick={() => browserHistory.push(item.route)} >
-        <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
-          <div className="tc">
-            {item.icon(item.route, route)}
+    items.map(item =>
+      route.includes('in-call') ?
+        <div
+          key={item.label}
+          style={{ backgroundColor: Colors.brandPrimary, color: Colors.brandSecondary, cursor: 'not-allowed' }}>
+          <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
+            <div className="tc">
+              {item.icon(item.route, route)}
+            </div>
+            <div className="f5 tc mt1">{item.label}</div>
           </div>
-          <div className="f5 tc mt1">{item.label}</div>
+          <div className="ba brand-primary-shade" />
         </div>
-        <div className="ba brand-primary-shade" />
-      </div>
-    ))
-  );
+        :
+        <div
+          className="pointer"
+          key={item.label}
+          role="button"
+          style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route) }}
+          onClick={() => browserHistory.push(item.route)} >
+          <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
+            <div className="tc">
+              {item.icon(item.route, route)}
+            </div>
+            <div className="f5 tc mt1">{item.label}</div>
+          </div>
+          <div className="ba brand-primary-shade" />
+        </div>));
 };
+
 
 const SideBar = ({ route, user }) => (
   <div>
@@ -102,19 +144,7 @@ const SideBar = ({ route, user }) => (
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
           {mapSidebarContent(user.attributes.role, route)}
           <CenterThis>
-            <div
-              className="fixed bottom-1 mb2 pointer"
-              onClick={() => { user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'); }}
-            >
-              <div
-                className="bg-white br-100 flex items-center justify-center ml2 mr2"
-                style={{
-                  width: '3rem',
-                  height: '3rem'
-                }} >
-                <User color={Colors.brandPrimary} size={30} scale={3} />
-              </div>
-            </div>
+            {userButton(user, route)}
           </CenterThis>
         </div>
       </div>
