@@ -21,7 +21,7 @@ const successBlock = () => (
       Your password has been reset. Log into your account
     </div>
     <div
-      className="di brandPrimary ml1 pointer"
+      className="di brand-primary ml1 pointer"
       onClick={() => browserHistory.push('/')}
       role="button" >
       here.
