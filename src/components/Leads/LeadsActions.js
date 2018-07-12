@@ -10,6 +10,7 @@ import {
   LEADS_LOAD_END,
   LEAD_DETAIL_UPDATE,
   LEAD_LIST_UPDATE,
+  LEADS_LIST_SUCCESS,
   LEAD_GROUP_DETAIL_UPDATE,
   LEAD_GROUP_LIST_UPDATE,
   MY_LEAD_GROUPS,
@@ -56,6 +57,13 @@ function _leadUpdate(l) {
 function _leadListUpdate(l) {
   return {
     type: LEAD_LIST_UPDATE,
+    payload: l
+  };
+}
+
+function _leadListSuccess(l) {
+  return {
+    type: LEADS_LIST_SUCCESS,
     payload: l
   };
 }
@@ -393,8 +401,13 @@ const parseCSV = data => (dispatch) => {
     .then((results) => {
       Promise.all(results.map(lead => _createAndReconcileLead(lead)))
         .then(() => {
+          console.log('submitted');
           dispatch(fetchUser());
           dispatch(_leadsLoading());
+          dispatch(_leadListSuccess(true));
+          setTimeout(() => {
+            dispatch(_leadListSuccess(false));
+          }, 3000);
         })
         .catch((err) => {
           dispatch(_leadsError(err));
