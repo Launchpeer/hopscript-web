@@ -23,7 +23,6 @@ class InCallView extends Component {
     };
 
     const conferenceName = uuidv4();
-
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
