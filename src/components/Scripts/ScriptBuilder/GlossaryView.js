@@ -24,7 +24,7 @@ const GlossaryView = ({
   <div className="pt4 pl2 pr3 br b--near-white h-100">
     { step === 'answers' &&
       <div role="button"
-        className="pointer brand-green w-100 tc pa3 mb3 b bg-light-gray"
+        className="pointer brand-green w-100 tc pa3 mb3 b bg-light-gray mb4"
         onClick={onClick}
     > Create New Question
       </div> }
