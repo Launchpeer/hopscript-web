@@ -7,7 +7,7 @@ import { deleteQuestion } from './ScriptBuilderActions';
 
 // These functions are helpers for Glossary GlossaryItem
 const questionTrimmer = question => (
-  question.length > 25 ? `${question.slice(0, 25)}...` : question
+  question.length > 50 ? `${question.slice(0, 40)}...` : question
 );
 
 const selectedButton = (
