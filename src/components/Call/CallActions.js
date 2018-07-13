@@ -90,11 +90,13 @@ const fetchCall = callId => (dispatch) => {
 const fetchToken = () => () => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
 
 const startACall = (number, callId, conferenceName) => (dispatch) => {
+  dispatch(_callLoading());
   axios({
     method: 'post',
     url: `${TWILIO_SERVER_URL}/start-call`,
     data: { number, callId, conferenceName }
   }).then(() => {
+    dispatch(_callLoadEnd());
     dispatch(fetchCall(callId));
   });
 };
@@ -118,8 +120,10 @@ const stopAudio = (callSid, conferenceSid) => (dispatch) => {
 
 
 const fetchQuestion = questionId => (dispatch) => {
+  dispatch(_callLoading());
   Parse.Cloud.run("fetchQuestion", ({ questionId }))
     .then((question) => {
+      dispatch(_callLoadEnd());
       dispatch({
         type: CURRENT_QUESTION_UPDATE,
         payload: question
@@ -136,6 +140,7 @@ const setCurrentQuestion = question => (dispatch) => {
 };
 
 const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
+  dispatch(_callLoading());
   Parse.Cloud.run("updateCall", ({
     callId,
     notes,
@@ -144,18 +149,21 @@ const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) =
     leadGroup
   }))
     .then((call) => {
+      dispatch(_callLoadEnd());
       dispatch(_callUpdate(call));
     }).catch(err => dispatch(_callError(err)));
 };
 
 
 const startLeadGroupCalls = d => (dispatch) => {
+  dispatch(_callLoading());
   dispatch({
     type: 'CALL_UPDATE_TYPE',
     payload: 'leadGroup'
   });
   Parse.Cloud.run("fetchLeadGroup", ({ leadGroup: d.leadGroup }))
     .then((leadGroup) => {
+      dispatch(_callLoadEnd);
       const currentLead = leadGroup.attributes.leads[0];
       dispatch(_setCurrentLeadGroup(leadGroup));
       dispatch(_setLeadGroupIndex(0));
