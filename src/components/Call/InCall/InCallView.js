@@ -58,7 +58,7 @@ class InCallView extends Component {
     this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
     if (this.props.callType === 'leadGroup') {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer, this.props.leadGroup.id);
-      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex, this.props.currentCall);
+      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex);
     } else {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
       browserHistory.push('/start-call');
