@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { Colors } from '../../../config/styles';
 import { HSButton, CardRight } from '../../common';
+import { startCall } from '../CallActions';
 
 class NextCallView extends Component {
   constructor(props) {
@@ -12,7 +12,12 @@ class NextCallView extends Component {
 
   handleNextCall(e) {
     e.preventDefault();
-    browserHistory.push(`/in-call/${this.props.leadGroup.attributes.leads[this.props.leadGroupIndex].id}`);
+    this.props.startCall({
+      lead: { id: this.props.leadGroup.attributes.leads[this.props.leadGroupIndex].id },
+      leadGroup: this.props.leadGroup.id,
+      script: this.props.currentCall.attributes.script.id,
+      title: this.props.currentCall.attributes.title
+    });
   }
 
   render() {
@@ -35,11 +40,12 @@ class NextCallView extends Component {
 }
 
 const mapStateToProps = ({ CallReducer }) => {
-  const { leadGroup, leadGroupIndex } = CallReducer;
+  const { leadGroup, leadGroupIndex, currentCall } = CallReducer;
   return {
     leadGroup,
-    leadGroupIndex
+    leadGroupIndex,
+    currentCall
   };
 };
 
-export default connect(mapStateToProps)(NextCallView);
+export default connect(mapStateToProps, { startCall })(NextCallView);
