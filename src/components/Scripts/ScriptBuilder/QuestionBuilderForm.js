@@ -6,17 +6,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { PlusCircle } from 'react-feather';
 import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
   InputDropDown,
   InputAudio,
   LoaderOrThis,
-  HSButton,
-  Button
+  HSButton
 } from '../../common';
 import { createNewQuestion, fetchScript, updateQuestion } from './ScriptBuilderActions';
+
+const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com/');
 
 class QuestionBuilderForm extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class QuestionBuilderForm extends Component {
 
   render() {
     const {
-      handleSubmit, loading, toggleStep
+      handleSubmit, loading, toggleStep, currentQuestion
     } = this.props;
     return (
       <div>
@@ -59,13 +59,21 @@ class QuestionBuilderForm extends Component {
                 />
               </div>
             </div>
-            <div className="flex">
-              <div className="w-20">Audio</div>
-              <div className="w-80">
-                <InputAudio name="audio" />
-              </div>
-            </div>
-
+            {currentQuestion.attributes.audioURI ?
+              <div className="flex">
+                <div className="w-20">Audio</div>
+                <div className="w-80">
+                  <div className="ph3">
+                    {formatAudioName(currentQuestion.attributes.audioURI)}
+                  </div>
+                </div>
+              </div> :
+              <div className="flex">
+                <div className="w-20">Audio</div>
+                <div className="w-80">
+                  <InputAudio name="audio" />
+                </div>
+              </div>}
             <div className="flex flex-row justify-end mt6 w-100">
               <HSButton backgroundColor={Colors.white} borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>Add Answers</HSButton>
               <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
