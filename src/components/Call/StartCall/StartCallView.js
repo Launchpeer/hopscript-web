@@ -43,7 +43,6 @@ class StartCallView extends Component {
       handleSubmit,
       leads,
       scripts,
-      loading,
       leadGroups,
       error,
       change
@@ -100,14 +99,12 @@ function validate(values) {
   return errors;
 }
 
-const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
+const mapStateToProps = ({ LeadsReducer, ScriptsListReducer }) => {
   const { leads, leadGroups } = LeadsReducer;
   const { scripts } = ScriptsListReducer;
-  const { loading } = CallReducer;
   return {
     leads,
     scripts,
-    loading,
     leadGroups
   };
 };
