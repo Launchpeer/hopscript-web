@@ -123,9 +123,11 @@ class ScriptBuilderView extends Component {
             <div className="w-60 pa3">
               {creatingNewQuestion
               ?
-                <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} />
+                <div className="pt4">
+                  <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} />
+                </div>
               :
-                <div>
+                <div className="pt4">
                   {(currentStep === 'question')
                     ? <QuestionBuilderForm
                       scriptId={this.props.params.id}
