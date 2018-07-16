@@ -168,7 +168,6 @@ const clearUser = () => (dispatch) => {
 };
 
 export const logOutUser = () => (dispatch) => {
-  browserHistory.push('/');
   Parse.User.logOut(null, {
     success: () => {
       dispatch(_clearUser());
@@ -177,7 +176,7 @@ export const logOutUser = () => (dispatch) => {
     error: (user, error) => {
       dispatch(_authError(error));
     }
-  });
+  }).then(() => browserHistory.push('/'));
 };
 
 

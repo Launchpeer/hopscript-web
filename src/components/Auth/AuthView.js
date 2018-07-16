@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { Card, CenterThis, FullScreenContainer, HeadphonesIcon } from '../common';
+import { Card, CenterThis, FullScreenContainer } from '../common';
 import { Colors } from '../../config/styles';
 import { SignInForm, BrokerageSignUpForm } from './';
 import { clearError, clearUser } from './AuthActions';

@@ -45,7 +45,6 @@ Parse.javascriptKey = 'some_key_generated';
 
 let redirect = '/' // eslint-disable-line
 const currentUser = Parse.User.current();
-
 window.doot = "doot doot here's your toot 🎺💀";
 
 if (currentUser) {
@@ -65,12 +64,14 @@ browserHistory.listen((location) => {
   }
 });
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
+        {currentUser === null && <IndexRedirect to={redirect} />}
         <IndexRoute component={AuthView} authType="signin" />
-        <IndexRedirect to={redirect} />
+        {currentUser && <IndexRedirect to={redirect} />}
         <Route path="signup" component={AuthView} />
         <Route path="welcome" component={AgentWelcomeView} />
         <Route path="agent-onboard" component={AgentOnboardView} />
