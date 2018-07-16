@@ -45,14 +45,13 @@ Parse.javascriptKey = 'some_key_generated';
 
 let redirect = '/' // eslint-disable-line
 const currentUser = Parse.User.current();
-
 window.doot = "doot doot here's your toot 🎺💀";
 
 if (currentUser) {
   // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
-  redirect = '/dashboard';
+  redirect = '/start-call';
 }
 
 const bodyColorPaths = ['/welcome'];
@@ -65,12 +64,14 @@ browserHistory.listen((location) => {
   }
 });
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRedirect to={redirect} />
+        {currentUser === null && <IndexRedirect to={redirect} />}
         <IndexRoute component={AuthView} authType="signin" />
+        {currentUser && <IndexRedirect to={redirect} />}
         <Route path="signup" component={AuthView} />
         <Route path="welcome" component={AgentWelcomeView} />
         <Route path="agent-onboard" component={AgentOnboardView} />

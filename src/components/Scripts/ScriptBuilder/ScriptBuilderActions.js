@@ -125,13 +125,13 @@ function _createNewAudio(audioFile) {
   });
 }
 
-const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
+const createNewQuestion = ({ question, description, scriptId, }) => (dispatch) => {
   dispatch(_answerAddLoading());
   if (question.audio) {
     _createNewAudio(question.audio)
       .then((parseAudio) => {
         delete question.audio;
-        Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url }, scriptId })
+        Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
           .then((res) => {
             dispatch(fetchScript(scriptId, true));
             dispatch({
@@ -146,7 +146,7 @@ const createNewQuestion = ({ question, scriptId }) => (dispatch) => {
           });
       });
   } else {
-    Parse.Cloud.run('createNewQuestion', { question, scriptId })
+    Parse.Cloud.run('createNewQuestion', { question: { ...question, description }, scriptId })
       .then((res) => {
         dispatch(fetchScript(scriptId, true));
         dispatch({
@@ -207,8 +207,10 @@ const updateScript = (data, scriptId) => (dispatch) => {
   }
 };
 
-const updateQuestion = ({ data, questionId, scriptId }) => (dispatch) => {
-  Parse.Cloud.run('updateQuestion', { data, questionId, scriptId })
+const updateQuestion = ({
+  data, description, questionId, scriptId
+}) => (dispatch) => {
+  Parse.Cloud.run('updateQuestion', { data: { ...data, description }, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
     });
