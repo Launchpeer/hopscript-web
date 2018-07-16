@@ -52,7 +52,7 @@ if (currentUser) {
   // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
-  redirect = '/dashboard';
+  redirect = '/start-call';
 }
 
 const bodyColorPaths = ['/welcome'];
@@ -69,8 +69,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
+        <IndexRedirect to={redirect} />
         <Route path="signup" component={AuthView} />
         <Route path="welcome" component={AgentWelcomeView} />
         <Route path="agent-onboard" component={AgentOnboardView} />

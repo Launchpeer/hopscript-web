@@ -39,7 +39,6 @@ class AuthView extends Component {
   constructor(props) {
     super(props);
     this.props.clearError();
-    this.props.clearUser();
   }
 
   render() {
