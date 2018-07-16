@@ -12,19 +12,27 @@ import {
   InputDropDown,
   InputAudio,
   LoaderOrThis,
-  HSButton
+  HSButton,
+  InputNotesQuill
 } from '../../common';
 import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
 class NewQuestionForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: ''
+    };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleFormSubmit(data) {
     this.props.createNewQuestion({ question: data, scriptId: this.props.currentScript.id });
     this.props.toggleStep('answers');
+  }
+
+  handleNotesChange(value) {
+    this.setState({ text: value });
   }
 
   render() {
@@ -44,12 +52,12 @@ class NewQuestionForm extends Component {
               <div className="flex mt4 justify-between">
                 <div className="w-20">Description</div>
                 <div className="w-80">
-                  <div className="block-textarea">
-                    <InputTextArea name="description" placeholder="Optional Description" />
+                  <div className="block-textarea-quill">
+                    <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} placeholder="Write your description here." />
                   </div>
                 </div>
               </div>
-              <div className="flex items-center mt4 justify-between">
+              <div className="flex mt4 items-center justify-between">
                 <div className="w-20">Category</div>
                 <div className="w-80">
                   <InputDropDown
@@ -61,7 +69,7 @@ class NewQuestionForm extends Component {
                 />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex items-center justify-between">
                 <div className="w-20">Audio</div>
                 <div className="w-80">
                   <InputAudio name="audio" />

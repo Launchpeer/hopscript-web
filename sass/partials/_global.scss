@@ -234,6 +234,14 @@ textarea:focus {
   outline: none;
 }
 
+.block-textarea-quill {
+    resize: none;
+    border: 1px solid $moonGray;
+    width: 100%;
+    min-height: 100px;
+    border-radius: 4px;
+}
+
 .checkbox {
   -webkit-appearance: none;
   background-color: $lightGray;

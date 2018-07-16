@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Square, CheckSquare } from 'react-feather';
 import uuidv4 from 'uuid/v4';
 import { Colors } from '../../../config/styles';
-import { CardRight, HSButton } from '../../common';
+import { CardRight, HSButton, InputNotesQuill } from '../../common';
 import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
 import { updateLead } from '../../Leads/LeadsActions';
-import { QuestionsGlossaryView, QuestionView, NotesView } from './';
+import { QuestionsGlossaryView, QuestionView } from './';
 
 
 class InCallView extends Component {
@@ -120,7 +120,7 @@ class InCallView extends Component {
                   Questions
                     </div>
                   </div>
-                  {notes && <NotesView handleChange={this.handleNotesChange} text={this.state.text} />}
+                  {notes && <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} />}
                   {questions &&
                     (currentCall.attributes.script.attributes.questions
                       ?
