@@ -44,7 +44,6 @@ class QuestionBuilderForm extends Component {
     const {
       handleSubmit, loading, toggleStep, currentQuestion
     } = this.props;
-    console.log('this.state.text', this.state.text);
     return (
       <div>
         <LoaderOrThis loading={loading}>
