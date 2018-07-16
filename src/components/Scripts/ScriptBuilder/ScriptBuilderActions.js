@@ -6,6 +6,7 @@
 
 import Parse from 'parse';
 import { browserHistory } from 'react-router';
+import _ from 'underscore';
 
 import {
   CURRENT_QUESTION_CLEAR_ERROR,
@@ -210,7 +211,8 @@ const updateScript = (data, scriptId) => (dispatch) => {
 const updateQuestion = ({
   data, description, questionId, scriptId
 }) => (dispatch) => {
-  Parse.Cloud.run('updateQuestion', { data: { ...data, description }, questionId, scriptId })
+  const updateData = _.omit(data, 'answers');
+  Parse.Cloud.run('updateQuestion', { data: { ...updateData, description }, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
     });
