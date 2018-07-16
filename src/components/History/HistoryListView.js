@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { HSButton, HSCardHeader, CardRight, LoaderOrThis } from '../common';
+import { HSCardHeader, CardRight, LoaderOrThis } from '../common';
 import { fetchHistory } from './HistoryActions';
 import { HistoryListItem } from './';
 
