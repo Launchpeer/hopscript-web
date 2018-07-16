@@ -36,8 +36,7 @@ const SignUp = (
 );
 
 class AuthView extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.props.clearError();
     this.props.clearUser();
   }
