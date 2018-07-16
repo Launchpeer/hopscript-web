@@ -23,7 +23,7 @@ class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.currentQuestion.attributes.description
+      text: this.props.currentQuestion.attributes.description || 'Optional description'
     };
 
     this.handleNotesChange = this.handleNotesChange.bind(this);
