@@ -22,27 +22,20 @@ const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com
 class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: this.props.currentQuestion.attributes.description || 'Optional description'
-    };
-
-    this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleNotesChange(value) {
-    this.setState({ text: value });
-  }
 
   handleFormSubmit(data) {
     this.props.updateQuestion({
-      data, description: this.state.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
+      data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
     });
   }
 
+
   render() {
     const {
-      handleSubmit, loading, toggleStep, currentQuestion
+      handleSubmit, loading, toggleStep, currentQuestion, handleNotesChange, text
     } = this.props;
     return (
       <div>
@@ -55,7 +48,7 @@ class QuestionBuilderForm extends Component {
               <div className="w-20">Description</div>
               <div className="w-80">
                 <div className="block-textarea-quill">
-                  <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} placeholder="Optional description." />
+                  <InputNotesQuill handleChange={handleNotesChange} text={text} placeholder="Optional description." />
                 </div>
               </div>
             </div>
