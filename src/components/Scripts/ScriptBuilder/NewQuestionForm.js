@@ -23,11 +23,13 @@ class NewQuestionForm extends Component {
     this.state = {
       text: ''
     };
+
+    this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.createNewQuestion({ question: data, scriptId: this.props.currentScript.id });
+    this.props.createNewQuestion({ question: data, description: this.state.text, scriptId: this.props.currentScript.id });
     this.props.toggleStep('answers');
   }
 
@@ -53,7 +55,7 @@ class NewQuestionForm extends Component {
                 <div className="w-20">Description</div>
                 <div className="w-80">
                   <div className="block-textarea-quill">
-                    <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} placeholder="Write your description here." />
+                    <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} placeholder="Optional description." />
                   </div>
                 </div>
               </div>

@@ -12,7 +12,8 @@ import {
   InputDropDown,
   InputAudio,
   LoaderOrThis,
-  HSButton
+  HSButton,
+  InputNotesQuill
 } from '../../common';
 import { createNewQuestion, fetchScript, updateQuestion } from './ScriptBuilderActions';
 
@@ -21,11 +22,21 @@ const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com
 class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: ''
+    };
+    this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  handleNotesChange(value) {
+    this.setState({ text: value });
+  }
+
   handleFormSubmit(data) {
-    this.props.updateQuestion({ data, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id });
+    this.props.updateQuestion({
+      data, description: this.state.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
+    });
   }
 
   render() {
@@ -42,8 +53,8 @@ class QuestionBuilderForm extends Component {
             <div className="flex mt4 justify-between">
               <div className="w-20">Description</div>
               <div className="w-80">
-                <div className="block-textarea">
-                  <InputTextArea name="description" placeholder="Optional Description" />
+                <div className="block-textarea-quill">
+                  <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} placeholder="Optional description." />
                 </div>
               </div>
             </div>
