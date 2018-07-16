@@ -35,7 +35,6 @@ class QuestionBuilderForm extends Component {
   }
 
   handleFormSubmit(data) {
-    console.log('data', data);
     this.props.updateQuestion({
       data, description: this.state.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
     });
