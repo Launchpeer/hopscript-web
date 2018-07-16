@@ -23,8 +23,9 @@ class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: this.props.currentQuestion.attributes.description
     };
+
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
@@ -43,6 +44,7 @@ class QuestionBuilderForm extends Component {
     const {
       handleSubmit, loading, toggleStep, currentQuestion
     } = this.props;
+    console.log('this.state.text', this.state.text);
     return (
       <div>
         <LoaderOrThis loading={loading}>
