@@ -49,7 +49,8 @@ class ScriptBuilderView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentStep: 'question'
+      currentStep: 'question',
+      text: ''
     };
     subscribeToClass({
       columnName: 'objectId',
@@ -63,6 +64,7 @@ class ScriptBuilderView extends Component {
     this.createNewScript = this.createNewScript.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
     this.newQuestion = this.newQuestion.bind(this);
+    this.handleNotesChange = this.handleNotesChange.bind(this);
   }
 
 
@@ -87,6 +89,11 @@ class ScriptBuilderView extends Component {
     this.props.setCurrentQuestion(question);
     this.toggleStep('question');
     this.props.toggleCreationState(false);
+    this.setState({ text: question.attributes.description || '' });
+  }
+
+  handleNotesChange(value) {
+    this.setState({ text: value });
   }
 
   render() {
@@ -132,6 +139,9 @@ class ScriptBuilderView extends Component {
                     ? <QuestionBuilderForm
                       scriptId={this.props.params.id}
                       toggleStep={this.toggleStep}
+                      currentQuestion={currentQuestion}
+                      handleNotesChange={this.handleNotesChange}
+                      text={this.state.text}
                       />
                     : <AnswerBuilderView
                       toggleStep={this.toggleStep}
