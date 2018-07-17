@@ -171,9 +171,9 @@ const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) =
     noAnswer,
     leadGroup
   }))
-    .then((call) => {
+    .then(() => {
       dispatch(_callLoadEnd());
-      dispatch(_callUpdate(call));
+      dispatch(_callUpdate(null));
     }).catch(err => dispatch(_callError(err)));
 };
 
