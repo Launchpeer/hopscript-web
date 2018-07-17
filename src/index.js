@@ -51,7 +51,11 @@ if (currentUser) {
   // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
-  redirect = '/start-call';
+  if (currentUser.attributes.role === 'agent') {
+    redirect = '/start-call';
+  } else {
+    redirect = '/dashboard';
+  }
 }
 
 const bodyColorPaths = ['/welcome'];

@@ -27,15 +27,12 @@ class InCallView extends Component {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
-      this.props.fetchToken().then((token) => {
-        Twilio.Device.setup(token);
-      });
 
+      Twilio.Device.setup(this.props.token);
       Twilio.Device.ready(() => {
         Twilio.Device.connect({ conferenceName });
         this.props.startACall(phone, this.props.params.id, conferenceName);
       });
-
 
       Twilio.Device.connect((conn) => {
         this.setState({ callSid: conn.parameters.CallSid });
@@ -164,7 +161,8 @@ const mapStateToProps = ({ CallReducer }) => {
     currentQuestion,
     callType,
     leadGroup,
-    leadGroupIndex
+    leadGroupIndex,
+    token
   } = CallReducer;
   return {
     loading,
@@ -172,7 +170,8 @@ const mapStateToProps = ({ CallReducer }) => {
     currentQuestion,
     callType,
     leadGroup,
-    leadGroupIndex
+    leadGroupIndex,
+    token
   };
 };
 

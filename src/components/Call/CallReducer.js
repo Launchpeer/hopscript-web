@@ -5,7 +5,8 @@ import {
   CURRENT_QUESTION_UPDATE,
   CALL_LEAD_GROUP_INDEX_UPDATE,
   CALL_LEAD_GROUP_UPDATE,
-  CALL_UPDATE_TYPE
+  CALL_UPDATE_TYPE,
+  SET_TOKEN
 } from './CallTypes';
 
 const INITIAL_STATE = {
@@ -15,7 +16,8 @@ const INITIAL_STATE = {
   currentCall: null,
   leadGroup: null,
   leadGroupIndex: 0,
-  callType: 'lead'
+  callType: 'lead',
+  token: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -34,6 +36,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, leadGroupIndex: action.payload };
     case CALL_UPDATE_TYPE:
       return { ...state, callType: action.payload };
+    case SET_TOKEN:
+      return { ...state, token: action.payload };
     default:
       return state;
   }
