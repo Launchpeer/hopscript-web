@@ -92,7 +92,9 @@ const mapSidebarContent = (user, route) => {
         key={item.label}
         role="button"
         style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route), cursor: route.includes('in-call') ? 'not-allowed' : 'pointer' }}
-        onClick={() => !route.includes('in-call') && browserHistory.push(item.route)} >
+        onClick={() =>
+        !route.includes('in-call') && browserHistory.push(item.route)
+        } >
         <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
           <div className="tc">
             {item.icon(item.route, route)}

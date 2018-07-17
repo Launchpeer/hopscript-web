@@ -17,6 +17,7 @@ import { fetchLeads, fetchLeadGroups } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall, startLeadGroupCalls, fetchAndSetToken } from '../CallActions';
 
+
 class StartCallView extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +33,7 @@ class StartCallView extends Component {
       this.props.startLeadGroupCalls(d);
     }
   }
+
 
   componentWillMount() {
     this.props.fetchLeads();

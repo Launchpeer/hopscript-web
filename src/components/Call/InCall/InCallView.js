@@ -26,8 +26,6 @@ class InCallView extends Component {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
-
-
       Twilio.Device.setup(this.props.token);
 
       Twilio.Device.ready(() => {
@@ -48,8 +46,7 @@ class InCallView extends Component {
     this.stopAudio = this.stopAudio.bind(this);
   }
 
-  handleHangUp(e) {
-    e.preventDefault();
+  handleHangUp() {
     const endTime = new Date().getTime();
     const data = { lastContact: endTime, lastCallTitle: this.props.currentCall.attributes.title, lastCallNotes: this.state.text };
     Twilio.Device.disconnectAll();
@@ -60,6 +57,7 @@ class InCallView extends Component {
     } else {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
       browserHistory.push('/start-call');
+      window.location.reload(true);
     }
   }
 
@@ -145,7 +143,7 @@ class InCallView extends Component {
             </div>
 
             <div className="mr5 mb4">
-              <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
+              <HSButton backgroundColor={Colors.brandRed} onClick={(e) => { e.preventDefault(); this.handleHangUp(); }}>End Call</HSButton>
             </div>
           </div>
         }
@@ -157,7 +155,6 @@ class InCallView extends Component {
 
 const mapStateToProps = ({ CallReducer }) => {
   const {
-    loading,
     currentCall,
     currentQuestion,
     callType,
@@ -166,7 +163,6 @@ const mapStateToProps = ({ CallReducer }) => {
     token
   } = CallReducer;
   return {
-    loading,
     currentCall,
     currentQuestion,
     callType,
