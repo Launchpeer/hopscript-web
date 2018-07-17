@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import moment from 'moment';
 import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
@@ -22,6 +23,9 @@ const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com
 class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      saved: null
+    };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
@@ -30,6 +34,11 @@ class QuestionBuilderForm extends Component {
     this.props.updateQuestion({
       data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
     });
+    const time = () => {
+      const now = moment().format('h:mm a, MMM D Y');
+      return now;
+    };
+    this.setState({ saved: time() });
   }
 
 
@@ -37,6 +46,7 @@ class QuestionBuilderForm extends Component {
     const {
       handleSubmit, loading, toggleStep, currentQuestion, handleNotesChange, text
     } = this.props;
+    const { saved } = this.state;
     return (
       <div>
         <LoaderOrThis loading={loading}>
@@ -82,8 +92,9 @@ class QuestionBuilderForm extends Component {
             <div className="flex flex-row justify-end mt6 w-100">
               <HSButton backgroundColor={Colors.white} borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>Add Answers</HSButton>
               <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
-            </div>
 
+            </div>
+            {saved && <div className="silver i fr">Last saved {saved}</div>}
           </form>
         </LoaderOrThis>
       </div>
