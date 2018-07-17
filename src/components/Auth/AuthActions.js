@@ -168,16 +168,12 @@ const clearUser = () => (dispatch) => {
 };
 
 export const logOutUser = () => (dispatch) => {
-  browserHistory.push('/');
-  Parse.User.logOut(null, {
-    success: () => {
+  Parse.User.logOut()
+    .then(() => {
+      browserHistory.push('/');
       dispatch(_clearUser());
       dispatch({ type: UNAUTH_USER });
-    },
-    error: (user, error) => {
-      dispatch(_authError(error));
-    }
-  });
+    }).catch(err => console.log('err', err));
 };
 
 
