@@ -5,7 +5,7 @@ import { Square, CheckSquare } from 'react-feather';
 import uuidv4 from 'uuid/v4';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, InputNotesQuill } from '../../common';
-import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
+import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion, fetchAndSetToken } from '../CallActions';
 import { updateLead } from '../../Leads/LeadsActions';
 import { QuestionsGlossaryView, QuestionView } from './';
 
@@ -21,14 +21,15 @@ class InCallView extends Component {
       playingAudio: false,
       noAnswer: false,
     };
-
     const conferenceName = uuidv4();
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
 
+
       Twilio.Device.setup(this.props.token);
+
       Twilio.Device.ready(() => {
         Twilio.Device.connect({ conferenceName });
         this.props.startACall(phone, this.props.params.id, conferenceName);
@@ -184,5 +185,6 @@ export default connect(mapStateToProps, {
   stopAudio,
   hangUpCall,
   setCurrentQuestion,
-  updateLead
+  updateLead,
+  fetchAndSetToken
 })(InCallView);

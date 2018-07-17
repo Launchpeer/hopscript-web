@@ -47,9 +47,7 @@ class StartCallView extends Component {
       leadGroups,
       error,
       change,
-      token
     } = this.props;
-    console.log('token', token);
     return (
       <CardRight>
         <HSCardHeader>Start a Call</HSCardHeader>
