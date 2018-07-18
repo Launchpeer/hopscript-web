@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import { recorderReducer as recorder } from 'react-recorder-redux';
 import AuthReducer from './components/Auth/AuthReducer';
 import UserReducer from './components/UserReducer';
 import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReducer';
@@ -29,7 +28,6 @@ const rootReducer = combineReducers({
   StripeReducer,
   CallReducer,
   HistoryReducer,
-  recorder
 });
 
 export default rootReducer;

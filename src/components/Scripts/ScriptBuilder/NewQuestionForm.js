@@ -6,28 +6,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { recorderStart, recorderStop } from 'react-recorder-redux/actions';
 import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
   InputDropDown,
   InputAudio,
-  InputRecordAudio,
   LoaderOrThis,
   HSButton,
   InputNotesQuill
 } from '../../common';
+import { RecordAudio } from './';
 import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
 class NewQuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      record: true
     };
 
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.toggleRecord = this.toggleRecord.bind(this);
   }
 
   handleFormSubmit(data) {
@@ -39,11 +40,16 @@ class NewQuestionForm extends Component {
     this.setState({ text: value });
   }
 
+  toggleRecord() {
+    this.setState({ record: !this.state.record });
+  }
+
 
   render() {
     const {
       handleSubmit, loading
     } = this.props;
+    const { record } = this.state;
     return (
       <div>
         <LoaderOrThis loading={loading}>
@@ -76,10 +82,20 @@ class NewQuestionForm extends Component {
               </div>
               <div className="flex items-center justify-between">
                 <div className="w-20">Audio</div>
-                <div className="w-80">
-                  <InputAudio name="audio" />
-                  <InputRecordAudio />
-                </div>
+
+                { record ?
+                  <div className="w-80 pt4">
+                    <RecordAudio />
+                    <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Upload Audio</div>
+                  </div>
+                  :
+                  <div className="w-80 pt4">
+                    <InputAudio name="audio" />
+                    <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Record Audio</div>
+                  </div>
+                }
+
+
               </div>
             </div>
             <div className="pt5">
@@ -107,18 +123,14 @@ const Form = reduxForm({
   validate
 })(NewQuestionForm);
 
-const mapStateToProps = ({ ScriptBuilderReducer, recorder }) => {
+const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
     error, loading, currentScript
   } = ScriptBuilderReducer;
-  const { blobs, active, stream } = recorder;
   return {
     loading,
     error,
     currentScript,
-    blobs,
-    active,
-    stream
   };
 };
 

@@ -1,7 +1,8 @@
 import { ReactMic } from 'react-mic';
 import React, { Component } from 'react';
+import { Colors } from '../../../config/styles';
 
-class InputRecordAudio extends Component {
+class RecordAudio extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,20 +45,22 @@ class InputRecordAudio extends Component {
   render() {
     const { record, save } = this.state;
     return (
-      <div>
+      <div className="w-100">
         <ReactMic
           record={record}
           save={save}
-          className="sound-wave"
           onSave={this.onSave}
           onStop={this.onStop}
-          strokeColor="#000000"
-          backgroundColor="#FF4081" />
-        <div onClick={e => this.startRecording(e)} className="pointer pa3 ba" role="button">Start</div>
-        <div onClick={e => this.stopRecording(e)} className="pointer pa3 ba" role="button">Stop</div>
-        <div onClick={e => this.saveRecording(e)} className="pointer pa3 ba" role="button">Save</div>
+          strokeColor={Colors.nearWhite}
+          className="w-100"
+          backgroundColor={Colors.brandGreen} />
+        <div className="flex flex-row">
+          <div onClick={e => this.startRecording(e)} className="pointer pa3 ba b--moon-gray br" role="button">Start</div>
+          <div onClick={e => this.stopRecording(e)} className="pointer mh3 pa3 ba b--moon-gray br" role="button">Stop</div>
+          <div onClick={e => this.saveRecording(e)} className="pointer pa3 ba b--moon-gray br" role="button">Save</div>
+        </div>
       </div>
     );
   }
 }
-export default InputRecordAudio;
+export default RecordAudio;

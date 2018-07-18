@@ -7,6 +7,5 @@ export { default as InputFile } from './InputFile';
 export { default as InputTextEditable } from './InputTextEditable';
 export { default as InputCheckbox } from './InputCheckbox';
 export { default as InputAudio } from './InputAudio';
-export { default as InputRecordAudio } from './InputRecordAudio';
 export { default as InputSearch } from './InputSearch';
 export { default as InputNotesQuill } from './InputNotesQuill';
