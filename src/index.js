@@ -36,6 +36,7 @@ import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
 const createStoreWithMiddleware = compose(applyMiddleware(reduxThunk)(createStore));
 const store = createStoreWithMiddleware(rootReducer);
 
+
 Parse.initialize(APPLICATION_ID, 'some_key_generated');
 Parse.applicationId = APPLICATION_ID;
 Parse.serverURL = PARSE_SERVER_URL;

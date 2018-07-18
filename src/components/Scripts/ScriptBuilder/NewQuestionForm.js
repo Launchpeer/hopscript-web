@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { recorderStart, recorderStop } from 'react-recorder-redux/actions';
 import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
@@ -16,7 +17,7 @@ import {
   HSButton,
   InputNotesQuill
 } from '../../common';
-import { createNewQuestion, fetchScript, recordAudio } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
 
 class NewQuestionForm extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class NewQuestionForm extends Component {
 
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.recordAudio = this.recordAudio.bind(this);
   }
 
   handleFormSubmit(data) {
@@ -39,9 +39,6 @@ class NewQuestionForm extends Component {
     this.setState({ text: value });
   }
 
-  recordAudio() {
-    this.props.recordAudio();
-  }
 
   render() {
     const {
@@ -81,7 +78,7 @@ class NewQuestionForm extends Component {
                 <div className="w-20">Audio</div>
                 <div className="w-80">
                   <InputAudio name="audio" />
-                  <InputRecordAudio name="audio" record={this.recordAudio} />
+                  <InputRecordAudio />
                 </div>
               </div>
             </div>
@@ -110,15 +107,21 @@ const Form = reduxForm({
   validate
 })(NewQuestionForm);
 
-const mapStateToProps = ({ ScriptBuilderReducer }) => {
+const mapStateToProps = ({ ScriptBuilderReducer, recorder }) => {
   const {
     error, loading, currentScript
   } = ScriptBuilderReducer;
+  const { blobs, active, stream } = recorder;
   return {
     loading,
     error,
     currentScript,
+    blobs,
+    active,
+    stream
   };
 };
 
-export default connect(mapStateToProps, { createNewQuestion, fetchScript, recordAudio })(Form);
+export default connect(mapStateToProps, {
+  createNewQuestion, fetchScript
+})(Form);

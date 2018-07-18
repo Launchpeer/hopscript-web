@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
+import { recorderReducer as recorder } from 'react-recorder-redux';
 import AuthReducer from './components/Auth/AuthReducer';
 import UserReducer from './components/UserReducer';
 import BrokerProfileReducer from './components/BrokerProfile/BrokerProfileReducer';
@@ -11,6 +12,7 @@ import StripeReducer from './components/Stripe/StripeReducer';
 import { ScriptBuilderReducer, ScriptsListReducer } from './components/Scripts';
 import { CallReducer } from './components/Call';
 import HistoryReducer from './components/History/HistoryReducer';
+
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -26,7 +28,8 @@ const rootReducer = combineReducers({
   ScriptsListReducer,
   StripeReducer,
   CallReducer,
-  HistoryReducer
+  HistoryReducer,
+  recorder
 });
 
 export default rootReducer;
