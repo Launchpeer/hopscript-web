@@ -16,7 +16,7 @@ import {
   HSButton,
   InputNotesQuill
 } from '../../common';
-import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript, recordAudio } from './ScriptBuilderActions';
 
 class NewQuestionForm extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class NewQuestionForm extends Component {
 
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.recordAudio = this.recordAudio.bind(this);
   }
 
   handleFormSubmit(data) {
@@ -36,6 +37,10 @@ class NewQuestionForm extends Component {
 
   handleNotesChange(value) {
     this.setState({ text: value });
+  }
+
+  recordAudio() {
+    this.props.recordAudio();
   }
 
   render() {
@@ -76,7 +81,7 @@ class NewQuestionForm extends Component {
                 <div className="w-20">Audio</div>
                 <div className="w-80">
                   <InputAudio name="audio" />
-                  <InputRecordAudio name="audio" />
+                  <InputRecordAudio name="audio" record={this.recordAudio} />
                 </div>
               </div>
             </div>
@@ -116,4 +121,4 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { createNewQuestion, fetchScript })(Form);
+export default connect(mapStateToProps, { createNewQuestion, fetchScript, recordAudio })(Form);

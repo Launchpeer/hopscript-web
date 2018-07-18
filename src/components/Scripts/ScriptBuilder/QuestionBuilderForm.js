@@ -17,7 +17,7 @@ import {
   HSButton,
   InputNotesQuill
 } from '../../common';
-import { createNewQuestion, fetchScript, updateQuestion } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript, updateQuestion, recordAudio } from './ScriptBuilderActions';
 
 const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com/');
 
@@ -88,7 +88,7 @@ class QuestionBuilderForm extends Component {
                 <div className="w-20">Audio</div>
                 <div className="w-80">
                   <InputAudio name="audio" />
-                  <InputRecordAudio name="audio" />
+                  <InputRecordAudio name="audio" record={this.props.recordAudio()} />
                 </div>
               </div>}
             <div className="flex flex-row justify-end mt6 w-100">
@@ -124,4 +124,6 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { createNewQuestion, fetchScript, updateQuestion })(Form);
+export default connect(mapStateToProps, {
+  createNewQuestion, fetchScript, updateQuestion, recordAudio
+})(Form);
