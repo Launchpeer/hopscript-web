@@ -11,6 +11,7 @@ import {
   InputTextArea,
   InputDropDown,
   InputAudio,
+  InputRecordAudio,
   LoaderOrThis,
   HSButton,
   InputNotesQuill
@@ -75,6 +76,7 @@ class NewQuestionForm extends Component {
                 <div className="w-20">Audio</div>
                 <div className="w-80">
                   <InputAudio name="audio" />
+                  <InputRecordAudio name="audio" />
                 </div>
               </div>
             </div>
