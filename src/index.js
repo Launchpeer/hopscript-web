@@ -23,7 +23,6 @@ import { AuthView, ForgotPasswordView, ResetPasswordView, AgentWelcomeView, Agen
 
 import { BrokerDetailView } from './components/BrokerProfile';
 import { AgentProfileView } from './components/AgentProfile';
-import { DashboardView } from './components/Dashboard';
 import { AgentsListView } from './components/AgentsList';
 import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView, LeadGroupDetailView } from './components/Leads';
 import { StripeView } from './components/Stripe';
@@ -54,7 +53,7 @@ if (currentUser) {
   if (currentUser.attributes.role === 'agent') {
     redirect = '/start-call';
   } else {
-    redirect = '/dashboard';
+    redirect = '/agents-list';
   }
 }
 
@@ -82,7 +81,6 @@ ReactDOM.render(
         <Route path="forgot-password" component={ForgotPasswordView} />
         <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />
-        <Route path="dashboard" component={DashboardView} />
         <Route path="brokerage-profile" component={BrokerDetailView} />
         <Route path="agent-profile" component={AgentProfileView} />
         <Route path="agents-list" component={AgentsListView} />

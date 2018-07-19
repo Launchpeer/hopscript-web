@@ -18,10 +18,7 @@ class AgentsAddForm extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.inviteAgent(data)
-      .then(() => {
-        this.props.cancel();
-      });
+    this.props.inviteAgent(data);
   }
 
   clearError() {
