@@ -16,23 +16,27 @@ import {
   InputNotesQuill
 } from '../../common';
 import { RecordAudio } from './';
-import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript, uploadRecordedAudio } from './ScriptBuilderActions';
 
 class NewQuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       text: '',
-      record: true
+      record: true,
+      audio: null
     };
 
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.toggleRecord = this.toggleRecord.bind(this);
+    this.saveAudio = this.saveAudio.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.createNewQuestion({ question: data, description: this.state.text, scriptId: this.props.currentScript.id });
+    this.props.createNewQuestion({
+      question: data, audio: this.state.audio, description: this.state.text, scriptId: this.props.currentScript.id
+    });
     this.props.toggleStep('answers');
   }
 
@@ -42,6 +46,10 @@ class NewQuestionForm extends Component {
 
   toggleRecord() {
     this.setState({ record: !this.state.record });
+  }
+
+  saveAudio(r) {
+    this.setState({ audio: r });
   }
 
 
@@ -86,7 +94,7 @@ class NewQuestionForm extends Component {
                 { record ?
                   <div className="w-80 pt4">
                     <RecordAudio />
-                    <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Upload Audio</div>
+                    <div className="brand-green pointer pt2 underline" role="button" saveAudio={this.saveAudio} onClick={this.toggleRecord}>Switch to Upload Audio</div>
                   </div>
                   :
                   <div className="w-80 pt4">
@@ -135,5 +143,5 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  createNewQuestion, fetchScript
+  createNewQuestion, fetchScript, uploadRecordedAudio
 })(Form);
