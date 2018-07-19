@@ -172,7 +172,6 @@ export const logOutUser = () => (dispatch) => {
     .then(() => {
       browserHistory.push('/');
       dispatch(_clearUser());
-      browserHistory.push('/');
       dispatch({ type: UNAUTH_USER });
     }).catch(err => console.log('err', err));
 };
