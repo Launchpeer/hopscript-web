@@ -5,7 +5,7 @@ import { Square, CheckSquare } from 'react-feather';
 import uuidv4 from 'uuid/v4';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, InputNotesQuill } from '../../common';
-import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion } from '../CallActions';
+import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion, fetchAndSetToken } from '../CallActions';
 import { updateLead } from '../../Leads/LeadsActions';
 import { QuestionsGlossaryView, QuestionView } from './';
 
@@ -21,21 +21,17 @@ class InCallView extends Component {
       playingAudio: false,
       noAnswer: false,
     };
-
     const conferenceName = uuidv4();
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
-      this.props.fetchToken().then((token) => {
-        Twilio.Device.setup(token);
-      });
+      Twilio.Device.setup(this.props.token);
 
       Twilio.Device.ready(() => {
         Twilio.Device.connect({ conferenceName });
         this.props.startACall(phone, this.props.params.id, conferenceName);
       });
-
 
       Twilio.Device.connect((conn) => {
         this.setState({ callSid: conn.parameters.CallSid });
@@ -50,8 +46,7 @@ class InCallView extends Component {
     this.stopAudio = this.stopAudio.bind(this);
   }
 
-  handleHangUp(e) {
-    e.preventDefault();
+  handleHangUp() {
     const endTime = new Date().getTime();
     const data = { lastContact: endTime, lastCallTitle: this.props.currentCall.attributes.title, lastCallNotes: this.state.text };
     Twilio.Device.disconnectAll();
@@ -62,6 +57,7 @@ class InCallView extends Component {
     } else {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
       browserHistory.push('/start-call');
+      window.location.reload(true);
     }
   }
 
@@ -147,7 +143,7 @@ class InCallView extends Component {
             </div>
 
             <div className="mr5 mb4">
-              <HSButton backgroundColor={Colors.brandRed} onClick={e => this.handleHangUp(e)}>End Call</HSButton>
+              <HSButton backgroundColor={Colors.brandRed} onClick={(e) => { e.preventDefault(); this.handleHangUp(); }}>End Call</HSButton>
             </div>
           </div>
         }
@@ -159,20 +155,20 @@ class InCallView extends Component {
 
 const mapStateToProps = ({ CallReducer }) => {
   const {
-    loading,
     currentCall,
     currentQuestion,
     callType,
     leadGroup,
-    leadGroupIndex
+    leadGroupIndex,
+    token
   } = CallReducer;
   return {
-    loading,
     currentCall,
     currentQuestion,
     callType,
     leadGroup,
-    leadGroupIndex
+    leadGroupIndex,
+    token
   };
 };
 
@@ -185,5 +181,6 @@ export default connect(mapStateToProps, {
   stopAudio,
   hangUpCall,
   setCurrentQuestion,
-  updateLead
+  updateLead,
+  fetchAndSetToken
 })(InCallView);

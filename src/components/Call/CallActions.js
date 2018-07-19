@@ -10,7 +10,8 @@ import {
   CALL_UPDATE,
   CALL_LEAD_GROUP_INDEX_UPDATE,
   CALL_LEAD_GROUP_UPDATE,
-  CURRENT_QUESTION_UPDATE
+  CURRENT_QUESTION_UPDATE,
+  SET_TOKEN
 } from './CallTypes';
 
 function _callError(err) {
@@ -87,7 +88,21 @@ const fetchCall = callId => (dispatch) => {
     .catch(err => dispatch(_callError(err)));
 };
 
+
+function _setCurrentToken(token) {
+  return {
+    type: SET_TOKEN,
+    payload: token
+  };
+}
+
 const fetchToken = () => () => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
+
+const fetchAndSetToken = () => (dispatch) => {
+  dispatch(fetchToken()).then((token) => {
+    dispatch(_setCurrentToken(token));
+  }).catch(err => dispatch(_callError(err)));
+};
 
 const startACall = (number, callId, conferenceName) => (dispatch) => {
   dispatch(_callLoading());
@@ -139,19 +154,30 @@ const setCurrentQuestion = question => (dispatch) => {
   });
 };
 
+function _clearToken() {
+  return {
+    type: SET_TOKEN,
+    payload: null
+  };
+}
+
+function _clearCall(c) {
+  return {
+    type: CALL_UPDATE,
+    payload: null
+  };
+}
+
 const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
-  dispatch(_callLoading());
+  dispatch(_clearToken());
+  dispatch(_clearCall());
   Parse.Cloud.run("updateCall", ({
     callId,
     notes,
     endTime,
     noAnswer,
     leadGroup
-  }))
-    .then((call) => {
-      dispatch(_callLoadEnd());
-      dispatch(_callUpdate(call));
-    }).catch(err => dispatch(_callError(err)));
+  })).catch(err => dispatch(_callError(err)));
 };
 
 
@@ -187,6 +213,7 @@ export {
   setCurrentQuestion,
   fetchQuestion,
   fetchToken,
+  fetchAndSetToken,
   startACall,
   startLeadGroupCalls,
   nextLeadGroupCall,
