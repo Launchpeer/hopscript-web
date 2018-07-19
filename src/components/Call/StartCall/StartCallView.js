@@ -15,7 +15,8 @@ import {
 import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
 import { fetchLeads, fetchLeadGroups } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
-import { startCall, startLeadGroupCalls } from '../CallActions';
+import { startCall, startLeadGroupCalls, fetchAndSetToken } from '../CallActions';
+
 
 class StartCallView extends Component {
   constructor(props) {
@@ -25,12 +26,14 @@ class StartCallView extends Component {
   }
 
   handleFormSubmit(d) {
+    this.props.fetchAndSetToken();
     if (d.lead) {
       this.props.startCall(d);
     } else if (d.leadGroup) {
       this.props.startLeadGroupCalls(d);
     }
   }
+
 
   componentWillMount() {
     this.props.fetchLeads();
@@ -45,7 +48,7 @@ class StartCallView extends Component {
       scripts,
       leadGroups,
       error,
-      change
+      change,
     } = this.props;
     return (
       <CardRight>
@@ -99,13 +102,15 @@ function validate(values) {
   return errors;
 }
 
-const mapStateToProps = ({ LeadsReducer, ScriptsListReducer }) => {
+const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
   const { leads, leadGroups } = LeadsReducer;
   const { scripts } = ScriptsListReducer;
+  const { token } = CallReducer;
   return {
     leads,
     scripts,
-    leadGroups
+    leadGroups,
+    token
   };
 };
 
@@ -113,5 +118,5 @@ export default reduxForm({
   form: 'callForm',
   validate
 })(connect(mapStateToProps, {
-  fetchLeads, fetchScripts, startCall, fetchLeadGroups, startLeadGroupCalls
+  fetchLeads, fetchScripts, startCall, fetchLeadGroups, startLeadGroupCalls, fetchAndSetToken
 })(StartCallView));
