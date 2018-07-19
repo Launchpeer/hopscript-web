@@ -52,7 +52,8 @@ class RecordAudio extends Component {
       const reader = new FileReader();
       reader.readAsDataURL(this.state.recording);
       reader.onloadend = () => {
-        const base64data = reader.result;
+        const url = reader.result;
+        const base64data = url.split(',')[1];
         this.props.saveAudio(base64data);
       };
     }
