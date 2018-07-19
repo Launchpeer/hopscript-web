@@ -118,6 +118,7 @@ const startACall = (number, callId, conferenceName) => (dispatch) => {
 
 
 const playAudio = (callSid, conferenceSid, audioURI) => (dispatch) => {
+  console.log('play audio uri', audioURI);
   axios({
     method: 'post',
     url: `${TWILIO_SERVER_URL}/bot`,

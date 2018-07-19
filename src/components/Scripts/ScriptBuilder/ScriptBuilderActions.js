@@ -128,9 +128,8 @@ function _createNewAudio(audioFile) {
 }
 
 function _createNewAudioB64(audio) {
-  console.log('audiofile', audio);
   return new Promise((resolve) => {
-    const parseFile = new Parse.File('file', { base64: audio }, 'audio/wav');
+    const parseFile = new Parse.File('file', { base64: audio }, 'audio/mp3');
     resolve(parseFile.save());
   });
 }
