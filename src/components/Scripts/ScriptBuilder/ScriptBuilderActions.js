@@ -120,8 +120,17 @@ const setCurrentQuestion = question => (dispatch) => {
 };
 
 function _createNewAudio(audioFile) {
+  console.log('audiofile', audioFile);
   return new Promise((resolve) => {
     const parseFile = new Parse.File('file', audioFile[0]);
+    resolve(parseFile.save());
+  });
+}
+
+function _createNewAudioB64(audio) {
+  console.log('audiofile', audio);
+  return new Promise((resolve) => {
+    const parseFile = new Parse.File('file', { base64: audio });
     resolve(parseFile.save());
   });
 }
@@ -149,7 +158,7 @@ const createNewQuestion = ({
           });
       });
   } else if (audio) {
-    _createNewAudio(audio)
+    _createNewAudioB64(audio)
       .then((parseAudio) => {
         Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
           .then((res) => {

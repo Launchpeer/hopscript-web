@@ -35,13 +35,31 @@ class RecordAudio extends Component {
     });
   }
 
-  onSave(e) {
-    e.preventDefault();
-    console.log('saved:', this.state.recording);
+  /*
+  onSave() {
+    console.log(this.state.recording);
+    if (this.state.recording) {
+      console.log('cool!');
+      const audio = new Audio(this.state.recording.toString());
+      console.log('audio!!!', audio);
+      this.props.saveAudio(audio);
+    }
+  }
+  */
+
+  onSave() {
+    if (this.state.recording) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.state.recording);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        this.props.saveAudio(base64data);
+      };
+    }
   }
 
   onStop(data) {
-    this.setState({ recording: data });
+    this.setState({ recording: data.blob });
   }
 
   render() {
@@ -51,7 +69,7 @@ class RecordAudio extends Component {
         <ReactMic
           record={record}
           save={save}
-          onSave={e => this.onSave(e)}
+          onSave={this.onSave()}
           onStop={this.onStop}
           strokeColor={Colors.nearWhite}
           className="w-100 steps"

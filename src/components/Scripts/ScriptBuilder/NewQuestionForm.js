@@ -34,9 +34,16 @@ class NewQuestionForm extends Component {
   }
 
   handleFormSubmit(data) {
-    this.props.createNewQuestion({
-      question: data, audio: this.state.audio, description: this.state.text, scriptId: this.props.currentScript.id
-    });
+    if (this.state.audio) {
+      this.props.createNewQuestion({
+        question: data, audio: this.state.audio, description: this.state.text, scriptId: this.props.currentScript.id
+      });
+    } else {
+      this.props.createNewQuestion({
+        question: data, description: this.state.text, scriptId: this.props.currentScript.id
+      });
+    }
+
     this.props.toggleStep('answers');
   }
 
@@ -93,7 +100,7 @@ class NewQuestionForm extends Component {
 
                 { record ?
                   <div className="w-80 pt4">
-                    <RecordAudio />
+                    <RecordAudio saveAudio={this.saveAudio} />
                     <div className="brand-green pointer pt2 underline" role="button" saveAudio={this.saveAudio} onClick={this.toggleRecord}>Switch to Upload Audio</div>
                   </div>
                   :
