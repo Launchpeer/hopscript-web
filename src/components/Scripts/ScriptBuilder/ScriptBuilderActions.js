@@ -120,7 +120,6 @@ const setCurrentQuestion = question => (dispatch) => {
 };
 
 function _createNewAudio(audioFile) {
-  console.log('audiofile', audioFile);
   return new Promise((resolve) => {
     const parseFile = new Parse.File('file', audioFile[0]);
     resolve(parseFile.save());
@@ -159,6 +158,7 @@ const createNewQuestion = ({
   } else if (audio) {
     _createNewAudioB64(audio)
       .then((parseAudio) => {
+        console.log('PARSE AUDIO!!!!! HI MOM!', parseAudio);
         Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
           .then((res) => {
             dispatch(fetchScript(scriptId, true));

@@ -35,17 +35,6 @@ class RecordAudio extends Component {
     });
   }
 
-  /*
-  onSave() {
-    console.log(this.state.recording);
-    if (this.state.recording) {
-      console.log('cool!');
-      const audio = new Audio(this.state.recording.toString());
-      console.log('audio!!!', audio);
-      this.props.saveAudio(audio);
-    }
-  }
-  */
 
   onSave() {
     if (this.state.recording) {
