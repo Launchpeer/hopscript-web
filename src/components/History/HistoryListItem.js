@@ -14,7 +14,14 @@ const ExpandedItem = ({
     <div className="flex flex-row justify-between items-center pb3">
       <div className="b w-25 white">{lead.name}</div>
       <div className="w-25 tc white">{lead.phone}</div>
-      <div className="w-25 tc white">{moment(history.endTime).format('h:mm a, MMM D Y')}</div>
+      {history.noAnswer ?
+        <div className="flex flex-column w-25 tc white">
+          <div className="i">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+          <div className="i">Lead did not answer phone.</div>
+        </div>
+          :
+        <div className="w-25 tc">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+        }
       <div className="w-25">
         <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba near-white bg-transparent b--near-white pv1 ph3 fr br" onClick={onClick}>less</div>
       </div>
@@ -43,7 +50,15 @@ const SmallItem = ({ history, lead, onClick }) => (
   <div className="flex flex-row justify-between items-center w-100 pa3">
     <div className="b w-25">{lead.name}</div>
     <div className="w-25 tc">{lead.phone}</div>
-    <div className="w-25 tc">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+    {history.noAnswer ?
+      <div className="flex flex-column w-25 tc">
+        <div className="i">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+        <div className="i">Lead did not answer phone.</div>
+      </div>
+      :
+      <div className="w-25 tc">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+    }
+
     <div className="w-25">
       <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba brand-primary bg-transparent b--brand-primary pv1 ph3 fr br" onClick={onClick}>more</div>
     </div>
