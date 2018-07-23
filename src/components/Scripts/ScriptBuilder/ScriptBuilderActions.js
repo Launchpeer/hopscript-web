@@ -120,6 +120,7 @@ const setCurrentQuestion = question => (dispatch) => {
 };
 
 function _createNewAudio(audioFile) {
+  console.log(audioFile[0]);
   return new Promise((resolve) => {
     const parseFile = new Parse.File('file', audioFile[0]);
     resolve(parseFile.save());
@@ -128,7 +129,7 @@ function _createNewAudio(audioFile) {
 
 function _createNewAudioB64(audio) {
   return new Promise((resolve) => {
-    const parseFile = new Parse.File('file', { base64: audio }, 'audio/mp3');
+    const parseFile = new Parse.File('file', audio, 'audio/mp3');
     resolve(parseFile.save());
   });
 }
@@ -158,7 +159,6 @@ const createNewQuestion = ({
   } else if (audio) {
     _createNewAudioB64(audio)
       .then((parseAudio) => {
-        console.log('PARSE AUDIO!!!!! HI MOM!', parseAudio);
         Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
           .then((res) => {
             dispatch(fetchScript(scriptId, true));
@@ -189,6 +189,13 @@ const createNewQuestion = ({
       });
   }
 };
+
+/*
+_createNewAudioB64(audio)
+  .then((parseAudio) => {
+    Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
+
+      */
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
   Parse.Cloud.run('createNewAnswer', { data, questionId, scriptId })
