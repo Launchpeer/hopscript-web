@@ -120,7 +120,6 @@ const setCurrentQuestion = question => (dispatch) => {
 };
 
 function _createNewAudio(audioFile) {
-  console.log(audioFile[0]);
   return new Promise((resolve) => {
     const parseFile = new Parse.File('file', audioFile[0]);
     resolve(parseFile.save());

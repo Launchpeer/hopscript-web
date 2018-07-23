@@ -8,16 +8,13 @@ class RecordAudio extends Component {
     super(props);
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
+    this.play = this.play.bind(this);
   }
 
 
   startRecord(e, microm) {
     e.preventDefault();
-    microm.record().then(() => {
-      console.log('recording...');
-    }).catch(() => {
-      console.log('error recording');
-    });
+    microm.record();
   }
 
 
@@ -30,12 +27,15 @@ class RecordAudio extends Component {
       reader.onloadend = () => {
         const url = reader.result;
         const base64data = url.split(',');
-        console.log('base64data', base64data[1]);
         this.props.saveAudio(base64data[1]);
       };
     });
   }
 
+  play(e, microm) {
+    e.preventDefault();
+    microm.play();
+  }
 
   render() {
     const microm = new Microm();
@@ -46,6 +46,7 @@ class RecordAudio extends Component {
         <div className="flex flex-row">
           <div onClick={e => this.startRecord(e, microm)} style={{ borderRadius: BorderRadius.all }} className="pointer pa3 ba b--moon-gray" role="button">Start</div>
           <div onClick={e => this.stopRecord(e, microm, mp3)} style={{ borderRadius: BorderRadius.all }} className="pointer mh3 pa3 ba b--moon-gray" role="button">Stop</div>
+          <div onClick={e => this.play(e, microm)} style={{ borderRadius: BorderRadius.all }} className="pointer pa3 ba b--moon-gray" role="button">Play</div>
         </div>
       </div>
     );
