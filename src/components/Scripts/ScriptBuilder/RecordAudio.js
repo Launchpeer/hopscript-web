@@ -1,29 +1,36 @@
 import React, { Component } from 'react';
 import Microm from 'microm';
-import { BorderRadius } from '../../../config/styles';
+import { Play, Square } from 'react-feather';
+import { MicrophoneIcon } from '../../common';
+import { BorderRadius, Colors } from '../../../config/styles';
 
+const microm = new Microm();
 
 class RecordAudio extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      recording: false,
+      audio: false
+    };
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
     this.play = this.play.bind(this);
   }
 
 
-  startRecord(e, microm) {
-    e.preventDefault();
-    microm.record();
+  startRecord() {
+    microm.record().then(() => {
+      this.setState({ recording: true });
+    });
   }
 
 
-  stopRecord(e, microm, mp3) {
-    e.preventDefault();
+  stopRecord() {
     microm.stop().then((result) => {
-      mp3 = result;
+      this.setState({ recording: false, audio: true });
       const reader = new FileReader();
-      reader.readAsDataURL(mp3.blob);
+      reader.readAsDataURL(result.blob);
       reader.onloadend = () => {
         const url = reader.result;
         const base64data = url.split(',');
@@ -32,21 +39,40 @@ class RecordAudio extends Component {
     });
   }
 
-  play(e, microm) {
-    e.preventDefault();
+  play() {
     microm.play();
   }
 
   render() {
-    const microm = new Microm();
-    const mp3 = null;
+    const { recording, audio } = this.state;
     return (
       <div className="w-100">
-        <div>microphone</div>
         <div className="flex flex-row">
-          <div onClick={e => this.startRecord(e, microm)} style={{ borderRadius: BorderRadius.all }} className="pointer pa3 ba b--moon-gray" role="button">Start</div>
-          <div onClick={e => this.stopRecord(e, microm, mp3)} style={{ borderRadius: BorderRadius.all }} className="pointer mh3 pa3 ba b--moon-gray" role="button">Stop</div>
-          <div onClick={e => this.play(e, microm)} style={{ borderRadius: BorderRadius.all }} className="pointer pa3 ba b--moon-gray" role="button">Play</div>
+          <div
+            onClick={() => this.startRecord()}
+            style={{ borderRadius: BorderRadius.all }}
+            className="pointer ph3 pv2 w4 tc ba b--brand-green brand-green flex flex-row items-center justify-center"
+            role="button">
+            <MicrophoneIcon width="2rem" height="2rem" color={Colors.brandGreen} />
+            <div className="ph2">Start</div>
+          </div>
+          <div
+            onClick={() => this.stopRecord()}
+            style={{ borderRadius: BorderRadius.all }}
+            className="pointer mh3 pv2 ph3 w4 tc ba b--brand-green brand-green flex flex-row items-center justify-center"
+            role="button">
+            <Square />
+            <div className="ph2">Stop</div>
+
+          </div>
+          <div
+            onClick={() => this.play()}
+            style={{ borderRadius: BorderRadius.all }}
+            className="pointer ph3 pv2 w4 tc ba b--brand-green brand-green flex flex-row items-center justify-center"
+            role="button">
+            <Play />
+            <div className="ph2">Play</div>
+          </div>
         </div>
       </div>
     );
