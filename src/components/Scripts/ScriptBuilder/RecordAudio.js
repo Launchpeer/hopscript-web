@@ -13,19 +13,28 @@ const recordUI = (state) => {
   return "pointer ph3 pv2 w4 tc ba b--brand-green brand-green flex flex-row items-center justify-center";
 };
 
+const playUI = (state) => {
+  if (state === true) {
+    return "pointer ph3 pv2 w4 tc ba b--brand-green green-glow white flex flex-row items-center justify-center";
+  }
+  return "pointer ph3 pv2 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center";
+};
+
 class RecordAudio extends Component {
   constructor(props) {
     super(props);
     this.state = {
       recording: false,
       audio: false,
-      saved: false
+      saved: false,
+      playing: false
     };
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
     this.play = this.play.bind(this);
     this.save = this.save.bind(this);
     this.reRecord = this.reRecord.bind(this);
+    this.stopPlay = this.stopPlay.bind(this);
   }
 
 
@@ -50,7 +59,13 @@ class RecordAudio extends Component {
   }
 
   play() {
+    this.setState({ playing: true });
     microm.play();
+  }
+
+  stopPlay() {
+    this.setState({ playing: false });
+    microm.stop();
   }
 
   save() {
@@ -61,12 +76,15 @@ class RecordAudio extends Component {
     this.setState({
       recording: false,
       audio: false,
-      saved: false
+      saved: false,
+      playing: false
     });
   }
 
   render() {
-    const { recording, audio, saved } = this.state;
+    const {
+      recording, audio, saved, playing
+    } = this.state;
     return (
       <div className="w-100">
         <div className="flex flex-column">
@@ -98,15 +116,24 @@ class RecordAudio extends Component {
               <div
                 onClick={() => this.play()}
                 style={{ borderRadius: BorderRadius.all }}
-                className="pointer ph3 pv2 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
+                className={playUI(playing)}
                 role="button">
                 <Play />
                 <div className="ph2">Play</div>
               </div>
               <div
-                onClick={() => this.save()}
+                onClick={() => this.stopPlay()}
                 style={{ borderRadius: BorderRadius.all }}
                 className="pointer mh3 pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
+                role="button">
+                <Square />
+                <div className="ph2">Stop</div>
+
+              </div>
+              <div
+                onClick={() => this.save()}
+                style={{ borderRadius: BorderRadius.all }}
+                className="pointer pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
                 role="button">
                 <Save />
                 <div className="ph2">Save</div>
