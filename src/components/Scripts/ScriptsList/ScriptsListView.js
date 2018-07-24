@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardRight, HSButton, HSCardHeader } from '../../common';
 import { createNewScript } from '../ScriptBuilder/ScriptBuilderActions';
-import { fetchBrokerScripts, removeScript } from './ScriptsListActions';
+import { fetchScripts, fetchBrokerScripts, removeScript } from './ScriptsListActions';
 import { ScriptsListItem } from './';
 
 class ScriptsListView extends Component {
@@ -21,26 +21,24 @@ class ScriptsListView extends Component {
   }
 
   componentWillMount() {
+    this.props.fetchScripts();
     this.props.fetchBrokerScripts();
   }
 
   render() {
-    const { scripts } = this.props;
+    const { scripts, brokerageScripts } = this.props;
     return (
       <CardRight loading={this.props.loading}>
         <HSCardHeader>My Scripts</HSCardHeader>
         <div className="pa3">
           <div className="mv4">
-            {scripts && scripts.length > 0 ?
+            {brokerageScripts &&
+              brokerageScripts.map(script => (
+                <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript} />))
+            }
+            {scripts &&
               scripts.map(script => (
                 <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript} />))
-            :
-              <div className="mt6 tc f4 pa3 silver">
-                <div className="mb6">
-             You currently do not have any scripts. <br />
-             “Add New Script” to start building your first script!
-                </div>
-              </div>
             }
           </div>
           <HSButton onClick={this.handleNewScript}>Add New Script</HSButton>
@@ -52,12 +50,15 @@ class ScriptsListView extends Component {
 
 const mapStateToProps = ({ UserReducer, ScriptsListReducer }) => {
   const { user } = UserReducer;
-  const { scripts, loading } = ScriptsListReducer;
+  const { scripts, loading, brokerageScripts } = ScriptsListReducer;
   return {
     user,
     loading,
-    scripts
+    scripts,
+    brokerageScripts
   };
 };
 
-export default connect(mapStateToProps, { createNewScript, fetchBrokerScripts, removeScript })(ScriptsListView);
+export default connect(mapStateToProps, {
+  createNewScript, fetchScripts, fetchBrokerScripts, removeScript
+})(ScriptsListView);

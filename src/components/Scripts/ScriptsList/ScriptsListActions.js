@@ -4,7 +4,8 @@ import {
   SCRIPTS_ERROR,
   SCRIPTS_LOADING,
   SCRIPTS_LOAD_END,
-  SCRIPTS_LIST_UPDATE
+  SCRIPTS_LIST_UPDATE,
+  SCRIPTS_LIST_UPDATE_BROKERAGE
 } from './ScriptsListTypes';
 
 
@@ -34,6 +35,13 @@ function _scriptsListUpdate(s) {
   };
 }
 
+function _brokerScriptsListUpdate(s) {
+  return {
+    type: SCRIPTS_LIST_UPDATE_BROKERAGE,
+    payload: s
+  };
+}
+
 
 const fetchScripts = () => (dispatch) => {
   dispatch(_scriptsLoading());
@@ -53,7 +61,7 @@ const fetchBrokerScripts = () => (dispatch) => {
   Parse.Cloud.run("fetchBrokerScripts")
     .then((r) => {
       dispatch(_scriptsLoadEnd());
-      dispatch(_scriptsListUpdate(r));
+      dispatch(_brokerScriptsListUpdate(r));
     })
     .catch((e) => {
       dispatch(_scriptsLoadEnd());
