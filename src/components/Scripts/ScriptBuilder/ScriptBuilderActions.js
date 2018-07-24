@@ -112,6 +112,27 @@ const createNewScript = () => (dispatch) => {
     });
 };
 
+const copyScript = scriptId => (dispatch) => {
+  const User = Parse.User.current();
+  Parse.Cloud.run('copyScript', { userId: User.id, scriptId })
+    .then((script) => {
+      console.log('we are out of parse and heres the script:', script);
+      dispatch({
+        type: CURRENT_SCRIPT_UPDATE,
+        payload: script
+      });
+      dispatch({
+        type: CREATING_NEW_QUESTION_UPDATE,
+        payload: true
+      });
+      dispatch({
+        type: QUESTIONS_UPDATE,
+        payload: null
+      });
+      browserHistory.push(`/script-builder/${script.id}`);
+    });
+};
+
 const setCurrentQuestion = question => (dispatch) => {
   dispatch({
     type: CURRENT_QUESTION_UPDATE,
@@ -312,6 +333,7 @@ const setCurrentAnswer = answer => (dispatch) => {
 export {
   fetchScript,
   createNewScript,
+  copyScript,
   updateScript,
   setCurrentQuestion,
   createNewQuestion,

@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { Colors } from '../../../config/styles';
+import { Colors, BorderRadius } from '../../../config/styles';
 import { Button, ModalCard } from '../../common';
 
 class ScriptsListItem extends Component {
@@ -27,7 +27,7 @@ class ScriptsListItem extends Component {
       attributes
     } = this.props.script;
     const { modalOpen } = this.state;
-    const { removeScript } = this.props;
+    const { removeScript, allowDelete, copyScript } = this.props;
     return (
       <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
         style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
@@ -50,15 +50,27 @@ class ScriptsListItem extends Component {
             >
             {attributes.name || 'Unnamed Script'}
           </div>
-          <div className="w-10 flex items-end flex-column">
-            <div
-              className="br-100 bg-brand-secondary white flex items-center justify-center hov-danger"
-              role="button"
-              style={{ width: '2rem', height: '2rem' }}
-              onClick={this.toggleModal}>
-              X
+          {allowDelete ?
+            <div className="w-10 flex items-end flex-column">
+              <div
+                className="br-100 bg-brand-secondary white flex items-center justify-center hov-danger"
+                role="button"
+                style={{ width: '2rem', height: '2rem' }}
+                onClick={this.toggleModal}>
+                X
+              </div>
             </div>
-          </div>
+            :
+            <div className="w-10 flex items-end flex-column">
+              <div
+                className="bg-brand-secondary white ph3 pv2 flex items-center justify-center"
+                role="button"
+                style={{ borderRadius: BorderRadius.all }}
+                onClick={() => copyScript(this.props.script.id)}>
+                Copy
+              </div>
+            </div>
+            }
         </div>
       </div>
     );
