@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardRight, HSButton, HSCardHeader } from '../../common';
 import { createNewScript } from '../ScriptBuilder/ScriptBuilderActions';
-import { fetchScripts, removeScript } from './ScriptsListActions';
+import { fetchBrokerScripts, removeScript } from './ScriptsListActions';
 import { ScriptsListItem } from './';
 
 class ScriptsListView extends Component {
@@ -21,7 +21,7 @@ class ScriptsListView extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchScripts();
+    this.props.fetchBrokerScripts();
   }
 
   render() {
@@ -60,4 +60,4 @@ const mapStateToProps = ({ UserReducer, ScriptsListReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { createNewScript, fetchScripts, removeScript })(ScriptsListView);
+export default connect(mapStateToProps, { createNewScript, fetchBrokerScripts, removeScript })(ScriptsListView);

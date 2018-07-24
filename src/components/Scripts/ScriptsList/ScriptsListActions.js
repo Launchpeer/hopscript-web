@@ -48,6 +48,19 @@ const fetchScripts = () => (dispatch) => {
     });
 };
 
+const fetchBrokerScripts = () => (dispatch) => {
+  dispatch(_scriptsLoading());
+  Parse.Cloud.run("fetchBrokerScripts")
+    .then((r) => {
+      dispatch(_scriptsLoadEnd());
+      dispatch(_scriptsListUpdate(r));
+    })
+    .catch((e) => {
+      dispatch(_scriptsLoadEnd());
+      dispatch(_scriptsError(e));
+    });
+};
+
 const removeScript = id => (dispatch) => {
   dispatch(_scriptsLoading());
   Parse.Cloud.run("deleteScript", { id })
@@ -61,4 +74,4 @@ const removeScript = id => (dispatch) => {
     });
 };
 
-export { fetchScripts, removeScript };
+export { fetchScripts, fetchBrokerScripts, removeScript };

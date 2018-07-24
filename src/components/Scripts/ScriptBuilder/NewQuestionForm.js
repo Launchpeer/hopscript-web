@@ -62,7 +62,7 @@ class NewQuestionForm extends Component {
 
   render() {
     const {
-      handleSubmit, loading
+      handleSubmit, loading, user
     } = this.props;
     const { record } = this.state;
     return (
@@ -95,23 +95,26 @@ class NewQuestionForm extends Component {
                 />
                 </div>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="w-20">Audio</div>
+              {user.attributes.role === 'agent' &&
+                <div className="flex items-center justify-between">
+                  <div className="w-20">Audio</div>
 
-                { record ?
-                  <div className="w-80 pt4">
-                    <RecordAudio saveAudio={this.saveAudio} />
-                    <div className="brand-green pointer pt2 underline" role="button" saveAudio={this.saveAudio} onClick={this.toggleRecord}>Switch to Upload Audio</div>
-                  </div>
-                  :
-                  <div className="w-80 pt4">
-                    <InputAudio name="audio" />
-                    <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Record Audio</div>
-                  </div>
-                }
+                  { record ?
+                    <div className="w-80 pt4">
+                      <RecordAudio saveAudio={this.saveAudio} />
+                      <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Upload Audio</div>
+                    </div>
+                    :
+                    <div className="w-80 pt4">
+                      <InputAudio name="audio" />
+                      <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Record Audio</div>
+                    </div>
+                  }
 
 
-              </div>
+                </div>
+              }
+
             </div>
             <div className="pt5">
               <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>

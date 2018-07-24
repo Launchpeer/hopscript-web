@@ -99,7 +99,7 @@ class ScriptBuilderView extends Component {
   render() {
     const { currentStep } = this.state;
     const {
-      currentScript, currentQuestion, questions, creatingNewQuestion
+      currentScript, currentQuestion, questions, creatingNewQuestion, user
     } = this.props;
     return (
       <CardRight>
@@ -131,7 +131,7 @@ class ScriptBuilderView extends Component {
               {creatingNewQuestion
               ?
                 <div className="pt4">
-                  <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} />
+                  <NewQuestionForm scriptId={this.props.params.id} toggleStep={this.toggleStep} user={user} />
                 </div>
               :
                 <div className="pt4">
@@ -142,6 +142,7 @@ class ScriptBuilderView extends Component {
                       currentQuestion={currentQuestion}
                       handleNotesChange={this.handleNotesChange}
                       text={this.state.text}
+                      user={user}
                       />
                     : <AnswerBuilderView
                       toggleStep={this.toggleStep}
@@ -161,15 +162,17 @@ class ScriptBuilderView extends Component {
   }
 }
 
-const mapStateToProps = ({ ScriptBuilderReducer }) => {
+const mapStateToProps = ({ ScriptBuilderReducer, UserReducer }) => {
   const {
     currentScript, currentQuestion, questions, creatingNewQuestion
   } = ScriptBuilderReducer;
+  const { user } = UserReducer;
   return {
     currentScript,
     currentQuestion,
     questions,
-    creatingNewQuestion
+    creatingNewQuestion,
+    user
   };
 };
 
