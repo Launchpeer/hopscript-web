@@ -154,18 +154,26 @@ export const resetPassword = (password, username) => (dispatch) => {
     });
 };
 
-const clearUser = () => (dispatch) => {
+const clearUser = () => dispatch => new Promise((resolve) => {
   if (Parse.User.current()) {
     _unAuthUser()
       .then(() => {
-        window.location.reload(true);
+        resolve(window.location.reload(true));
       });
   }
-};
+});
 
 export const logOutUser = () => (dispatch) => {
-  dispatch(clearUser());
   browserHistory.push('/');
+  Parse.User.logOut(null, {
+    success: () => {
+      dispatch(_clearUser());
+      dispatch({ type: UNAUTH_USER });
+    },
+    error: (user, error) => {
+      dispatch(_authError(error));
+    }
+  });
 };
 
 
