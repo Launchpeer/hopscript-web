@@ -22,11 +22,11 @@ class ScriptsListView extends Component {
 
   componentWillMount() {
     this.props.fetchScripts();
-    this.props.fetchBrokerScripts();
+    this.props.fetchBrokerScripts(this.props.user);
   }
 
   render() {
-    const { scripts, brokerageScripts } = this.props;
+    const { scripts, brokerageScripts, user } = this.props;
     return (
       <CardRight loading={this.props.loading}>
         <HSCardHeader>My Scripts</HSCardHeader>
@@ -36,7 +36,7 @@ class ScriptsListView extends Component {
               brokerageScripts.map(script => (
                 <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript} />))
             }
-            {scripts &&
+            { user.attributes.role === 'agent' && scripts &&
               scripts.map(script => (
                 <ScriptsListItem script={script} key={script.id} removeScript={this.removeScript} />))
             }
