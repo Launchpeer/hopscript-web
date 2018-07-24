@@ -46,6 +46,11 @@ const brokerItems = [
     label: 'AGENTS',
     icon: (item, route) => <PeopleIcon width="25px" height="25px" color={textColor(item, route)} />
   },
+  {
+    route: '/scripts',
+    label: 'SCRIPTS',
+    icon: (item, route) => <ScriptIcon width="25px" height="25px" color={textColor(item, route)} />
+  },
 ];
 
 const leadsRoutes = ['/leads-add', '/leads-list', '/lead-groups-list'];
