@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CardRight, HSButton, HSCardHeader } from '../../common';
+import { CardRight, HSButton, HSCardHeader, LoaderOrThis } from '../../common';
 import { createNewScript, copyScript } from '../ScriptBuilder/ScriptBuilderActions';
 import { fetchScripts, fetchBrokerScripts, removeScript } from './ScriptsListActions';
 import { ScriptsListItem } from './';
@@ -27,32 +27,38 @@ class ScriptsListView extends Component {
 
   componentWillMount() {
     this.props.fetchScripts();
-    this.props.fetchBrokerScripts(this.props.user);
+    this.props.fetchBrokerScripts();
   }
 
+
   render() {
-    const { scripts, brokerageScripts, user } = this.props;
+    const {
+      scripts, brokerageScripts, user, loading
+    } = this.props;
     return (
-      <CardRight loading={this.props.loading}>
-        <HSCardHeader>My Scripts</HSCardHeader>
-        <div className="pa3">
-          <div className="mv4">
-            {user.attributes.role === 'broker' && brokerageScripts &&
+      <LoaderOrThis loading={loading}>
+        <CardRight>
+          <HSCardHeader>My Scripts</HSCardHeader>
+          <div className="pa3">
+            <div className="mv4">
+              {brokerageScripts && user.attributes.role === 'brokerage' &&
               brokerageScripts.map(script => (
-                <ScriptsListItem script={script} key={script.id} allowDelete removeScript={this.removeScript} />))
+                <ScriptsListItem script={script} key={script.id} allowDelete copyScript={this.handleScriptCopy} removeScript={this.removeScript} />))
             }
-            {user.attributes.role === 'agent' && brokerageScripts &&
-              brokerageScripts.map(script => (
-                <ScriptsListItem script={script} key={script.id} copyScript={this.handleScriptCopy} removeScript={this.removeScript} />))
+              {brokerageScripts && user.attributes.role === 'agent' &&
+            brokerageScripts.map(script => (
+              <ScriptsListItem script={script} key={script.id} copyScript={this.handleScriptCopy} />))
             }
-            { user.attributes.role === 'agent' && scripts &&
+
+              { scripts &&
               scripts.map(script => (
                 <ScriptsListItem script={script} key={script.id} allowDelete removeScript={this.removeScript} />))
             }
+            </div>
+            <HSButton onClick={this.handleNewScript}>Add New Script</HSButton>
           </div>
-          <HSButton onClick={this.handleNewScript}>Add New Script</HSButton>
-        </div>
-      </CardRight>
+        </CardRight>
+      </LoaderOrThis>
     );
   }
 }

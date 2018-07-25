@@ -113,6 +113,7 @@ const createNewScript = () => (dispatch) => {
 };
 
 const copyScript = scriptId => (dispatch) => {
+  console.log('copyscript...');
   const User = Parse.User.current();
   Parse.Cloud.run('copyScript', { userId: User.id, scriptId })
     .then((script) => {
