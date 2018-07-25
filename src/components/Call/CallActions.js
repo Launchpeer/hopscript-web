@@ -172,6 +172,7 @@ function _clearCall(c) {
 }
 
 const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
+  dispatch(_callLoading());
   dispatch(_clearToken());
   dispatch(_clearCall());
   Parse.Cloud.run("updateCall", ({
@@ -180,7 +181,8 @@ const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) =
     endTime,
     noAnswer,
     leadGroup
-  })).catch(err => dispatch(_callError(err)));
+  })).then(() => dispatch(_callLoadEnd()))
+    .catch(err => dispatch(_callError(err)));
 };
 
 
