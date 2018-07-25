@@ -43,13 +43,12 @@ class ScriptsListView extends Component {
             <div className="mv4">
               {brokerageScripts && user.attributes.role === 'brokerage' &&
               brokerageScripts.map(script => (
-                <ScriptsListItem script={script} key={script.id} allowDelete copyScript={this.handleScriptCopy} removeScript={this.removeScript} />))
+                <ScriptsListItem script={script} key={script.id} allowDelete removeScript={this.removeScript} />))
             }
               {brokerageScripts && user.attributes.role === 'agent' &&
             brokerageScripts.map(script => (
               <ScriptsListItem script={script} key={script.id} copyScript={this.handleScriptCopy} />))
             }
-
               { scripts &&
               scripts.map(script => (
                 <ScriptsListItem script={script} key={script.id} allowDelete removeScript={this.removeScript} />))

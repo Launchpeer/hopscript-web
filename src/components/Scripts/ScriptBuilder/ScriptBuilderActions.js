@@ -113,11 +113,9 @@ const createNewScript = () => (dispatch) => {
 };
 
 const copyScript = scriptId => (dispatch) => {
-  console.log('copyscript...');
   const User = Parse.User.current();
   Parse.Cloud.run('copyScript', { userId: User.id, scriptId })
     .then((script) => {
-      console.log('we are out of parse and heres the script:', script);
       dispatch({
         type: CURRENT_SCRIPT_UPDATE,
         payload: script
