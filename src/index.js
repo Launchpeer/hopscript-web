@@ -72,9 +72,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        {currentUser === null && <IndexRedirect to={redirect} />}
+        <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
-        {currentUser && <IndexRedirect to={redirect} />}
         <Route path="signup" component={AuthView} />
         <Route path="welcome" component={AgentWelcomeView} />
         <Route path="agent-onboard" component={AgentOnboardView} />
