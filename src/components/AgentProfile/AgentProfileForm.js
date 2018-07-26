@@ -28,7 +28,7 @@ class AgentProfileForm extends Component {
   render() {
     const { user, handleSubmit, brokerage } = this.props;
     return (
-      <form className="mv4">
+      <form className="mv4 vh-50">
         <InputTextEditable
           name="brokerage"
           type="text"

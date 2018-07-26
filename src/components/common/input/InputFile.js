@@ -28,7 +28,7 @@ class renderFileUpload extends Component {
           <Dropzone
             name={name}
             style={{ backgroundColor: Colors.lightGray }}
-            accept="text/csv"
+            accept="text/csv, application/vnd.ms-excel"
             className={`${this.state.photoDragging === true ? "bg-moon-gray" : "hov-image-uploader"} pointer w-100 h-100 pt4`}
             onDrop={filesToUpload => input.onChange(filesToUpload)}
             dropClass={this.state.photoDragging === true ? "bg-brand-primary" : "bg-moon-grey"}
