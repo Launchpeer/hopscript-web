@@ -42,7 +42,7 @@ const renderDropDown = (fieldProps) => {
             <option
               value={option.value || option}
               key={option.id || option}
-              className="f3 dark-gray"
+              className="f5 dark-gray"
             >
               {option.display || option}
             </option>

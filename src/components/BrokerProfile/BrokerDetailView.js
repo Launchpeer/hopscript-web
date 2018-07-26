@@ -54,7 +54,7 @@ class BrokerDetailView extends Component {
               <div className="w-90" style={{ backgroundColor: Colors.white }} >
 
                 <CenterThis>
-                  <div className="w-50 mt5 mb4">
+                  <div className="w-50 mt5 mb2">
                     <BrokerProfileForm />
                   </div>
                 </CenterThis>
@@ -67,7 +67,7 @@ class BrokerDetailView extends Component {
                   </div>
                 </CenterThis>
                 <CenterThis>
-                  <div className="w-50 mb6">
+                  <div className="w-50 mb4">
                     <Button
                       classOverrides="w-100 f5 "
                       backgroundColor={Colors.white}

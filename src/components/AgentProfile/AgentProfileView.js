@@ -43,29 +43,30 @@ class AgentProfileView extends Component {
           <div className="b brand-near-black f4">Agent Account</div>
           <Button backgroundColor={Colors.brandGreen} onClick={this.handleSignOut} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Logout</Button>
         </div>
-        <CenterThis>
-          <div className="w-50 mt5 mb4">
-            <AgentProfileForm />
-          </div>
-        </CenterThis>
-        <CenterThis>
-          <div className="w-50 mb6">
-            <Button
-              classOverrides="w-100 f5 "
-              backgroundColor={Colors.white}
-              fontColor="silver"
-              borderRadius="10px"
-              borderColor="silver"
-              borderWidth="1px"
-              onClick={() => this.toggleModal()}>
+        <div className="ph3 pt4 pb3">
+          <CenterThis>
+            <div className="w-50 mt5 mb4">
+              <AgentProfileForm />
+            </div>
+          </CenterThis>
+          <CenterThis>
+            <div className="w-50 mb1">
+              <Button
+                classOverrides="w-100 f5"
+                backgroundColor={Colors.white}
+                fontColor="silver"
+                borderRadius="10px"
+                borderColor="silver"
+                borderWidth="1px"
+                onClick={() => this.toggleModal()}>
            Permanently Delete Account
-            </Button>
-          </div>
-        </CenterThis>
+              </Button>
+            </div>
+          </CenterThis>
 
-        {showModal && (
+          {showModal && (
           <ModalCard header="Delete Account" onClick={this.toggleModal}>
-            <div className="pa4 pl5 pr5">
+            <div className="pa4 pl5 pr5 ">
               <div className="mb4">
               Are you sure you want to delete your account? This action
               cannot be undone.
@@ -91,6 +92,7 @@ class AgentProfileView extends Component {
               </Button>
             </div>
           </ModalCard>)}
+        </div>
       </CardRight>
     );
   }
