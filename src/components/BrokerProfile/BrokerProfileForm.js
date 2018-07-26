@@ -26,7 +26,7 @@ class UpdateBrokerProfileFormView extends Component {
     const { user, handleSubmit } = this.props;
     return (
       <div>
-        <form className="mv4">
+        <form className="mv4 vh-50">
           <InputTextEditable
             name="username"
             type="text"
