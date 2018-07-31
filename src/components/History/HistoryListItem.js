@@ -33,7 +33,7 @@ const ExpandedItem = ({
     {history.leadGroup &&
     <div className="flex flex-row pv3 white">
       <div className="b pr2">Lead Group:</div>
-      <div>{history.leadGroup}</div>
+      <div>{history.leadGroup.attributes.groupName}</div>
     </div>}
     {history.notes &&
       <div className="pv3 white">
