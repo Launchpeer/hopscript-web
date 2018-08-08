@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import {
@@ -74,7 +75,19 @@ class StartCallView extends Component {
                   classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
               </HalfGrid>
               <HalfGrid classOverrides="pl3 mb4">
-                {scripts.length > 0 && <SelectScript scripts={scripts} />}
+                {scripts.length > 0
+                  ?
+                    <SelectScript scripts={scripts} />
+                  :
+                    <div className="mb4">
+                      <div className="i brand-red">Script needed to start a call</div>
+                      <div
+                        className="mt2 b pointer"
+                        onClick={() => browserHistory.push('/scripts')}>
+                        Create a script now!
+                      </div>
+                    </div>
+                }
                 <CallTitle />
               </HalfGrid>
               {error
