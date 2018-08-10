@@ -20,7 +20,6 @@ class UpdateAnswerForm extends Component {
   }
 
   handleFormSubmit(data) {
-    console.log('data!!', data);
     this.props.toggleForm();
     this.props.setCurrentAnswer(null);
     this.props.updateAnswer(data, this.props.answer.id, this.props.currentScript.id);
