@@ -20,6 +20,7 @@ class UpdateAnswerForm extends Component {
   }
 
   handleFormSubmit(data) {
+    console.log('data!!', data);
     this.props.toggleForm();
     this.props.setCurrentAnswer(null);
     this.props.updateAnswer(data, this.props.answer.id, this.props.currentScript.id);
@@ -27,7 +28,7 @@ class UpdateAnswerForm extends Component {
 
   render() {
     const {
-      questions, handleSubmit, toggleForm
+      questions, handleSubmit, toggleForm, answer
     } = this.props;
     return (
       <div>
@@ -38,7 +39,7 @@ class UpdateAnswerForm extends Component {
             <div className="w-10">
               <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center" />
             </div>
-            <div className="w-10">Answer</div>
+            <div className="w-10 b mr2">Answer</div>
             <div className="w-60">
               <div className="block-textarea">
                 <InputTextArea name="body" body="answer" placeholder="Type Answer here" />
@@ -47,6 +48,7 @@ class UpdateAnswerForm extends Component {
             <div className="w-20 flex items-end flex-column">
               <div
                 className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
+                role="button"
                 style={{ borderRadius: BorderRadius.all }}
                 onClick={toggleForm}
                 >
@@ -58,13 +60,13 @@ class UpdateAnswerForm extends Component {
             <div className="w-10">
               <div className="h2 w2 bg-white white br-100 flex justify-center items-center" />
             </div>
-            <div className="w-10">Route to</div>
+            <div className="w-10 b mr2">Route to</div>
             <div className="w-60">
               {questions
                 ? <InputDropDown
                   name="route"
                   type="dropdown"
-                  placeholder="Route to"
+                  placeholder={answer.attributes.route.attributes.body}
                   options={questions.map(question => ({ value: question.id, id: question.id, display: question.attributes.body }))}
                   borderColor={Colors.moonGray}
                  />
@@ -103,7 +105,7 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
     error,
     currentQuestion,
     currentScript,
-    initialValues: currentAnswer.attributes
+    initialValues: { body: currentAnswer.attributes.body }
   };
 };
 

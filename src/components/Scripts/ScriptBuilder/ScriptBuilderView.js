@@ -58,8 +58,6 @@ class ScriptBuilderView extends Component {
       className: 'Script',
       callback: data => this.handleSubscriptionCallback(data)
     });
-    this.props.toggleCreationState(true);
-    this.props.fetchScript(this.props.params.id);
     this.toggleStep = this.toggleStep.bind(this);
     this.createNewScript = this.createNewScript.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
@@ -67,6 +65,11 @@ class ScriptBuilderView extends Component {
     this.handleNotesChange = this.handleNotesChange.bind(this);
   }
 
+
+  componentDidMount() {
+    this.props.toggleCreationState(true);
+    this.props.fetchScript(this.props.params.id);
+  }
 
   newQuestion(script) {
     this.toggleStep('question');
