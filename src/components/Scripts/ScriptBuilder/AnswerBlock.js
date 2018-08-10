@@ -14,61 +14,11 @@ import {
 import { addAnswersToQuestion, setCurrentAnswer } from './ScriptBuilderActions';
 import UpdateAnswerForm from './UpdateAnswerForm';
 
-const AnswerEdit = ({
-  answer, removeAnswer, questions, onClick
-}) => (
+const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => (
   <div>
     <div className="flex mt4 mb2">
       <div className="w-10">
-        <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center"></div>
-      </div>
-      <div className="w-10">Answer</div>
-      <div className="w-60">
-        <div className="block-textarea">
-          <InputTextArea name="answer" body="answer" placeholder="Type Answer here" />
-        </div>
-      </div>
-      <div className="w-30">
-        <div
-          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
-          style={{ borderRadius: BorderRadius.all }}
-          onClick={() => removeAnswer(answer.attributes.id)}
-          >
-          <TrashIcon color={Colors.silver} width="1rem" height="1rem" />
-        </div>
-      </div>
-    </div>
-    <div className="flex items-center">
-      <div className="w-10">
-        <div className="h2 w2 bg-white white br-100 flex justify-center items-center" />
-      </div>
-      <div className="w-10">Route to</div>
-      <div className="w-60">
-        <InputDropDown
-          name="route"
-          type="dropdown"
-          placeholder="Route to"
-          options={questions}
-          borderColor={Colors.moonGray}
-         />
-      </div>
-      <div className="w-20 flex items-end flex-column">
-        <div
-          className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer bn"
-          style={{ borderRadius: BorderRadius.all }}
-          onClick={onClick}
-          >
-          <TrashIcon color={Colors.brandGreen} width="1rem" height="1rem" />
-        </div>
-      </div>
-    </div>
-  </div>);
-
-const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => {
-  return (<div>
-    <div className="flex mt4 mb2">
-      <div className="w-10">
-        <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center"></div>
+        <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center" />
       </div>
       <div className="w-10">Answer</div>
       <div className="w-60">
@@ -81,6 +31,7 @@ const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => {
           className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
           style={{ borderRadius: BorderRadius.all }}
           onClick={() => removeAnswer(answer.id)}
+          role="button"
           >
           <TrashIcon color={Colors.silver} width="1rem" height="1rem" />
         </div>
@@ -97,15 +48,15 @@ const AnswerDisplay = ({ answer, removeAnswer, handleAnswer }) => {
       <div className="w-20 flex items-end flex-column">
         <div
           className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer bn"
+          role="button"
           style={{ borderRadius: BorderRadius.all }}
           onClick={() => handleAnswer(answer)}
           >
-          <Edit color={Colors.brandGreen} size={16}/>
+          <Edit color={Colors.brandGreen} size={16} />
         </div>
       </div>
     </div>
-                                                  </div>);
-}
+  </div>);
 
 class AnswerBlockEditable extends Component {
   constructor(props) {
@@ -128,7 +79,6 @@ class AnswerBlockEditable extends Component {
   render() {
     const {
       answer,
-      idx,
       removeAnswer,
       questions
     } = this.props;
@@ -136,19 +86,19 @@ class AnswerBlockEditable extends Component {
       <div>
         {!this.state.edit
           ?
-          <AnswerDisplay
-            answer={answer}
-            handleAnswer={this.handleSetCurrentAnswer}
-            removeAnswer={removeAnswer}
+            <AnswerDisplay
+              answer={answer}
+              handleAnswer={this.handleSetCurrentAnswer}
+              removeAnswer={removeAnswer}
           />
           :
-          <UpdateAnswerForm
-            answer={answer}
-            questions={questions}
-            onClick={() => {
+            <UpdateAnswerForm
+              answer={answer}
+              questions={questions}
+              onClick={() => {
               this.setState({ edit: !this.state.edit });
             }}
-            toggleForm={() => {
+              toggleForm={() => {
               this.setState({ edit: !this.state.edit });
             }}
           />
