@@ -100,26 +100,27 @@ class LeadGroupAddView extends Component {
                   </Button>
 
 
-                  {error
-                    ?
-                      <Button borderRadius="4px"
-                        backgroundColor={Colors.brandGreen}
-                        classOverrides="f5 ph5 mh2"
-                        onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>
-                      Save
-                      </Button>
-                  :
-                      <Button borderRadius="4px"
-                        backgroundColor={Colors.brandGreen}
-                        classOverrides="f5 ph5 mh2">
+                  {leadsToAdd.length > 0 &&
+                  <Button borderRadius="4px"
+                    backgroundColor={Colors.brandGreen}
+                    classOverrides="f5 ph5 mh2">
                   Save
-                      </Button>
+                  </Button>
+                  }
+
+                  {leadsToAdd.length === 0 &&
+                  <Button borderRadius="4px"
+                    backgroundColor={Colors.brandGreen}
+                    classOverrides="f5 ph5 mh2"
+                    onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>
+                  Save
+                  </Button>
                   }
 
                 </div>
-                {this.state.showError && error &&
+                {this.state.showError &&
                   <div className="pa2">
-                    <RenderAlert error={{ message: error }} />
+                    <RenderAlert error={{ message: "You must include a group name and at least one lead to save a lead group." }} />
                   </div>
                 }
               </div>
@@ -148,10 +149,6 @@ function validate(values) {
   if (!values.groupName) {
     errors._error = 'Missing lead group name';
   }
-  if (!values.leadsToAdd) {
-    errors._error = 'You must add at least one lead to the group before saving';
-  }
-
   return errors;
 }
 

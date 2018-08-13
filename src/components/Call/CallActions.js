@@ -161,7 +161,7 @@ function _clearToken() {
   };
 }
 
-function _clearCall(c) {
+function _clearCall() {
   return {
     type: CALL_UPDATE,
     payload: null
@@ -172,6 +172,19 @@ const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) =
   dispatch(_callLoading());
   dispatch(_clearToken());
   dispatch(_clearCall());
+  Parse.Cloud.run("updateCall", ({
+    callId,
+    notes,
+    endTime,
+    noAnswer,
+    leadGroup
+  })).then(() => dispatch(_callLoadEnd()))
+    .catch(err => dispatch(_callError(err)));
+};
+
+const hangUpLGCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
+  dispatch(_callLoading());
+  dispatch(_clearToken());
   Parse.Cloud.run("updateCall", ({
     callId,
     notes,
@@ -220,6 +233,7 @@ export {
   startLeadGroupCalls,
   nextLeadGroupCall,
   hangUpCall,
+  hangUpLGCall,
   playAudio,
   stopAudio,
   currentCallUpdate

@@ -28,6 +28,7 @@ class LeadsAddForm extends Component {
   }
 
   handleFormSubmit(data) {
+    console.log('data', data);
     this.props.createLead(data);
     browserHistory.push('/leads-list');
   }

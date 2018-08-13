@@ -5,7 +5,7 @@ import { Square, CheckSquare } from 'react-feather';
 import uuidv4 from 'uuid/v4';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, InputNotesQuill } from '../../common';
-import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion, fetchAndSetToken } from '../CallActions';
+import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, hangUpLGCall, nextLeadGroupCall, setCurrentQuestion, fetchAndSetToken } from '../CallActions';
 import { updateLead } from '../../Leads/LeadsActions';
 import { QuestionsGlossaryView, QuestionView } from './';
 
@@ -180,6 +180,7 @@ export default connect(mapStateToProps, {
   playAudio,
   stopAudio,
   hangUpCall,
+  hangUpLGCall,
   setCurrentQuestion,
   updateLead,
   fetchAndSetToken
