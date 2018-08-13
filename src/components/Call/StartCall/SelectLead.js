@@ -45,7 +45,7 @@ class SelectLead extends Component {
         <div
           role="button"
           onClick={this.props.onClick}
-          className={`f3 b mb4 pointer ${this.props.classOverrides}`}>
+          className={`f3 b mb2 pointer ${this.props.classOverrides}`}>
           Select a Lead
         </div>
         {(this.props.selectedGroup && !leadLoaded)
