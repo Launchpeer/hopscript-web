@@ -113,7 +113,7 @@ const SideBar = ({ route, user }) => (
     {!(_.contains(PathsWithoutSideBarContent, route)) &&
       <div className="fl w-100" style={{ backgroundColor: Colors.brandPrimary, height: '100vh' }} >
         <div className="flex flex-column mt4" >
-          <div className="pb3 pointer">
+          <div className="pb3">
             <div className="tc">
               <KangarooIcon width="60px" height="60px" color={Colors.white} />
             </div>
