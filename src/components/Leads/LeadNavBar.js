@@ -1,18 +1,19 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import _ from 'underscore';
 import { Colors } from '../../config/styles';
 
 
 const divider = (<div style={{ borderLeft: "2px solid", borderColor: Colors.lightGray }} />);
 
 const leadGroupRoutes = ['lead-groups-add', 'lead-groups-list', 'lead-groups-add'];
+const leadRoutes = ['leads-list'];
 
 const navColor = (current, route) => {
-  const containsRoute = route.split('/');
   if (route === current) {
     return Colors.brandGreen;
-  } else if (current === '/lead-groups-list' && (_.contains(leadGroupRoutes, containsRoute[1]))) {
+  } else if (current === '/lead-groups-list' && leadGroupRoutes.includes(route.split('/')[1])) {
+    return Colors.brandGreen;
+  } else if (current === '/leads-list' && leadRoutes.includes(route.split('/')[1])) {
     return Colors.brandGreen;
   }
   return Colors.black;

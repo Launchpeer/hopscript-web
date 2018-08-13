@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
-import { CenterThis, Button, HalfGrid, InputText } from '../../common';
+import { CenterThis, Button, HalfGrid, InputText, RenderAlert } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadsList } from './';
 import { createLeadGroup, clearError, fetchLeads } from '../LeadsActions';
 import { Colors, BorderRadius } from '../../../config/styles';
@@ -21,6 +21,9 @@ const NoLeadsView = () => (
 class LeadGroupAddView extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showError: false
+    };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
@@ -43,7 +46,7 @@ class LeadGroupAddView extends Component {
 
   render() {
     const {
-      leadsToAdd, handleSubmit, location, leads
+      leadsToAdd, handleSubmit, location, leads, error
     } = this.props;
     return (
       <LeadNavCard location={location}>
@@ -96,13 +99,29 @@ class LeadGroupAddView extends Component {
                 Cancel
                   </Button>
 
-                  <Button borderRadius="4px"
-                    backgroundColor={Colors.brandGreen}
-                    classOverrides="f5 ph5 mh2">
-                Save
-                  </Button>
+
+                  {error
+                    ?
+                      <Button borderRadius="4px"
+                        backgroundColor={Colors.brandGreen}
+                        classOverrides="f5 ph5 mh2"
+                        onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>
+                      Save
+                      </Button>
+                  :
+                      <Button borderRadius="4px"
+                        backgroundColor={Colors.brandGreen}
+                        classOverrides="f5 ph5 mh2">
+                  Save
+                      </Button>
+                  }
 
                 </div>
+                {this.state.showError && error &&
+                  <div className="pa2">
+                    <RenderAlert error={{ message: error }} />
+                  </div>
+                }
               </div>
             </form>
           </div>
@@ -115,11 +134,10 @@ class LeadGroupAddView extends Component {
 
 const mapStateToProps = ({ LeadsReducer }) => {
   const {
-    error, loading, leadsToAdd, leads
+    loading, leadsToAdd, leads
   } = LeadsReducer;
   return {
     loading,
-    error,
     leadsToAdd,
     leads
   };
@@ -128,7 +146,10 @@ const mapStateToProps = ({ LeadsReducer }) => {
 function validate(values) {
   const errors = {};
   if (!values.groupName) {
-    errors._error = 'All fields required';
+    errors._error = 'Missing lead group name';
+  }
+  if (!values.leadsToAdd) {
+    errors._error = 'You must add at least one lead to the group before saving';
   }
 
   return errors;

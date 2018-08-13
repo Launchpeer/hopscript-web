@@ -51,19 +51,17 @@ const brokerItems = [
 const leadsRoutes = ['leads-add', 'leads-list', 'lead-groups-list', 'lead-groups-add'];
 
 const bgColor = (current, route) => {
-  const containsRoute = route.split('/');
   if (route === current) {
     return Colors.brandPrimaryShade;
-  } else if (current === '/leads-add' && (_.contains(leadsRoutes, containsRoute[1]))) {
+  } else if (current === '/leads-add' && (leadsRoutes.includes(route.split('/')[1]))) {
     return Colors.brandPrimaryShade;
   }
   return Colors.brandPrimary;
 };
 const textColor = (current, route) => {
-  const containsRoute = route.split('/');
   if (route === current) {
     return Colors.white;
-  } else if (current === '/leads-add' && (_.contains(leadsRoutes, containsRoute[1]))) {
+  } else if (current === '/leads-add' && (leadsRoutes.includes(route.split('/')[1]))) {
     return Colors.white;
   }
   return Colors.brandSecondary;
