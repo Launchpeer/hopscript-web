@@ -41,11 +41,11 @@ function _agentProfileUpdateLoadEnd() {
   };
 }
 
-export const updateAgentProfile = ({ username }) => (dispatch) => {
+export const updateAgentProfile = ({ name }) => (dispatch) => {
   dispatch(_agentProfileUpdateLoading());
   const Profile = Parse.User.current();
-  if (username) {
-    Profile.set('username', username);
+  if (name) {
+    Profile.set('name', name);
   }
   Profile.save()
     .then((updatedProfile) => {

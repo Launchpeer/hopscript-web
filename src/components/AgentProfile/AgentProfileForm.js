@@ -38,12 +38,12 @@ class AgentProfileForm extends Component {
           placeholder={brokerage && brokerage.attributes.username}
           noEdit />
         <InputTextEditable
-          name="username"
+          name="name"
           type="text"
           label="Name"
           classOverrides="mb3 pa2"
           borderColor={Colors.moonGray}
-          placeholder={user && user.get('username')}
+          placeholder={user && user.get('name')}
           onSubmit={handleSubmit(this.handleFormSubmit)} />
         <InputTextEditable
           name="email"
