@@ -161,9 +161,9 @@ const updateLead = (data, lead) => (dispatch) => {
   Parse.Cloud.run("updateLead", ({
     phone, leadGroup, email, name, leadType, lead, lastCallTitle, lastContact, lastCallNotes
   }))
-    .then(() => {
-      dispatch(fetchLead(lead));
+    .then((l) => {
       dispatch(_leadLoadEnd());
+      dispatch(fetchLead(l));
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -189,10 +189,13 @@ const deleteLead = lead => (dispatch) => {
 const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("removeGroupFromLead", ({ leadGroup, lead }))
-    .then((l) => {
-      dispatch(_leadLoadEnd());
-      dispatch(_leadUpdate(l));
-      dispatch(_myLeadGroups(l.attributes.leadGroups));
+    .then(() => {
+      dispatch(fetchLead(lead))
+        .then((l) => {
+          dispatch(_leadLoadEnd());
+          dispatch(_leadUpdate(l));
+          dispatch(_myLeadGroups(l.attributes.leadGroups));
+        }).catch(e => _leadsError(e));
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
