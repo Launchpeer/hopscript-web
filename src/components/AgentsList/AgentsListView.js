@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchUser } from '../UserActions';
 import { AgentsListItem } from './';
 import { AgentsAddForm } from '../AgentsAdd';
-import { Button, LoaderOrThis, FullScreenContainer, CenterThis, CardRight } from '../common';
+import { Button, CardRight } from '../common';
 import { Colors } from '../../config/styles';
 
 
@@ -45,7 +45,7 @@ class AgentsListView extends Component {
     const { addAgentOpen } = this.state;
     const { loading } = this.props;
     return (
-      <CardRight>
+      <CardRight loading={loading}>
         <div className="w-100 bb bw2 b--light-gray pa3 f4 flex justify-between" style={{ backgroundColor: Colors.white }} >
           <div className="b pt2 pb2 pl2">Agents</div>
           <Button backgroundColor={Colors.brandGreen} onClick={this.toggleAddAgent} buttonPadding="pa2 pr4 pl4" classOverrides="f5">Add Agents</Button>

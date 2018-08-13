@@ -52,6 +52,8 @@ export const signInUser = (email, password) => (dispatch) => {
         browserHistory.push('/welcome');
       } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
         browserHistory.push('/start-call');
+      } else if (user.attributes.stripe_customer_id) {
+        browserHistory.push('/agents-list');
       } else {
         browserHistory.push('/stripe');
       }
