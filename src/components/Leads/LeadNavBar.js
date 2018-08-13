@@ -6,12 +6,13 @@ import { Colors } from '../../config/styles';
 
 const divider = (<div style={{ borderLeft: "2px solid", borderColor: Colors.lightGray }} />);
 
-const leadGroupRoutes = ['/lead-groups-add', '/lead-groups-list'];
+const leadGroupRoutes = ['lead-groups-add', 'lead-groups-list', 'lead-groups-add'];
 
 const navColor = (current, route) => {
+  const containsRoute = route.split('/');
   if (route === current) {
     return Colors.brandGreen;
-  } else if (current === '/lead-groups-list' && (_.contains(leadGroupRoutes, route))) {
+  } else if (current === '/lead-groups-list' && (_.contains(leadGroupRoutes, containsRoute[1]))) {
     return Colors.brandGreen;
   }
   return Colors.black;
