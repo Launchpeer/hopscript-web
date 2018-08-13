@@ -33,7 +33,7 @@ class AgentsListItem extends Component {
     } = this.props.agent;
     const { modalOpen } = this.state;
     return (
-      <div className="flex justify-between items-center pointer list-hover pa3 list-alt-color-rows"
+      <div className="flex justify-between items-center list-hover pa3 list-alt-color-rows"
         style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>
@@ -52,7 +52,7 @@ class AgentsListItem extends Component {
           <div className="w-30-ns brand-near-black">{attributes.name}</div>
           <div className="w-30-ns silver">{attributes.email}</div>
           <div
-            className="br-100 bg-brand-primary white flex items-center justify-center hov-danger"
+            className="br-100 bg-brand-primary white flex items-center pointer justify-center hov-danger"
             role="button"
             style={{ width: '2rem', height: '2rem' }}
             onClick={this.toggleModal}>
