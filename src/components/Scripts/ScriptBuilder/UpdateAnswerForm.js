@@ -65,7 +65,7 @@ class UpdateAnswerForm extends Component {
                 ? <InputDropDown
                   name="route"
                   type="dropdown"
-                  placeholder={answer.attributes.route.attributes.body}
+                  placeholder={answer.attributes.route ? answer.attributes.route.attributes.body : 'Route to'}
                   options={questions.map(question => ({ value: question.id, id: question.id, display: question.attributes.body }))}
                   borderColor={Colors.moonGray}
                  />
