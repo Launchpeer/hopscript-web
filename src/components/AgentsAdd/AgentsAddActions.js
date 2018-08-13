@@ -5,8 +5,9 @@
  */
 
 import Parse from 'parse';
-import {reset} from 'redux-form';
+import { reset } from 'redux-form';
 import passwordGenerator from 'password-generator';
+import { fetchUser } from '../UserActions';
 import {
   AGENTS_ADD_ERROR,
   AGENTS_ADD_CLEAR_ERROR,
@@ -107,8 +108,9 @@ export const inviteAgent = data => dispatch => new Promise((resolve) => {
       });
       _reconcileAgentToBrokerage(agent)
         .then((brokerage) => {
+          dispatch(fetchUser());
           dispatch(_agentsAddLoadEnd());
-          dispatch(reset('inviteAgent'))
+          dispatch(reset('inviteAgent'));
           resolve(brokerage);
         });
     })
