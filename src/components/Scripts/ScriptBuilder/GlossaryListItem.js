@@ -80,8 +80,8 @@ class GlossaryListItem extends Component {
             <div className="pa4 tc">
             Are you sure you want to delete this question?
               <div className="w-100 flex justify-between pl4 pr4 mt4">
-                <Button onClick={() => this.handleDelete(question.id, currentScript.id)} backgroundColor={Colors.darkRed}>yes</Button>
-                <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
+                <Button onClick={() => this.handleDelete(question.id, currentScript.id)} backgroundColor={Colors.darkRed}>Tes</Button>
+                <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>Cancel</Button>
               </div>
             </div>
           </ModalCard>
