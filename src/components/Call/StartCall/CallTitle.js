@@ -5,7 +5,7 @@ import { Colors, BorderRadius } from '../../../config/styles';
 const CallTitle = ({ classOverrides }) => (
   <div className="mb4">
     <div
-      className={`f3 mb4 brand-near-black b ${classOverrides}`}>
+      className={`f3 mb2 brand-near-black b ${classOverrides}`}>
       Title Your Call
     </div>
     <div className="flex items-center pr4 ba b--silver bg-transparent" style={{ borderRadius: BorderRadius.all }}>

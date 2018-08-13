@@ -41,12 +41,14 @@ class NewAnswerForm extends Component {
                 <div className="h2 w2 bg-brand-green white br-100 flex justify-center items-center" />
               </div>
               <div className="w-10">Answer</div>
-              <div className="w-60">
-                <div className="block-textarea">
-                  <InputTextArea name="answer" body="answer" placeholder="Type Answer here" />
+              <div className="w-70">
+                <div className="w-95 fr">
+                  <div className="block-textarea">
+                    <InputTextArea name="answer" body="answer" placeholder="Type Answer here" />
+                  </div>
                 </div>
               </div>
-              <div className="w-20 flex items-end flex-column">
+              <div className="w-10 flex items-end flex-column">
                 <div
                   role="button"
                   className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
@@ -62,19 +64,21 @@ class NewAnswerForm extends Component {
                 <div className="h2 w2 bg-white white br-100 flex justify-center items-center" />
               </div>
               <div className="w-10">Route to</div>
-              <div className="w-60">
-                {questions
+              <div className="w-70">
+                <div className="w-95 fr">
+                  {questions
                   ? <InputDropDown
                     name="route"
                     type="dropdown"
                     placeholder="Route to"
-                    options={questions.map((question) => { return { value: question.id, id: question.id, display: question.attributes.body }})}
+                    options={questions.map(question => ({ value: question.id, id: question.id, display: question.attributes.body }))}
                     borderColor={Colors.moonGray}
                    />
                  : <div>N/A</div>
                 }
+                </div>
               </div>
-              <div className="w-20 flex items-end flex-column">
+              <div className="w-10 flex items-end flex-column">
                 <button
                   className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
                   style={{ borderRadius: BorderRadius.all }}

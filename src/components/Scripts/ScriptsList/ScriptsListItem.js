@@ -36,8 +36,8 @@ class ScriptsListItem extends Component {
             <div className="pa4 tc">
             Are you sure you want to delete this script?
               <div className="w-100 flex justify-between pl4 pr4 mt4">
-                <Button onClick={() => removeScript(this.props.script.id)} backgroundColor={Colors.darkRed}>yes</Button>
-                <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>cancel</Button>
+                <Button onClick={() => removeScript(this.props.script.id)} backgroundColor={Colors.darkRed}>Yes</Button>
+                <Button onClick={this.toggleModal} backgroundColor={Colors.silver}>Cancel</Button>
               </div>
             </div>
           </ModalCard>
