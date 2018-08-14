@@ -189,12 +189,6 @@ const createNewQuestion = ({
   }
 };
 
-/*
-_createNewAudioB64(audio)
-  .then((parseAudio) => {
-    Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
-
-      */
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
   Parse.Cloud.run('createNewAnswer', { data, questionId, scriptId })
