@@ -1,6 +1,5 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import _ from 'underscore';
 import { Colors } from '../../config/styles';
 
 

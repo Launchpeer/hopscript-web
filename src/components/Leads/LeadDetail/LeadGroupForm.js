@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { PlusCircle } from 'react-feather';
-import { InputDropDownEditable } from '../../common';
+import { InputDropDownEditable, LoaderOrThis } from '../../common';
 import { Colors } from '../../../config/styles';
 import { updateLead, removeGroupFromLead, fetchLead } from '../LeadsActions';
 import { LeadGroupListItem } from '../LeadGroupList';
@@ -20,14 +20,15 @@ class LeadGroupForm extends Component {
     this.props.updateLead(data, lead.id);
   }
 
-  handleRemoveLeadGroup(data) {
+  handleRemoveLeadGroup(data, e) {
+    e.preventDefault();
     const { lead } = this.props;
     this.props.removeGroupFromLead(data, lead.id);
   }
 
   render() {
     const {
-      handleSubmit, leadGroups, myLeadGroups
+      handleSubmit, leadGroups, myLeadGroups, loading
     } = this.props;
     const leadGroupOptions = leadGroups.map((group) => {
       group = {
@@ -41,8 +42,9 @@ class LeadGroupForm extends Component {
     return (
       <div>
         <div className="b mb4">Lead Groups</div>
-        <div className="ba pa2" style={{ borderColor: Colors.lightGray, borderRadius: '4px' }}>
-          {leadGroups && (
+        <LoaderOrThis loading={loading}>
+          <div className="ba pa2" style={{ borderColor: Colors.lightGray, borderRadius: '4px' }}>
+            {leadGroups && (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <div className="flex flex-row w-100 items-center">
                 <div className="w-100 pv2 ph3 mr1">
@@ -59,21 +61,25 @@ class LeadGroupForm extends Component {
               </div>
             </form>
           )}
-          <div>
-            {myLeadGroups &&
+            <div>
+              {myLeadGroups &&
           myLeadGroups.map(group => (
-            <LeadGroupListItem leadGroup={group} key={group.id} removeGroup={() => this.handleRemoveLeadGroup(group.id)} />
+            <LeadGroupListItem leadGroup={group} key={group.id} removeGroup={e => this.handleRemoveLeadGroup(group.id, e)} />
           ))}
+            </div>
           </div>
-        </div>
+        </LoaderOrThis>
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { lead, leadGroups, myLeadGroups } = LeadsReducer;
+  const {
+    lead, leadGroups, myLeadGroups, loading
+  } = LeadsReducer;
   return {
+    loading,
     lead,
     leadGroups,
     myLeadGroups

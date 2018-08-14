@@ -5,7 +5,7 @@ import { Square, CheckSquare } from 'react-feather';
 import uuidv4 from 'uuid/v4';
 import { Colors } from '../../../config/styles';
 import { CardRight, HSButton, InputNotesQuill } from '../../common';
-import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, nextLeadGroupCall, setCurrentQuestion, fetchAndSetToken } from '../CallActions';
+import { fetchCall, fetchToken, startACall, playAudio, stopAudio, hangUpCall, hangUpLGCall, nextLeadGroupCall, setCurrentQuestion, fetchAndSetToken } from '../CallActions';
 import { updateLead } from '../../Leads/LeadsActions';
 import { QuestionsGlossaryView, QuestionView } from './';
 
@@ -21,12 +21,24 @@ class InCallView extends Component {
       playingAudio: false,
       noAnswer: false,
     };
+
+    this.handleHangUp = this.handleHangUp.bind(this);
+    this.handleNotesChange = this.handleNotesChange.bind(this);
+    this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
+    this.playAudioFile = this.playAudioFile.bind(this);
+    this.stopAudio = this.stopAudio.bind(this);
+  }
+
+  componentDidMount() {
     const conferenceName = uuidv4();
+
     if (!this.props.currentCall) {
       this.props.fetchCall(this.props.params.id);
     } else {
       const { phone } = this.props.currentCall.attributes.lead.attributes;
-      Twilio.Device.setup(this.props.token);
+
+      Twilio.Device.setup(this.props.token, { debug: true });
+
 
       Twilio.Device.ready(() => {
         Twilio.Device.connect({ conferenceName });
@@ -39,21 +51,17 @@ class InCallView extends Component {
 
       Twilio.Device.error(err => (err));
     }
-    this.handleHangUp = this.handleHangUp.bind(this);
-    this.handleNotesChange = this.handleNotesChange.bind(this);
-    this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
-    this.playAudioFile = this.playAudioFile.bind(this);
-    this.stopAudio = this.stopAudio.bind(this);
   }
 
   handleHangUp() {
     const endTime = new Date().getTime();
     const data = { lastContact: endTime, lastCallTitle: this.props.currentCall.attributes.title, lastCallNotes: this.state.text };
     Twilio.Device.disconnectAll();
+    Twilio.Device.destroy();
     this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
     if (this.props.callType === 'leadGroup') {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer, this.props.leadGroup.id);
-      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex);
+      this.props.nextLeadGroupCall(this.props.leadGroup, this.props.leadGroupIndex, this.props.leadGroupDetails);
     } else {
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer);
       browserHistory.push('/start-call');
@@ -180,6 +188,7 @@ export default connect(mapStateToProps, {
   playAudio,
   stopAudio,
   hangUpCall,
+  hangUpLGCall,
   setCurrentQuestion,
   updateLead,
   fetchAndSetToken

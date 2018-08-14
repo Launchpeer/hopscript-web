@@ -83,6 +83,7 @@ class StartCallView extends Component {
                       <div className="i brand-red">Script needed to start a call</div>
                       <div
                         className="mt2 b pointer"
+                        role="button"
                         onClick={() => browserHistory.push('/scripts')}>
                         Create a script now!
                       </div>
