@@ -108,18 +108,18 @@ class ScriptBuilderView extends Component {
       <CardRight>
         {currentScript &&
         <div>
-          <div className="flex justify-between items-center pa3 b--near-white bb bw1">
-            <div className="flex items-center">
+          <div className="flex flex-wrap justify-between items-center pa3 b--near-white bb bw1">
+            <div className="flex flex-wrap items-center">
               <div role="button" className="pointer" onClick={() => browserHistory.push('/scripts')}>
                 <ChevronLeftCircle width="2rem" height="2rem" fill="black" />
               </div>
-              <div className="flex items-center pl3">
+              <div className="flex  flex-wrap items-center pl3">
                 <ScriptInfo step={currentStep} name={currentScript.attributes.name} scriptId={currentScript.id} />
               </div>
             </div>
             <StepIndicator step={currentStep} toggle={this.toggleStep} />
           </div>
-          <div className="w-100 flex">
+          <div className="w-100 flex flex-wrap">
             <div className="w-40 pa3">
               <GlossaryView
                 questions={questions}
