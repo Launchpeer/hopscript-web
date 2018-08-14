@@ -19,6 +19,7 @@ import { createLead, clearError, fetchLeadGroups } from '../LeadsActions';
 class LeadsAddForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { showError: null };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.clearError = this.clearError.bind(this);
   }
@@ -123,11 +124,21 @@ class LeadsAddForm extends Component {
             />
               </div>
             </div> : null}
-
-          <div className="fr mt6 mb4">
-            <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
-          </div>
-          {error && <RenderAlert error={error} />}
+          {error
+            ?
+              <div className="fr mt6 mb4">
+                <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5" onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Add Lead</Button>
+              </div>
+            :
+              <div className="fr mt6 mb4">
+                <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
+              </div>
+          }
+          {this.state.showError && error &&
+            <div className="pa2">
+              <RenderAlert error={{ message: error }} />
+            </div>
+          }
         </form>
       </div>
     );
@@ -142,6 +153,11 @@ const mapStateToProps = ({ LeadsReducer }) => {
   };
 };
 
+const Form = reduxForm({
+  form: 'leadsAdd',
+  validate
+})(LeadsAddForm);
+
 function validate(values) {
   const errors = {};
   if (!values.name || !values.phone || !values.leadType) {
@@ -151,11 +167,14 @@ function validate(values) {
   return errors;
 }
 
-export default reduxForm({
-  form: 'createLead',
-  validate
-})(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   createLead,
   clearError,
   fetchLeadGroups
-})(LeadsAddForm));
+})(Form);
+
+/*
+<div>
+  { error && <RenderAlert error={{ message: error }} />}
+</div>
+*/
