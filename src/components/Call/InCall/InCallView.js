@@ -41,7 +41,6 @@ class InCallView extends Component {
 
 
       Twilio.Device.ready(() => {
-        console.log('device is ready');
         Twilio.Device.connect({ conferenceName });
         this.props.startACall(phone, this.props.params.id, conferenceName);
       });

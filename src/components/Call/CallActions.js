@@ -60,7 +60,6 @@ const currentCallUpdate = call => (dispatch) => {
 };
 
 const startCall = call => (dispatch) => {
-  console.log('heeeey startcall');
   dispatch(_callLoading());
   Parse.Cloud.run(
     "createCall", (
