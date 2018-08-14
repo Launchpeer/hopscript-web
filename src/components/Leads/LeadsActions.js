@@ -17,7 +17,6 @@ import {
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
   CLEAR_LEADS_TO_ADD,
-  LEAD_LATEST_CALL
 } from './LeadsTypes';
 
 
@@ -161,9 +160,9 @@ const updateLead = (data, lead) => (dispatch) => {
   Parse.Cloud.run("updateLead", ({
     phone, leadGroup, email, name, leadType, lead, lastCallTitle, lastContact, lastCallNotes
   }))
-    .then(() => {
-      dispatch(fetchLead(lead));
+    .then((l) => {
       dispatch(_leadLoadEnd());
+      dispatch(fetchLead(l));
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -189,10 +188,13 @@ const deleteLead = lead => (dispatch) => {
 const removeGroupFromLead = (leadGroup, lead) => (dispatch) => {
   dispatch(_leadsLoading());
   Parse.Cloud.run("removeGroupFromLead", ({ leadGroup, lead }))
-    .then((l) => {
-      dispatch(_leadLoadEnd());
-      dispatch(_leadUpdate(l));
-      dispatch(_myLeadGroups(l.attributes.leadGroups));
+    .then(() => {
+      dispatch(fetchLead(lead))
+        .then((l) => {
+          dispatch(_leadLoadEnd());
+          dispatch(_leadUpdate(l));
+          dispatch(_myLeadGroups(l.attributes.leadGroups));
+        }).catch(e => _leadsError(e));
     })
     .catch((e) => {
       dispatch(_leadLoadEnd());
@@ -309,7 +311,7 @@ function _parseCSV(data) {
         if (!results.data[0].name || !results.data[0].phone) {
           resolve(_leadsError({
             message:
-                'It looks like the leads you uploaded were incorrectly formatted. Please use the Swift Script template as a guide to format your leads or upload leads individually'
+                'It looks like the leads you uploaded were incorrectly formatted. Please use the Hopscript template as a guide to format your leads or upload leads individually'
           }));
         }
         const formattedData = results.data.map((lead) => {
@@ -415,7 +417,7 @@ const parseCSV = data => (dispatch) => {
     .catch(() => {
       dispatch(_leadsError({
         message:
-            'File format is incorrect. Please use a .csv file or create leads individually'
+            'It looks like the leads you uploaded were incorrectly formatted. Please use the Hopscript template as a guide to format your leads or upload leads individually'
       }));
     });
 };

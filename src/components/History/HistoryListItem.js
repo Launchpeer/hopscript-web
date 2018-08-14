@@ -20,7 +20,7 @@ const ExpandedItem = ({
           <div className="i">Lead did not answer phone.</div>
         </div>
           :
-        <div className="w-25 tc">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
+        <div className="w-25 white tc">{moment(history.endTime).format('h:mm A, MMM D Y')}</div>
         }
       <div className="w-25">
         <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba near-white bg-transparent b--near-white pv1 ph3 fr br" onClick={onClick}>less</div>
@@ -33,7 +33,7 @@ const ExpandedItem = ({
     {history.leadGroup &&
     <div className="flex flex-row pv3 white">
       <div className="b pr2">Lead Group:</div>
-      <div>{history.leadGroup}</div>
+      <div>{history.leadGroup.attributes.groupName}</div>
     </div>}
     {history.notes &&
       <div className="pv3 white">

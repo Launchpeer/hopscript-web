@@ -48,12 +48,12 @@ const brokerItems = [
   },
 ];
 
-const leadsRoutes = ['/leads-add', '/leads-list', '/lead-groups-list'];
+const leadsRoutes = ['leads-add', 'leads-list', 'lead-groups-list', 'lead-groups-add'];
 
 const bgColor = (current, route) => {
   if (route === current) {
     return Colors.brandPrimaryShade;
-  } else if (current === '/leads-add' && (_.contains(leadsRoutes, route))) {
+  } else if (current === '/leads-add' && (leadsRoutes.includes(route.split('/')[1]))) {
     return Colors.brandPrimaryShade;
   }
   return Colors.brandPrimary;
@@ -61,7 +61,7 @@ const bgColor = (current, route) => {
 const textColor = (current, route) => {
   if (route === current) {
     return Colors.white;
-  } else if (current === '/leads-add' && (_.contains(leadsRoutes, route))) {
+  } else if (current === '/leads-add' && (leadsRoutes.includes(route.split('/')[1]))) {
     return Colors.white;
   }
   return Colors.brandSecondary;
@@ -113,7 +113,7 @@ const SideBar = ({ route, user }) => (
     {!(_.contains(PathsWithoutSideBarContent, route)) &&
       <div className="fl w-100" style={{ backgroundColor: Colors.brandPrimary, height: '100vh' }} >
         <div className="flex flex-column mt4" >
-          <div className="pb3 pointer">
+          <div className="pb3">
             <div className="tc">
               <KangarooIcon width="60px" height="60px" color={Colors.white} />
             </div>

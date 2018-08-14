@@ -57,7 +57,7 @@ const AgentWelcomeView = () => (
 
         </div>
         <div>
-          <Button classOverrides="b ph6 pv3 shadow-3" fontColor={Colors.brandPrimary} borderRadius={BorderRadius.none} onClick={() => browserHistory.push('/agent-onboard')}> Get Started </Button>
+          <Button classOverrides="b ph6 pv3 shadow-3" fontColor={Colors.brandPrimary} borderRadius={BorderRadius.all} onClick={() => browserHistory.push('/agent-onboard')}> Get Started </Button>
         </div>
       </div>
     </CenterThis>

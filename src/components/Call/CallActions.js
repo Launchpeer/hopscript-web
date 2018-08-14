@@ -11,6 +11,7 @@ import {
   CALL_LEAD_GROUP_INDEX_UPDATE,
   CALL_LEAD_GROUP_UPDATE,
   CURRENT_QUESTION_UPDATE,
+  CALL_LEAD_GROUP_DETAILS,
   SET_TOKEN
 } from './CallTypes';
 
@@ -75,7 +76,10 @@ const startCall = call => (dispatch) => {
       dispatch(_callUpdate(newCall));
       browserHistory.push(`/in-call/${newCall.id}`);
     })
-    .catch(err => dispatch({ type: CALL_ERROR, payload: err }));
+    .catch((err) => {
+      console.log('ERROR IN STARTCALL', err);
+      dispatch({ type: CALL_ERROR, payload: err });
+    });
 };
 
 const fetchCall = callId => (dispatch) => {
@@ -96,13 +100,14 @@ function _setCurrentToken(token) {
   };
 }
 
-const fetchToken = () => () => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token);
+const fetchToken = () => () => axios.get(`${TWILIO_SERVER_URL}/token`).then(data => data.data.token).catch(err => console.log('ERROR TOKEN', err));
 
-const fetchAndSetToken = () => (dispatch) => {
-  dispatch(fetchToken()).then((token) => {
-    dispatch(_setCurrentToken(token));
-  }).catch(err => dispatch(_callError(err)));
-};
+const fetchAndSetToken = () => dispatch => new Promise((resolve) => {
+  dispatch(fetchToken())
+    .then((token) => {
+      resolve(dispatch(_setCurrentToken(token)));
+    }).catch(err => dispatch(_callError(err)));
+});
 
 const startACall = (number, callId, conferenceName) => (dispatch) => {
   dispatch(_callLoading());
@@ -164,7 +169,7 @@ function _clearToken() {
   };
 }
 
-function _clearCall(c) {
+function _clearCall() {
   return {
     type: CALL_UPDATE,
     payload: null
@@ -172,6 +177,7 @@ function _clearCall(c) {
 }
 
 const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
+  dispatch(_callLoading());
   dispatch(_clearToken());
   dispatch(_clearCall());
   Parse.Cloud.run("updateCall", ({
@@ -180,9 +186,29 @@ const hangUpCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) =
     endTime,
     noAnswer,
     leadGroup
-  })).catch(err => dispatch(_callError(err)));
+  })).then(() => dispatch(_callLoadEnd()))
+    .catch(err => dispatch(_callError(err)));
 };
 
+const hangUpLGCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch) => {
+  dispatch(_callLoading());
+  dispatch(_clearToken());
+  Parse.Cloud.run("updateCall", ({
+    callId,
+    notes,
+    endTime,
+    noAnswer,
+    leadGroup
+  })).then(() => dispatch(_callLoadEnd()))
+    .catch(err => dispatch(_callError(err)));
+};
+
+function _setLGCallDetails(d) {
+  return {
+    type: CALL_LEAD_GROUP_DETAILS,
+    payload: d
+  };
+}
 
 const startLeadGroupCalls = d => (dispatch) => {
   dispatch(_callLoading());
@@ -195,6 +221,7 @@ const startLeadGroupCalls = d => (dispatch) => {
       dispatch(_callLoadEnd);
       const currentLead = leadGroup.attributes.leads[0];
       dispatch(_setCurrentLeadGroup(leadGroup));
+      dispatch(_setLGCallDetails({ ...d }));
       dispatch(_setLeadGroupIndex(0));
       dispatch(startCall({ ...d, lead: { id: currentLead.id } }));
     });
@@ -221,6 +248,7 @@ export {
   startLeadGroupCalls,
   nextLeadGroupCall,
   hangUpCall,
+  hangUpLGCall,
   playAudio,
   stopAudio,
   currentCallUpdate

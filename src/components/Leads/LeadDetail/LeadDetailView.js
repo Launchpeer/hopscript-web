@@ -42,15 +42,16 @@ class LeadDetailView extends Component {
               </CenterThis>
             </HalfGrid>
 
+            {lead && leadGroups && leadGroups.length > 0 &&
             <HalfGrid>
               <CenterThis>
                 <div className="pa4 w-100" >
-                  {lead && leadGroups && <LeadGroupForm lead={lead} myLeadGroups={myLeadGroups} leadGroups={leadGroups} />}
+                  <LeadGroupForm lead={lead} myLeadGroups={myLeadGroups} leadGroups={leadGroups} />
                 </div>
               </CenterThis>
             </HalfGrid>
+          }
           </div>
-
           <HSButton backgroundColor={Colors.brandRed} onClick={() => this.handleDelete(lead.id)}>Delete Lead</HSButton>
         </div>
       </LeadNavCard>

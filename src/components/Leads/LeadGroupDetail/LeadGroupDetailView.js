@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { HSButton } from '../../common';
 import { fetchLeadGroup, deleteLeadGroup, } from '../LeadsActions';
 import { LeadNavCard } from '../';
 import { LGDetailListItem } from './';
@@ -22,7 +21,6 @@ class LeadGroupDetailView extends Component {
           <div className="w-100 pb3" >
             {leadGroup.attributes.leads.map(lead => <LGDetailListItem lead={lead} key={lead.id} />)}
           </div>
-          <HSButton onClick={() => console.log('this will take you to edit lead group')}>Edit Lead Group</HSButton>
         </div>
       </LeadNavCard>
     );

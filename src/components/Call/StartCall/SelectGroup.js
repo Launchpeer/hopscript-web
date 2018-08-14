@@ -12,7 +12,7 @@ const SelectGroup = ({
     <div
       role="button"
       onClick={onClick}
-      className={`f3 b mb4 pointer ${classOverrides}`}>
+      className={`f3 b mb2 pointer ${classOverrides}`}>
       Select a Lead Group
     </div>
     {(selectedGroup && leadGroups.length > 0) &&

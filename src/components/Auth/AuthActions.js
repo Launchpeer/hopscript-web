@@ -52,6 +52,8 @@ export const signInUser = (email, password) => (dispatch) => {
         browserHistory.push('/welcome');
       } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
         browserHistory.push('/start-call');
+      } else if (user.attributes.stripe_customer_id) {
+        browserHistory.push('/agents-list');
       } else {
         browserHistory.push('/stripe');
       }
@@ -154,18 +156,20 @@ export const resetPassword = (password, username) => (dispatch) => {
     });
 };
 
-const clearUser = () => (dispatch) => {
+const clearUser = () => dispatch => new Promise((resolve) => {
   if (Parse.User.current()) {
     _unAuthUser()
       .then(() => {
-        window.location.reload(true);
+        resolve(window.location.reload(true));
       });
   }
-};
+});
 
 export const logOutUser = () => (dispatch) => {
-  dispatch(clearUser());
-  browserHistory.push('/');
+  _unAuthUser()
+    .then(() => {
+      browserHistory.push('/');
+    });
 };
 
 

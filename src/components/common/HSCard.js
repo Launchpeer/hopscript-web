@@ -4,7 +4,7 @@ import { BorderRadius } from '../../config/styles';
 
 const HSCard = props => (
   <CenterThis>
-    <div className="mt3 bg-white w-90" style={{ borderRadius: BorderRadius.all }}>
+    <div className="mt3 bg-white w-90" style={{ borderRadius: BorderRadius.all, marginLeft: '100px' }}>
       {props.children}
     </div>
   </CenterThis>
