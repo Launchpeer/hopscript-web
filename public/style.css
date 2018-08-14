@@ -215,6 +215,11 @@ textarea:focus {
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite; }
 
+.b--green-glow {
+  -webkit-animation-name: borderGreenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite; }
+
 .w-95 {
   width: 95%; }
 
@@ -270,6 +275,17 @@ textarea:focus {
     -webkit-box-shadow: 0 0 18px #00b85f; }
   to {
     background-color: #00cd6a;
+    -webkit-box-shadow: 0 0 9px #333; } }
+
+@-webkit-keyframes borderGreenPulse {
+  from {
+    border-color: #00cd6a;
+    -webkit-box-shadow: 0 0 9px #333; }
+  50% {
+    border-color: #00b85f;
+    -webkit-box-shadow: 0 0 18px #00b85f; }
+  to {
+    border-color: #00cd6a;
     -webkit-box-shadow: 0 0 9px #333; } }
 
 @keyframes sk-bouncedelay {

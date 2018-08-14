@@ -8,3 +8,4 @@ export { default as NewQuestionForm } from './NewQuestionForm';
 export { default as NewAnswerForm } from './NewAnswerForm';
 export { default as AnswerBuilderView } from './AnswerBuilderView';
 export { default as AnswerBlock } from './AnswerBlock';
+export { default as RecordAudio } from './RecordAudio';
