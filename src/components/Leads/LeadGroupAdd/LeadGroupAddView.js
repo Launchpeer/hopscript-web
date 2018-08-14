@@ -100,22 +100,19 @@ class LeadGroupAddView extends Component {
                   </Button>
 
 
-                  {leadsToAdd.length > 0 &&
-                  <Button borderRadius="4px"
-                    backgroundColor={Colors.brandGreen}
-                    classOverrides="f5 ph5 mh2">
+                  {leadsToAdd.length > 0 ?
+                    <Button borderRadius="4px"
+                      backgroundColor={Colors.brandGreen}
+                      classOverrides="f5 ph5 mh2">
                   Save
-                  </Button>
-                  }
-
-                  {leadsToAdd.length === 0 &&
-                  <Button borderRadius="4px"
-                    backgroundColor={Colors.brandGreen}
-                    classOverrides="f5 ph5 mh2"
-                    onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>
+                    </Button>
+                  :
+                    <Button borderRadius="4px"
+                      backgroundColor={Colors.brandGreen}
+                      classOverrides="f5 ph5 mh2"
+                      onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>
                   Save
-                  </Button>
-                  }
+                    </Button>}
 
                 </div>
                 {this.state.showError &&
