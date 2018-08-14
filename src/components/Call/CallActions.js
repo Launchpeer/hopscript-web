@@ -127,10 +127,7 @@ const playAudio = (callSid, conferenceSid, audioURI) => (dispatch) => {
     method: 'post',
     url: `${TWILIO_SERVER_URL}/bot`,
     data: { callSid, conferenceSid, audioURI }
-  }).then((data) => {
-    console.log('data', data);
-    return data;
-  }).catch(err => dispatch(_callError(err)));
+  }).then(data => data).catch(err => dispatch(_callError(err)));
 };
 
 const stopAudio = (callSid, conferenceSid) => (dispatch) => {

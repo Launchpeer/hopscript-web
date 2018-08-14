@@ -127,7 +127,7 @@ class LeadsAddForm extends Component {
           <div className="fr mt6 mb4">
             <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
           </div>
-          {error && <RenderAlert error={error} />}
+          <RenderAlert error={error} />
         </form>
       </div>
     );
