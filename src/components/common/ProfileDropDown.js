@@ -52,7 +52,7 @@ class ProfileDropDown extends Component {
     return image ? (
       <Avatar backgroundImage={image._url} />
     ) : (
-      <User color="white" size={30} scale={3} />
+      <User color={Colors.brandPrimary} size={30} scale={3} />
     );
   }
 
@@ -61,7 +61,7 @@ class ProfileDropDown extends Component {
     return (
       <OutsideClicker handleToggle={this.closeDropdown}>
         <div
-          className="bg-brand-primary br-100 flex items-center justify-center pointer"
+          className="bg-white br-100 flex items-center justify-center pointer"
           style={{
             width: '3rem',
             height: '3rem'

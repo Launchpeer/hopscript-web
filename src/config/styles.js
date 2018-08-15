@@ -2,19 +2,36 @@
 
 var Colors = {
   // Brand
-  brandPrimary: '#B6A57A',
-  brandSecondary: '#79538c',
-  brandOffWhite: '#FCFCFC',
-  brandSubHeader: '#f4f4f4',
+  brandPrimary: '#1d79ad',
+  brandPrimaryShade: '#1c6a96',
+  brandSecondary: '#124968', 
+  brandGreen: '#00cd6a',
+  brandRed: '#ff5628',
+  brandNearBlack: '#3e3e3e',
+
+  stripe: '#6772E5',
 
   // Basic Tachyon
   black: '#000000',
-  white: '#ffffff',
-  darkRed: '#D0021B',
-  nearWhite: '#F8F8F8',
+  darkGray: '#333333',
+  gray: '#777777',
+  silver: '#999999',
   moonGray: '#CCCCCC',
-  silver: '#999999'
+  lightGray: '#EEEEEE',
+  nearWhite: '#f2f2f2',
+  white: '#ffffff',
+  mediumRed: '#e7040f',
+  darkRed: '#D0021B'
 }
+
+Colors.inputFontColor = Colors.black
+Colors.inputBorderColor = Colors.silver
+
+/* These colors affect the UI of InputMultiSelect */
+Colors.multiSelectActive = Colors.brandPrimary
+Colors.multiSelectInactive = Colors.white
+Colors.multiSelectFontColorActive = Colors.white
+Colors.multiSelectFontColorInactive = Colors.silver
 
 var Fonts = {
   iosFont: 'Helvetica Neue',
@@ -29,17 +46,10 @@ var Icons = {
 }
 
 var BorderRadius = {
-  small: {
-    all: '4px',
-    top: '4px 4px 0px 0px',
-    bottom: '0px 0px 4px 4px'
-  },
-  medium: {
-    all: '8px',
-    top: '8px 8px 0px 0px',
-    bottom: '0px 0px 8px 8px'
-  },
-  none: 'none'
+  none: 'none',
+  all: '.25rem',
+  top: '0px',
+  bottom: '0px'
 }
 
 var MaxWidth = {

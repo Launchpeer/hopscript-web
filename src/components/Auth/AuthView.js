@@ -1,101 +1,88 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { Card, CenterThis, FullScreenCenter } from '../common';
+import { Card, CenterThis, FullScreenContainer } from '../common';
 import { Colors } from '../../config/styles';
-import { SignInForm, SignUpForm } from './';
-import { clearError } from './AuthActions';
+import { SignInForm, BrokerageSignUpForm } from './';
+import { clearError, clearUser } from './AuthActions';
 
-const bottomContent = authType => (
-  <div className="tc">
-    <div className="di silver">
-      {authType === 'signin' ? 'New to LGND?' : 'Already have an account?'}
-    </div>
-    <div className="di underline ml2 silver" role="button">
-      {authType === 'signin' ? 'Sign Up' : 'Sign In'}
-    </div>
-  </div>
-);
-// do we want to use "pointer" when hovering over "sign up", even though it is disabled?
-// do we want to leave "sign up" onClick function in there & disable? If so I will have to
-// change it from a div with a button role into a <Button>
-// https://github.com/facebook/react/issues/8977
-
-/*
-const bottomContent = authType => (
-  <div className="tc">
-    <div className="di silver">
-      {authType === 'signin' ? 'New to LGND?' : 'Already have an account?'}
-    </div>
+const SignIn = (
+  <div className="tc absolute right-0 pa3">
+    <div className="dib pr3" style={{ color: Colors.brandPrimary }}> Already have an account?</div>
     <div
-      className="di underline ml2 pointer brand-primary"
-      role="button"
-      onClick={() =>
-        browserHistory.push(`${authType === 'signin' ? '/signup' : '/'}`)
-      }
-      onKeyPress={() =>
-        browserHistory.push(`${authType === 'signin' ? '/signup' : '/'}`)
-      }
-    >
-      {authType === 'signin' ? 'Sign Up' : 'Sign In'}
+      className="pointer dib pa2"
+      onClick={() => { browserHistory.push('/', { authType: 'signin' }); }}
+      style={{
+        color: Colors.brandPrimary,
+        backgroundColor: Colors.white,
+        borderRadius: '4px'
+      }}
+      role="button" >
+      Log In
     </div>
   </div>
 );
-*/
+
+const SignUp = (
+  <div className="tc">
+    <div
+      className="underline pointer dib f3"
+      onClick={() => { browserHistory.push('/signup'); }}
+      role="button"
+      style={{ color: Colors.brandPrimary }} >
+      New to Hopscript? Sign Up
+    </div>
+  </div>
+);
 
 class AuthView extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.clearError();
+    this.props.clearUser();
   }
 
   render() {
     return (
-      <FullScreenCenter>
+      <FullScreenContainer color={Colors.nearWhite}>
+        { this.props.route.authType !== 'signin' && SignIn }
         <div className="w-100">
           <CenterThis>
-            <div
-              className="mw5 mb5 mt6 f-5 b"
-              style={{
-                color: Colors.brandPrimary,
-                width: 200,
-                height: 86,
-                size: 72
-              }}
-            >
-              LGND
+            <div className="w-40-l mw6 mt6 mb5">
+              <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
-            <Card
-              classOverrides="mw6 mb5"
-              boxShadow
-              borderRadius="medium"
-              bottomColor="nearWhite"
-            >
-              {this.props.route.authType === 'signin' ? (
-                <SignInForm />
-              ) : (
-                <SignUpForm />
-              )}
-            </Card>
-          </CenterThis>
-          <CenterThis>
-            <div
-              className="underline pointer p5 mb6"
-              style={{
-                color: Colors.brandPrimary
-              }}
-              role="button"
-              onClick={() => browserHistory.push('/forgot-password')}
-              onKeyPress={() => browserHistory.push('/forgot-password')}
-            >
-              Forgot your password?
-            </div>
+            {this.props.route.authType === 'signin' ?
+              <div className="w-40-l mw6">
+                <Card
+                  classOverrides="mb4 bg-white"
+                  boxShadow
+                  bottomContent={SignUp}
+                  bottomColor="lightGray" >
+                  <SignInForm />
+                </Card>
+                <CenterThis>
+                  <div
+                    className="underline pointer dib p5 mb7 f3 "
+                    style={{ color: Colors.gray }}
+                    role="button"
+                    onClick={() => browserHistory.push('/forgot-password')}
+                    onKeyPress={() => browserHistory.push('/forgot-password')} >
+                    Forgot your password?
+                  </div>
+                </CenterThis>
+              </div> :
+              <div className="w-40-l mw6">
+                <Card classOverrides="mb5 pl3 pr3 pt3 bg-white" boxShadow >
+                  <BrokerageSignUpForm />
+                </Card>
+              </div>
+            }
           </CenterThis>
         </div>
-      </FullScreenCenter>
+      </FullScreenContainer>
     );
   }
 }
 
-export default connect(null, { clearError })(AuthView);
+export default connect(null, { clearError, clearUser })(AuthView);

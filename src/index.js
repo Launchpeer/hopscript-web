@@ -12,24 +12,30 @@ import {
 import reduxThunk from 'redux-thunk';
 import Parse from 'parse';
 import _ from 'underscore';
-
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
 import App from './components/app';
 import rootReducer from './rootReducer';
 import { Colors } from './config/styles';
 import { AUTH_USER } from './components/Auth/AuthTypes';
 import { UPDATE_USER } from './components/UserTypes';
-import {
-  AuthView,
-  ForgotPasswordView,
-  ResetPasswordView
-} from './components/Auth';
-import DashboardView from './components/Dashboard/DashboardView';
-import CreateGuideView from './components/CreateGuide/CreateGuideView';
+import { AuthView, ForgotPasswordView, ResetPasswordView, AgentWelcomeView, AgentOnboardView } from './components/Auth';
+
+import { BrokerDetailView } from './components/BrokerProfile';
+import { AgentProfileView } from './components/AgentProfile';
+import { AgentsListView } from './components/AgentsList';
+import { LeadsAddView, LeadsListView, LeadDetailView, LeadGroupAddView, LeadGroupListView, LeadGroupDetailView } from './components/Leads';
+import { StripeView } from './components/Stripe';
+import { ScriptBuilderView, ScriptsListView } from './components/Scripts';
+import { StartCallView, InCallView, NextCallView } from './components/Call';
+import { HistoryListView } from './components/History';
+
 import './../sass/style.scss';
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
 
 const createStoreWithMiddleware = compose(applyMiddleware(reduxThunk)(createStore));
 const store = createStoreWithMiddleware(rootReducer);
+
 
 Parse.initialize(APPLICATION_ID, 'some_key_generated');
 Parse.applicationId = APPLICATION_ID;
@@ -39,24 +45,29 @@ Parse.javascriptKey = 'some_key_generated';
 
 let redirect = '/' // eslint-disable-line
 const currentUser = Parse.User.current();
-
 window.doot = "doot doot here's your toot 🎺💀";
 
 if (currentUser) {
+  // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
-  redirect = '/dashboard';
+  if (currentUser.attributes.role === 'agent') {
+    redirect = '/start-call';
+  } else {
+    redirect = '/agents-list';
+  }
 }
 
-const bodyColorPaths = ['/', '/reset-password', '/forgot-password'];
+const bodyColorPaths = ['/welcome'];
 
 browserHistory.listen((location) => {
   if (_.contains(bodyColorPaths, location.pathname)) {
-    document.body.style.backgroundColor = Colors.brandOffWhite;
+    document.body.style.backgroundColor = Colors.brandPrimary;
   } else {
-    document.body.style.backgroundColor = 'white';
+    document.body.style.backgroundColor = Colors.nearWhite;
   }
 });
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -64,10 +75,27 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRedirect to={redirect} />
         <IndexRoute component={AuthView} authType="signin" />
+        <Route path="signup" component={AuthView} />
+        <Route path="welcome" component={AgentWelcomeView} />
+        <Route path="agent-onboard" component={AgentOnboardView} />
         <Route path="forgot-password" component={ForgotPasswordView} />
+        <Route path="stripe" component={StripeView} />
         <Route path="reset-password" component={ResetPasswordView} />
-        <Route path="dashboard" component={DashboardView} />
-        <Route path="create-guide" component={CreateGuideView} />
+        <Route path="brokerage-profile" component={BrokerDetailView} />
+        <Route path="agent-profile" component={AgentProfileView} />
+        <Route path="agents-list" component={AgentsListView} />
+        <Route path="scripts" component={ScriptsListView} />
+        <Route path="leads-add" component={LeadsAddView} />
+        <Route path="leads-list" component={LeadsListView} />
+        <Route path="leads-list/:id" component={LeadDetailView} />
+        <Route path="lead-groups-add" component={LeadGroupAddView} />
+        <Route path="lead-groups-list" component={LeadGroupListView} />
+        <Route path="lead-groups-list/:id" component={LeadGroupDetailView} />
+        <Route path="script-builder/:id" component={ScriptBuilderView} />
+        <Route path="start-call" component={StartCallView} />
+        <Route path="in-call/:id" component={InCallView} />
+        <Route path="history" component={HistoryListView} />
+        <Route path="next-call" component={NextCallView} />
       </Route>
     </Router>
   </Provider>,

@@ -4,12 +4,22 @@
 }
 
 $brandPrimary: map_get($Colors, brandPrimary);
-$brandDeepGray: map_get($Colors, brandDeepGray);
-$brandPurple: map_get($Colors, brandPurple);
-$moonGray: map_get($Colors, moonGray);
-$white: map_get($Colors, white);
+$brandPrimaryShade: map_get($Colors, brandPrimaryShade);
+$brandSecondary: map_get($Colors, brandSecondary);
+$brandGreen: map_get($Colors, brandGreen);
+$brandRed: map_get($Colors, brandRed);
+$stripe: map_get($Colors, stripe);
 $silver: map_get($Colors, silver);
+$brandNearBlack: map_get($Colors, brandNearBlack);
+$black: map_get($Colors, black);
+$darkGray: map_get($Colors, darkGray);
+$moonGray: map_get($Colors, moonGray);
+$lightGray: map_get($Colors, lightGray);
 $nearWhite: map_get($Colors, nearWhite);
+$white: map_get($Colors, white);
+$mediumRed: map_get($Colors, mediumRed);
+$darkRed: map_get($Colors, darkRed);
+
 
 button,
 input {
@@ -23,7 +33,7 @@ input {
 
 .list-hover {
   &:hover {
-    background-color: $nearWhite !important;
+    background-color: $lightGray !important;
   }
 }
 
@@ -31,33 +41,77 @@ input {
   opacity: 0.75;
 }
 
-.hov-purple:hover {
-  background-color: $brandPurple !important;
-  color: white !important;
-}
+
 .brand-primary {
   color: $brandPrimary;
+}
+
+.brand-primary-shade {
+  color: $brandPrimaryShade;
+}
+
+.near-white {
+  color: $nearWhite
 }
 
 .bg-brand-primary {
   background-color: $brandPrimary;
 }
 
-.brand-deep-gray {
-  color: $brandDeepGray;
+.bg-brand-secondary {
+  background-color: $brandSecondary;
 }
 
-.bg-brand-purple {
-  background-color: $brandPurple;
+.bg-brand-green {
+  background-color: $brandGreen;
 }
 
-.moon-grey {
+.bg-brand-red {
+  background-color: $brandRed;
+}
+
+.bg-brand-near-black {
+  background-color: $brandNearBlack
+}
+
+.bg-near-white {
+  background-color: $nearWhite
+}
+
+.brand-secondary {
+  color: $brandSecondary;
+}
+
+.brand-near-black {
+  color: $brandNearBlack
+}
+
+
+.brand-red {
+  color: $brandRed;
+}
+
+.brand-green {
+  color: $brandGreen
+}
+
+.stripe {
+  color: $stripe
+}
+
+.moon-gray {
   color: $moonGray;
 }
 
 .bg-moon-grey {
   background: $moonGray;
 }
+
+
+.bg-light-grey {
+  background: $lightGray;
+}
+
 .hov-primary:hover {
   background: $brandPrimary;
 }
@@ -66,6 +120,17 @@ input {
   border-radius: 50%;
   height: 150px;
   width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  align-self: center;
+  z-index: 1;
+}
+
+.rectangle-profile {
+  border-radius: 0%;
+  height: 200px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
@@ -82,4 +147,176 @@ input {
 
 .pointer-none {
   pointer-events: none;
+}
+
+.hov-image-uploader {
+  background-color: white;
+}
+
+.hov-image-uploader:hover {
+  background-color: $brandPrimary;
+}
+
+.list-alt-color-rows {
+  background-color: $white;
+}
+.list-alt-color-rows:nth-child(odd) {
+  background-color: $nearWhite;
+}
+
+.list-alt-color-rows:nth-child(even) {
+  background-color: $white;
+}
+
+.hov-danger:hover {
+  background-color: $darkRed;
+}
+
+.hov-danger-font:hover {
+  color: $darkRed;
+}
+
+.hov-green:hover {
+  background-color: $brandGreen;
+}
+
+.brand-near-black {
+  color: $brandNearBlack;
+}
+
+.white-placeholder input::-webkit-input-placeholder {
+  color: white;
+}
+.white-placeholder input::-moz-placeholder {
+  color: white;
+}
+.white-placeholder input:-ms-input-placeholder {
+  color: white;
+}
+.white-placeholder input:-moz-placeholder {
+  color: white;
+}
+.half-circle {
+  height: 2rem;
+  width: 1rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.steps {
+  border-radius: 4px;
+}
+
+.step-1 {
+  border-radius: 4px 0 0 4px;
+}
+
+.step-2 {
+  border-radius: 0 4px 4px 0;
+}
+
+.single-line-textarea {
+  textarea {
+    resize: none;
+    border: none;
+    border-bottom: 2px solid $moonGray;
+    width: 100%;
+  }
+}
+
+.block-textarea {
+  textarea {
+    resize: none;
+    border: 1px solid $moonGray;
+    width: 100%;
+    min-height: 60px;
+    border-radius: 4px;
+  }
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.block-textarea-quill {
+    resize: none;
+    border: 1px solid $moonGray;
+    width: 100%;
+    min-height: 100px;
+    border-radius: 4px;
+}
+
+.checkbox {
+  -webkit-appearance: none;
+  background-color: $lightGray;
+  border-radius: 4px;
+  border: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkbox:checked {
+  background-color: $brandGreen;
+}
+
+.brand-green {
+  color: $brandGreen;
+}
+
+.b--brand-green {
+  border: 1px solid $brandGreen;
+}
+
+.b--brand-primary {
+  border: 1px solid $brandPrimary;
+}
+
+.b--near-white {
+  border: 1px solid $nearWhite;
+}
+
+.bb--near-white {
+  border-bottom: 1px solid $nearWhite;
+}
+
+.rounded-children-block {
+  border: 1px solid $lightGray;
+}
+
+.rounded-children-block:first-child {
+  border-radius: 4px 4px 0px 0px;
+}
+
+.rounded-children-block:last-child {
+  border-radius: 0px 0px 4px 4px;
+}
+
+.green-glow {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.b--green-glow {
+  -webkit-animation-name: borderGreenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.w-95 {
+  width: 95%;
+}
+
+.circle-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $brandGreen;
+  position: relative;
+  i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
 }

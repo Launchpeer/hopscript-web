@@ -48,9 +48,18 @@ export const signInUser = (email, password) => (dispatch) => {
         type: AUTH_USER,
         payload: user
       });
-      browserHistory.push('/dashboard');
+      if (user.attributes.role === 'agent' && user.attributes.firstLogin !== 'true') {
+        browserHistory.push('/welcome');
+      } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
+        browserHistory.push('/start-call');
+      } else if (user.attributes.stripe_customer_id) {
+        browserHistory.push('/agents-list');
+      } else {
+        browserHistory.push('/stripe');
+      }
     },
     error: (user, error) => {
+      console.log('Err: ', error);
       dispatch(_authError(error));
     }
   });
@@ -62,18 +71,18 @@ function _unAuthUser() {
   });
 }
 
-function _createUser(email, password) {
+function _createUser(username, email, password) {
   return new Promise((resolve) => {
     const User = new Parse.User();
-    User.set('username', email);
+    User.set('username', username);
     User.set('email', email);
     User.set('password', password);
-    User.set('role', 'admin');
+    User.set('role', 'brokerage');
     resolve(User.signUp());
   });
 }
 
-export const signUpUser = (email, password) => (dispatch) => {
+export const signUpUser = (username, email, password) => (dispatch) => {
   dispatch({
     type: AUTH_LOADING
   });
@@ -84,14 +93,14 @@ export const signUpUser = (email, password) => (dispatch) => {
       .then(() => {
         dispatch(_clearUser());
         dispatch({ type: UNAUTH_USER });
-        _createUser(email, password)
+        _createUser(username, email, password)
           .then((user) => {
             dispatch(_updateUser(user));
             dispatch({
               type: AUTH_USER,
               payload: user
             });
-            browserHistory.push('/create-guide');
+            browserHistory.push('/stripe');
           })
           .catch((error) => {
             dispatch(_authError(error));
@@ -101,14 +110,14 @@ export const signUpUser = (email, password) => (dispatch) => {
         dispatch(_authError(error));
       });
   } else {
-    _createUser(email, password)
+    _createUser(username, email, password)
       .then((user) => {
         dispatch(_updateUser(user));
         dispatch({
           type: AUTH_USER,
           payload: user
         });
-        browserHistory.push('/create-guide');
+        browserHistory.push('/stripe');
       })
       .catch((error) => {
         dispatch(_authError(error));
@@ -147,15 +156,21 @@ export const resetPassword = (password, username) => (dispatch) => {
     });
 };
 
+const clearUser = () => dispatch => new Promise((resolve) => {
+  if (Parse.User.current()) {
+    _unAuthUser()
+      .then(() => {
+        resolve(window.location.reload(true));
+      });
+  }
+});
+
 export const logOutUser = () => (dispatch) => {
-  browserHistory.push('/');
-  Parse.User.logOut(null, {
-    success: () => {
-      dispatch(_clearUser());
-      dispatch({ type: UNAUTH_USER });
-    },
-    error: (user, error) => {
-      dispatch(_authError(error));
-    }
-  });
+  _unAuthUser()
+    .then(() => {
+      browserHistory.push('/');
+    });
 };
+
+
+export { clearUser };

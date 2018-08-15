@@ -10,7 +10,8 @@ const PathsWithoutHeaderContent = [
   '/',
   '/signup',
   '/forgot-password',
-  '/reset-password'
+  '/reset-password',
+  '/brokerage-profile'
 ];
 
 const PathsWithHaveAccountButton = ['/stripe'];
@@ -55,7 +56,7 @@ const headerContent = (route, user) => (
           size: 72
         }}
       >
-        LGND
+        Hopscript
       </div>
     </div>
     <div className="mr3">

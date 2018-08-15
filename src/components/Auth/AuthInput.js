@@ -10,42 +10,41 @@ const renderInput = (field) => {
     type,
     placeholder,
     fontColor,
-    borderRadius,
     borderColor,
     meta: { touched, error }
   } = field;
   return (
     <div>
       <div
-        className="flex items-center pa2 ba mb3"
+        className="flex items-center pa2 ba mb3 w100"
         style={{
-          borderRadius: 'none',
-          borderColor: borderColor ? Colors[borderColor] : Colors.moonGray
-        }}
-      >
-        <div className="pa2">
-          {input.name === 'username' ? (
+          borderRadius: BorderRadius.all,
+          borderColor: borderColor || Colors.moonGray
+        }}>
+        <div className="pa1">
+          {input.name === 'email' || input.name === 'username' ? (
             <User color={touched && error ? 'red' : Colors.brandPrimary} />
           ) : (
             <Lock color={touched && error ? 'red' : Colors.brandPrimary} />
           )}
         </div>
-        <div className="bl w-100" style={{ borderColor: Colors.silver }}>
+
+        <div className="bl w-100" style={{ borderColor: Colors.moonGray }}>
           <input
             {...input}
             type={type}
             placeholder={placeholder}
-            className="w-100 pa2 flex items-center bn"
+            className="w-100 pa2 f3 flex items-start bn"
             style={{
-              color: fontColor ? Colors[fontColor] : Colors['darkGrey'],
-              borderRadius: 'none'
-            }}
-          />
+              color: fontColor || Colors['darkGrey'],
+              borderRadius: BorderRadius.all
+            }} />
         </div>
       </div>
+
       {touched &&
         error && (
-          <div className="mb4 mt4">
+          <div className="mb3">
             <RenderAlert error={{ message: error }} />
           </div>
         )}
@@ -69,8 +68,7 @@ const AuthInput = ({
       placeholder={placeholder}
       component={component || renderInput}
       fontColor={fontColor}
-      borderRadius={borderRadius}
-    />
+      borderRadius={borderRadius} />
   </div>
 );
 

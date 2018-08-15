@@ -13,8 +13,8 @@ class SignInForm extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit({ username, password }) {
-    this.props.signInUser(username, password);
+  handleFormSubmit({ email, password }) {
+    this.props.signInUser(email, password);
   }
 
   render() {
@@ -24,21 +24,16 @@ class SignInForm extends Component {
         {loading && <Loader />}
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <AuthInput
-            name="username"
+            name="email"
             type="text"
             label="email address"
-            placeholder="Email Address"
-          />
+            placeholder="Email address" />
           <AuthInput
             name="password"
             type="password"
             label="password"
-            placeholder="Password"
-          />
-          <Button
-            classOverrides="w-100"
-            backgroundColor={Colors.brandSecondary}
-          >
+            placeholder="Password" />
+          <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
             Log In
           </Button>
           <RenderAlert error={error} />
@@ -50,8 +45,8 @@ class SignInForm extends Component {
 
 function validate(values) {
   const errors = {};
-  if (!values.username) {
-    errors.username = '*required';
+  if (!values.email) {
+    errors.email = '*required';
   }
   if (!values.password) {
     errors.password = '*required';

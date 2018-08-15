@@ -17,17 +17,17 @@ const Button = ({
   <button
     action={action}
     style={{
-      color: fontColor ? Colors[fontColor] : Colors.white,
-      borderRadius: 'none',
+      color: fontColor || Colors.white,
+      borderRadius: borderRadius || BorderRadius.all,
       backgroundColor,
-      borderColor: borderColor ? Colors[borderColor] : Colors.darkGrey,
-      border: `${borderWidth} solid` || 'none'
+      borderColor: borderColor || Colors.darkGrey,
+      border: `${borderWidth} solid ${borderColor}` || 'none'
     }}
     type={type}
     className={
       buttonPadding
-        ? `${buttonPadding} tc bn f5 pointer ${classOverrides}`
-        : `pa3 tc bn f5 pointer ${classOverrides}`
+        ? `${buttonPadding} tc bn f3 pointer ${classOverrides}`
+        : `pa3 tc bn f3 pointer ${classOverrides}`
     }
     onClick={onClick}
   >

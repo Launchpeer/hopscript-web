@@ -30,20 +30,13 @@ class ForgotPasswordView extends Component {
     const {
       handleSubmit, error, success, loading
     } = this.props;
+
     return (
       <FullScreenCenter>
         <div className="w-100">
           <CenterThis>
-            <div
-              className="mw5 mb5 mt6 f-5 b"
-              style={{
-                color: Colors.brandPrimary,
-                width: 200,
-                height: 86,
-                size: 72
-              }}
-            >
-              LGND
+            <div className="w-40-l mw6 mt6 mb5">
+              <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
@@ -51,8 +44,7 @@ class ForgotPasswordView extends Component {
               classOverrides="mw6"
               boxShadow
               borderRadius="medium"
-              bottomColor="nearWhite"
-            >
+              bottomColor="nearWhite" >
               <div>
                 {loading && <Loader />}
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -60,13 +52,11 @@ class ForgotPasswordView extends Component {
                     name="username"
                     type="text"
                     label="email address"
-                    placeholder="Email Address"
-                  />
+                    placeholder="Email Address" />
                   <Button
                     classOverrides="w-100"
-                    backgroundColor={Colors.brandSecondary}
-                  >
-                    Reset Password
+                    backgroundColor={Colors.brandPrimary} >
+                    Send Reset Password Email
                   </Button>
                   <RenderAlert error={error} />
                   {RenderSuccess(success)}
@@ -81,9 +71,7 @@ class ForgotPasswordView extends Component {
                 color: Colors.brandPrimary
               }}
               role="button"
-              onClick={() => browserHistory.push('/')}
-              onKeyPress={() => browserHistory.push('/')}
-            >
+              onClick={() => browserHistory.push('/')} >
               Return to login
             </div>
           </CenterThis>
