@@ -19,6 +19,7 @@ import { createLead, clearError, fetchLeadGroups } from '../LeadsActions';
 class LeadsAddForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { showError: null };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.clearError = this.clearError.bind(this);
   }
@@ -54,7 +55,7 @@ class LeadsAddForm extends Component {
       <div>
         <div className="f3 b">Add a Single Lead</div>
         <div className="mb3">You can add a Lead manually</div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div className="flex flex-row w-100">
             <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
             <div className="w-70">
@@ -125,9 +126,21 @@ class LeadsAddForm extends Component {
             </div> : null}
 
           <div className="fr mt6 mb4">
-            <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
+            <Button
+              borderRadius="4px"
+              backgroundColor={Colors.brandGreen}
+              classOverrides="pl5 pr5 pt3 pb3 f5"
+              onClick={(e) => {
+                if (error) { e.preventDefault(); this.setState({ showError: true }); }
+              }}>Add Lead
+            </Button>
           </div>
-          <RenderAlert error={error} />
+
+          {this.state.showError && error &&
+            <div className="pa2">
+              <RenderAlert error={{ message: error }} />
+            </div>
+          }
         </form>
       </div>
     );
@@ -142,6 +155,11 @@ const mapStateToProps = ({ LeadsReducer }) => {
   };
 };
 
+const Form = reduxForm({
+  form: 'leadsAdd',
+  validate
+})(LeadsAddForm);
+
 function validate(values) {
   const errors = {};
   if (!values.name || !values.phone || !values.leadType) {
@@ -151,11 +169,8 @@ function validate(values) {
   return errors;
 }
 
-export default reduxForm({
-  form: 'createLead',
-  validate
-})(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   createLead,
   clearError,
   fetchLeadGroups
-})(LeadsAddForm));
+})(Form);

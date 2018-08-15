@@ -231,6 +231,7 @@ const nextLeadGroupCall = (leadGroup, leadGroupIndex) => (dispatch) => {
     browserHistory.push('/next-call');
   } else {
     browserHistory.push('/start-call');
+    window.location.reload(true);
   }
 };
 

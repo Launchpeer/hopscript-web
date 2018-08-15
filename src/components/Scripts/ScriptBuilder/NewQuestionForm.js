@@ -66,16 +66,16 @@ class NewQuestionForm extends Component {
     } = this.props;
     const { record } = this.state;
     return (
-      <div>
+      <div >
         <LoaderOrThis loading={loading}>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
-            <div className="mb6">
+            <div className="mb6 ">
               <div className="single-line-textarea">
                 <InputTextArea name="body" placeholder="Write Question Here" />
               </div>
-              <div className="flex mt4 justify-between">
+              <div className="flex  mt4 justify-between">
                 <div className="w-20">Description</div>
                 <div className="w-80">
                   <div className="block-textarea-quill">

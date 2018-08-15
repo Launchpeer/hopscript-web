@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { parseCSV } from '../LeadsActions';
-import { InputFile, Button, CSVIcon, ModalCard } from '../../common';
+import { InputFile, Button, CSVIcon, ModalCard, RenderAlert } from '../../common';
 import { Colors } from '../../../config/styles';
 
 const DropZoneIcon = (
@@ -22,7 +22,8 @@ class LeadsCSVForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      showError: false
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.openCsv = this.openCsv.bind(this);
@@ -42,7 +43,9 @@ class LeadsCSVForm extends Component {
   }
 
   render() {
-    const { handleSubmit, leadsListSuccess } = this.props;
+    const {
+      handleSubmit, leadsListSuccess, error, err
+    } = this.props;
     const { modalOpen } = this.state;
     return (
       <div>
@@ -68,23 +71,61 @@ class LeadsCSVForm extends Component {
           <Button
             backgroundColor={Colors.brandGreen}
             borderRadius="4px"
-            classOverrides="w-100 f4">
+            classOverrides="w-100 f4"
+            onClick={(e) => {
+              if (error || err) {
+                e.preventDefault();
+                this.setState({ showError: true });
+               }
+            }}
+            >
             {leadsListSuccess ? "List Imported!" : "Submit List"}
           </Button>
+          {this.state.showError && error &&
+            <div className="pa2">
+              <RenderAlert error={{ message: error }} />
+            </div>
+          }
+          {err &&
+            <div className="flex flex-column tc">
+              <div className="pa2 red">
+                {err.message}
+              </div>
+              <div className="pointer underline" role="button" onClick={(e) => { e.preventDefault(); window.location.reload(); }}>
+              Reset form
+              </div>
+            </div>
+          }
         </form>
       </div>
     );
   }
 }
 
+
+const CSVForm = reduxForm({
+  form: 'leadsCSVAdd',
+  validate
+})(LeadsCSVForm);
+
+function validate(values) {
+  const errors = {};
+  if (!values.csv) {
+    errors._error = 'CSV Required';
+  }
+
+  return errors;
+}
+
+
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { leadsListSuccess } = LeadsReducer;
+  const { leadsListSuccess, error, err } = LeadsReducer;
   return {
-    leadsListSuccess
+    leadsListSuccess,
+    error,
+    err
   };
 };
-export default reduxForm({
-  form: 'batchLeads',
-})(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   parseCSV
-})(LeadsCSVForm));
+})(CSVForm);

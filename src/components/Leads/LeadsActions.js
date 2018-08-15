@@ -308,20 +308,21 @@ function _parseCSV(data) {
       header: true,
       delimiter: ',',
       complete: (results) => {
-        if (!results.data[0].name || !results.data[0].phone) {
+        if (!results.data[0].name || !results.data[0].phone || !Object.keys(results.data[0]).includes('name') || !Object.keys(results.data[0]).includes('phone')) {
           resolve(_leadsError({
             message:
-                'It looks like the leads you uploaded were incorrectly formatted. Please use the Hopscript template as a guide to format your leads or upload leads individually'
+                 'It looks like the leads you uploaded were incorrectly formatted. Please use the Hopscript template as a guide to format your leads or upload leads individually'
           }));
+        } else {
+          const formattedData = results.data.map((lead) => {
+            const formattedPhone = parsePhone(lead.phone);
+            return {
+              ...lead,
+              phone: formattedPhone
+            };
+          });
+          resolve(formattedData);
         }
-        const formattedData = results.data.map((lead) => {
-          const formattedPhone = parsePhone(lead.phone);
-          return {
-            ...lead,
-            phone: formattedPhone
-          };
-        });
-        resolve(formattedData);
       }
     });
   });
@@ -417,7 +418,7 @@ const parseCSV = data => (dispatch) => {
     .catch(() => {
       dispatch(_leadsError({
         message:
-            'It looks like the leads you uploaded were incorrectly formatted. Please use the Hopscript template as a guide to format your leads or upload leads individually'
+            'It looks like the leads you uploaded were incorrectly formatted. Please use the Hopscript template as a guide to format your leads, or upload leads individually.'
       }));
     });
 };
