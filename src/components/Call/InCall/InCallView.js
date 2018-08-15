@@ -79,6 +79,10 @@ class InCallView extends Component {
   }
 
   playAudioFile() {
+    console.log(
+      'play audio props',
+      this.state.callSid, this.props.currentCall.attributes.conferenceSid, this.props.currentQuestion.attributes.audioURI
+    );
     this.props.playAudio(this.state.callSid, this.props.currentCall.attributes.conferenceSid, this.props.currentQuestion.attributes.audioURI);
   }
 
