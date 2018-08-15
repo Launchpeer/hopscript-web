@@ -95,7 +95,7 @@ ReactDOM.render(
         <Route path="start-call" component={StartCallView} />
         <Route path="in-call/:id" component={InCallView} />
         <Route path="history" component={HistoryListView} />
-        <Route path="next-call" component={NextCallView} />
+        <Route path="next-call/:id/:lgid/:sid/:title" component={NextCallView} />
       </Route>
     </Router>
   </Provider>,
