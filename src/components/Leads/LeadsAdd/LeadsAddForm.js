@@ -55,7 +55,7 @@ class LeadsAddForm extends Component {
       <div>
         <div className="f3 b">Add a Single Lead</div>
         <div className="mb3">You can add a Lead manually</div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)} onClick={this.clearError}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div className="flex flex-row w-100">
             <div className="w-30 mt2 mb2 pt3 pb3">Client Name</div>
             <div className="w-70">
@@ -124,16 +124,18 @@ class LeadsAddForm extends Component {
             />
               </div>
             </div> : null}
-          {error
-            ?
-              <div className="fr mt6 mb4">
-                <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5" onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Add Lead</Button>
-              </div>
-            :
-              <div className="fr mt6 mb4">
-                <Button borderRadius="4px" backgroundColor={Colors.brandGreen} classOverrides="pl5 pr5 pt3 pb3 f5">Add Lead</Button>
-              </div>
-          }
+
+          <div className="fr mt6 mb4">
+            <Button
+              borderRadius="4px"
+              backgroundColor={Colors.brandGreen}
+              classOverrides="pl5 pr5 pt3 pb3 f5"
+              onClick={(e) => {
+                if (error) { e.preventDefault(); this.setState({ showError: true }); }
+              }}>Add Lead
+            </Button>
+          </div>
+
           {this.state.showError && error &&
             <div className="pa2">
               <RenderAlert error={{ message: error }} />
@@ -172,9 +174,3 @@ export default connect(mapStateToProps, {
   clearError,
   fetchLeadGroups
 })(Form);
-
-/*
-<div>
-  { error && <RenderAlert error={{ message: error }} />}
-</div>
-*/
