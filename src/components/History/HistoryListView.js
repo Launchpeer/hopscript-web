@@ -12,7 +12,6 @@ class HistoryListView extends Component {
 
   render() {
     const { historyItems, loading } = this.props;
-    console.log('historyitems', historyItems);
     return (
       <CardRight>
         <HSCardHeader>Call History</HSCardHeader>
