@@ -46,6 +46,7 @@ const renderEditableDropDown = (fieldProps) => {
     borderColor,
     placeholder,
     onClick,
+    onCancel,
     saveButtonName,
     meta: { touched, error, }
   } = fieldProps;
@@ -93,6 +94,12 @@ const renderEditableDropDown = (fieldProps) => {
         onClick={onClick} >
         {saveButtonName || "Save"}
       </div>
+      <div
+        className="pointer fr flex items-center pl2 silver hov-danger-font"
+        role="button"
+        onClick={onCancel} >
+        Cancel
+      </div>
     </div>
   );
 };
@@ -120,6 +127,7 @@ class InputDropDownEditable extends Component {
             <InputUI
               component={renderEditableDropDown}
               saveButtonName={saveButtonName}
+              onCancel={() => this.setState({ edit: !this.state.edit })}
               onClick={() => { onSubmit(); this.setState({ edit: !this.state.edit }); }}
               {...this.props}
              />

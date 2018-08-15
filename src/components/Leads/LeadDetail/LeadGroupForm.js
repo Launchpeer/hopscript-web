@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { PlusCircle } from 'react-feather';
 import { InputDropDownEditable, LoaderOrThis } from '../../common';
@@ -45,22 +46,23 @@ class LeadGroupForm extends Component {
         <LoaderOrThis loading={loading}>
           <div className="ba pa2" style={{ borderColor: Colors.lightGray, borderRadius: '4px' }}>
             {leadGroups && (
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-              <div className="flex flex-row w-100 items-center">
-                <div className="w-100 pv2 ph3 mr1">
-                  <InputDropDownEditable
-                    name="leadGroup"
-                    type="dropdown"
-                    editButtonName={<PlusCircle />}
-                    saveButtonName="Add"
-                    options={leadGroupOptions}
-                    placeholder="Add to New Group"
-                    onSubmit={handleSubmit(this.handleFormSubmit)}
-                    borderColor="lightGray" />
+              <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+                <div className="flex flex-row w-100 items-center">
+                  <div className="w-100 pv2 ph3 mr1">
+                    <InputDropDownEditable
+                      name="leadGroup"
+                      type="dropdown"
+                      editButtonName={<PlusCircle />}
+                      saveButtonName="Add"
+                      options={leadGroupOptions}
+                      placeholder="Add to New Group"
+                      onSubmit={handleSubmit(this.handleFormSubmit)}
+                      borderColor="lightGray" />
+                  </div>
                 </div>
-              </div>
-            </form>
-          )}
+              </form>
+          )
+        }
             <div>
               {myLeadGroups &&
           myLeadGroups.map(group => (
