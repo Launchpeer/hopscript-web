@@ -84,6 +84,7 @@ class HistoryListItem extends Component {
     const { expanded } = this.state;
     return (
       <div className="flex justify-between pointer list-hover list-alt-color-rows">
+
         {expanded ? <ExpandedItem history={history} lead={lead} onClick={() => this.setState({ expanded: !expanded })} /> : <SmallItem history={history} lead={lead} onClick={() => this.setState({ expanded: !expanded })} /> }
       </div>
 
