@@ -8,10 +8,8 @@ import {
   CALL_ERROR,
   CALL_LOAD_END,
   CALL_UPDATE,
-  CALL_LEAD_GROUP_INDEX_UPDATE,
   CALL_LEAD_GROUP_UPDATE,
   CURRENT_QUESTION_UPDATE,
-  CALL_LEAD_GROUP_DETAILS,
   SET_TOKEN
 } from './CallTypes';
 
@@ -48,12 +46,6 @@ function _setCurrentLeadGroup(leadGroup) {
   };
 }
 
-function _setLeadGroupIndex(idx) {
-  return {
-    type: CALL_LEAD_GROUP_INDEX_UPDATE,
-    payload: idx
-  };
-}
 
 const currentCallUpdate = call => (dispatch) => {
   dispatch(_callUpdate(call));
@@ -127,7 +119,7 @@ const playAudio = (callSid, conferenceSid, audioURI) => (dispatch) => {
     method: 'post',
     url: `${TWILIO_SERVER_URL}/bot`,
     data: { callSid, conferenceSid, audioURI }
-  }).then(data => (data)).catch(err => dispatch(_callError(err)));
+  }).then(data => data).catch(err => dispatch(_callError(err)));
 };
 
 const stopAudio = (callSid, conferenceSid) => (dispatch) => {
@@ -200,13 +192,6 @@ const hangUpLGCall = (callId, notes, endTime, noAnswer, leadGroup) => (dispatch)
     .catch(err => dispatch(_callError(err)));
 };
 
-function _setLGCallDetails(d) {
-  return {
-    type: CALL_LEAD_GROUP_DETAILS,
-    payload: d
-  };
-}
-
 const startLeadGroupCalls = d => (dispatch) => {
   dispatch(_callLoading());
   dispatch({
@@ -218,20 +203,22 @@ const startLeadGroupCalls = d => (dispatch) => {
       dispatch(_callLoadEnd);
       const currentLead = leadGroup.attributes.leads[0];
       dispatch(_setCurrentLeadGroup(leadGroup));
-      dispatch(_setLGCallDetails({ ...d }));
-      dispatch(_setLeadGroupIndex(0));
       dispatch(startCall({ ...d, lead: { id: currentLead.id } }));
     });
 };
 
-const nextLeadGroupCall = (leadGroup, leadGroupIndex) => (dispatch) => {
-  if (leadGroupIndex < leadGroup.attributes.leads.length - 1) {
-    const nextLeadIndex = leadGroupIndex + 1;
-    dispatch(_setLeadGroupIndex(nextLeadIndex));
-    browserHistory.push('/next-call');
-  } else {
-    browserHistory.push('/start-call');
-  }
+const nextLeadGroupCall = d => (dispatch) => {
+  dispatch(_callLoading());
+  dispatch({
+    type: 'CALL_UPDATE_TYPE',
+    payload: 'leadGroup'
+  });
+  Parse.Cloud.run("fetchLeadGroup", ({ leadGroup: d.leadGroup }))
+    .then((leadGroup) => {
+      dispatch(_callLoadEnd);
+      dispatch(_setCurrentLeadGroup(leadGroup));
+      dispatch(startCall({ ...d }));
+    });
 };
 
 export {

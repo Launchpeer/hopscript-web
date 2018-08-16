@@ -37,6 +37,12 @@
   to { background-color: #00cd6a; -webkit-box-shadow: 0 0 9px #333; }
 }
 
+@-webkit-keyframes borderGreenPulse {
+  from { border-color: #00cd6a; -webkit-box-shadow: 0 0 9px #333; }
+  50% { border-color: #00b85f; -webkit-box-shadow: 0 0 18px #00b85f; }
+  to { border-color: #00cd6a; -webkit-box-shadow: 0 0 9px #333; }
+}
+
 @keyframes sk-bouncedelay {
  0%, 80%, 100% {
    -webkit-transform: scale(0);

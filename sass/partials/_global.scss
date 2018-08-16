@@ -172,6 +172,10 @@ input {
   background-color: $darkRed;
 }
 
+.hov-danger-font:hover {
+  color: $darkRed;
+}
+
 .hov-green:hover {
   background-color: $brandGreen;
 }
@@ -289,6 +293,12 @@ textarea:focus {
 
 .green-glow {
   -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.b--green-glow {
+  -webkit-animation-name: borderGreenPulse;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
 }

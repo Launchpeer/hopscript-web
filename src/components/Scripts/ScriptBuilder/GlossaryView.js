@@ -5,7 +5,7 @@ const GlossarySection = ({
   questions, header, currentQuestion, setCurrentQuestion
 }) => (
   <div className="mb4">
-    <div className="flex justify-between b brand-near-black mb4">
+    <div className="flex flex-wrap justify-between b brand-near-black mb4">
       <div>{header}</div>
       <div className="mr1">Answers</div>
     </div>

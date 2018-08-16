@@ -15,21 +15,35 @@ import {
   HSButton,
   InputNotesQuill
 } from '../../common';
-import { createNewQuestion, fetchScript } from './ScriptBuilderActions';
+import { RecordAudio } from './';
+import { createNewQuestion, fetchScript, uploadRecordedAudio } from './ScriptBuilderActions';
 
 class NewQuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      record: true,
+      audio: null
     };
 
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.toggleRecord = this.toggleRecord.bind(this);
+    this.saveAudio = this.saveAudio.bind(this);
   }
 
   handleFormSubmit(data) {
-    this.props.createNewQuestion({ question: data, description: this.state.text, scriptId: this.props.currentScript.id });
+    if (this.state.audio) {
+      this.props.createNewQuestion({
+        question: data, audio: this.state.audio, description: this.state.text, scriptId: this.props.currentScript.id
+      });
+    } else {
+      this.props.createNewQuestion({
+        question: data, description: this.state.text, scriptId: this.props.currentScript.id
+      });
+    }
+
     this.props.toggleStep('answers');
   }
 
@@ -37,21 +51,31 @@ class NewQuestionForm extends Component {
     this.setState({ text: value });
   }
 
+  toggleRecord() {
+    this.setState({ record: !this.state.record });
+  }
+
+  saveAudio(r) {
+    this.setState({ audio: r });
+  }
+
+
   render() {
     const {
       handleSubmit, loading
     } = this.props;
+    const { record } = this.state;
     return (
-      <div>
+      <div >
         <LoaderOrThis loading={loading}>
           <form
             onSubmit={handleSubmit(this.handleFormSubmit)}
           >
-            <div className="mb6">
+            <div className="mb6 ">
               <div className="single-line-textarea">
                 <InputTextArea name="body" placeholder="Write Question Here" />
               </div>
-              <div className="flex mt4 justify-between">
+              <div className="flex  mt4 justify-between">
                 <div className="w-20">Description</div>
                 <div className="w-80">
                   <div className="block-textarea-quill">
@@ -73,9 +97,20 @@ class NewQuestionForm extends Component {
               </div>
               <div className="flex items-center justify-between">
                 <div className="w-20">Audio</div>
-                <div className="w-80">
-                  <InputAudio name="audio" />
-                </div>
+
+                { record ?
+                  <div className="w-80 pt4">
+                    <RecordAudio saveAudio={this.saveAudio} />
+                    <div className="brand-green pointer pt2 underline" role="button" saveAudio={this.saveAudio} onClick={this.toggleRecord}>Switch to Upload Audio</div>
+                  </div>
+                  :
+                  <div className="w-80 pt4">
+                    <InputAudio name="audio" />
+                    <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Record Audio</div>
+                  </div>
+                }
+
+
               </div>
             </div>
             <div className="pt5">
@@ -114,4 +149,6 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
   };
 };
 
-export default connect(mapStateToProps, { createNewQuestion, fetchScript })(Form);
+export default connect(mapStateToProps, {
+  createNewQuestion, fetchScript, uploadRecordedAudio
+})(Form);

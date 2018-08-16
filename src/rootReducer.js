@@ -12,6 +12,7 @@ import { ScriptBuilderReducer, ScriptsListReducer } from './components/Scripts';
 import { CallReducer } from './components/Call';
 import HistoryReducer from './components/History/HistoryReducer';
 
+
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form,
@@ -26,7 +27,7 @@ const rootReducer = combineReducers({
   ScriptsListReducer,
   StripeReducer,
   CallReducer,
-  HistoryReducer
+  HistoryReducer,
 });
 
 export default rootReducer;

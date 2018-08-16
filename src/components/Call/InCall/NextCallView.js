@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Colors } from '../../../config/styles';
 import { HSButton, CardRight } from '../../common';
-import { startCall, fetchAndSetToken } from '../CallActions';
+import { nextLeadGroupCall, fetchAndSetToken, } from '../CallActions';
+import { fetchLead } from '../../Leads/LeadsActions';
 
 class NextCallView extends Component {
   constructor(props) {
@@ -10,15 +11,19 @@ class NextCallView extends Component {
     this.handleNextCall = this.handleNextCall.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchLead(this.props.params.id);
+  }
+
   handleNextCall(e) {
     e.preventDefault();
     this.props.fetchAndSetToken()
       .then(() => {
-        this.props.startCall({
-          lead: { id: this.props.leadGroup.attributes.leads[this.props.leadGroupIndex].id },
-          leadGroup: this.props.leadGroupDetails.leadGroup,
-          script: this.props.leadGroupDetails.script,
-          title: this.props.leadGroupDetails.title
+        this.props.nextLeadGroupCall({
+          lead: { id: this.props.params.id },
+          leadGroup: this.props.params.lgid,
+          script: this.props.params.sid,
+          title: this.props.params.title
         });
       });
   }
@@ -26,10 +31,10 @@ class NextCallView extends Component {
   render() {
     return (
       <CardRight>
-        {this.props.leadGroup &&
+        {this.props.lead &&
           <div>
             <div className="f3 tc mt4">start next call with</div>
-            <div className="f1 tc mt4">{this.props.leadGroup.attributes.leads[this.props.leadGroupIndex].attributes.name || 'biff baff'}</div>
+            <div className="f1 tc mt4">{this.props.lead.attributes.name || 'Lead Name'}</div>
           </div>}
         <HSButton
           classOverrides="items-center mt4 mb4"
@@ -42,16 +47,13 @@ class NextCallView extends Component {
   }
 }
 
-const mapStateToProps = ({ CallReducer }) => {
+const mapStateToProps = ({ LeadsReducer }) => {
   const {
-    leadGroup, leadGroupIndex, currentCall, leadGroupDetails
-  } = CallReducer;
+    lead
+  } = LeadsReducer;
   return {
-    leadGroup,
-    leadGroupIndex,
-    currentCall,
-    leadGroupDetails
+    lead
   };
 };
 
-export default connect(mapStateToProps, { startCall, fetchAndSetToken })(NextCallView);
+export default connect(mapStateToProps, { nextLeadGroupCall, fetchAndSetToken, fetchLead })(NextCallView);

@@ -42,15 +42,20 @@ class LeadDetailView extends Component {
               </CenterThis>
             </HalfGrid>
 
-            {lead && leadGroups && leadGroups.length > 0 &&
+
             <HalfGrid>
               <CenterThis>
                 <div className="pa4 w-100" >
-                  <LeadGroupForm lead={lead} myLeadGroups={myLeadGroups} leadGroups={leadGroups} />
+                  {lead && leadGroups && leadGroups.length > 0 ?
+                    <LeadGroupForm lead={lead} myLeadGroups={myLeadGroups} leadGroups={leadGroups} />
+                    :
+                    <div role="button" className="underline pointer tc mt6" onClick={() => browserHistory.push('/lead-groups-add')}>
+                      Create a lead group
+                    </div>}
                 </div>
               </CenterThis>
             </HalfGrid>
-          }
+
           </div>
           <HSButton backgroundColor={Colors.brandRed} onClick={() => this.handleDelete(lead.id)}>Delete Lead</HSButton>
         </div>

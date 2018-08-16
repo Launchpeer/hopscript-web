@@ -23,7 +23,7 @@ class BrokerageSignUpForm extends Component {
   }
 
   openPdf() {
-    window.open('./terms_pdf_example.pdf', '_blank', 'fullscreen=yes');
+    window.open('./terms.pdf', '_blank', 'fullscreen=yes');
   }
 
   render() {

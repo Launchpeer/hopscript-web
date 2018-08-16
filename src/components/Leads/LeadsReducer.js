@@ -18,6 +18,7 @@ import {
 
 const INITIAL_STATE = {
   error: '',
+  err: '',
   loading: false,
   lead: null,
   leads: [],
@@ -32,7 +33,7 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case LEADS_ERROR:
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, err: action.payload };
     case LEADS_CLEAR_ERROR:
       return { ...state, error: null };
     case LEADS_LOADING:
