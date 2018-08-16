@@ -112,33 +112,37 @@ class RecordAudio extends Component {
           }
 
           {audio && saved === false &&
-            <div className="flex flex-row">
-              <div
-                onClick={() => this.play()}
-                style={{ borderRadius: BorderRadius.all }}
-                className={playUI(playing)}
-                role="button">
-                <Play />
-                <div className="ph2">Play</div>
-              </div>
-              <div
-                onClick={() => this.stopPlay()}
-                style={{ borderRadius: BorderRadius.all }}
-                className="pointer mh3 pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
-                role="button">
-                <Square />
-                <div className="ph2">Stop</div>
+            <div className="flex flex-column">
+              <div className="flex flex-row">
+                <div
+                  onClick={() => this.play()}
+                  style={{ borderRadius: BorderRadius.all }}
+                  className={playUI(playing)}
+                  role="button">
+                  <Play />
+                  <div className="ph2">Play</div>
+                </div>
+                <div
+                  onClick={() => this.stopPlay()}
+                  style={{ borderRadius: BorderRadius.all }}
+                  className="pointer mh3 pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
+                  role="button">
+                  <Square />
+                  <div className="ph2">Stop</div>
 
-              </div>
-              <div
-                onClick={() => this.save()}
-                style={{ borderRadius: BorderRadius.all }}
-                className="pointer pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
-                role="button">
-                <Save />
-                <div className="ph2">Save</div>
+                </div>
+                <div
+                  onClick={() => this.save()}
+                  style={{ borderRadius: BorderRadius.all }}
+                  className="pointer pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
+                  role="button">
+                  <Save />
+                  <div className="ph2">Save</div>
 
+
+                </div>
               </div>
+              <div className="silver">* Playback during script builder might sound choppy until saved and used on a call.</div>
             </div>}
 
           {saved &&
