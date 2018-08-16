@@ -94,12 +94,20 @@ class QuestionBuilderForm extends Component {
               { record ?
                 <div className="w-80 pt4">
                   <RecordAudio saveAudio={this.saveAudio} />
-                  <div className="brand-green pointer pt2 underline" role="button" saveAudio={this.saveAudio} onClick={this.toggleRecord}>Switch to Upload Audio</div>
+                  <div className="brand-green pointer pt2 underline"
+                    role="button"
+                    saveAudio={this.saveAudio}
+                    onClick={this.toggleRecord}>
+                    Switch to Upload Audio
+                  </div>
                 </div>
                 :
                 <div className="w-80 pt4">
                   <InputAudio name="audio" />
-                  <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Record Audio</div>
+                  <div className="brand-green pointer pt2 underline"
+                    role="button" onClick={this.toggleRecord}>
+                    Switch to Record Audio
+                  </div>
                 </div>
               }
 
@@ -114,7 +122,12 @@ class QuestionBuilderForm extends Component {
               </div> }
 
             <div className="flex flex-row justify-end mt6 w-100">
-              <HSButton backgroundColor={Colors.white} borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>Add Answers</HSButton>
+              <HSButton backgroundColor={Colors.white}
+                borderColor={Colors.brandGreen}
+                borderWidth="1px" fontColor={Colors.brandGreen}
+                onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>
+                Add Answers
+              </HSButton>
               <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
 
             </div>
