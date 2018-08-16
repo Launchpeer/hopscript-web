@@ -12,11 +12,11 @@ import {
   InputTextArea,
   InputDropDown,
   InputAudio,
-  InputRecordAudio,
   LoaderOrThis,
   HSButton,
   InputNotesQuill
 } from '../../common';
+import { RecordAudio } from './';
 import { createNewQuestion, fetchScript, updateQuestion, recordAudio, stopRecord } from './ScriptBuilderActions';
 
 const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com/');
@@ -25,29 +25,52 @@ class QuestionBuilderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      saved: null
+      saved: null,
+      record: true,
+      audio: null
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.toggleRecord = this.toggleRecord.bind(this);
+    this.saveAudio = this.saveAudio.bind(this);
   }
 
 
   handleFormSubmit(data) {
-    this.props.updateQuestion({
-      data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
-    });
-    const time = () => {
-      const now = moment().format('h:mm a, MMM D Y');
-      return now;
-    };
-    this.setState({ saved: time() });
+    if (this.state.audio) {
+      this.props.updateQuestion({
+        data, description: this.props.text, audio: this.state.audio, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
+      });
+      const time = () => {
+        const now = moment().format('h:mm a, MMM D Y');
+        return now;
+      };
+      this.setState({ saved: time() });
+    } else {
+      this.props.updateQuestion({
+        data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
+      });
+      const time = () => {
+        const now = moment().format('h:mm a, MMM D Y');
+        return now;
+      };
+      this.setState({ saved: time() });
+    }
   }
 
+
+  toggleRecord() {
+    this.setState({ record: !this.state.record });
+  }
+
+  saveAudio(r) {
+    this.setState({ audio: r });
+  }
 
   render() {
     const {
       handleSubmit, loading, toggleStep, currentQuestion, handleNotesChange, text
     } = this.props;
-    const { saved } = this.state;
+    const { saved, record } = this.state;
     return (
       <div>
         <LoaderOrThis loading={loading}>
@@ -75,22 +98,31 @@ class QuestionBuilderForm extends Component {
                 />
               </div>
             </div>
-            {currentQuestion.attributes.audioURI ?
-              <div className="flex">
-                <div className="w-20">Audio</div>
-                <div className="w-80">
-                  <div className="ph3">
-                    {formatAudioName(currentQuestion.attributes.audioURI)}
-                  </div>
+            <div className="flex items-center justify-between">
+              <div className="w-20">Audio</div>
+
+              { record ?
+                <div className="w-80 pt4">
+                  <RecordAudio saveAudio={this.saveAudio} />
+                  <div className="brand-green pointer pt2 underline" role="button" saveAudio={this.saveAudio} onClick={this.toggleRecord}>Switch to Upload Audio</div>
                 </div>
-              </div> :
-              <div className="flex">
-                <div className="w-20">Audio</div>
-                <div className="w-80">
+                :
+                <div className="w-80 pt4">
                   <InputAudio name="audio" />
-                  <InputRecordAudio name="audio" record={this.props.recordAudio()} />
+                  <div className="brand-green pointer pt2 underline" role="button" onClick={this.toggleRecord}>Switch to Record Audio</div>
                 </div>
-              </div>}
+              }
+
+
+            </div>
+            {currentQuestion.attributes.audioURI &&
+              <div className="flex">
+                <div className="w-20" />
+                <div className="w-80">
+                    Existing audio file attached. Record or upload to overwrite.
+                </div>
+              </div> }
+
             <div className="flex flex-row justify-end mt6 w-100">
               <HSButton backgroundColor={Colors.white} borderColor={Colors.brandGreen} borderWidth="1px" fontColor={Colors.brandGreen} onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>Add Answers</HSButton>
               <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
