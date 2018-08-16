@@ -17,9 +17,8 @@ import {
   InputNotesQuill
 } from '../../common';
 import { RecordAudio } from './';
-import { createNewQuestion, fetchScript, updateQuestion, recordAudio, stopRecord } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript, updateQuestion, recordAudio } from './ScriptBuilderActions';
 
-const formatAudioName = audio => audio.split('https://hopscript.s3.amazonaws.com/');
 
 class QuestionBuilderForm extends Component {
   constructor(props) {
@@ -157,5 +156,5 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  createNewQuestion, fetchScript, updateQuestion, recordAudio, stopRecord
+  createNewQuestion, fetchScript, updateQuestion, recordAudio
 })(Form);
