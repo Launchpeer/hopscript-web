@@ -54,14 +54,14 @@ class InCallView extends Component {
   }
 
   handleHangUp() {
-    const leadGroupList = this.props.leadGroup.attributes.leads.map(lead => lead.id);
-    const nextLeadIdx = (leadGroupList.indexOf(this.props.currentCall.attributes.lead.id) + 1);
     const endTime = new Date().getTime();
     const data = { lastContact: endTime, lastCallTitle: this.props.currentCall.attributes.title, lastCallNotes: this.state.text };
     Twilio.Device.disconnectAll();
     Twilio.Device.destroy();
     this.props.updateLead(data, this.props.currentCall.attributes.lead.id);
     if (this.props.callType === 'leadGroup') {
+      const leadGroupList = this.props.leadGroup.attributes.leads.map(lead => lead.id);
+      const nextLeadIdx = (leadGroupList.indexOf(this.props.currentCall.attributes.lead.id) + 1);
       this.props.hangUpCall(this.props.params.id, this.state.text, endTime, this.state.noAnswer, this.props.leadGroup.id);
       if (this.props.leadGroup.attributes.leads[nextLeadIdx]) {
         browserHistory.push(`/next-call/${this.props.leadGroup.attributes.leads[nextLeadIdx].id}/${this.props.leadGroup.id}/${this.props.currentCall.attributes.script.id}/${this.props.currentCall.attributes.title}`);
