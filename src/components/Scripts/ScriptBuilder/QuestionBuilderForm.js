@@ -39,20 +39,11 @@ class QuestionBuilderForm extends Component {
       this.props.updateQuestion({
         data, description: this.props.text, audio: this.state.audio, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
       });
-      const time = () => {
-        const now = moment().format('h:mm a, MMM D Y');
-        return now;
-      };
-      this.setState({ saved: time() });
+      this.setState({ saved: moment().format('h:mm a, MMM D Y'); });
     } else {
       this.props.updateQuestion({
         data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
-      });
-      const time = () => {
-        const now = moment().format('h:mm a, MMM D Y');
-        return now;
-      };
-      this.setState({ saved: time() });
+    this.setState({ saved: moment().format('h:mm a, MMM D Y'); });
     }
   }
 
