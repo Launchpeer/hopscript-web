@@ -39,11 +39,12 @@ class QuestionBuilderForm extends Component {
       this.props.updateQuestion({
         data, description: this.props.text, audio: this.state.audio, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
       });
-      this.setState({ saved: moment().format('h:mm a, MMM D Y'); });
+      this.setState({ saved: moment().format('h:mm a, MMM D Y') });
     } else {
       this.props.updateQuestion({
         data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
-    this.setState({ saved: moment().format('h:mm a, MMM D Y'); });
+      });
+      this.setState({ saved: moment().format('h:mm a, MMM D Y') });
     }
   }
 
@@ -105,7 +106,8 @@ class QuestionBuilderForm extends Component {
                 <div className="w-80 pt4">
                   <InputAudio name="audio" />
                   <div className="brand-green pointer pt2 underline"
-                    role="button" onClick={this.toggleRecord}>
+                    role="button"
+                    onClick={this.toggleRecord}>
                     Switch to Record Audio
                   </div>
                 </div>
@@ -124,7 +126,8 @@ class QuestionBuilderForm extends Component {
             <div className="flex flex-row justify-end mt6 w-100">
               <HSButton backgroundColor={Colors.white}
                 borderColor={Colors.brandGreen}
-                borderWidth="1px" fontColor={Colors.brandGreen}
+                borderWidth="1px"
+                fontColor={Colors.brandGreen}
                 onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>
                 Add Answers
               </HSButton>
