@@ -24,6 +24,13 @@ class LeadsAddForm extends Component {
     this.clearError = this.clearError.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.leadsListSuccess) {
+      browserHistory.push('/leads-list');
+    }
+  }
+
   componentWillMount() {
     this.props.fetchLeadGroups();
   }
@@ -148,10 +155,11 @@ class LeadsAddForm extends Component {
 }
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { error, leadGroups } = LeadsReducer;
+  const { error, leadGroups, leadsListSuccess } = LeadsReducer;
   return {
     error,
-    leadGroups
+    leadGroups,
+    leadsListSuccess
   };
 };
 
