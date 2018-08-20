@@ -34,7 +34,7 @@ const renderInput = (field) => {
             {...input}
             type={type}
             placeholder={placeholder}
-            className="w-100 pa2 f3 flex items-start bn"
+            className="w-100 pa2 f5 flex items-start bn"
             style={{
               color: fontColor || Colors['darkGrey'],
               borderRadius: BorderRadius.all

@@ -47,7 +47,7 @@ class BrokerageSignUpForm extends Component {
             type="password"
             label="password"
             placeholder="Password" />
-          <div className="tc center w-100 mb4 moonGray">
+          <div className="tc center f6 w-100 mb3 moonGray">
               * By clicking Create Account, you agree to our
             <div className="brand-primary pointer w-100"
               role="button"
@@ -56,7 +56,7 @@ class BrokerageSignUpForm extends Component {
                 Terms of Service, Privacy Policy, and End User Agreement
             </div>
           </div>
-          <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
+          <Button classOverrides="w-100 f4" backgroundColor={Colors.brandPrimary}>
             Create Account
           </Button>
           <RenderAlert error={error} />

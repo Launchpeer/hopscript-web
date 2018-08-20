@@ -33,7 +33,7 @@ class SignInForm extends Component {
             type="password"
             label="password"
             placeholder="Password" />
-          <Button classOverrides="w-100" backgroundColor={Colors.brandPrimary}>
+          <Button classOverrides="w-100 f4 mt3" backgroundColor={Colors.brandPrimary}>
             Log In
           </Button>
           <RenderAlert error={error} />

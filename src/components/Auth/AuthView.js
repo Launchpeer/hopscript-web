@@ -26,7 +26,7 @@ const SignIn = (
 const SignUp = (
   <div className="tc">
     <div
-      className="underline pointer dib f3"
+      className="underline pointer dib f5"
       onClick={() => { browserHistory.push('/signup'); }}
       role="button"
       style={{ color: Colors.brandPrimary }} >
@@ -45,39 +45,33 @@ class AuthView extends Component {
     return (
       <FullScreenContainer color={Colors.nearWhite}>
         { this.props.route.authType !== 'signin' && SignIn }
-        <div className="w-100">
+        <div className="w-100 mt5">
           <CenterThis>
-            <div className="w-40-l mw6 mt6 mb5">
+            <div className="w-30-l mt4 mb4">
               <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
-            {this.props.route.authType === 'signin' ?
-              <div className="w-40-l mw6">
-                <Card
-                  classOverrides="mb4 bg-white"
-                  boxShadow
-                  bottomContent={SignUp}
-                  bottomColor="lightGray" >
-                  <SignInForm />
-                </Card>
-                <CenterThis>
-                  <div
-                    className="underline pointer dib p5 mb7 f3 "
-                    style={{ color: Colors.gray }}
-                    role="button"
-                    onClick={() => browserHistory.push('/forgot-password')}
-                    onKeyPress={() => browserHistory.push('/forgot-password')} >
+            <div className="w-30-l">
+              <Card
+                classOverrides="mb4 bg-white"
+                boxShadow
+                bottomContent={this.props.route.authType === 'signin' ? SignUp : null}
+                bottomColor="lightGray" >
+                {this.props.route.authType === 'signin' ? <SignInForm /> : <BrokerageSignUpForm /> }
+              </Card>
+              {this.props.route.authType === 'signin' &&
+              <CenterThis>
+                <div
+                  className="underline pointer dib p5 mb4 f5 "
+                  style={{ color: Colors.gray }}
+                  role="button"
+                  onClick={() => browserHistory.push('/forgot-password')}
+                  onKeyPress={() => browserHistory.push('/forgot-password')} >
                     Forgot your password?
-                  </div>
-                </CenterThis>
-              </div> :
-              <div className="w-40-l mw6">
-                <Card classOverrides="mb5 pl3 pr3 pt3 bg-white" boxShadow >
-                  <BrokerageSignUpForm />
-                </Card>
-              </div>
-            }
+                </div>
+              </CenterThis> }
+            </div>
           </CenterThis>
         </div>
       </FullScreenContainer>
