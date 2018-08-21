@@ -4,6 +4,7 @@
 */
 
 const parsePhone = (value) => {
+  if (!value) return;
   if (value.indexOf('+1') === 0) {
     // removing US country identifier //
     value = value.substring(2);

@@ -35,7 +35,7 @@ class LeadsCSVForm extends Component {
   }
 
   openCsv() {
-    window.open('./csvexample.csv', '_blank', 'fullscreen=yes');
+    window.open('./csvexample.csv');
   }
 
   toggleModal() {
@@ -54,7 +54,7 @@ class LeadsCSVForm extends Component {
             <div className="pa4 tc">
               Your CSV file should have two columns: "name", and "phone".
               Using headers with different spelling will cause an error during upload (for example, using "lead" instead of "name")
-              <div className="brand-green underline pointer f6 mb4" role="button" onClick={() => this.openCsv()}>CSV Example</div>
+              <div className="brand-green underline pointer f6 mb4" role="button" onClick={() => this.openCsv()}>Download CSV Example</div>
             </div>
 
           </ModalCard>

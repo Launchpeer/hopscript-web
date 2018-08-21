@@ -15,7 +15,7 @@ const Card = (props) => {
         }}
       >
         <div
-          className="w-100 pa4  bg-white"
+          className="w-100 pa4 bg-white"
           style={{
             borderRadius: BorderRadius.all
           }}
@@ -34,7 +34,7 @@ const Card = (props) => {
       }}
     >
       <div
-        className="w-100 pt5 pl5 pr5 pb4 bg-white"
+        className="w-100 pt5 ph4 pb4 bg-white"
         style={{
           borderRadius: BorderRadius.top
         }}
