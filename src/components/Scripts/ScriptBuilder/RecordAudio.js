@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Microm from 'microm';
-import { Play, Square, Save } from 'react-feather';
+import { Play, Square, Save, X } from 'react-feather';
 import { MicrophoneIcon } from '../../common';
 import { BorderRadius, Colors } from '../../../config/styles';
+import { toggleDisableGlossary } from './ScriptBuilderActions';
 
 const microm = new Microm();
 
@@ -42,6 +44,7 @@ class RecordAudio extends Component {
     microm.record().then(() => {
       this.setState({ recording: true });
     });
+    this.props.toggleDisableGlossary(true);
   }
 
 
@@ -70,6 +73,7 @@ class RecordAudio extends Component {
 
   save() {
     this.setState({ saved: true });
+    this.props.toggleDisableGlossary(false);
   }
 
   reRecord() {
@@ -79,6 +83,7 @@ class RecordAudio extends Component {
       saved: false,
       playing: false
     });
+    this.props.toggleDisableGlossary(false);
   }
 
   render() {
@@ -125,7 +130,7 @@ class RecordAudio extends Component {
                 <div
                   onClick={() => this.stopPlay()}
                   style={{ borderRadius: BorderRadius.all }}
-                  className="pointer mh3 pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
+                  className="pointer ml3 pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
                   role="button">
                   <Square />
                   <div className="ph2">Stop</div>
@@ -134,15 +139,23 @@ class RecordAudio extends Component {
                 <div
                   onClick={() => this.save()}
                   style={{ borderRadius: BorderRadius.all }}
-                  className="pointer pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
+                  className="pointer mh3 pv2 ph3 w4 tc ba b--brand-green bg-brand-green white flex flex-row items-center justify-center"
                   role="button">
                   <Save />
                   <div className="ph2">Save</div>
 
 
                 </div>
+                <div
+                  onClick={() => this.reRecord()}
+                  style={{ borderRadius: BorderRadius.all }}
+                  className="pointer pv2 ph3 w4 tc ba b--dark-red dark-red flex flex-row items-center justify-center"
+                  role="button">
+                  <X />
+                  <div className="ph2">Cancel</div>
+                </div>
               </div>
-              <div className="silver">* Playback during script builder might sound choppy until saved and used on a call.</div>
+              <div className="silver f6">* Playback during script builder might sound choppy until saved and used on a call.</div>
             </div>}
 
           {saved &&
@@ -159,4 +172,8 @@ class RecordAudio extends Component {
     );
   }
 }
-export default RecordAudio;
+
+
+export default connect(null, {
+  toggleDisableGlossary
+})(RecordAudio);

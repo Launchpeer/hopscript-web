@@ -17,7 +17,7 @@ import {
   InputNotesQuill
 } from '../../common';
 import { RecordAudio } from './';
-import { createNewQuestion, fetchScript, updateQuestion, recordAudio } from './ScriptBuilderActions';
+import { createNewQuestion, fetchScript, updateQuestion, recordAudio, } from './ScriptBuilderActions';
 
 
 class QuestionBuilderForm extends Component {
@@ -32,7 +32,6 @@ class QuestionBuilderForm extends Component {
     this.toggleRecord = this.toggleRecord.bind(this);
     this.saveAudio = this.saveAudio.bind(this);
   }
-
 
   handleFormSubmit(data) {
     if (this.state.audio) {
@@ -50,7 +49,7 @@ class QuestionBuilderForm extends Component {
 
 
   toggleRecord() {
-    this.setState({ record: !this.state.record });
+    this.setState({ record: !this.state.record, audio: null });
   }
 
   saveAudio(r) {
@@ -94,7 +93,7 @@ class QuestionBuilderForm extends Component {
 
               { record ?
                 <div className="w-80 pt4">
-                  <RecordAudio saveAudio={this.saveAudio} />
+                  <RecordAudio saveAudio={this.saveAudio} disableGlossary={this.toggleDisableGlossary} />
                   <div className="brand-green pointer pt2 underline"
                     role="button"
                     saveAudio={this.saveAudio}
@@ -158,10 +157,10 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
     initialValues: currentQuestion.attributes,
     currentQuestion,
     currentScript,
-    questions
+    questions,
   };
 };
 
 export default connect(mapStateToProps, {
-  createNewQuestion, fetchScript, updateQuestion, recordAudio
+  createNewQuestion, fetchScript, updateQuestion, recordAudio,
 })(Form);
