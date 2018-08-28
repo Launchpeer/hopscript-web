@@ -64,16 +64,17 @@ class GlossaryListItem extends Component {
   render() {
     const { hover, modalOpen } = this.state;
     const {
-      question, setCurrentQuestion, currentQuestion, currentScript
+      question, setCurrentQuestion, currentQuestion, currentScript, disableGlossary
     } = this.props;
     return (
       <div role="button"
-        className="flex justify-between items-center pointer mb2 pv2 list-hover"
+        className="flex justify-between items-center  mb2 pv2 list-hover"
+        style={{ cursor: `${disableGlossary ? 'not-allowed' : 'pointer'}` }}
         onMouseOut={() => this.mouseOut()}
         onBlur={() => this.mouseOut()}
         onMouseOver={() => this.mouseOver()}
         onFocus={() => this.mouseOver()}
-        onClick={() => setCurrentQuestion(question)}>
+        onClick={() => { disableGlossary === false && setCurrentQuestion(question); }}>
 
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>

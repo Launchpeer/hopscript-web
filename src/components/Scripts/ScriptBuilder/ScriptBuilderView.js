@@ -102,7 +102,7 @@ class ScriptBuilderView extends Component {
   render() {
     const { currentStep } = this.state;
     const {
-      currentScript, currentQuestion, questions, creatingNewQuestion
+      currentScript, currentQuestion, questions, creatingNewQuestion, disableGlossary
     } = this.props;
     return (
       <CardRight>
@@ -125,6 +125,7 @@ class ScriptBuilderView extends Component {
                 questions={questions}
                 step={currentStep}
                 currentQuestion={currentQuestion}
+                disableGlossary={disableGlossary}
                 toggle={this.toggleStep}
                 setCurrentQuestion={this.setCurrentQuestion}
                 onClick={() => this.newQuestion(currentScript)}
@@ -166,13 +167,14 @@ class ScriptBuilderView extends Component {
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
-    currentScript, currentQuestion, questions, creatingNewQuestion
+    currentScript, currentQuestion, questions, creatingNewQuestion, disableGlossary
   } = ScriptBuilderReducer;
   return {
     currentScript,
     currentQuestion,
     questions,
-    creatingNewQuestion
+    creatingNewQuestion,
+    disableGlossary
   };
 };
 

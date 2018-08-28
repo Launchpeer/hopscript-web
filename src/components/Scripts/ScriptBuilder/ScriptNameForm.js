@@ -18,7 +18,7 @@ class ScriptNameForm extends Component {
   }
 
   render() {
-    const { name, handleSubmit } = this.props;
+    const { name, handleSubmit, disableGlossary } = this.props;
     return (
       <div>
         <form>
@@ -28,6 +28,7 @@ class ScriptNameForm extends Component {
             placeholder={name || "Script Name Here"}
             editOrThis={<Edit2 />}
             fontSize="f3"
+            noEdit={disableGlossary}
             onSubmit={handleSubmit(this.handleFormSubmit)}
           />
         </form>
@@ -36,8 +37,17 @@ class ScriptNameForm extends Component {
   }
 }
 
+const mapStateToProps = ({ ScriptBuilderReducer }) => {
+  const {
+    disableGlossary
+  } = ScriptBuilderReducer;
+  return {
+    disableGlossary
+  };
+};
+
 export default reduxForm({
   form: 'updateScriptNameForm'
-})(connect(null, {
+})(connect(mapStateToProps, {
   updateScript
 })(ScriptNameForm));

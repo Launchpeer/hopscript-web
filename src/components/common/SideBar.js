@@ -6,6 +6,7 @@ import { User } from 'react-feather';
 import { Colors } from '../../config/styles';
 import { CenterThis, KangarooIcon, CallIcon, PeopleIcon, HistoryIcon, ScriptIcon } from './';
 
+
 const PathsWithoutSideBarContent = [
   '/',
   '/signup',
@@ -67,12 +68,12 @@ const textColor = (current, route) => {
   return Colors.brandSecondary;
 };
 
-const userButton = (user, route) => (
+const userButton = (user, route, disableGlossary) => (
   <div
     role="button"
-    style={{ cursor: route.includes('in-call') ? 'not-allowed' : 'pointer' }}
+    style={{ cursor: route.includes('in-call') || disableGlossary === true ? 'not-allowed' : 'pointer' }}
     className="fixed bottom-1 mb2"
-    onClick={() => !route.includes('in-call') && (user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'))}>
+    onClick={() => !route.includes('in-call') && disableGlossary === false && (user.attributes.role === 'agent' ? browserHistory.push('agent-profile') : browserHistory.push('brokerage-profile'))}>
     <div
       className="bg-white br-100 flex items-center justify-center ml2 mr2"
       style={{
@@ -84,16 +85,17 @@ const userButton = (user, route) => (
   </div>
 );
 
-const mapSidebarContent = (user, route) => {
+const mapSidebarContent = (user, route, disableGlossary) => {
   const items = user === 'agent' ? agentItems : brokerItems;
   return (
     items.map(item => (
       <div
         key={item.label}
         role="button"
-        style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route), cursor: route.includes('in-call') ? 'not-allowed' : 'pointer' }}
+        style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route), cursor: route.includes('in-call') || disableGlossary === true ? 'not-allowed' : 'pointer' }}
         onClick={() =>
-        !route.includes('in-call') && browserHistory.push(item.route)
+        !route.includes('in-call') && disableGlossary === false &&
+         browserHistory.push(item.route)
         } >
         <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
           <div className="tc">
@@ -108,7 +110,7 @@ const mapSidebarContent = (user, route) => {
 };
 
 
-const SideBar = ({ route, user }) => (
+const SideBar = ({ route, user, disableGlossary }) => (
   <div>
     {!(_.contains(PathsWithoutSideBarContent, route)) &&
       <div className="fl w-100" style={{ backgroundColor: Colors.brandPrimary, height: '100vh' }} >
@@ -119,9 +121,9 @@ const SideBar = ({ route, user }) => (
             </div>
           </div>
           <div className="ba brand-primary-shade" style={{ backgroundColor: Colors.brandPrimaryShade }} />
-          {mapSidebarContent(user.attributes.role, route)}
+          {mapSidebarContent(user.attributes.role, route, disableGlossary)}
           <CenterThis>
-            {userButton(user, route)}
+            {userButton(user, route, disableGlossary)}
           </CenterThis>
         </div>
       </div>
@@ -129,10 +131,12 @@ const SideBar = ({ route, user }) => (
   </div>
 );
 
-const mapStateToProps = ({ UserReducer }) => {
+const mapStateToProps = ({ UserReducer, ScriptBuilderReducer }) => {
   const { user } = UserReducer;
+  const { disableGlossary } = ScriptBuilderReducer;
   return {
-    user
+    user,
+    disableGlossary
   };
 };
 

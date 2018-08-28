@@ -119,7 +119,8 @@ class InputTextEditable extends Component {
       cash,
       noEdit,
       editOrThis,
-      fontSize
+      fontSize,
+      disabled
     } = this.props;
     return (
       <div className={`w-100 input-height ${classOverrides}`}>

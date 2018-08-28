@@ -9,7 +9,8 @@ import {
   CURRENT_SCRIPT_UPDATE,
   QUESTIONS_UPDATE,
   CREATING_NEW_QUESTION_UPDATE,
-  UPDATE_CURRENT_ANSWER
+  UPDATE_CURRENT_ANSWER,
+  DISABLE_GLOSSARY
 } from './ScriptBuilderTypes';
 
 const INITIAL_STATE = {
@@ -17,7 +18,8 @@ const INITIAL_STATE = {
   currentScript: null,
   questions: [],
   creatingNewQuestion: false,
-  currentAnswer: null
+  currentAnswer: null,
+  disableGlossary: false
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -44,6 +46,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, creatingNewQuestion: action.payload };
     case UPDATE_CURRENT_ANSWER:
       return { ...state, currentAnswer: action.payload };
+    case DISABLE_GLOSSARY:
+      return { ...state, disableGlossary: action.payload };
     default:
       return state;
   }
