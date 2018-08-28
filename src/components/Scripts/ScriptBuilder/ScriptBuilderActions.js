@@ -236,13 +236,29 @@ const updateScript = (data, scriptId) => (dispatch) => {
 };
 
 const updateQuestion = ({
-  data, description, questionId, scriptId
+  data, description, questionId, scriptId, audio
 }) => (dispatch) => {
   const updateData = _.omit(data, 'answers');
-  Parse.Cloud.run('updateQuestion', { data: { ...updateData, description }, questionId, scriptId })
-    .then((res) => {
-      dispatch(currentScriptUpdate(res));
-    });
+  console.log('updatedata', updateData.audio);
+  console.log('audio', audio);
+  if (updateData.audio) {
+    _createNewAudio(updateData.audio)
+      .then((parseAudio) => {
+        delete updateData.audio;
+        Parse.Cloud.run('updateQuestion', { data: { ...updateData, audioURI: parseAudio._url, description }, questionId, scriptId })
+          .then((res) => {
+            dispatch(currentScriptUpdate(res));
+          });
+      });
+  } else if (audio) {
+    _createNewAudioB64(audio)
+      .then((parseAudio) => {
+        Parse.Cloud.run('updateQuestion', { data: { ...updateData, audioURI: parseAudio._url, description }, questionId, scriptId })
+          .then((res) => {
+            dispatch(currentScriptUpdate(res));
+          });
+      });
+  }
 };
 
 const uploadRecordedAudio = ({
