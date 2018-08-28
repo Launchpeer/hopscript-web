@@ -16,7 +16,8 @@ import {
   CURRENT_SCRIPT_UPDATE,
   QUESTIONS_UPDATE,
   CREATING_NEW_QUESTION_UPDATE,
-  UPDATE_CURRENT_ANSWER
+  UPDATE_CURRENT_ANSWER,
+  DISABLE_GLOSSARY
 } from './ScriptBuilderTypes';
 
 function _clearError() {
@@ -239,8 +240,6 @@ const updateQuestion = ({
   data, description, questionId, scriptId, audio
 }) => (dispatch) => {
   const updateData = _.omit(data, 'answers');
-  console.log('updatedata', updateData.audio);
-  console.log('audio', audio);
   if (updateData.audio) {
     _createNewAudio(updateData.audio)
       .then((parseAudio) => {
@@ -248,16 +247,16 @@ const updateQuestion = ({
         Parse.Cloud.run('updateQuestion', { data: { ...updateData, audioURI: parseAudio._url, description }, questionId, scriptId })
           .then((res) => {
             dispatch(currentScriptUpdate(res));
-          });
-      });
+          }).catch(err => console.log("UPDATE SCRIPT ERR", err));
+      }).catch(err => console.log('AUDIO UPLOAD ERR', err));
   } else if (audio) {
     _createNewAudioB64(audio)
       .then((parseAudio) => {
         Parse.Cloud.run('updateQuestion', { data: { ...updateData, audioURI: parseAudio._url, description }, questionId, scriptId })
           .then((res) => {
             dispatch(currentScriptUpdate(res));
-          });
-      });
+          }).catch(err => console.log("UPDATE SCRIPT ERR", err));
+      }).catch(err => console.log('AUDIO UPLOAD ERR', err));
   }
 };
 
@@ -298,6 +297,12 @@ const setCurrentAnswer = answer => (dispatch) => {
   });
 };
 
+const toggleDisableGlossary = boolean => (dispatch) => {
+  dispatch({
+    type: DISABLE_GLOSSARY,
+    payload: boolean
+  });
+};
 
 export {
   fetchScript,
@@ -314,5 +319,6 @@ export {
   toggleCreationState,
   deleteQuestion,
   setCurrentAnswer,
-  uploadRecordedAudio
+  uploadRecordedAudio,
+  toggleDisableGlossary
 };
