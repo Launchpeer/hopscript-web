@@ -15,7 +15,7 @@ import {
   LoaderOrThis
 } from '../../common';
 import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
-import { fetchLeads, fetchLeadGroups } from '../../Leads/LeadsActions';
+import { fetchLeads, fetchLeadGroups, fetchNextLeads } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall, startLeadGroupCalls, fetchAndSetToken } from '../CallActions';
 
@@ -51,7 +51,9 @@ class StartCallView extends Component {
       leadGroups,
       error,
       change,
-      loading
+      loading,
+      moreLeads,
+      moreLeadsLoading
     } = this.props;
     return (
       <LoaderOrThis loading={loading}>
@@ -69,6 +71,9 @@ class StartCallView extends Component {
                   leads={leads}
                   selectedGroup={!this.state.selectedGroup}
                   leadLoaded={this.state.lead}
+                  moreLeads={moreLeads}
+                  moreLeadsLoading={moreLeadsLoading}
+                  fetchNextLeads={this.props.fetchNextLeads}
                   onClick={() => { this.setState({ selectedGroup: false }); change('leadGroup', null); }}
                   selectLead={(lead) => { change('lead', lead); this.setState({ lead }); }}
                   removeLead={() => { change('lead', null); this.setState({ lead: null }); }}
@@ -121,7 +126,9 @@ function validate(values) {
 }
 
 const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
-  const { leads, leadGroups } = LeadsReducer;
+  const {
+    leads, leadGroups, moreLeads, moreLeadsLoading
+  } = LeadsReducer;
   const { scripts } = ScriptsListReducer;
   const { token, loading } = CallReducer;
   return {
@@ -129,7 +136,9 @@ const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
     scripts,
     leadGroups,
     token,
-    loading
+    loading,
+    moreLeads,
+    moreLeadsLoading
   };
 };
 
@@ -137,5 +146,5 @@ export default reduxForm({
   form: 'callForm',
   validate
 })(connect(mapStateToProps, {
-  fetchLeads, fetchScripts, startCall, fetchLeadGroups, startLeadGroupCalls, fetchAndSetToken
+  fetchLeads, fetchScripts, startCall, fetchLeadGroups, startLeadGroupCalls, fetchAndSetToken, fetchNextLeads
 })(StartCallView));

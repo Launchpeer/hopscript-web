@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { LoaderOrThis, Button } from '../../common';
+import { LoaderOrThis } from '../../common';
 import { fetchLeads, fetchNextLeads, deleteLead } from '../LeadsActions';
 import { LeadsListItem } from './';
 import { LeadNavCard } from '../';
