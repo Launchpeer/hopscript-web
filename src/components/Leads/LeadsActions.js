@@ -17,6 +17,8 @@ import {
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
   CLEAR_LEADS_TO_ADD,
+  CSV_LOADING,
+  CSV_LOAD_END
 } from './LeadsTypes';
 
 
@@ -42,6 +44,18 @@ function _leadsLoading() {
 function _leadLoadEnd() {
   return {
     type: LEADS_LOAD_END
+  };
+}
+
+function _csvLoading() {
+  return {
+    type: CSV_LOADING
+  };
+}
+
+function _csvLoadEnd() {
+  return {
+    type: CSV_LOAD_END
   };
 }
 
@@ -399,13 +413,13 @@ function _createAndReconcileLead(lead) {
  */
 
 const parseCSV = data => (dispatch) => {
-  dispatch(_leadsLoading());
+  dispatch(_csvLoading());
   _parseCSV(data)
     .then((results) => {
       Promise.all(results.map(lead => _createAndReconcileLead(lead)))
         .then(() => {
           dispatch(fetchUser());
-          dispatch(_leadsLoading());
+          dispatch(_csvLoadEnd());
           dispatch(_leadListSuccess(true));
           setTimeout(() => {
             dispatch(_leadListSuccess(false));
