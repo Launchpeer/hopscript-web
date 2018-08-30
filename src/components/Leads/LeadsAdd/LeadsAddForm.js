@@ -25,7 +25,6 @@ class LeadsAddForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.leadsListSuccess) {
       browserHistory.push('/leads-list');
     }
