@@ -14,3 +14,5 @@ export const CLEAR_LEADS_TO_ADD = 'CLEAR_LEADS_TO_ADD';
 export const LEADS_LIST_SUCCESS = 'LEADS_LIST_SUCCESS';
 export const CSV_LOADING = "CSV_LOADING";
 export const CSV_LOAD_END = "CSV_LOAD_END";
+export const MORE_LEADS = "MORE_LEADS";
+export const MORE_LEADS_LOADING = "MORE_LEADS_LOADING";
