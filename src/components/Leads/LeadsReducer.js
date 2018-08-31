@@ -12,7 +12,11 @@ import {
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
   CLEAR_LEADS_TO_ADD,
-  LEADS_LIST_SUCCESS
+  LEADS_LIST_SUCCESS,
+  CSV_LOADING,
+  CSV_LOAD_END,
+  MORE_LEADS,
+  MORE_LEADS_LOADING
 } from './LeadsTypes';
 
 
@@ -20,6 +24,7 @@ const INITIAL_STATE = {
   error: '',
   err: '',
   loading: false,
+  csvLoading: false,
   lead: null,
   leads: [],
   leadGroup: null,
@@ -27,7 +32,9 @@ const INITIAL_STATE = {
   myLeadGroups: [],
   myLeads: [],
   leadsToAdd: [],
-  leadsListSuccess: false
+  leadsListSuccess: false,
+  moreLeadsLoading: false,
+  moreLeads: true
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -40,6 +47,10 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, loading: true };
     case LEADS_LOAD_END:
       return { ...state, loading: false };
+    case CSV_LOADING:
+      return { ...state, csvLoading: true };
+    case CSV_LOAD_END:
+      return { ...state, csvLoading: false };
     case LEAD_DETAIL_UPDATE:
       return { ...state, lead: action.payload };
     case LEAD_LIST_UPDATE:
@@ -60,6 +71,10 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, leadsToAdd: action.payload };
     case LEADS_LIST_SUCCESS:
       return { ...state, leadsListSuccess: action.payload };
+    case MORE_LEADS_LOADING:
+      return { ...state, moreLeadsLoading: action.payload };
+    case MORE_LEADS:
+      return { ...state, moreLeads: action.payload };
     default:
       return state;
   }

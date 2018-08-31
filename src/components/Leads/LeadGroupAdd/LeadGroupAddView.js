@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { CenterThis, Button, HalfGrid, InputText, RenderAlert } from '../../common';
 import { LeadGroupAddForm, LeadGroupLeadsList } from './';
-import { createLeadGroup, clearError, fetchLeads } from '../LeadsActions';
+import { createLeadGroup, clearError, fetchLeads, } from '../LeadsActions';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadNavCard } from '../';
 
@@ -70,7 +70,7 @@ class LeadGroupAddView extends Component {
                     <div className="pa4 w-100" >
                       <div className="b mb3">All Leads</div>
                       <div className="ba pa3 overflow-x-auto vh-50" style={{ borderColor: Colors.lightGray, borderRadius: BorderRadius.all }}>
-                        <LeadGroupLeadsList />
+                        <LeadGroupLeadsList leads={leads} fetchNextLeads={this.props.fetchNextLeads} />
                       </div>
                     </div>
                   </CenterThis>

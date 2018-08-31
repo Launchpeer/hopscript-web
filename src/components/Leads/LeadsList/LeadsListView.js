@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { LoaderOrThis } from '../../common';
-import { fetchLeads, deleteLead } from '../LeadsActions';
+import { fetchLeads, fetchNextLeads, deleteLead } from '../LeadsActions';
 import { LeadsListItem } from './';
 import { LeadNavCard } from '../';
 
 class LeadsListView extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      page: 1
+    };
     this.handleDelete = this.handleDelete.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchLeads();
   }
 
@@ -21,8 +25,16 @@ class LeadsListView extends Component {
     browserHistory.push('/leads-list');
   }
 
+  loadMore() {
+    const { page } = this.state;
+    this.props.fetchNextLeads(page, this.props.leads);
+    this.setState({ page: page + 1 });
+  }
+
   render() {
-    const { leads, location, loading } = this.props;
+    const {
+      leads, location, loading, moreLeads, moreLeadsLoading
+    } = this.props;
     return (
       <LeadNavCard location={location}>
         <div className="w-100">
@@ -30,6 +42,23 @@ class LeadsListView extends Component {
             {leads && leads.length > 0 ?
               <div className="w-100 mb5 mt4">
                 {leads.map(lead => <LeadsListItem lead={lead} key={lead.id} removeLead={() => this.handleDelete(lead.id)} />)}
+                {!moreLeadsLoading && moreLeads && (
+                  <div
+                    className="w-100 f4 pointer bg-brand-green white pv3 tc"
+                    style={{ borderRadius: '4px' }}
+                    role="button"
+                    onClick={() => this.loadMore()} >
+                  Load More Leads
+                  </div>
+
+                )}
+                {moreLeadsLoading && (
+                  <div className="greenspinner tc">
+                    <div className="bounce1 " />
+                    <div className="bounce2 " />
+                    <div className="bounce3 " />
+                  </div>
+                )}
               </div> :
               <div className="mt6 tc f4 pa3 silver">
                 <div className="mb6">
@@ -45,11 +74,15 @@ class LeadsListView extends Component {
 }
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { leads, loading } = LeadsReducer;
+  const {
+    leads, moreLeads, loading, moreLeadsLoading
+  } = LeadsReducer;
   return {
     leads,
+    moreLeads,
+    moreLeadsLoading,
     loading
   };
 };
 
-export default connect(mapStateToProps, { fetchLeads, deleteLead })(LeadsListView);
+export default connect(mapStateToProps, { fetchLeads, deleteLead, fetchNextLeads })(LeadsListView);

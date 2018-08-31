@@ -27,6 +27,7 @@ class SelectLead extends Component {
       search: ''
     };
     this.handleRemoveLead = this.handleRemoveLead.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
   handleRemoveLead() {
@@ -34,11 +35,19 @@ class SelectLead extends Component {
     this.setState({ search: '' });
   }
 
+  loadMore() {
+    const { page } = this.state;
+    this.props.fetchNextLeads(page, this.props.leads);
+    this.setState({ page: page + 1 });
+  }
+
   render() {
     const {
       leads,
       selectLead,
-      leadLoaded
+      leadLoaded,
+      moreLeads,
+      moreLeadsLoading
     } = this.props;
     return (
       <div className="mb4">
@@ -80,6 +89,23 @@ class SelectLead extends Component {
               </div>
               <div className="w-100 mt2">
                 {leads && <LeadsList leads={leads} search={this.state.search} selectLead={selectLead} />}
+                {!moreLeadsLoading && moreLeads && (
+                  <div
+                    className="w-100 f4 pointer bg-brand-green white pv3 tc"
+                    style={{ borderRadius: '4px' }}
+                    role="button"
+                    onClick={() => this.loadMore()} >
+                  Load More Leads
+                  </div>
+
+                )}
+                {moreLeadsLoading && (
+                  <div className="greenspinner tc">
+                    <div className="bounce1 " />
+                    <div className="bounce2 " />
+                    <div className="bounce3 " />
+                  </div>
+                )}
               </div>
             </div>
           : <div>{leadLoaded && <SelectedLeadItem lead={leadLoaded} removeLead={this.handleRemoveLead} />}</div>

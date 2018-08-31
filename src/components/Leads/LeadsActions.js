@@ -17,6 +17,10 @@ import {
   LEADS_TO_ADD,
   LEAD_LEADGROUP_UPDATE,
   CLEAR_LEADS_TO_ADD,
+  CSV_LOADING,
+  CSV_LOAD_END,
+  MORE_LEADS,
+  MORE_LEADS_LOADING
 } from './LeadsTypes';
 
 
@@ -42,6 +46,18 @@ function _leadsLoading() {
 function _leadLoadEnd() {
   return {
     type: LEADS_LOAD_END
+  };
+}
+
+function _csvLoading() {
+  return {
+    type: CSV_LOADING
+  };
+}
+
+function _csvLoadEnd() {
+  return {
+    type: CSV_LOAD_END
   };
 }
 
@@ -149,6 +165,39 @@ const fetchLeads = () => (dispatch) => {
     .catch((e) => {
       dispatch(_leadLoadEnd());
       dispatch(_leadsError(e));
+    });
+};
+
+function _showMoreLeads(value) {
+  return {
+    type: MORE_LEADS,
+    payload: value
+  };
+}
+
+function _moreLeadsLoading(value) {
+  return {
+    type: MORE_LEADS_LOADING,
+    payload: value
+  };
+}
+const fetchNextLeads = (pageNumber, leads) => (dispatch) => {
+  dispatch(_moreLeadsLoading(true));
+  const skip = pageNumber * 50;
+  Parse.Cloud.run("fetchNextLeads", { skip })
+    .then((r) => {
+      const allLeads = leads.concat(r);
+      dispatch(_leadListUpdate(allLeads));
+      if (r.length < 50) {
+        dispatch(_showMoreLeads(false));
+      } else {
+        dispatch(_showMoreLeads(true));
+      }
+      dispatch(_moreLeadsLoading(false));
+    }).catch((error) => {
+      dispatch(_leadsError(error));
+      dispatch(_showMoreLeads(true));
+      dispatch(_moreLeadsLoading(false));
     });
 };
 
@@ -399,13 +448,13 @@ function _createAndReconcileLead(lead) {
  */
 
 const parseCSV = data => (dispatch) => {
-  dispatch(_leadsLoading());
+  dispatch(_csvLoading());
   _parseCSV(data)
     .then((results) => {
       Promise.all(results.map(lead => _createAndReconcileLead(lead)))
         .then(() => {
           dispatch(fetchUser());
-          dispatch(_leadsLoading());
+          dispatch(_csvLoadEnd());
           dispatch(_leadListSuccess(true));
           setTimeout(() => {
             dispatch(_leadListSuccess(false));
@@ -438,5 +487,6 @@ export {
   updateLeadGroup,
   deleteLeadGroup,
   addLeadToGroup,
-  parseCSV
+  parseCSV,
+  fetchNextLeads
 };

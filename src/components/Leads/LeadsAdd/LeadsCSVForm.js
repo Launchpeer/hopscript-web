@@ -8,7 +8,7 @@ import { reduxForm } from 'redux-form';
 
 import { parseCSV } from '../LeadsActions';
 import { InputFile, Button, CSVIcon, ModalCard, RenderAlert } from '../../common';
-import { Colors } from '../../../config/styles';
+import { Colors, BorderRadius } from '../../../config/styles';
 
 const DropZoneIcon = (
   <div>
@@ -44,10 +44,11 @@ class LeadsCSVForm extends Component {
 
   render() {
     const {
-      handleSubmit, leadsListSuccess, error, err
+      handleSubmit, leadsListSuccess, error, err, csvLoading
     } = this.props;
     const { modalOpen } = this.state;
     return (
+
       <div>
         {modalOpen &&
           <ModalCard onClick={this.toggleModal}>
@@ -68,36 +69,41 @@ class LeadsCSVForm extends Component {
             type="text"
             dropzoneContents={DropZoneIcon}
         />
-          <Button
-            backgroundColor={Colors.brandGreen}
-            borderRadius="4px"
-            classOverrides="w-100 f4"
-            onClick={(e) => {
+          {csvLoading ?
+            <div className="w-100 f4 b--green-glow bg-brand-green white pv3 tc" style={{ borderRadius: BorderRadius.all }}>
+            Upload in progress...
+            </div> :
+            <Button
+              backgroundColor={Colors.brandGreen}
+              borderRadius="4px"
+              classOverrides="w-100 f4"
+              onClick={(e) => {
               if (error || err) {
                 e.preventDefault();
                 this.setState({ showError: true });
                }
             }}
             >
-            {leadsListSuccess ? "List Imported!" : "Submit List"}
-          </Button>
+              {leadsListSuccess ? "List Imported!" : "Submit List"}
+            </Button>}
           {this.state.showError && error &&
-            <div className="pa2">
-              <RenderAlert error={{ message: error }} />
-            </div>
+          <div className="pa2">
+            <RenderAlert error={{ message: error }} />
+          </div>
           }
           {err &&
-            <div className="flex flex-column tc">
-              <div className="pa2 red">
-                {err.message}
-              </div>
-              <div className="pointer underline" role="button" onClick={(e) => { e.preventDefault(); window.location.reload(); }}>
-              Reset form
-              </div>
+          <div className="flex flex-column tc">
+            <div className="pa2 red">
+              {err.message}
             </div>
+            <div className="pointer underline" role="button" onClick={(e) => { e.preventDefault(); window.location.reload(); }}>
+              Reset form
+            </div>
+          </div>
           }
         </form>
       </div>
+
     );
   }
 }
@@ -119,11 +125,14 @@ function validate(values) {
 
 
 const mapStateToProps = ({ LeadsReducer }) => {
-  const { leadsListSuccess, error, err } = LeadsReducer;
+  const {
+    leadsListSuccess, error, err, csvLoading
+  } = LeadsReducer;
   return {
     leadsListSuccess,
     error,
-    err
+    err,
+    csvLoading
   };
 };
 export default connect(mapStateToProps, {
