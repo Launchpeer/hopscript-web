@@ -451,16 +451,17 @@ const parseCSV = data => (dispatch) => {
   dispatch(_csvLoading());
   _parseCSV(data)
     .then((results) => {
-      Promise.all(results.map(lead => _createAndReconcileLead(lead)))
-        .then(() => {
-          dispatch(fetchUser());
-          dispatch(_csvLoadEnd());
-          dispatch(_leadListSuccess(true));
-          setTimeout(() => {
-            dispatch(_leadListSuccess(false));
-          }, 3000);
-        })
+      Parse.Cloud.run('createLeadFromCSV', { leadCSV: results }).then(() => {
+        console.log("good");
+        dispatch(fetchUser());
+        dispatch(_csvLoadEnd());
+        dispatch(_leadListSuccess(true));
+        setTimeout(() => {
+          dispatch(_leadListSuccess(false));
+        }, 3000);
+      })
         .catch((err) => {
+          console.log("Eerr", err);
           dispatch(_leadsError(err));
         });
     })
