@@ -462,19 +462,19 @@ const parseCSV = data => (dispatch) => {
     .then((results) => {
       console.log(results);
       dispatch(_leadCount(results.length));
-      // Parse.Cloud.run('createLeadFromCSV', { leadCSV: results }).then(() => {
-      //   dispatch(_leadCount(null));
-      //   dispatch(fetchUser());
-      //   dispatch(_csvLoadEnd());
-      //   dispatch(_leadListSuccess(true));
-      //   setTimeout(() => {
-      //     dispatch(_leadListSuccess(false));
-      //   }, 3000);
-      // })
-      //   .catch((err) => {
-      //     console.log("Eerr", err);
-      //     dispatch(_leadsError(err));
-      //   });
+      Parse.Cloud.run('createLeadFromCSV', { leadCSV: results }).then(() => {
+        dispatch(_leadCount(null));
+        dispatch(fetchUser());
+        dispatch(_csvLoadEnd());
+        dispatch(_leadListSuccess(true));
+        setTimeout(() => {
+          dispatch(_leadListSuccess(false));
+        }, 3000);
+      })
+        .catch((err) => {
+          console.log("Eerr", err);
+          dispatch(_leadsError(err));
+        });
     })
     .catch(() => {
       dispatch(_leadsError({

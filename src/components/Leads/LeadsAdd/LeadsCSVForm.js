@@ -58,7 +58,7 @@ class LeadsCSVForm extends Component {
 
   renderCounter() {
     const { accumulateCounter } = this;
-    for (let i = 0; i < this.props.leadCount; i++) {
+    for (let i = 0; i < this.props.leadCount + 1; i++) {
       (function (j) {
         setTimeout(() => {
           accumulateCounter(j);
