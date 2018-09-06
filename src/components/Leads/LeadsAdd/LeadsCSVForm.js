@@ -23,11 +23,20 @@ class LeadsCSVForm extends Component {
     super(props);
     this.state = {
       modalOpen: false,
-      showError: false
+      showError: false,
+      currentCount: 1
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.openCsv = this.openCsv.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.renderCounter = this.renderCounter.bind(this);
+    this.accumulateCounter = this.accumulateCounter.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.leadCount < this.props.leadCount) {
+      this.renderCounter();
+    }
   }
 
   handleFormSubmit(fields) {
@@ -42,9 +51,25 @@ class LeadsCSVForm extends Component {
     this.setState({ modalOpen: !this.state.modalOpen });
   }
 
+
+  accumulateCounter(i) {
+    this.setState({ currentCount: i });
+  }
+
+  renderCounter() {
+    const { accumulateCounter } = this;
+    for (let i = 0; i < this.props.leadCount; i++) {
+      (function (j) {
+        setTimeout(() => {
+          accumulateCounter(j);
+        }, 100 * j + Math.floor(Math.random() * 100));
+      }(i));
+    }
+  }
+
   render() {
     const {
-      handleSubmit, leadsListSuccess, error, err, csvLoading
+      handleSubmit, leadsListSuccess, error, err, csvLoading, leadCount
     } = this.props;
     const { modalOpen } = this.state;
     return (
@@ -72,6 +97,7 @@ class LeadsCSVForm extends Component {
           {csvLoading ?
             <div className="w-100 f4 b--green-glow bg-brand-green white pv3 tc" style={{ borderRadius: BorderRadius.all }}>
             Upload in progress...
+              {leadCount && <div>{`${this.state.currentCount}/${leadCount}`}</div>}
             </div> :
             <Button
               backgroundColor={Colors.brandGreen}
@@ -126,13 +152,14 @@ function validate(values) {
 
 const mapStateToProps = ({ LeadsReducer }) => {
   const {
-    leadsListSuccess, error, err, csvLoading
+    leadsListSuccess, error, err, csvLoading, leadCount
   } = LeadsReducer;
   return {
     leadsListSuccess,
     error,
     err,
-    csvLoading
+    csvLoading,
+    leadCount
   };
 };
 export default connect(mapStateToProps, {

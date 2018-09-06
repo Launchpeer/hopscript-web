@@ -16,3 +16,4 @@ export const CSV_LOADING = "CSV_LOADING";
 export const CSV_LOAD_END = "CSV_LOAD_END";
 export const MORE_LEADS = "MORE_LEADS";
 export const MORE_LEADS_LOADING = "MORE_LEADS_LOADING";
+export const LEAD_COUNT = "LEAD_COUNT";

@@ -16,6 +16,7 @@ import {
   CSV_LOADING,
   CSV_LOAD_END,
   MORE_LEADS,
+  LEAD_COUNT,
   MORE_LEADS_LOADING
 } from './LeadsTypes';
 
@@ -34,7 +35,8 @@ const INITIAL_STATE = {
   leadsToAdd: [],
   leadsListSuccess: false,
   moreLeadsLoading: false,
-  moreLeads: true
+  moreLeads: true,
+  leadCount: 0
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -57,6 +59,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, leads: action.payload };
     case LEAD_GROUP_DETAIL_UPDATE:
       return { ...state, leadGroup: action.payload };
+    case LEAD_COUNT:
+      return { ...state, leadCount: action.payload };
     case LEAD_GROUP_LIST_UPDATE:
       return { ...state, leadGroups: action.payload };
     case MY_LEAD_GROUPS:

@@ -20,6 +20,7 @@ import {
   CSV_LOADING,
   CSV_LOAD_END,
   MORE_LEADS,
+  LEAD_COUNT,
   MORE_LEADS_LOADING
 } from './LeadsTypes';
 
@@ -72,6 +73,14 @@ function _leadUpdate(l) {
 function _leadListUpdate(l) {
   return {
     type: LEAD_LIST_UPDATE,
+    payload: l
+  };
+}
+
+
+function _leadCount(l) {
+  return {
+    type: LEAD_COUNT,
     payload: l
   };
 }
@@ -451,19 +460,21 @@ const parseCSV = data => (dispatch) => {
   dispatch(_csvLoading());
   _parseCSV(data)
     .then((results) => {
-      Parse.Cloud.run('createLeadFromCSV', { leadCSV: results }).then(() => {
-        console.log("good");
-        dispatch(fetchUser());
-        dispatch(_csvLoadEnd());
-        dispatch(_leadListSuccess(true));
-        setTimeout(() => {
-          dispatch(_leadListSuccess(false));
-        }, 3000);
-      })
-        .catch((err) => {
-          console.log("Eerr", err);
-          dispatch(_leadsError(err));
-        });
+      console.log(results);
+      dispatch(_leadCount(results.length));
+      // Parse.Cloud.run('createLeadFromCSV', { leadCSV: results }).then(() => {
+      //   dispatch(_leadCount(null));
+      //   dispatch(fetchUser());
+      //   dispatch(_csvLoadEnd());
+      //   dispatch(_leadListSuccess(true));
+      //   setTimeout(() => {
+      //     dispatch(_leadListSuccess(false));
+      //   }, 3000);
+      // })
+      //   .catch((err) => {
+      //     console.log("Eerr", err);
+      //     dispatch(_leadsError(err));
+      //   });
     })
     .catch(() => {
       dispatch(_leadsError({
