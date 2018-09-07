@@ -456,13 +456,13 @@ function _createAndReconcileLead(lead) {
  * @param  {string} data csv file
  */
 
-const parseCSV = data => (dispatch) => {
+const parseCSV = (csv, leadGroup) => (dispatch) => {
   dispatch(_csvLoading());
-  _parseCSV(data)
+  _parseCSV(csv)
     .then((results) => {
-      console.log(results);
+      console.log(leadGroup);
       dispatch(_leadCount(results.length));
-      Parse.Cloud.run('createLeadFromCSV', { leadCSV: results }).then(() => {
+      Parse.Cloud.run('createLeadFromCSV', { leadCSV: results, leadGroup }).then(() => {
         dispatch(_leadCount(null));
         dispatch(fetchUser());
         dispatch(_csvLoadEnd());

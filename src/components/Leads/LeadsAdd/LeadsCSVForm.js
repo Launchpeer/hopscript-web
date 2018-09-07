@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { parseCSV } from '../LeadsActions';
-import { InputFile, Button, CSVIcon, ModalCard, RenderAlert } from '../../common';
+import { InputFile, Button, CSVIcon, ModalCard, RenderAlert, InputDropDown } from '../../common';
 import { Colors, BorderRadius } from '../../../config/styles';
 
 const DropZoneIcon = (
@@ -40,7 +40,7 @@ class LeadsCSVForm extends Component {
   }
 
   handleFormSubmit(fields) {
-    this.props.parseCSV(fields.csv[0]);
+    this.props.parseCSV(fields.csv[0], fields.leadGroup);
   }
 
   openCsv() {
@@ -69,8 +69,16 @@ class LeadsCSVForm extends Component {
 
   render() {
     const {
-      handleSubmit, leadsListSuccess, error, err, csvLoading, leadCount
+      handleSubmit, leadsListSuccess, error, err, csvLoading, leadCount, leadGroups
     } = this.props;
+    const leadGroupOptions = leadGroups.map((group) => {
+      group = {
+        value: group.id,
+        id: group.id,
+        display: group.attributes.groupName
+      };
+      return group;
+    });
     const { modalOpen } = this.state;
     return (
 
@@ -94,6 +102,19 @@ class LeadsCSVForm extends Component {
             type="text"
             dropzoneContents={DropZoneIcon}
         />
+          {leadGroups && leadGroups.length > 0 ?
+            <div className="flex flex-row w-100">
+              <div className="w-30 mt2 mb2 pt3 pb3">Lead Group</div>
+              <div className="w-70">
+                <InputDropDown
+                  name="leadGroup"
+                  type="dropdown"
+                  placeholder="Lead Group"
+                  options={leadGroupOptions}
+                  borderColor="lightGray"
+          />
+              </div>
+            </div> : null}
           {csvLoading ?
             <div className="w-100 f4 b--green-glow bg-brand-green white pv3 tc" style={{ borderRadius: BorderRadius.all }}>
             Upload in progress...
@@ -152,13 +173,14 @@ function validate(values) {
 
 const mapStateToProps = ({ LeadsReducer }) => {
   const {
-    leadsListSuccess, error, err, csvLoading, leadCount
+    leadsListSuccess, error, err, csvLoading, leadCount, leadGroups
   } = LeadsReducer;
   return {
     leadsListSuccess,
     error,
     err,
     csvLoading,
+    leadGroups,
     leadCount
   };
 };
