@@ -52,7 +52,7 @@ class StripeForm extends Component {
             cardCVCInputProps={{ value: cvc, onChange: this.handleCardCVCChange }}
             fieldClassName="input"
           />
-          <Button backgroundColor={Colors.brandPrimary} onClick={this.handleStripeSubmit} classOverrides="w-100 mt5" borderRadius={BorderRadius.none}>Connect to Stripe</Button>
+          <Button backgroundColor={Colors.brandPrimary} onClick={this.handleStripeSubmit} classOverrides="w-100 mt5" borderRadius={BorderRadius.none}>Add Payment Method</Button>
         </form>
       </LoaderOrThis>
     );
