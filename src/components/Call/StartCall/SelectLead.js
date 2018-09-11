@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { Colors, BorderRadius } from '../../../config/styles';
 import { LeadsList } from './';
-
-const SelectedLeadItem = ({ lead, removeLead }) => {
-  const { name } = lead.attributes;
-  return (
-    <div
-      className="flex w-100 items-center justify-between list-alt-color-rows pa3 pointer list-hover"
-    >
-      <div className="w-30-ns brand-near-black">{name}</div>
-      <div
-        className="br-100 bg-brand-near-black white flex items-center justify-center hov-danger"
-        role="button"
-        style={{ width: '2rem', height: '2rem' }}
-        onClick={removeLead}>
-        X
-      </div>
-    </div>
-  );
-};
+import SelectedLeadItem from './SelectedLeadItem';
 
 class SelectLead extends Component {
   constructor(props) {
@@ -28,11 +12,18 @@ class SelectLead extends Component {
     };
     this.handleRemoveLead = this.handleRemoveLead.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.debouncedSearch = _.debounce(this.debouncedSearch, 300).bind(this);
   }
 
   handleRemoveLead() {
     this.props.removeLead();
     this.setState({ search: '' });
+  }
+
+  handleOnChange(e) {
+    this.setState({ search: e.target.value });
+    this.debouncedSearch(e);
   }
 
   loadMore() {
@@ -41,13 +32,21 @@ class SelectLead extends Component {
     this.setState({ page: page + 1 });
   }
 
+  debouncedSearch() {
+    if (this.state.search !== '') {
+      console.log(this.state.search);
+      this.props.searchForLeads(this.state.search);
+    }
+  }
+
   render() {
     const {
       leads,
       selectLead,
       leadLoaded,
       moreLeads,
-      moreLeadsLoading
+      moreLeadsLoading,
+      searchResults
     } = this.props;
     return (
       <div className="mb4">
@@ -76,7 +75,7 @@ class SelectLead extends Component {
                     type="text"
                     placeholder="Search Leads..."
                     className="ba w-100 pa3"
-                    onChange={(e) => { this.setState({ search: e.target.value }); }}
+                    onChange={this.handleOnChange}
                     style={{
                         color: Colors.inputFontColor,
                         borderRadius: BorderRadius.all,
@@ -88,17 +87,15 @@ class SelectLead extends Component {
                 </div>
               </div>
               <div className="w-100 mt2">
-                {leads && <LeadsList leads={leads} search={this.state.search} selectLead={selectLead} />}
-                {!moreLeadsLoading && moreLeads && (
-                  <div
+                {leads && <LeadsList leads={leads} searchResults={searchResults} selectLead={selectLead} />}
+                {!moreLeadsLoading && moreLeads && this.state.search === '' &&
+                  (<div
                     className="w-100 f4 pointer bg-brand-green white pv3 tc"
                     style={{ borderRadius: '4px' }}
                     role="button"
                     onClick={() => this.loadMore()} >
                   Load More Leads
-                  </div>
-
-                )}
+                  </div>)}
                 {moreLeadsLoading && (
                   <div className="greenspinner tc">
                     <div className="bounce1 " />

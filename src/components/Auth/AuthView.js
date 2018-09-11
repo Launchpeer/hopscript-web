@@ -45,14 +45,14 @@ class AuthView extends Component {
     return (
       <FullScreenContainer color={Colors.nearWhite}>
         { this.props.route.authType !== 'signin' && SignIn }
-        <div className="w-100">
+        <div className="w-100 center" style={{ maxWidth: '28rem' }}>
           <CenterThis>
-            <div className="w-30-l mt6 mb4">
+            <div className="mt6 mb4">
               <img alt="hopscript logo" src="/images/HopscriptLogo.png" />
             </div>
           </CenterThis>
           <CenterThis>
-            <div className="w-30-l">
+            <div className="w-100">
               <Card
                 classOverrides="mb4 bg-white"
                 boxShadow

@@ -15,7 +15,7 @@ import {
   LoaderOrThis
 } from '../../common';
 import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
-import { fetchLeads, fetchLeadGroups, fetchNextLeads } from '../../Leads/LeadsActions';
+import { fetchLeads, fetchLeadGroups, fetchNextLeads, searchForLeads } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall, startLeadGroupCalls, fetchAndSetToken } from '../CallActions';
 
@@ -77,30 +77,27 @@ class StartCallView extends Component {
                   onClick={() => { this.setState({ selectedGroup: false }); change('leadGroup', null); }}
                   selectLead={(lead) => { change('lead', lead); this.setState({ lead }); }}
                   removeLead={() => { change('lead', null); this.setState({ lead: null }); }}
+                  searchForLeads={this.props.searchForLeads}
                   classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
               </HalfGrid>
               <HalfGrid classOverrides="pl3 mb4">
-                {scripts.length > 0
-                  ?
-                    <SelectScript scripts={scripts} />
-                  :
-                    <div className="mb4">
-                      <div className="i brand-red">Script needed to start a call</div>
-                      <div
-                        className="mt2 b pointer"
-                        role="button"
-                        onClick={() => browserHistory.push('/scripts')}>
+                {scripts.length > 0 ?
+                  <SelectScript scripts={scripts} /> :
+                  <div className="mb4">
+                    <div className="i brand-red">Script needed to start a call</div>
+                    <div
+                      className="mt2 b pointer"
+                      role="button"
+                      onClick={() => browserHistory.push('/scripts')}>
                         Create a script now!
-                      </div>
                     </div>
+                  </div>
                 }
                 <CallTitle />
               </HalfGrid>
-              {error
-                ?
-                  <HSButton onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Start Call</HSButton>
-                :
-                  <HSButton>Start Call</HSButton>
+              {error ?
+                <HSButton onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Start Call</HSButton> :
+                <HSButton>Start Call</HSButton>
               }
               {this.state.showError && error &&
                 <div className="pa2">
@@ -127,18 +124,21 @@ function validate(values) {
 
 const mapStateToProps = ({ LeadsReducer, ScriptsListReducer, CallReducer }) => {
   const {
-    leads, leadGroups, moreLeads, moreLeadsLoading
+    leads,
+    leadGroups,
+    moreLeads,
+    moreLeadsLoading,
   } = LeadsReducer;
   const { scripts } = ScriptsListReducer;
   const { token, loading } = CallReducer;
   return {
-    leads,
-    scripts,
     leadGroups,
-    token,
+    leads,
     loading,
     moreLeads,
-    moreLeadsLoading
+    moreLeadsLoading,
+    scripts,
+    token,
   };
 };
 
@@ -146,5 +146,12 @@ export default reduxForm({
   form: 'callForm',
   validate
 })(connect(mapStateToProps, {
-  fetchLeads, fetchScripts, startCall, fetchLeadGroups, startLeadGroupCalls, fetchAndSetToken, fetchNextLeads
+  fetchAndSetToken,
+  fetchLeadGroups,
+  fetchLeads,
+  fetchNextLeads,
+  fetchScripts,
+  searchForLeads,
+  startCall,
+  startLeadGroupCalls,
 })(StartCallView));
