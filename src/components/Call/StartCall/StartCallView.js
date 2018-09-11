@@ -76,7 +76,7 @@ class StartCallView extends Component {
                   fetchNextLeads={this.props.fetchNextLeads}
                   onClick={() => { this.setState({ selectedGroup: false }); change('leadGroup', null); }}
                   selectLead={(lead) => { change('lead', lead); this.setState({ lead }); }}
-                  removeLead={() => { change('lead', null); this.setState({ lead: null }); }}
+                  removeLead={() => { change('lead', null); this.setState({ lead: null }); this.props.fetchLeads(); }}
                   searchForLeads={this.props.searchForLeads}
                   classOverrides={this.state.selectedGroup ? 'moon-gray' : 'brand-near-black'} />
               </HalfGrid>
