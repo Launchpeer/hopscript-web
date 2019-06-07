@@ -18,7 +18,6 @@ import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
 import { fetchLeads, fetchLeadGroups, fetchNextLeads, searchForLeads } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall, startLeadGroupCalls, fetchAndSetToken } from '../CallActions';
-import Iframe from 'react-iframe'
 
 class StartCallView extends Component {
   constructor(props) {
