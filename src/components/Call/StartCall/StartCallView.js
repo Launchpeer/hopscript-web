@@ -55,17 +55,6 @@ class StartCallView extends Component {
       moreLeads,
       moreLeadsLoading
     } = this.props;
-    if (true) {
-      return (
-        <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
-            width="1000px"
-            height="900px"
-            id="myId"
-            className="myClassname"
-            display="initial"
-            position="relative"/>
-      )
-    }
 
     return (
       <LoaderOrThis loading={loading}>
