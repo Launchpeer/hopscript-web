@@ -48,7 +48,6 @@ const currentUser = Parse.User.current();
 window.doot = "doot doot here's your toot 🎺💀";
 
 if (currentUser) {
-  console.log('current user', currentUser);
   // TODO add conditional for stripe
   store.dispatch({ type: AUTH_USER, payload: currentUser });
   store.dispatch({ type: UPDATE_USER, payload: currentUser });
