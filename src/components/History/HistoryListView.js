@@ -18,6 +18,12 @@ class HistoryListView extends Component {
         <LoaderOrThis loading={loading}>
           <div className="ph3 pt4 pb3">
             <div className="w-100">
+              <div className="flex flex-row justify-between items-center w-100 pa3">
+                <div className="w-25 fw6">Name</div>
+                <div className="w-25 tc fw6">Phone</div>
+                <div className="w-25 tc fw6">Time</div>
+                <div className="w-25 fw6"></div>
+              </div>
               {historyItems && historyItems.length > 0
                 ?
                   <div className="w-100 mb5">

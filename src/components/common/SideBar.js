@@ -77,10 +77,14 @@ const userButton = (user, route, disableGlossary) => (
     <div
       className="bg-white br-100 flex items-center justify-center ml2 mr2"
       style={{
-          width: '3rem',
-          height: '3rem'
-}} >
-      <User color={Colors.brandPrimary} size={30} scale={3} />
+        width: '3rem',
+        height: '3rem'
+      }} >
+      {user.get('photo') ? (
+        <img src={user.get('photo')} style={{width: 30, height: 30, borderRadius: 15}} />
+      ) : (
+        <User color={Colors.brandPrimary} size={30} scale={3} />
+      )}
     </div>
   </div>
 );
@@ -94,8 +98,8 @@ const mapSidebarContent = (user, route, disableGlossary) => {
         role="button"
         style={{ backgroundColor: bgColor(item.route, route), color: textColor(item.route, route), cursor: route.includes('in-call') || disableGlossary === true ? 'not-allowed' : 'pointer' }}
         onClick={() =>
-        !route.includes('in-call') && disableGlossary === false &&
-         browserHistory.push(item.route)
+          !route.includes('in-call') && disableGlossary === false &&
+          browserHistory.push(item.route)
         } >
         <div style={{ paddingTop: '23px', paddingBottom: '23px' }}>
           <div className="tc">

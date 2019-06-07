@@ -18,7 +18,7 @@ import { SelectGroup, SelectLead, SelectScript, CallTitle } from './';
 import { fetchLeads, fetchLeadGroups, fetchNextLeads, searchForLeads } from '../../Leads/LeadsActions';
 import { fetchScripts } from '../../Scripts/ScriptsList/ScriptsListActions';
 import { startCall, startLeadGroupCalls, fetchAndSetToken } from '../CallActions';
-
+import Iframe from 'react-iframe'
 
 class StartCallView extends Component {
   constructor(props) {
@@ -55,10 +55,22 @@ class StartCallView extends Component {
       moreLeads,
       moreLeadsLoading
     } = this.props;
+    if (true) {
+      return (
+        <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
+            width="1000px"
+            height="900px"
+            id="myId"
+            className="myClassname"
+            display="initial"
+            position="relative"/>
+      )
+    }
+
     return (
       <LoaderOrThis loading={loading}>
         <CardRight>
-          <HSCardHeader>Start a Call</HSCardHeader>
+          <HSCardHeader>Start a Call Session</HSCardHeader>
           <div className="pa3 mt4">
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <HalfGrid classOverrides="pr3">
@@ -96,8 +108,8 @@ class StartCallView extends Component {
                 <CallTitle />
               </HalfGrid>
               {error ?
-                <HSButton onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Start Call</HSButton> :
-                <HSButton>Start Call</HSButton>
+                <HSButton onClick={(e) => { e.preventDefault(); this.setState({ showError: true }); }}>Start a Call Session</HSButton> :
+                <HSButton>Start a Call Session</HSButton>
               }
               {this.state.showError && error &&
                 <div className="pa2">

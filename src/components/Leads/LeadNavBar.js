@@ -43,7 +43,7 @@ const LeadNavBar = ({ route }) => (
       role="button"
       onClick={() => browserHistory.push('/lead-groups-list')}
       style={{ color: navColor('/lead-groups-list', route) }}>
-      Lead Groups
+      Lead Lists
     </div>
   </div>
 );

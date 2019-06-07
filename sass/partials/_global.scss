@@ -320,3 +320,85 @@ textarea:focus {
     transform: translateX(-50%) translateY(-50%);
   }
 }
+
+.text-center {
+  text-align: center;
+}
+
+.searchContainer {
+  display: inline-flex;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.searchIcon {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 0%
+}
+
+.searchBox {
+  border: 0;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  flex: 1;
+  border-style: unset;
+  border-color: transparent;
+}
+
+input {
+  font-size: 14px;
+}
+
+/* Reset Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #fff;
+  background-image: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.dropdown {
+  position: relative;
+  display: flex;
+  height: 3em;
+  line-height: 3;
+  background: #999999;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  flex: 1;
+  padding: 15px;
+  color: #000;
+  cursor: pointer;
+}
+/* Arrow */
+.dropdown::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #ffffff;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+  color: #999999;
+}
+/* Transition */
+.dropdown:hover::after {
+  color: #333;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { LoaderOrThis } from '../../common';
+import { LoaderOrThis, InputSearch } from '../../common';
 import { fetchLeads, fetchNextLeads, deleteLead } from '../LeadsActions';
 import { LeadsListItem } from './';
 import { LeadNavCard } from '../';
@@ -10,7 +10,8 @@ class LeadsListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1
+      page: 1,
+      searchText: ''
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.loadMore = this.loadMore.bind(this);
@@ -31,17 +32,49 @@ class LeadsListView extends Component {
     this.setState({ page: page + 1 });
   }
 
+  filterLeads(leads) {
+    const { searchText } = this.state;
+
+    return leads.filter(lead => {
+      const name = lead.get('name') || '';
+      const email = lead.get('email') || '';
+      const phone = lead.get('phone') || '';
+
+      return name.indexOf(searchText) !== -1 ||
+        email.indexOf(searchText) !== -1 ||
+        phone.indexOf(searchText) !== -1
+    })
+  }
+
   render() {
     const {
       leads, location, loading, moreLeads, moreLeadsLoading
     } = this.props;
+
     return (
       <LeadNavCard location={location}>
         <div className="w-100">
           <LoaderOrThis loading={loading}>
             {leads && leads.length > 0 ?
               <div className="w-100 mb5 mt4">
-                {leads.map(lead => <LeadsListItem lead={lead} key={lead.id} removeLead={() => this.handleDelete(lead.id)} />)}
+                <div className="flex justify-end">
+                  <InputSearch input={{
+                    value: this.state.searchText,
+                    onChange: e => this.setState({ searchText: e.target.value })
+                  }} />
+                </div>
+                <div className="flex justify-between items-center list-alt-color-rows"
+                  style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                  <div className="flex flex-row w-100 items-center ph3">
+                    <div className="w-100 flex flex-row">
+                      <div className="w-30-ns fw6">Name</div>
+                      <div className="w-30-ns fw6">Number</div>
+                      <div className="w-30-ns fw6">Email</div>
+                    </div>
+                    <div/>
+                  </div>
+                </div>
+                {this.filterLeads(leads).map(lead => <LeadsListItem lead={lead} key={lead.id} removeLead={() => this.handleDelete(lead.id)} />)}
                 {!moreLeadsLoading && moreLeads && (
                   <div
                     className="w-100 f4 pointer bg-brand-green white pv3 tc"

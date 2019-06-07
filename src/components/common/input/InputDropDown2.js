@@ -14,14 +14,26 @@ const renderDropDown = (fieldProps) => {
   } = fieldProps;
   return (
     <div>
-      <div className="dropdown ba mt2 mb2 f5 relative flex bg-white"
+      <div
+        className="ba mt2 mb2 f5 pa3 relative flex items-center bg-white"
         style={{
-          color: fontColor || Colors.inputFontColor,
-          borderRadius: borderRadius || BorderRadius.all,
-          borderColor: borderColor || Colors.inputBorderColor
-        }}
-      >
-        <select {...input}>
+        color: fontColor || Colors.inputFontColor,
+        borderRadius: borderRadius || BorderRadius.all,
+        borderColor: borderColor || Colors.inputBorderColor
+      }}
+    >
+        <div className="absolute right-0 mr2">
+          <div
+            style={{
+            width: 0,
+            height: 0,
+            borderLeft: '8px solid transparent',
+            borderRight: '8px solid transparent',
+            borderTop: `8px solid ${Colors.inputBorderColor}`
+          }}
+        />
+        </div>
+        <select {...input} className="w-100 bn f5 bg-white input-reset">
           <option value="" hidden defaultValue disabled>
             {placeholder}
           </option>

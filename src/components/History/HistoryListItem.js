@@ -60,7 +60,7 @@ const SmallItem = ({ history, lead, onClick }) => (
     }
 
     <div className="w-25">
-      <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba brand-primary bg-transparent b--brand-primary pv1 ph3 fr br" onClick={onClick}>more</div>
+      <div role="button" style={{ borderRadius: BorderRadius.all }}className="pointer ba brand-primary bg-transparent b--brand-primary pv1 ph3 fr br" onClick={onClick}>Call Notes</div>
     </div>
   </div>);
 

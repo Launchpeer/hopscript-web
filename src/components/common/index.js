@@ -21,5 +21,7 @@ export { default as HSCard } from './HSCard';
 export { default as HSButton } from './HSButton';
 export { default as HSCardHeader } from './HSCardHeader';
 
+export { default as PhotoUpload } from './PhotoUpload';
+
 export * from './input';
 export * from './icon';

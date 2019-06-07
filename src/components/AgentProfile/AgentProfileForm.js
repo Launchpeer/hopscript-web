@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Colors } from '../../config/styles';
-import { InputTextEditable } from '../common';
+import { InputTextEditable, InputPhoto } from '../common';
 import { logOutUser } from '../Auth/AuthActions';
+import Parse from 'parse';
 
-import { updateAgentProfile, fetchBrokerage } from './AgentProfileActions';
+import { uploadPhoto, updateAgentProfile, fetchBrokerage } from './AgentProfileActions';
 
 class AgentProfileForm extends Component {
   constructor(props) {
@@ -21,6 +22,15 @@ class AgentProfileForm extends Component {
     this.props.updateAgentProfile(data);
   }
 
+  handlePhotoUpload = files => {
+    uploadPhoto(files[0])
+      .then(parseFile => {
+        this.props.updateAgentProfile({
+          photo: parseFile._url
+        });
+      });
+  }
+
   handleSignOut() {
     this.props.logOutUser();
   }
@@ -29,6 +39,11 @@ class AgentProfileForm extends Component {
     const { user, handleSubmit, brokerage } = this.props;
     return (
       <form className="mv4 vh-50">
+        <InputPhoto
+          name="photo"
+          displayText="Profile Photo"
+          onSubmit={this.handlePhotoUpload}
+        />
         <InputTextEditable
           name="brokerage"
           type="text"
@@ -48,7 +63,7 @@ class AgentProfileForm extends Component {
         <InputTextEditable
           name="email"
           type="text"
-          label="email"
+          label="Email"
           classOverrides="mb3 pa2"
           borderColor={Colors.moonGray}
           placeholder={user && user.get('email')}
@@ -58,7 +73,8 @@ class AgentProfileForm extends Component {
   }
 }
 
-const mapStateToProps = ({ AgentProfileReducer, UserReducer }) => {
+const mapStateToProps = (state) => {
+  const { AgentProfileReducer, UserReducer } = state;
   const {
     error, profile, loading, brokerage
   } = AgentProfileReducer;
@@ -68,14 +84,23 @@ const mapStateToProps = ({ AgentProfileReducer, UserReducer }) => {
     brokerage,
     loading,
     user,
-    error
+    error,
+    initialValues: {
+      photo: user.get('photo')
+    }
   };
 };
 
-export default reduxForm({
-  form: 'updateAgentProfileForm'
-})(connect(mapStateToProps, {
+const mapDispatchToProps = {
   updateAgentProfile,
   fetchBrokerage,
   logOutUser
-})(AgentProfileForm));
+};
+
+let ThisForm = reduxForm({
+  form: 'updateAgentProfileForm',
+})(AgentProfileForm)
+
+ThisForm = connect(mapStateToProps, mapDispatchToProps)(ThisForm)
+
+export default ThisForm;

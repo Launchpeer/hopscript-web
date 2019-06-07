@@ -36,7 +36,7 @@ class AgentProfileView extends Component {
 
   render() {
     const { showModal } = this.state;
-    const { loading } = this.props;
+    const { loading, user } = this.props;
     return (
       <CardRight loading={loading}>
         <div className="w-100 flex justify-between bb b--light-gray bw2 pa3 items-center">
@@ -46,13 +46,13 @@ class AgentProfileView extends Component {
         <div className="ph3 pt4 pb3">
           <CenterThis>
             <div className="w-50 mt5 mb4">
-              <AgentProfileForm />
+              <AgentProfileForm name={user.get('name')} photo={user.get('photo')} />
             </div>
           </CenterThis>
           <CenterThis>
-            <div className="w-50 mb1">
+            <div className="w-50 mb1 flex justify-center">
               <Button
-                classOverrides="w-100 f5"
+                classOverrides="f5"
                 backgroundColor={Colors.white}
                 fontColor="silver"
                 borderRadius="10px"

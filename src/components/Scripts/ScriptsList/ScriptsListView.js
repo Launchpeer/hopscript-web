@@ -43,7 +43,7 @@ class ScriptsListView extends Component {
               </div>
             }
           </div>
-          <HSButton onClick={this.handleNewScript}>Add New Script</HSButton>
+          {/* <HSButton onClick={this.handleNewScript}>Add New Script</HSButton> */}
         </div>
       </CardRight>
     );

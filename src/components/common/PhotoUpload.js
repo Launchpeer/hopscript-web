@@ -6,6 +6,7 @@ const PhotoUpload = (field) => {
   const files = field.input.value;
   let dropzoneStyle = { zIndex: 20000 };
   let backgroundHolder;
+  console.log('eeee', files)
   if (files[0] && files[0].preview) {
     backgroundHolder = files[0].preview;
     dropzoneStyle = {
@@ -19,7 +20,7 @@ const PhotoUpload = (field) => {
   }
   return (
     <div className="rounded-profile bg-white p-3 relative">
-      {!files[0] && (<User className="absolute abs-center white pointer-none" strokeWidth={1} size={100} />)}
+      {!files[0] && (<User className="absolute abs-center pointer-none" strokeWidth={1} size={100} />)}
       <Dropzone
         name={field.name}
         accept="image/jpeg, image/png, image/jpg"
@@ -29,7 +30,7 @@ const PhotoUpload = (field) => {
         onDragOver={field.onDragOver}
         onDragExit={field.onDragExit}
         onDragLeave={field.onDragLeave} />
-      {!files[0] && field.displayText && <div className="mt2 brand-primary">{field.displayText}</div>}
+      {!files[0] && field.displayText && <div className="mt2 brand-primary text-center">{field.displayText}</div>}
       {files[0] && files[0].preview && field.editType === "text" && (
         <div className="pointer brand-primary tc mt2"
           role="button"

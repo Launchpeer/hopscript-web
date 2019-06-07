@@ -1,7 +1,8 @@
 import React from 'react';
 import { BorderRadius, Colors } from '../../../config/styles';
+import InputUI from './InputUI';
 
-const InputSearch = (props) => {
+const renderSearchInput = (fieldProps) => {
   const {
     input,
     height,
@@ -9,33 +10,34 @@ const InputSearch = (props) => {
     fontColor,
     borderColor,
     maxLength,
+    normalize,
     backgroundColor,
     classOverrides
-  } = props;
+  } = fieldProps;
 
   return (
-    <div className='searchContainer'>
-      <i className="fa fa-search searchIcon" />
+    <div classOverrides={`${classOverrides}`}>
       <input
-        className="searchBox"
         {...input}
-        type="search"
+        type="text"
         placeholder={placeholder}
-        className={`${borderColor ? 'ba' : 'bn'} pa3`}
+        className={`${borderColor ? 'ba' : 'bn'} w-100 pa3`}
         style={{
           color: fontColor || Colors.inputFontColor,
           borderRadius: BorderRadius.all,
-          borderColor: 'transparent',
+          borderColor: borderColor || Colors.moonGray,
           borderStyle: 'solid',
           borderWidth: '1px',
           height,
           backgroundColor
         }}
         maxLength={maxLength}
+        normalize={normalize}
       />
     </div>
   );
 };
 
+const InputSearch = props => <InputUI component={renderSearchInput} {...props} />;
 
 export default InputSearch;

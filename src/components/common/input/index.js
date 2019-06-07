@@ -9,3 +9,4 @@ export { default as InputCheckbox } from './InputCheckbox';
 export { default as InputAudio } from './InputAudio';
 export { default as InputSearch } from './InputSearch';
 export { default as InputNotesQuill } from './InputNotesQuill';
+export { default as InputPhoto } from './InputPhoto';

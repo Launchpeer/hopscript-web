@@ -41,11 +41,21 @@ function _agentProfileUpdateLoadEnd() {
   };
 }
 
-export const updateAgentProfile = ({ name }) => (dispatch) => {
+export const uploadPhoto = file => {
+  return new Promise((resolve) => {
+    const parseFile = new Parse.File('file', file);
+    resolve(parseFile.save());
+  });
+};
+
+export const updateAgentProfile = ({ name, photo }) => (dispatch) => {
   dispatch(_agentProfileUpdateLoading());
   const Profile = Parse.User.current();
   if (name) {
     Profile.set('name', name);
+  }
+  if (photo) {
+    Profile.set('photo', photo);
   }
   Profile.save()
     .then((updatedProfile) => {

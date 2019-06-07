@@ -34,7 +34,7 @@ class LeadGroupListView extends Component {
             “New Lead Group” to start adding some Lead Groups!
                 </div>
               </div>}
-            <HSButton onClick={() => browserHistory.push('/lead-groups-add')}>New Lead Group</HSButton>
+            {/* <HSButton onClick={() => browserHistory.push('/lead-groups-add')}>New Lead Group</HSButton> */}
           </LoaderOrThis>
         </div>
 
