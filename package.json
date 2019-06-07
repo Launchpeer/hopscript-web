@@ -9,7 +9,7 @@
   },
   "scripts": {
     "assets": "webpack -w --display-max-modules 0",
-    "heroku-postbuild": "NODE_ENV=production&& webpack --config ./webpack.prod.config.js --progress --colors",
+    "heroku-postbuild": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "dev": "concurrently \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js\" \"npm run assets\"",
     "start": "node ./src/app.js"
   },
