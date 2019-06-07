@@ -6,7 +6,7 @@ const PhotoUpload = (field) => {
   const files = field.input.value;
   let dropzoneStyle = { zIndex: 20000 };
   let backgroundHolder;
-  console.log('eeee', files)
+
   if (files[0] && files[0].preview) {
     backgroundHolder = files[0].preview;
     dropzoneStyle = {

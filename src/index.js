@@ -59,10 +59,6 @@ if (currentUser) {
   }
 }
 
-setInterval(() => {
-  console.log('store', store.getState());  
-}, 1000);
-
 const bodyColorPaths = ['/welcome'];
 
 browserHistory.listen((location) => {
