@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ScriptIcon = props => (<div>
-  <svg width={props.width} height={props.height} viewBox="0 0 27 32" version="1.1" >
+  <svg width={props.width} height={props.height} viewBox="0 0 27 32" version="1.1" style={{ width: props.width, height: props.height}}>
 
     <g id="Script" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g transform="translate(0.000000, 1.000000)" stroke={props.color} strokeWidth="2">

@@ -2,7 +2,7 @@ import React from 'react';
 
 const TrashIcon = props => (
   <div>
-    <svg width={props.width} height={props.height} viewBox="0 0 26 26">
+    <svg width={props.width} height={props.height} viewBox="0 0 26 26" style={{ width: props.width, height: props.height}}>
       <g stroke="none" strokeQidth="1" fill="none" fillRule="evenodd">
           <g fill={props.color}>
               <g>

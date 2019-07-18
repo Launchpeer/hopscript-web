@@ -2,7 +2,7 @@ import React from 'react';
 
 const CallIcon = props => (
   <div>
-    <svg width={props.width} height={props.height} viewBox="0 0 32 32" version="1.1">
+    <svg width={props.width} height={props.height} viewBox="0 0 32 32" version="1.1" style={{ width: props.width, height: props.height}}>
       <g id="Call" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(1.000000, 1.000000)" stroke={props.color} strokeWidth="2">
           <path d="M26.8679334,27.674 C21.7349334,31.822 12.8329334,30.198 6.35493342,23.736 C-0.121066581,17.276 -1.86906658,8.274 2.13793342,3" id="Stroke-12" />

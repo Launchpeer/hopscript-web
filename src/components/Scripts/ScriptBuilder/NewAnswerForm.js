@@ -23,7 +23,7 @@ class NewAnswerForm extends Component {
 
   handleFormSubmit(data) {
     this.props.toggleForm();
-    this.props.addAnswersToQuestion(data, this.props.currentQuestion.id, this.props.currentScript.id);
+    this.props.addAnswersToQuestion(data, this.props.parentQuestion.id, this.props.currentScript.id);
   }
 
   render() {
@@ -48,47 +48,48 @@ class NewAnswerForm extends Component {
                   </div>
                 </div>
               </div>
+              {/*<div className="w-10 flex items-end flex-column">*/}
+                {/*<div*/}
+                  {/*role="button"*/}
+                  {/*className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"*/}
+                  {/*style={{ borderRadius: BorderRadius.all }}*/}
+                  {/*onClick={toggleForm}*/}
+                  {/*>*/}
+                    {/*X*/}
+                {/*</div>*/}
+              {/*</div>*/}
               <div className="w-10 flex items-end flex-column">
-                <div
-                  role="button"
-                  className="bg-light-gray flex items-center justify-center pa2 w3 h3 ml2 pointer"
+                <button
+                  className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
                   style={{ borderRadius: BorderRadius.all }}
-                  onClick={toggleForm}
-                  >
-                    X
-                </div>
+                  type="submit"
+                >
+                  <div className="bg-brand-green br-100 flex items-center justify-center white" style={{ height: '1.25rem', width: '1.25rem' }}>
+                    +
+                  </div>
+                </button>
               </div>
             </div>
             <div className="flex items-center">
               <div className="w-10">
                 <div className="h2 w2 bg-white white br-100 flex justify-center items-center" />
               </div>
-              <div className="w-10">Route to</div>
-              <div className="w-70">
-                <div className="w-95 fr">
-                  {questions
-                  ? <InputDropDown
-                    name="route"
-                    type="dropdown"
-                    placeholder="Route to"
-                    options={questions.map(question => ({ value: question.id, id: question.id, display: question.attributes.body }))}
-                    borderColor={Colors.moonGray}
-                   />
-                 : <div>N/A</div>
-                }
-                </div>
-              </div>
-              <div className="w-10 flex items-end flex-column">
-                <button
-                  className="bg-light-gray flex items-center justify-center w3 h3 ml2 pointer bn"
-                  style={{ borderRadius: BorderRadius.all }}
-                  type="submit"
-                  >
-                  <div className="bg-brand-green br-100 flex items-center justify-center white" style={{ height: '1.25rem', width: '1.25rem' }}>
-                      +
-                  </div>
-                </button>
-              </div>
+              {/*<div className="w-10">Route to</div>*/}
+              {/*<div className="w-70">*/}
+                {/*<div className="w-95 fr">*/}
+                  {/*{questions*/}
+                  {/*? <InputDropDown*/}
+                    {/*name="route"*/}
+                    {/*type="dropdown"*/}
+                    {/*placeholder="Route to"*/}
+                    {/*options={questions.map(question => ({ value: question.id, id: question.id, display: question.attributes.body }))}*/}
+                    {/*borderColor={Colors.moonGray}*/}
+                   {/*/>*/}
+                 {/*: <div>N/A</div>*/}
+                {/*}*/}
+                {/*</div>*/}
+              {/*</div>*/}
+
             </div>
           </form>
         </LoaderOrThis>
@@ -97,8 +98,22 @@ class NewAnswerForm extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {};
+  if (!values.answer) {
+    errors.answer = '*required';
+  }
+
+  // if (!values.route) {
+  //   errors.route = '*required';
+  // }
+
+  return errors;
+}
+
 const Form = reduxForm({
-  form: 'answerBuilder'
+  form: 'answerBuilder',
+  validate
 })(NewAnswerForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {

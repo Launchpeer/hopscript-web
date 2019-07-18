@@ -4,6 +4,7 @@ const GridIcon = ({ width, height, color }) => (
   <svg
     width={width}
     height={height}
+    style={{ width: width, height: height}}
   	viewBox="0 0 8 13">
     <g>
     	<path

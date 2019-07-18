@@ -10,7 +10,8 @@ import {
   CALL_LOAD_END,
   CALL_UPDATE,
   CURRENT_QUESTION_UPDATE,
-  SET_TOKEN
+  SET_TOKEN,
+  PREVIOUS_QUESTION_UPDATE,
 } from './CallTypes';
 
 const currentCallUpdate = call => (dispatch) => {
@@ -104,6 +105,13 @@ const setCurrentQuestion = question => (dispatch) => {
   dispatch({
     type: CURRENT_QUESTION_UPDATE,
     payload: question
+  });
+};
+
+const goToPreviousQuestion = questionData => (dispatch) => {
+  dispatch({
+    type: PREVIOUS_QUESTION_UPDATE,
+    payload: questionData
   });
 };
 
@@ -228,6 +236,7 @@ export {
   nextLeadGroupCall,
   playAudio,
   setCurrentQuestion,
+  goToPreviousQuestion,
   startACall,
   startCall,
   startLeadGroupCalls,

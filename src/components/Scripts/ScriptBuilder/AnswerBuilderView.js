@@ -22,7 +22,7 @@ class AnswerBuilderView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newQuestionOpen: false
+      newQuestionOpen: props.addQuestionStatus
     };
     this.toggleForm = this.toggleForm.bind(this);
     this.removeAnswer = this.removeAnswer.bind(this);

@@ -2,7 +2,7 @@ import React from 'react';
 
 const CSVIcon = props => (
   <div>
-    <svg width={props.width} height="100%" viewBox="0 0 170 208" version="1.1" >
+    <svg width={props.width} height="100%" viewBox="0 0 170 208" version="1.1" style={{ width: props.width, height: props.height}}>
       <g id="csv" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="ic" transform="translate(-26.000000, -6.000000)" fill={props.color}>
           <path d="M196,72.1817783 L177.111091,72.1817783 L177.111091,24.9088915 L44.888909,24.9088915 L44.888909,72.1817783 L26,72.1817783 L26,6 L196,6 L196,72.1817783 Z M196,147.818222 L196,214 L26,214 L26,147.818222 L44.888909,147.818222 L44.888909,195.09067 L177.111091,195.09067 L177.111091,147.818222 L196,147.818222 Z" id="Combined-shape-3615" />

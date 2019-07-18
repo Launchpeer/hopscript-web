@@ -20,7 +20,10 @@ const renderTextAreaInput = (fieldProps) => {
 
 
   return (
-    <Textarea {...input} style={style} placeholder={placeholder} />
+    <div>
+      <Textarea {...input} style={style} placeholder={placeholder} />
+      {touched && error && <div className="orange">{error}</div>}
+    </div>
   );
 };
 

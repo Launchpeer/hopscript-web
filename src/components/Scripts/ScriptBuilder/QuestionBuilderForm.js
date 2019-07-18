@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import moment from 'moment';
+import { Modal } from 'antd'
 import { Colors } from '../../../config/styles';
 import {
   InputTextArea,
@@ -26,7 +27,8 @@ class QuestionBuilderForm extends Component {
     this.state = {
       saved: null,
       record: true,
-      audio: null
+      audio: null,
+      text: props.currentQuestion.attributes.hasOwnProperty('description') ? props.currentQuestion.attributes.description: '',
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.toggleRecord = this.toggleRecord.bind(this);
@@ -36,15 +38,17 @@ class QuestionBuilderForm extends Component {
   handleFormSubmit(data) {
     if (this.state.audio) {
       this.props.updateQuestion({
-        data, description: this.props.text, audio: this.state.audio, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
+        data, description: this.state.text, audio: this.state.audio, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
       });
       this.setState({ saved: moment().format('h:mm a, MMM D Y') });
     } else {
       this.props.updateQuestion({
-        data, description: this.props.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
+        data, description: this.state.text, scriptId: this.props.currentScript.id, questionId: this.props.currentQuestion.id
       });
       this.setState({ saved: moment().format('h:mm a, MMM D Y') });
     }
+
+    this.handleCancel()
   }
 
 
@@ -56,13 +60,29 @@ class QuestionBuilderForm extends Component {
     this.setState({ audio: r });
   }
 
+  handleCancel =() => {
+    this.setState({
+      visibleModal: false,
+    }, () => this.props.closeModal())
+  }
+
+  handleNotesChange = (value) => {
+    this.setState({ text: value });
+  }
+
   render() {
     const {
-      handleSubmit, loading, toggleStep, currentQuestion, handleNotesChange, text
+      handleSubmit, loading, toggleStep, currentQuestion, handleNotesChange, text, visibilityModal
     } = this.props;
-    const { saved, record } = this.state;
+    const { saved, record, visibleModal } = this.state;
     return (
       <div>
+        <Modal
+          visible={visibilityModal}
+          title="Title"
+          onCancel={this.handleCancel}
+          footer={null}
+        >
         <LoaderOrThis loading={loading}>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div className="single-line-textarea">
@@ -72,20 +92,9 @@ class QuestionBuilderForm extends Component {
               <div className="w-20">Description</div>
               <div className="w-80">
                 <div className="block-textarea-quill">
-                  <InputNotesQuill handleChange={handleNotesChange} text={text} placeholder="Optional description." />
+                  {/*<InputNotesQuill handleChange={handleNotesChange} text={text} placeholder="Optional description." />*/}
+                  <InputNotesQuill handleChange={this.handleNotesChange} text={this.state.text} placeholder="Optional description." />
                 </div>
-              </div>
-            </div>
-            <div className="flex items-center mt4 justify-between">
-              <div className="w-20">Category</div>
-              <div className="w-80">
-                <InputDropDown
-                  name="category"
-                  type="dropdown"
-                  placeholder="Choose category"
-                  options={['Intro', 'Prequalifying', 'Provoking', 'Objection', 'Close']}
-                  borderColor={Colors.moonGray}
-                />
               </div>
             </div>
             <div className="flex items-center justify-between">
@@ -122,20 +131,14 @@ class QuestionBuilderForm extends Component {
                 </div>
               </div> }
 
-            <div className="flex flex-row justify-end mt6 w-100">
-              <HSButton backgroundColor={Colors.white}
-                borderColor={Colors.brandGreen}
-                borderWidth="1px"
-                fontColor={Colors.brandGreen}
-                onClick={(e) => { e.preventDefault(); toggleStep('answers'); }}>
-                Add Answers
-              </HSButton>
-              <HSButton backgroundColor={Colors.brandGreen}>Save Question</HSButton>
+            <div className="flex flex-row justify-end mt3 w-100">
+              <HSButton backgroundColor={Colors.brandGreen}>Update Question</HSButton>
 
             </div>
             {saved && <div className="silver i fr">Last saved {saved}</div>}
           </form>
         </LoaderOrThis>
+        </Modal>
       </div>
     );
   }

@@ -31,6 +31,7 @@ import { StartCallView, InCallView, NextCallView } from './components/Call';
 import { HistoryListView } from './components/History';
 
 import './../sass/style.scss';
+import 'antd/dist/antd.css'
 import { PARSE_SERVER_URL, APPLICATION_ID } from './config/globals';
 
 const createStoreWithMiddleware = compose(applyMiddleware(reduxThunk)(createStore));

@@ -16,9 +16,9 @@ import {
   InputNotesQuill
 } from '../../common';
 import { RecordAudio } from './';
-import { createNewQuestion, fetchScript, uploadRecordedAudio } from './ScriptBuilderActions';
+import { createNewQuestionAndUpdateAnswer, fetchScript, uploadRecordedAudio } from './ScriptBuilderActions';
 
-class NewQuestionForm extends Component {
+class NewNextQuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,15 +35,15 @@ class NewQuestionForm extends Component {
 
   handleFormSubmit(data) {
     data = _.merge({}, data, {
-      category: this.props.questionCategory
+      category: this.props.answerData.id
     })
     if (this.state.audio) {
-      this.props.createNewQuestion({
-        question: data, audio: this.state.audio, description: this.state.text, scriptId: this.props.currentScript.id
+      this.props.createNewQuestionAndUpdateAnswer({
+        question: data, audio: this.state.audio, description: this.state.text, scriptId: this.props.currentScript.id, answerData: this.props.answerData
       });
     } else {
-      this.props.createNewQuestion({
-        question: data, description: this.state.text, scriptId: this.props.currentScript.id
+      this.props.createNewQuestionAndUpdateAnswer({
+        question: data, description: this.state.text, scriptId: this.props.currentScript.id, answerData: this.props.answerData
       });
     }
 
@@ -145,9 +145,9 @@ function validate(values) {
 }
 
 const Form = reduxForm({
-  form: 'newQuestion',
+  form: 'NewNextQuestion',
   validate
-})(NewQuestionForm);
+})(NewNextQuestionForm);
 
 const mapStateToProps = ({ ScriptBuilderReducer }) => {
   const {
@@ -161,5 +161,5 @@ const mapStateToProps = ({ ScriptBuilderReducer }) => {
 };
 
 export default connect(mapStateToProps, {
-  createNewQuestion, fetchScript, uploadRecordedAudio
+  createNewQuestionAndUpdateAnswer, fetchScript, uploadRecordedAudio
 })(Form);

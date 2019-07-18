@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PeopleIcon = props => (<div>
-  <svg width={props.width} height={props.height} viewBox="0 0 34 34" version="1.1" >
+  <svg width={props.width} height={props.height} viewBox="0 0 34 34" version="1.1" style={{ width: props.width, height: props.height}}>
 
     <g id="People" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g transform="translate(2.000000, 2.000000)" stroke={props.color} strokeWidth="2">

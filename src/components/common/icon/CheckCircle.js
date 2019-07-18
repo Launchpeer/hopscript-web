@@ -4,6 +4,7 @@ const CheckCircle = ({ width, height, color, checked }) => (
   <svg
     width={width}
     height={height}
+    style={{ width: width, height: height}}
     viewBox="0 0 30 30">
     <g>
       <g>

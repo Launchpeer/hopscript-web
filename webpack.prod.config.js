@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const postcss = {
   loader: 'postcss-loader',
   options: {
-    plugins() { return [autoprefixer({ browsers: 'last 3 versions' })]; },
+    plugins() { return [autoprefixer({ Browserslist: 'last 3 versions' })]; },
     sourceMap: true,
   },
 };
@@ -42,7 +42,7 @@ module.exports = {
     publicPath: '/public/'
   },
   module: {
-    loaders: [{
+    rules: [{
       exclude: /node_modules/,
       loader: 'babel-loader',
       query: {

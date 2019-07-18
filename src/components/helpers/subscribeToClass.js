@@ -11,42 +11,42 @@ const subscribeToClass = (props) => {
 
   if (props.columnName) query.equalTo(props.columnName, props.columnSelector);
   const subscription = query.subscribe();
-  subscription.on(
+  subscription.then(
     'open', (res) => {
       console.log("open");
       props.callback(res);
     },
     (err) => { console.log(err); }
   );
-  subscription.on(
+  subscription.then(
     'create', (res) => {
       console.log("create");
       props.callback(res);
     },
     (err) => { console.log(err); }
   );
-  subscription.on(
+  subscription.then(
     'update', (res) => {
       console.log("update" ,res);
       props.callback(res);
     },
     (err) => { console.log(err); }
   );
-  subscription.on(
+  subscription.then(
     'delete', (res) => {
       console.log("delete");
       props.callback(res);
     },
     (err) => { console.log(err); }
   );
-  subscription.on(
+  subscription.then(
     'enter', (res) => {
       console.log("enter");
       props.callback(res);
     },
     (err) => { console.log(err); }
   );
-  subscription.on(
+  subscription.then(
     'leave', (res) => {
       console.log("leave");
       props.callback(res);

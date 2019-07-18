@@ -1,7 +1,11 @@
 import React from 'react';
 
 const ChevronLeftCircle = ({ color, width, height }) => (
-  <svg width={width} height={height} viewBox="0 0 31 31">
+  <svg
+    width={width}
+    height={height}
+    style={{ width: width, height: height}}
+    viewBox="0 0 31 31">
     <g>
     	<path
         fill={color}

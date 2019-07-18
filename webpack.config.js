@@ -5,7 +5,7 @@ const autoprefixer = require('autoprefixer');
 const postcss = {
   loader: 'postcss-loader',
   options: {
-    plugins() { return [autoprefixer({ browsers: 'last 3 versions' })]; },
+    plugins() { return [autoprefixer({ Browserslist: 'last 3 versions' })]; },
     sourceMap: true,
   },
 };
@@ -38,7 +38,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   module: {
-    loaders: [{
+    rules: [{
       exclude: /node_modules/,
       loader: 'babel-loader',
       query: {

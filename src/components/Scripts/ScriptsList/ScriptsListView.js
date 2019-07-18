@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CardRight, HSButton, HSCardHeader } from '../../common';
+import { CardRight, HSButton, HSCardHeader, Button } from '../../common';
 import { createNewScript } from '../ScriptBuilder/ScriptBuilderActions';
 import { fetchScripts, removeScript } from './ScriptsListActions';
 import { ScriptsListItem } from './';
+import { Colors } from '../../../config/styles'
 
 class ScriptsListView extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class ScriptsListView extends Component {
               </div>
             }
           </div>
-          {/* <HSButton onClick={this.handleNewScript}>Add New Script</HSButton> */}
+           <HSButton onClick={this.handleNewScript}>Add New Script</HSButton>
         </div>
       </CardRight>
     );

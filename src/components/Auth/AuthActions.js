@@ -41,27 +41,24 @@ export const signInUser = (email, password) => (dispatch) => {
   dispatch({
     type: AUTH_LOADING
   });
-  Parse.User.logIn(email, password, {
-    success: (user) => {
-      dispatch(_updateUser(user));
-      dispatch({
-        type: AUTH_USER,
-        payload: user
-      });
-      if (user.attributes.role === 'agent' && user.attributes.firstLogin !== 'true') {
-        browserHistory.push('/welcome');
-      } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
-        browserHistory.push('/start-call');
-      } else if (user.attributes.stripe_customer_id) {
-        browserHistory.push('/agents-list');
-      } else {
-        browserHistory.push('/stripe');
-      }
-    },
-    error: (user, error) => {
-      console.log('Err: ', error);
-      dispatch(_authError(error));
+  Parse.User.logIn(email, password).then((user) => {
+    dispatch(_updateUser(user));
+    dispatch({
+      type: AUTH_USER,
+      payload: user
+    });
+    if (user.attributes.role === 'agent' && user.attributes.firstLogin !== 'true') {
+      browserHistory.push('/welcome');
+    } else if (user.attributes.stripe_connect_id || user.attributes.role === 'agent') {
+      browserHistory.push('/start-call');
+    } else if (user.attributes.stripe_customer_id) {
+      browserHistory.push('/agents-list');
+    } else {
+      browserHistory.push('/stripe');
     }
+  }, (error) => {
+    console.log('Err: ', error);
+    dispatch(_authError(error));
   });
 };
 

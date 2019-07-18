@@ -190,11 +190,93 @@ const createNewQuestion = ({
   }
 };
 
+const deleteQuestionAndUpdateAnswer = (question, script, answerData) => (dispatch) => {
+  Parse.Cloud.run('deleteQuestion', { question, script })
+    .then((res) => {
+      let answerUpdateData = {
+        body: answerData.attributes.body,
+      }
+      dispatch(updateAnswer(answerUpdateData, answerData.id, script));
+    });
+};
+
+const createNewQuestionAndUpdateAnswer = ({
+                             question, audio, description, scriptId, answerData
+                           }) => (dispatch) => {
+  dispatch(_answerAddLoading());
+  if (question.audio) {
+    _createNewAudio(question.audio)
+      .then((parseAudio) => {
+        delete question.audio;
+        Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
+          .then((res) => {
+            let answerUpdateData = {
+              body: answerData.body,
+              route: res.id,
+            }
+            dispatch(updateAnswer(answerUpdateData, answerData.id, scriptId));
+            dispatch(fetchScript(scriptId, true));
+            dispatch({
+              type: CREATING_NEW_QUESTION_UPDATE,
+              payload: false
+            });
+            dispatch({
+              type: CURRENT_QUESTION_UPDATE,
+              payload: res
+            });
+            dispatch(_answerAddLoadEnd());
+          });
+      });
+  } else if (audio) {
+    _createNewAudioB64(audio)
+      .then((parseAudio) => {
+        Parse.Cloud.run('createNewQuestion', { question: { ...question, audioURI: parseAudio._url, description }, scriptId })
+          .then((res) => {
+            let answerUpdateData = {
+              body: answerData.body,
+              route: res.id,
+            }
+            dispatch(updateAnswer(answerUpdateData, answerData.id, scriptId))
+            dispatch(fetchScript(scriptId, true));
+            dispatch({
+              type: CREATING_NEW_QUESTION_UPDATE,
+              payload: false
+            });
+            dispatch({
+              type: CURRENT_QUESTION_UPDATE,
+              payload: res
+            });
+            dispatch(_answerAddLoadEnd());
+          });
+      });
+  } else {
+    Parse.Cloud.run('createNewQuestion', { question: { ...question, description }, scriptId })
+      .then((res) => {
+        let answerUpdateData = {
+          body: answerData.body,
+          route: res.id,
+        }
+        dispatch(updateAnswer(answerUpdateData, answerData.id, scriptId));
+        dispatch(fetchScript(scriptId, true));
+        dispatch({
+          type: CREATING_NEW_QUESTION_UPDATE,
+          payload: false
+        });
+        dispatch({
+          type: CURRENT_QUESTION_UPDATE,
+          payload: res
+        });
+        dispatch(_answerAddLoadEnd());
+      });
+  }
+};
 
 const addAnswersToQuestion = (data, questionId, scriptId) => (dispatch) => {
+  dispatch(_answerAddLoading());
   Parse.Cloud.run('createNewAnswer', { data, questionId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
+      dispatch(_answerAddLoadEnd());
     });
 };
 
@@ -257,6 +339,11 @@ const updateQuestion = ({
             dispatch(currentScriptUpdate(res));
           }).catch(err => console.log("UPDATE SCRIPT ERR", err));
       }).catch(err => console.log('AUDIO UPLOAD ERR', err));
+  } else {
+    Parse.Cloud.run('updateQuestion', { data: { ...updateData, description }, questionId, scriptId })
+      .then((res) => {
+        dispatch(currentScriptUpdate(res));
+      }).catch(err => console.log("UPDATE SCRIPT ERR", err));
   }
 };
 
@@ -273,13 +360,16 @@ const updateAnswer = (data, answerId, scriptId) => (dispatch) => {
   Parse.Cloud.run('updateAnswer', { answer: data, answerId, scriptId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
+      dispatch(fetchScript(scriptId, true));
     });
 };
 
 const removeAnswer = (answerId, scriptId, questionId) => (dispatch) => {
+  dispatch(_answerAddLoading());
   Parse.Cloud.run('deleteAnswer', { answerId, scriptId, questionId })
     .then((res) => {
       dispatch(currentScriptUpdate(res));
+      dispatch(_answerAddLoadEnd());
     });
 };
 
@@ -310,6 +400,7 @@ export {
   updateScript,
   setCurrentQuestion,
   createNewQuestion,
+  createNewQuestionAndUpdateAnswer,
   currentScriptUpdate,
   updateQuestion,
   addAnswersToQuestion,
@@ -318,6 +409,7 @@ export {
   newQuestion,
   toggleCreationState,
   deleteQuestion,
+  deleteQuestionAndUpdateAnswer,
   setCurrentAnswer,
   uploadRecordedAudio,
   toggleDisableGlossary

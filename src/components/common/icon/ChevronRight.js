@@ -4,6 +4,7 @@ const ChevronRight = ({ width, height, color }) => (
   <svg
     width={width}
     height={height}
+    style={{ width: width, height: height}}
     viewBox="0 0 24 24"
     fill="none"
     stroke={color}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const HistoryIcon = props => (<div>
-  <svg width={props.width} height={props.height} viewBox="0 0 32 28" version="1.1">
+  <svg width={props.width} height={props.height} viewBox="0 0 32 28" version="1.1" style={{ width: props.width, height: props.height}}>
     <g id="History" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g transform="translate(0.000000, 1.000000)" stroke={props.color} strokeWidth="2">
         <polygon id="Stroke-7" points="0.999 10.178 30.999 10.178 30.999 0.178 0.999 0.178" />
