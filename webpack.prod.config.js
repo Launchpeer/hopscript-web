@@ -2,6 +2,7 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-3-webpack-plugin')
 
 const postcss = {
   loader: 'postcss-loader',
@@ -31,7 +32,7 @@ const styles = {
 };
 
 module.exports = {
-
+  mode: 'production',
   devtool: 'source-map',
   entry: [
     './src/index'
@@ -60,13 +61,7 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    new UglifyJsPlugin(),
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       'process.env': {

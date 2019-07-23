@@ -26,7 +26,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.14.2",
     "react-addons-test-utils": "^15.6.2",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "uglifyjs-3-webpack-plugin": "^1.2.4"
   },
   "dependencies": {
     "antd": "^3.20.0",
