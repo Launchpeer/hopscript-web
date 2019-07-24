@@ -25,7 +25,7 @@ const notesConverter = notes => (
   React.createElement('div', {}, Parser(notes)));
 
 
-const renderViewContent = (currentQuestion, setCurrentQuestion, playAudio, stopAudio, audioState, goToPreviousQuestion) => {
+const renderViewContent = (currentQuestion, setCurrentQuestion, playAudio, stopAudio, audioState, goToPreviousQuestion, previousQuestion) => {
   return (<React.Fragment>
       {_.isObject(currentQuestion) ? (<div key={currentQuestion.attributes.id}>
         <div
@@ -44,11 +44,11 @@ const renderViewContent = (currentQuestion, setCurrentQuestion, playAudio, stopA
           </p>
         </div>
 
-        <div className="flex w-20 answer-container">
+        <div className="w-40 answer-container">
           {currentQuestion.attributes.answers && currentQuestion.attributes.answers.map((answer, index) => {
             return (
             <div
-              className="flex w-100 mv3 items-center justify-between pa3 pointer list-hover circleBase type-200-answer"
+              className="w-20 fl mv3 mh2 items-center justify-between pa3 pointer list-hover circleBase type-200-answer"
               onClick={answer.attributes.hasOwnProperty('route') ? () => setCurrentQuestion(answer.attributes.route) : null}
               role="button"
               style={{
@@ -72,11 +72,11 @@ const renderViewContent = (currentQuestion, setCurrentQuestion, playAudio, stopA
 
 const QuestionViewBubble = ({
                               currentQuestion, setCurrentQuestion, playAudio, stopAudio, audioState, goToPreviousQuestion,
-                              showRender, goForwardStatus
+                              showRender, goForwardStatus, previousQuestion, nextQuestionToRout
                             }) => {
 
-  const viewContent = renderViewContent(
-    currentQuestion,
+  let viewContent = renderViewContent(
+    nextQuestionToRout,
     setCurrentQuestion,
     playAudio,
     stopAudio,

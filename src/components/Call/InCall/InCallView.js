@@ -25,6 +25,7 @@ class InCallView extends Component {
       showStartQuestions: false,
       showMainQuestions: false,
       showMainQuestionsContent: 'visible',
+      nextQuestionToRout: null,
     };
 
     this.handleHangUp = this.handleHangUp.bind(this);
@@ -88,7 +89,7 @@ class InCallView extends Component {
   }
 
   toogleRenderBubble(goForwardStatus = true){
-    var showRender = !this.state.showRender
+    let showRender = !this.state.showRender
     this.setState({
       showRender,
       goForwardStatus
@@ -101,6 +102,7 @@ class InCallView extends Component {
     this.props.fetchCall(this.props.params.id);
     this.setState({
       showMainQuestionsContent: 'hide',
+      nextQuestionToRout: data,
     }, () => {
       setTimeout(() => {
         this.props.setCurrentQuestion(data);
@@ -111,17 +113,21 @@ class InCallView extends Component {
   }
 
   goToPreviousQuestion = () => {
-
       this.toogleRenderBubble(false)
       const prevQuestionHistory = _.cloneDeep(this.props.previousQuestion);
       prevQuestionHistory.splice(prevQuestionHistory.length - 1, 1)
       this.props.fetchCall(this.props.params.id);
       if (!_.isEmpty(prevQuestionHistory)) {
-        this.props.setCurrentQuestion(prevQuestionHistory[prevQuestionHistory.length - 1]);
-        this.props.goToPreviousQuestion(prevQuestionHistory);
+        this.setState({
+          nextQuestionToRout: prevQuestionHistory[prevQuestionHistory.length - 1],
+        }, () => {
+          this.props.setCurrentQuestion(prevQuestionHistory[prevQuestionHistory.length - 1]);
+          this.props.goToPreviousQuestion(prevQuestionHistory);
+        })
       } else {
         this.setState({
           showMainQuestionsContent: 'visible',
+          nextQuestionToRout: null,
         }, () => {
           setTimeout(() => {
         this.props.setCurrentQuestion(null);
@@ -225,6 +231,7 @@ class InCallView extends Component {
                       goToPreviousQuestion={this.goToPreviousQuestion}
                       showRender={this.state.showRender}
                       goForwardStatus={this.state.goForwardStatus}
+                      nextQuestionToRout={this.state.nextQuestionToRout}
                     />
                   </div>
 
