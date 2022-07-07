@@ -45,7 +45,7 @@
     "http-server": "^0.11.1",
     "lodash": "^4.17.11",
     "microm": "^0.2.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-sass": "^4.12.0",
     "papaparse": "^5.0.0",
     "parse": "^2.4.0",
